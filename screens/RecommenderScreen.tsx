@@ -1,3 +1,4 @@
+// screens/RecommenderScreen.tsx
 import React, { useMemo, useState } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
@@ -14,7 +15,9 @@ type RankedRow = {
 
 const MAX_RESULTS = 10;
 
-// ---------- helpers ----------
+// -----------------------------
+// Key / value helpers
+// -----------------------------
 function toText(v: unknown): string {
   if (v == null) return '';
   if (typeof v === 'string') return v;
@@ -28,7 +31,11 @@ function toText(v: unknown): string {
 }
 
 function normalizeKey(k: string) {
-  return k.trim().toLowerCase().replace(/\s+/g, '_');
+  // normalize for matching headers like "Email Address" vs "email_address"
+  return k
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ''); // keep alnum only
 }
 
 function getField(row: Row, keys: string[]): string {
@@ -47,95 +54,226 @@ function tokenizeQuery(q: string): string[] {
     .filter(Boolean);
 }
 
-// Basic CSV parser (handles commas + quotes; assumes no newlines inside quoted fields)
-function parseCsv(text: string): Row[] {
+// -----------------------------
+// RFC-4180-ish CSV parser
+// - Handles commas, quotes, escaped quotes
+// - Handles newlines inside quoted fields
+// - Splits rows only on newline outside quotes
+// -----------------------------
+function parseCsvRfc4180(text: string): string[][] {
   const clean = text.replace(/^\uFEFF/, ''); // strip BOM
-  const lines = clean.split(/\r?\n/).filter((l) => l.trim().length > 0);
-  if (lines.length < 2) return [];
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = '';
+  let inQuotes = false;
 
-  const parseLine = (line: string): string[] => {
-    const out: string[] = [];
-    let cur = '';
-    let inQuotes = false;
+  for (let i = 0; i < clean.length; i++) {
+    const ch = clean[i];
+    const next = clean[i + 1];
 
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-
-      if (ch === '"') {
-        // escaped quote
-        if (inQuotes && line[i + 1] === '"') {
-          cur += '"';
-          i++;
-          continue;
-        }
-        inQuotes = !inQuotes;
+    if (ch === '"') {
+      // escaped quote
+      if (inQuotes && next === '"') {
+        cell += '"';
+        i++;
         continue;
       }
-
-      if (ch === ',' && !inQuotes) {
-        out.push(cur);
-        cur = '';
-        continue;
-      }
-
-      cur += ch;
+      inQuotes = !inQuotes;
+      continue;
     }
-    out.push(cur);
-    return out.map((s) => s.trim());
-  };
 
-  const headers = parseLine(lines[0]);
-  const rows: Row[] = [];
-
-  for (let i = 1; i < lines.length; i++) {
-    const cells = parseLine(lines[i]);
-    const row: Row = {};
-    for (let c = 0; c < headers.length; c++) {
-      const key = headers[c] ?? `col_${c}`;
-      row[key] = cells[c] ?? '';
+    if (ch === ',' && !inQuotes) {
+      row.push(cell);
+      cell = '';
+      continue;
     }
-    rows.push(row);
+
+    if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      // handle CRLF
+      if (ch === '\r' && next === '\n') i++;
+
+      row.push(cell);
+      cell = '';
+
+      // skip blank lines
+      const isEmpty = row.every((v) => v.trim() === '');
+      if (!isEmpty) rows.push(row.map((v) => v.trim()));
+
+      row = [];
+      continue;
+    }
+
+    cell += ch;
+  }
+
+  // last row
+  row.push(cell);
+  if (!row.every((v) => v.trim() === '')) {
+    rows.push(row.map((v) => v.trim()));
   }
 
   return rows;
 }
 
+function findHeaderRowIndex(table: string[][]): number {
+  // LinkedIn export: scan until we find a row containing First Name + Last Name
+  const hasHeader = (r: string[], header: string) =>
+    r.some((c) => normalizeKey(c) === normalizeKey(header));
+
+  for (let i = 0; i < table.length; i++) {
+    const r = table[i];
+    if (hasHeader(r, 'First Name') && hasHeader(r, 'Last Name')) return i;
+  }
+
+  // fallback: if no LinkedIn header detected, assume first non-empty row is header
+  return table.length > 0 ? 0 : -1;
+}
+
+function parseCsvToObjects(text: string): Row[] {
+  const table = parseCsvRfc4180(text);
+  const headerIdx = findHeaderRowIndex(table);
+  if (headerIdx === -1) return [];
+
+  const headers = table[headerIdx].map((h) => h.trim());
+  const dataRows = table.slice(headerIdx + 1);
+
+  const out: Row[] = [];
+
+  for (const r of dataRows) {
+    if (r.every((v) => v.trim() === '')) continue;
+
+    const obj: Row = {};
+    for (let c = 0; c < headers.length; c++) {
+      const key = headers[c] || `col_${c}`;
+      obj[key] = (r[c] ?? '').trim();
+    }
+
+    // If it looks like LinkedIn schema, add a derived full name field
+    const first = getField(obj, ['First Name', 'first_name', 'firstname']);
+    const last = getField(obj, ['Last Name', 'last_name', 'lastname']);
+    if (first || last) {
+      obj['Full Name'] = `${first} ${last}`.trim();
+    }
+
+    out.push(obj);
+  }
+
+  return out;
+}
+
+// -----------------------------
+// Optional: parse Connected On date flexibly (best-effort)
+// Not required for keyword search, but useful to display/sort later.
+// -----------------------------
+function parseConnectedOn(raw: string): Date | null {
+  const s = raw.trim();
+  if (!s) return null;
+
+  // Try native parse first (handles ISO, many locale formats)
+  const native = new Date(s);
+  if (!Number.isNaN(native.getTime())) return native;
+
+  // Try "DD MMM YYYY" like "20 Feb 2022"
+  const m = s.match(/^(\d{1,2})\s+([A-Za-z]{3,})\s+(\d{4})$/);
+  if (m) {
+    const day = Number(m[1]);
+    const monStr = m[2].toLowerCase();
+    const year = Number(m[3]);
+
+    const months: Record<string, number> = {
+      jan: 0,
+      january: 0,
+      feb: 1,
+      february: 1,
+      mar: 2,
+      march: 2,
+      apr: 3,
+      april: 3,
+      may: 4,
+      jun: 5,
+      june: 5,
+      jul: 6,
+      july: 6,
+      aug: 7,
+      august: 7,
+      sep: 8,
+      sept: 8,
+      september: 8,
+      oct: 9,
+      october: 9,
+      nov: 10,
+      november: 10,
+      dec: 11,
+      december: 11,
+    };
+
+    const key = monStr.slice(0, 3);
+    const mon = months[monStr] ?? months[key];
+    if (mon != null && !Number.isNaN(day) && !Number.isNaN(year)) {
+      const d = new Date(Date.UTC(year, mon, day));
+      if (!Number.isNaN(d.getTime())) return d;
+    }
+  }
+
+  // Try US numeric: MM/DD/YYYY
+  const m2 = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (m2) {
+    const mm = Number(m2[1]);
+    const dd = Number(m2[2]);
+    const yyyy = Number(m2[3]);
+    const d = new Date(Date.UTC(yyyy, mm - 1, dd));
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+
+  return null;
+}
+
+// -----------------------------
+// Ranking / search (simple “database search”)
+// - Weighted substring matches on key fields
+// - Explanations based on which fields matched
+// -----------------------------
 function scoreRow(row: Row, tokens: string[]): RankedRow {
-  // Try to detect common fields (works even if CSV columns differ slightly)
-  const name = getField(row, ['name', 'full_name', 'fullname']);
-  const title = getField(row, ['title', 'role', 'position']);
-  const org = getField(row, ['org', 'company', 'organization', 'firm']);
-  const industry = getField(row, ['industry', 'sector']);
-  const expertise = getField(row, ['expertise', 'skills', 'keywords', 'tags']);
-  const location = getField(row, ['location', 'city', 'region']);
+  // LinkedIn fields (and fallbacks)
+  const fullName =
+    getField(row, ['Full Name']) ||
+    `${getField(row, ['First Name', 'first_name', 'firstname'])} ${getField(row, ['Last Name', 'last_name', 'lastname'])}`.trim();
+
+  const position = getField(row, ['Position', 'title', 'role', 'position']);
+  const company = getField(row, ['Company', 'org', 'company', 'organization', 'firm']);
+  const email = getField(row, ['Email Address', 'email', 'email_address']);
+  const url = getField(row, ['URL', 'profile', 'linkedin', 'link']);
+  const connectedOn = getField(row, ['Connected On', 'connected_on', 'connectedon', 'date']);
+
+  const allText = Object.values(row).map(toText).join(' ');
 
   const fieldText = {
-    name: name.toLowerCase(),
-    title: title.toLowerCase(),
-    org: org.toLowerCase(),
-    industry: industry.toLowerCase(),
-    expertise: expertise.toLowerCase(),
-    location: location.toLowerCase(),
-    all: Object.values(row).map(toText).join(' ').toLowerCase(),
+    name: fullName.toLowerCase(),
+    position: position.toLowerCase(),
+    company: company.toLowerCase(),
+    email: email.toLowerCase(),
+    url: url.toLowerCase(),
+    connectedOn: connectedOn.toLowerCase(),
+    all: allText.toLowerCase(),
   };
 
   const weights = {
     name: 6,
-    expertise: 5,
-    title: 4,
-    org: 4,
-    industry: 3,
-    location: 2,
+    position: 4,
+    company: 4,
+    email: 2,
+    url: 2,
+    connectedOn: 1,
     all: 1,
   };
 
-  const matchedByField: Record<string, Set<string>> = {
+  const matchedByField: Record<keyof typeof fieldText, Set<string>> = {
     name: new Set(),
-    expertise: new Set(),
-    title: new Set(),
-    org: new Set(),
-    industry: new Set(),
-    location: new Set(),
+    position: new Set(),
+    company: new Set(),
+    email: new Set(),
+    url: new Set(),
+    connectedOn: new Set(),
     all: new Set(),
   };
 
@@ -144,14 +282,14 @@ function scoreRow(row: Row, tokens: string[]): RankedRow {
   for (const t of tokens) {
     if (!t) continue;
 
-    // Count token once, in the "best" matching field
+    // Count token once, in the best matching field
     const checks: Array<[keyof typeof fieldText, number]> = [
       ['name', weights.name],
-      ['expertise', weights.expertise],
-      ['title', weights.title],
-      ['org', weights.org],
-      ['industry', weights.industry],
-      ['location', weights.location],
+      ['position', weights.position],
+      ['company', weights.company],
+      ['email', weights.email],
+      ['url', weights.url],
+      ['connectedOn', weights.connectedOn],
       ['all', weights.all],
     ];
 
@@ -171,21 +309,28 @@ function scoreRow(row: Row, tokens: string[]): RankedRow {
   const reasons: string[] = [];
   const pushReason = (label: string, field: keyof typeof matchedByField) => {
     const arr = Array.from(matchedByField[field]);
-    if (arr.length) reasons.push(`${label}: ${arr.slice(0, 6).join(', ')}`);
+    if (arr.length) reasons.push(`${label}: ${arr.slice(0, 8).join(', ')}`);
   };
 
   pushReason('Name match', 'name');
-  pushReason('Expertise match', 'expertise');
-  pushReason('Title match', 'title');
-  pushReason('Org match', 'org');
-  pushReason('Industry match', 'industry');
-  pushReason('Location match', 'location');
+  pushReason('Position match', 'position');
+  pushReason('Company match', 'company');
+  pushReason('Email match', 'email');
+
   if (!reasons.length && matchedTokens.length) reasons.push(`Matched: ${matchedTokens.join(', ')}`);
+
+  // Store a parsed date (best-effort) without losing raw data
+  if (connectedOn && row['Connected On Parsed'] == null) {
+    const parsed = parseConnectedOn(connectedOn);
+    if (parsed) row['Connected On Parsed'] = parsed.toISOString();
+  }
 
   return { row, score, matchedTokens, reasons };
 }
 
-// ---------- component ----------
+// -----------------------------
+// Screen
+// -----------------------------
 const RecommenderScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
@@ -223,16 +368,16 @@ const RecommenderScreen: React.FC = () => {
         if (!Array.isArray(json)) throw new Error('JSON must be an array of objects.');
         parsed = json as Row[];
       } else if (file.name.toLowerCase().endsWith('.csv')) {
-        parsed = parseCsv(text);
+        parsed = parseCsvToObjects(text);
       } else {
         throw new Error('Unsupported file type. Please upload a .csv or .json file.');
       }
 
       if (!parsed.length) throw new Error('No rows found in file.');
 
-      // Collect columns
+      // Collect columns (sample first 100 rows)
       const colSet = new Set<string>();
-      for (const r of parsed.slice(0, 50)) {
+      for (const r of parsed.slice(0, 100)) {
         Object.keys(r).forEach((k) => colSet.add(k));
       }
 
@@ -252,7 +397,7 @@ const RecommenderScreen: React.FC = () => {
     if (!tokens.length) return;
 
     const ranked = rows
-      .map((r) => scoreRow(r, tokens))
+      .map((r) => scoreRow({ ...r }, tokens)) // shallow copy so derived fields don’t mutate original array unexpectedly
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, MAX_RESULTS);
@@ -271,10 +416,10 @@ const RecommenderScreen: React.FC = () => {
           <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-extrabold text-white">
-                Connection Recommender
+                Connection Recommender (Prototype)
               </h1>
               <p className="text-slate-400 mt-1 text-sm">
-                Upload a CSV/JSON network file, enter criteria, and get top matches.
+                Upload a LinkedIn Connections CSV (or JSON), enter criteria, and run a simple search (no saving yet).
               </p>
             </div>
           </div>
@@ -344,7 +489,7 @@ const RecommenderScreen: React.FC = () => {
             )}
           </div>
 
-          {/* Criteria + search */}
+          {/* Criteria + search + results */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
             <div className="lg:col-span-7 glass-panel rounded-xl p-4 md:p-6">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
@@ -353,7 +498,7 @@ const RecommenderScreen: React.FC = () => {
               <textarea
                 value={criteria}
                 onChange={(e) => setCriteria(e.target.value)}
-                placeholder="Example: Spokane healthcare operator, fundraising, enterprise sales..."
+                placeholder="Example: healthcare, Spokane, CTO, fundraising, enterprise sales..."
                 className="w-full min-h-[120px] mac-input rounded-lg p-3 text-sm text-slate-100 placeholder:text-slate-500"
               />
 
@@ -361,7 +506,7 @@ const RecommenderScreen: React.FC = () => {
                 <p className="text-xs text-slate-500">
                   {rows.length === 0
                     ? 'Load a file first.'
-                    : 'Tip: use keywords like industry, role, skills, company, etc.'}
+                    : 'Tip: keywords match Name / Position / Company (and other columns as fallback).'}
                 </p>
 
                 <button
@@ -381,23 +526,26 @@ const RecommenderScreen: React.FC = () => {
 
             <div className="lg:col-span-5 glass-panel rounded-xl p-4 md:p-6">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                Results
+                Top Matches
               </p>
 
               {results.length === 0 ? (
                 <div className="text-sm text-slate-400">
-                  {rows.length === 0 ? (
-                    <p>Upload a network file to begin.</p>
-                  ) : (
-                    <p>Run a search to see top matches.</p>
-                  )}
+                  {rows.length === 0 ? <p>Upload a network file to begin.</p> : <p>Run a search to see results.</p>}
                 </div>
               ) : (
                 <div className="space-y-3">
                   {results.map((r, idx) => {
-                    const name = getField(r.row, ['name', 'full_name', 'fullname']) || '(no name)';
-                    const title = getField(r.row, ['title', 'role', 'position']);
-                    const org = getField(r.row, ['org', 'company', 'organization', 'firm']);
+                    const name =
+                      getField(r.row, ['Full Name']) ||
+                      `${getField(r.row, ['First Name', 'first_name', 'firstname'])} ${getField(r.row, ['Last Name', 'last_name', 'lastname'])}`.trim() ||
+                      '(no name)';
+
+                    const title = getField(r.row, ['Position', 'title', 'role', 'position']);
+                    const org = getField(r.row, ['Company', 'org', 'company', 'organization', 'firm']);
+                    const email = getField(r.row, ['Email Address', 'email', 'email_address']);
+                    const url = getField(r.row, ['URL', 'profile', 'linkedin', 'link']);
+                    const connectedOn = getField(r.row, ['Connected On', 'connected_on', 'connectedon', 'date']);
 
                     return (
                       <div
@@ -405,18 +553,39 @@ const RecommenderScreen: React.FC = () => {
                         className="rounded-xl border border-white/10 bg-white/5 hover:border-primary/30 transition-colors p-4"
                       >
                         <div className="flex items-start justify-between gap-3">
-                          <div>
-                            <p className="font-bold text-white leading-tight">{name}</p>
+                          <div className="min-w-0">
+                            <p className="font-bold text-white leading-tight truncate">{name}</p>
                             {(title || org) && (
-                              <p className="text-xs text-slate-400 mt-1">
+                              <p className="text-xs text-slate-400 mt-1 truncate">
                                 {[title, org].filter(Boolean).join(' • ')}
                               </p>
                             )}
                           </div>
-                          <div className="text-xs font-extrabold text-primary bg-primary/15 border border-primary/20 px-2 py-1 rounded-md">
+                          <div className="text-xs font-extrabold text-primary bg-primary/15 border border-primary/20 px-2 py-1 rounded-md shrink-0">
                             Score {r.score}
                           </div>
                         </div>
+
+                        {(email || connectedOn) && (
+                          <div className="mt-2 text-[11px] text-slate-400 space-y-1">
+                            {email && <p>Email: <span className="text-slate-300">{email}</span></p>}
+                            {connectedOn && <p>Connected On: <span className="text-slate-300">{connectedOn}</span></p>}
+                          </div>
+                        )}
+
+                        {url && (
+                          <div className="mt-2">
+                            <a
+                              className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                              href={url}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <Icon name="open_in_new" className="text-sm" />
+                              <span>Profile</span>
+                            </a>
+                          </div>
+                        )}
 
                         {r.reasons.length > 0 && (
                           <div className="mt-3 text-xs text-slate-300 space-y-1">
@@ -430,7 +599,7 @@ const RecommenderScreen: React.FC = () => {
 
                         {r.matchedTokens.length > 0 && (
                           <div className="mt-3 flex flex-wrap gap-2">
-                            {r.matchedTokens.slice(0, 8).map((t) => (
+                            {r.matchedTokens.slice(0, 10).map((t) => (
                               <span
                                 key={t}
                                 className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
@@ -450,7 +619,7 @@ const RecommenderScreen: React.FC = () => {
         </div>
       </main>
 
-      {/* Decorative Background Orbs (matches Dashboard vibe) */}
+      {/* Decorative Background Orbs */}
       <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] md:w-[40%] md:h-[40%] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none"></div>
       <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] md:w-[30%] md:h-[30%] bg-blue-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
     </div>
