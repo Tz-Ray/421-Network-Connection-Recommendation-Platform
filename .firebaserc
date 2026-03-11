@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "connectionrecommenderdemo",
+    "default": "connectionrecommender",
     "staging": "connectionrecommender"
   },
   "targets": {},

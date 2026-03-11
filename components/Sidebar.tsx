@@ -13,12 +13,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate(); //
   const auth = getAuth(); //
   const navItems = [
-    { name: 'Dashboard', icon: 'dashboard', path: '/dashboard/dashboard' },
+    { name: 'Dashboard', icon: 'dashboard', path: '/dashboard' },
     { name: 'Recommender', icon: 'group', path: '/recommender' },
-    { name: 'Portfolio', icon: 'pie_chart', path: '/portfolio' },
-    { name: 'Pipeline', icon: 'account_tree', path: '/pipeline' },
-    { name: 'Insights', icon: 'auto_graph', path: '/insights' },
-    { name: 'Documents', icon: 'description', path: '/documents' },
+    { name: 'Portfolio', icon: 'pie_chart', path: '' },
+    { name: 'Pipeline', icon: 'account_tree', path: '' },
+    { name: 'Insights', icon: 'auto_graph', path: '' },
+    { name: 'Documents', icon: 'description', path: '' },
   ];
 
   // Logout handler
