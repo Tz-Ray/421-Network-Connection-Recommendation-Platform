@@ -5,6 +5,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
+import RecommenderScreen from './screens/RecommenderScreen';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             </ProtectedRoute>
           } 
         />
+        <Route path="/recommender" element={<RecommenderScreen />} />
       </Routes>
     </HashRouter>
   );
