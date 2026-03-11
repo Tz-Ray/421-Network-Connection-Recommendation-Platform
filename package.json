@@ -17,8 +17,21 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@vitejs/plugin-react": "^5.1.4",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
-  }
+    "vite": "^6.4.1"
+  },
+  "description": "**Prerequisites:**  Node.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues"
+  },
+  "homepage": "https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform#readme"
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from './Icon';
+import { getAuth, signOut } from 'firebase/auth'; //
 
 interface SidebarProps {
   isOpen: boolean;
@@ -9,14 +10,27 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
+  const navigate = useNavigate(); //
+  const auth = getAuth(); //
 
   const navItems = [
-    { name: 'Dashboard', icon: 'dashboard', path: '' },
-    { name: 'Portfolio', icon: 'pie_chart', path: '' },
-    { name: 'Pipeline', icon: 'account_tree', path: '' },
-    { name: 'Insights', icon: 'auto_graph', path: '' },
-    { name: 'Documents', icon: 'description', path: '' },
+    { name: 'Dashboard', icon: 'dashboard', path: '/dashboard' },
+    { name: 'Portfolio', icon: 'pie_chart', path: '/portfolio' },
+    { name: 'Pipeline', icon: 'account_tree', path: '/pipeline' },
+    { name: 'Insights', icon: 'auto_graph', path: '/insights' },
+    { name: 'Documents', icon: 'description', path: '/documents' },
   ];
+
+  // Logout handler
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // Redirect to login after successful sign out
+      navigate('/login');
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
 
   return (
     <>
@@ -55,7 +69,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <Link
                 key={item.name}
                 to={item.path}
-                onClick={() => onClose()} // Close on mobile navigation
+                onClick={() => onClose()} 
                 className={`flex items-center px-4 py-3 rounded-lg transition-all duration-200 group active:scale-95 ${
                   isActive 
                     ? 'bg-primary/15 text-primary border-r-2 border-primary shadow-sm shadow-primary/5' 
@@ -70,6 +84,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               </Link>
             );
           })}
+
+          {/* Logout Button integrated into Nav List */}
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center px-4 py-3 rounded-lg text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200 group active:scale-95 hover:translate-x-1"
+          >
+            <Icon 
+              name="logout" 
+              className="mr-3 transition-colors group-hover:text-red-400" 
+            />
+            <span className="font-medium">Logout</span>
+          </button>
         </nav>
 
         <div className="p-4 mt-auto mb-4">
