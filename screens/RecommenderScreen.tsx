@@ -1,8 +1,11 @@
-// screens/RecommenderScreen.tsx
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
+import { getAuth } from 'firebase/auth';
+import { collection, doc, getDocs, serverTimestamp, writeBatch } from 'firebase/firestore';
+import { db } from '../firebase';
 
 type Row = Record<string, unknown>;
 
@@ -31,10 +34,7 @@ function toText(v: unknown): string {
 }
 
 function normalizeKey(k: string) {
-  return k
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ''); // keep alnum only
+  return k.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
 function getField(row: Row, keys: string[]): string {
@@ -55,12 +55,9 @@ function tokenizeQuery(q: string): string[] {
 
 // -----------------------------
 // RFC-4180-ish CSV parser
-// - Handles commas, quotes, escaped quotes
-// - Handles newlines inside quoted fields
-// - Splits rows only on newline outside quotes
 // -----------------------------
 function parseCsvRfc4180(text: string): string[][] {
-  const clean = text.replace(/^\uFEFF/, ''); // strip BOM
+  const clean = text.replace(/^\uFEFF/, '');
   const rows: string[][] = [];
   let row: string[] = [];
   let cell = '';
@@ -114,13 +111,11 @@ function findHeaderRowIndex(table: string[][]): number {
   const hasHeader = (r: string[], header: string) =>
     r.some((c) => normalizeKey(c) === normalizeKey(header));
 
-  // LinkedIn exports: scan until we find a row with First Name + Last Name
   for (let i = 0; i < table.length; i++) {
     const r = table[i];
     if (hasHeader(r, 'First Name') && hasHeader(r, 'Last Name')) return i;
   }
 
-  // fallback: first non-empty row
   return table.length > 0 ? 0 : -1;
 }
 
@@ -143,7 +138,6 @@ function parseCsvToObjects(text: string): Row[] {
       obj[key] = (r[c] ?? '').trim();
     }
 
-    // Add derived Full Name for LinkedIn-like schemas
     const first = getField(obj, ['First Name', 'first_name', 'firstname']);
     const last = getField(obj, ['Last Name', 'last_name', 'lastname']);
     if (first || last) obj['Full Name'] = `${first} ${last}`.trim();
@@ -156,8 +150,6 @@ function parseCsvToObjects(text: string): Row[] {
 
 // -----------------------------
 // Ranking / search
-// - Weighted substring matches on key fields
-// - Explanations based on which fields matched
 // -----------------------------
 function scoreRow(row: Row, tokens: string[]): RankedRow {
   const fullName =
@@ -230,9 +222,7 @@ function scoreRow(row: Row, tokens: string[]): RankedRow {
     }
   }
 
-  const matchedTokens = Array.from(
-    new Set(Object.values(matchedByField).flatMap((s) => Array.from(s)))
-  );
+  const matchedTokens = Array.from(new Set(Object.values(matchedByField).flatMap((s) => Array.from(s))));
 
   const reasons: string[] = [];
   const pushReason = (label: string, field: keyof typeof matchedByField) => {
@@ -251,13 +241,78 @@ function scoreRow(row: Row, tokens: string[]): RankedRow {
 }
 
 // -----------------------------
+// Firestore save/load helpers
+// -----------------------------
+function cyrb53(str: string, seed = 0) {
+  let h1 = 0xdeadbeef ^ seed,
+    h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+}
+
+function makeConnectionId(row: Row) {
+  const url = getField(row, ['URL', 'profile', 'linkedin', 'link']).trim().toLowerCase();
+  if (url) return `url_${cyrb53(url)}`;
+
+  const email = getField(row, ['Email Address', 'email', 'email_address']).trim().toLowerCase();
+  if (email) return `email_${cyrb53(email)}`;
+
+  const first = getField(row, ['First Name']).trim().toLowerCase();
+  const last = getField(row, ['Last Name']).trim().toLowerCase();
+  const company = getField(row, ['Company']).trim().toLowerCase();
+  const position = getField(row, ['Position']).trim().toLowerCase();
+  return `fb_${cyrb53(`${first}|${last}|${company}|${position}`)}`;
+}
+
+function mapRowToConnectionDoc(row: Row) {
+  const firstName = getField(row, ['First Name']).trim();
+  const lastName = getField(row, ['Last Name']).trim();
+  const fullName = (getField(row, ['Full Name']).trim() || `${firstName} ${lastName}`.trim()).trim();
+
+  return {
+    firstName: firstName || null,
+    lastName: lastName || null,
+    fullName: fullName || null,
+    company: getField(row, ['Company']).trim() || null,
+    position: getField(row, ['Position']).trim() || null,
+    email: getField(row, ['Email Address']).trim() || null,
+    url: getField(row, ['URL']).trim() || null,
+    connectedOnRaw: getField(row, ['Connected On']).trim() || null,
+    source: 'linkedin_csv',
+    lastImportedAt: serverTimestamp(),
+  };
+}
+
+function firestoreDocToRow(data: any): Row {
+  return {
+    'First Name': data?.firstName ?? '',
+    'Last Name': data?.lastName ?? '',
+    'Full Name': data?.fullName ?? '',
+    'Company': data?.company ?? '',
+    'Position': data?.position ?? '',
+    'Email Address': data?.email ?? '',
+    'URL': data?.url ?? '',
+    'Connected On': data?.connectedOnRaw ?? '',
+  };
+}
+
+// -----------------------------
 // Screen
 // -----------------------------
 const RecommenderScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
-  // stagedRows: parsed rows immediately after upload
-  // confirmedRows: the snapshot after user clicks "Confirm Connections"
   const [fileName, setFileName] = useState<string>('');
   const [stagedRows, setStagedRows] = useState<Row[]>([]);
   const [confirmedRows, setConfirmedRows] = useState<Row[]>([]);
@@ -267,13 +322,16 @@ const RecommenderScreen: React.FC = () => {
   const [criteria, setCriteria] = useState<string>('');
   const [results, setResults] = useState<RankedRow[]>([]);
 
-  // Preview pagination (so “all connections” is browsable even for thousands)
   const [pageSize, setPageSize] = useState<number>(50);
   const [pageIndex, setPageIndex] = useState<number>(0);
 
+  const [saving, setSaving] = useState(false);
+  const [saveMsg, setSaveMsg] = useState<string>('');
+
+  const [loadingAccount, setLoadingAccount] = useState(false);
+
   const hasStaged = stagedRows.length > 0;
   const isConfirmed = confirmedRows.length > 0;
-
   const canSearch = isConfirmed && criteria.trim().length > 0;
 
   const stats = useMemo(() => {
@@ -284,7 +342,7 @@ const RecommenderScreen: React.FC = () => {
     };
   }, [stagedRows, confirmedRows, columns]);
 
-  const previewRows = stagedRows; // show what was loaded (before confirm)
+  const previewRows = stagedRows;
   const totalPages = Math.max(1, Math.ceil(previewRows.length / pageSize));
   const safePageIndex = Math.min(pageIndex, totalPages - 1);
 
@@ -296,15 +354,15 @@ const RecommenderScreen: React.FC = () => {
   function resetForNewFile(newFileName: string) {
     setFileName(newFileName);
     setError('');
+    setSaveMsg('');
     setResults([]);
     setCriteria('');
-    setConfirmedRows([]); // require confirm again
+    setConfirmedRows([]);
     setPageIndex(0);
   }
 
   async function handleFile(file: File) {
     resetForNewFile(file.name);
-
     const text = await file.text();
 
     try {
@@ -322,7 +380,6 @@ const RecommenderScreen: React.FC = () => {
 
       if (!parsed.length) throw new Error('No rows found in file.');
 
-      // Collect columns (sample first 100 rows)
       const colSet = new Set<string>();
       for (const r of parsed.slice(0, 100)) {
         Object.keys(r).forEach((k) => colSet.add(k));
@@ -340,11 +397,10 @@ const RecommenderScreen: React.FC = () => {
 
   function confirmConnections() {
     if (!hasStaged) return;
-
-    // Snapshot: later this is where you'd write to Firestore tied to a user.
     setConfirmedRows(stagedRows);
     setResults([]);
     setCriteria('');
+    setSaveMsg('');
   }
 
   function clearLoaded() {
@@ -353,6 +409,7 @@ const RecommenderScreen: React.FC = () => {
     setConfirmedRows([]);
     setColumns([]);
     setError('');
+    setSaveMsg('');
     setResults([]);
     setCriteria('');
     setPageIndex(0);
@@ -373,6 +430,93 @@ const RecommenderScreen: React.FC = () => {
     setResults(ranked);
   }
 
+  async function addToAccount() {
+    setError('');
+    setSaveMsg('');
+
+    const user = getAuth().currentUser;
+    if (!user) {
+      setError('Not signed in.');
+      return;
+    }
+    if (!hasStaged) return;
+
+    setSaving(true);
+    try {
+      const col = collection(db, 'users', user.uid, 'connections');
+
+      const BATCH_SIZE = 450;
+      for (let i = 0; i < stagedRows.length; i += BATCH_SIZE) {
+        const batch = writeBatch(db);
+        const slice = stagedRows.slice(i, i + BATCH_SIZE);
+
+        for (const r of slice) {
+          const id = makeConnectionId(r);
+          const ref = doc(col, id);
+          batch.set(ref, mapRowToConnectionDoc(r), { merge: true });
+        }
+
+        await batch.commit();
+      }
+
+      setSaveMsg(`Saved ${stagedRows.length.toLocaleString()} connections to your account.`);
+      // Enable search immediately using the same list
+      setConfirmedRows(stagedRows);
+    } catch (e: any) {
+      setError(e?.message ?? 'Failed to save connections.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function loadFromAccount() {
+    setError('');
+    setSaveMsg('');
+    setLoadingAccount(true);
+
+    try {
+      const user = getAuth().currentUser;
+      if (!user) throw new Error('Not signed in.');
+
+      const col = collection(db, 'users', user.uid, 'connections');
+      const snap = await getDocs(col);
+
+      const loaded = snap.docs.map((d) => firestoreDocToRow(d.data()));
+      if (!loaded.length) {
+        setSaveMsg('No saved connections found. Import a CSV first.');
+        setStagedRows([]);
+        setConfirmedRows([]);
+        setColumns([]);
+        setFileName('Account connections');
+        return;
+      }
+
+      setFileName('Account connections');
+      setStagedRows(loaded);
+      setConfirmedRows(loaded);
+      setResults([]);
+      setCriteria('');
+      setPageIndex(0);
+
+      // Standardize columns for display
+      setColumns(['First Name', 'Last Name', 'URL', 'Email Address', 'Company', 'Position', 'Connected On', 'Full Name']);
+      setSaveMsg(`Loaded ${loaded.length.toLocaleString()} saved connections.`);
+    } catch (e: any) {
+      setError(e?.message ?? 'Failed to load saved connections.');
+    } finally {
+      setLoadingAccount(false);
+    }
+  }
+
+  // Auto-load if navigated from Connections screen
+  useEffect(() => {
+    const state = (location.state as any) || {};
+    if (state?.loadFromAccount) {
+      void loadFromAccount();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.key]);
+
   return (
     <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -381,13 +525,27 @@ const RecommenderScreen: React.FC = () => {
         <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
 
         <div className="p-4 md:p-8 pb-20 max-w-7xl mx-auto w-full space-y-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white">
-              Connection Recommender 
-            </h1>
-            <p className="text-slate-400 mt-1 text-sm">
-              Step 1: Upload CSV → Step 2: Review connections → Step 3: Confirm → Step 4: Search.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-extrabold text-white">Connection Recommender</h1>
+              <p className="text-slate-400 mt-1 text-sm">
+                Upload CSV → Review → Confirm or Save to Account → Search.
+              </p>
+            </div>
+
+            <button
+              onClick={() => void loadFromAccount()}
+              disabled={loadingAccount}
+              className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] border ${
+                loadingAccount
+                  ? 'bg-white/5 text-slate-600 border-white/10 cursor-not-allowed'
+                  : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
+              }`}
+              title="Load your saved connections from the account"
+            >
+              <Icon name="cloud_download" className="text-sm" />
+              <span>{loadingAccount ? 'Loading…' : 'Load Saved'}</span>
+            </button>
           </div>
 
           {/* Step 1: Upload */}
@@ -404,7 +562,7 @@ const RecommenderScreen: React.FC = () => {
                   <p className="text-sm text-slate-400 mt-1">
                     Loaded {stats.stagedCount.toLocaleString()} connections • {stats.colCount} columns detected
                     {isConfirmed ? (
-                      <span className="ml-2 text-primary font-bold">• Confirmed</span>
+                      <span className="ml-2 text-primary font-bold">• Ready to search</span>
                     ) : (
                       <span className="ml-2 text-slate-500">• Not confirmed</span>
                     )}
@@ -442,6 +600,12 @@ const RecommenderScreen: React.FC = () => {
               </div>
             </div>
 
+            {saveMsg && (
+              <div className="mt-4 bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
+                {saveMsg}
+              </div>
+            )}
+
             {error && (
               <div className="mt-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
                 {error}
@@ -449,17 +613,13 @@ const RecommenderScreen: React.FC = () => {
             )}
           </div>
 
-          {/* Step 2: Preview connections + Step 3 confirm */}
+          {/* Step 2: Preview + Confirm + Save */}
           <div className="glass-panel rounded-xl p-4 md:p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                  Loaded connections (preview)
-                </p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Loaded connections (preview)</p>
                 <p className="text-sm text-slate-400">
-                  {hasStaged
-                    ? `Browse the full list (paginated). Then confirm to enable search.`
-                    : `Upload a CSV/JSON to preview connections here.`}
+                  {hasStaged ? 'Browse the full list (paginated). Confirm to search, or save to your account.' : 'Upload a CSV/JSON to preview connections here.'}
                 </p>
               </div>
 
@@ -485,12 +645,28 @@ const RecommenderScreen: React.FC = () => {
                   onClick={confirmConnections}
                   disabled={!hasStaged}
                   className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                    hasStaged ? 'bg-primary hover:bg-primary/90 text-white' : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
+                    hasStaged
+                      ? 'bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10'
+                      : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
                   }`}
-                  title="In the future, this is where we will save uploaded connections to a user account."
+                  title="Use the currently loaded list for searching (no saving)."
                 >
                   <Icon name={isConfirmed ? 'check_circle' : 'check'} className="text-sm" />
-                  <span>{isConfirmed ? 'Confirmed' : 'Confirm Connections'}</span>
+                  <span>{isConfirmed ? 'Ready' : 'Confirm'}</span>
+                </button>
+
+                <button
+                  onClick={() => void addToAccount()}
+                  disabled={!hasStaged || saving}
+                  className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
+                    !hasStaged || saving
+                      ? 'bg-primary/30 text-white/60 cursor-not-allowed'
+                      : 'bg-primary hover:bg-primary/90 text-white'
+                  }`}
+                  title="Save uploaded connections to your account (batched)."
+                >
+                  <Icon name="person_add" className="text-sm" />
+                  <span>{saving ? 'Saving…' : 'Add to Account'}</span>
                 </button>
               </div>
             </div>
@@ -546,18 +722,14 @@ const RecommenderScreen: React.FC = () => {
                       {previewSlice.map((r, i) => {
                         const name =
                           getField(r, ['Full Name']) ||
-                          `${getField(r, ['First Name', 'first_name', 'firstname'])} ${getField(r, [
-                            'Last Name',
-                            'last_name',
-                            'lastname',
-                          ])}`.trim() ||
+                          `${getField(r, ['First Name'])} ${getField(r, ['Last Name'])}`.trim() ||
                           '(no name)';
 
-                        const pos = getField(r, ['Position', 'title', 'role', 'position']);
-                        const comp = getField(r, ['Company', 'org', 'company', 'organization', 'firm']);
-                        const connectedOn = getField(r, ['Connected On', 'connected_on', 'connectedon', 'date']);
-                        const email = getField(r, ['Email Address', 'email', 'email_address']);
-                        const url = getField(r, ['URL', 'profile', 'linkedin', 'link']);
+                        const pos = getField(r, ['Position']);
+                        const comp = getField(r, ['Company']);
+                        const connectedOn = getField(r, ['Connected On']);
+                        const email = getField(r, ['Email Address']);
+                        const url = getField(r, ['URL']);
 
                         return (
                           <tr key={`${safePageIndex}-${i}`} className="border-b border-white/5 hover:bg-white/5">
@@ -570,12 +742,7 @@ const RecommenderScreen: React.FC = () => {
                             <td className="p-3 text-slate-400">{email || <span className="text-slate-600">—</span>}</td>
                             <td className="p-3">
                               {url ? (
-                                <a
-                                  className="text-primary hover:underline inline-flex items-center gap-1"
-                                  href={url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
+                                <a className="text-primary hover:underline inline-flex items-center gap-1" href={url} target="_blank" rel="noreferrer">
                                   <Icon name="open_in_new" className="text-sm" />
                                   <span className="text-xs font-bold">Open</span>
                                 </a>
@@ -593,7 +760,7 @@ const RecommenderScreen: React.FC = () => {
             )}
           </div>
 
-          {/* Step 4: Search (enabled only after confirm) */}
+          {/* Step 4: Search */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
             <div className="lg:col-span-7 glass-panel rounded-xl p-4 md:p-6">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Criteria</p>
@@ -608,20 +775,14 @@ const RecommenderScreen: React.FC = () => {
 
               <div className="mt-4 flex items-center justify-between gap-3">
                 <p className="text-xs text-slate-500">
-                  {!hasStaged
-                    ? 'Upload a file first.'
-                    : !isConfirmed
-                    ? 'Confirm connections to enable search.'
-                    : 'Search matches Name / Position / Company (and other columns as fallback).'}
+                  {!hasStaged ? 'Upload a file or load saved connections.' : !isConfirmed ? 'Confirm (or Add to Account) to enable search.' : 'Search matches Name / Position / Company (and other columns as fallback).'}
                 </p>
 
                 <button
                   onClick={runSearch}
                   disabled={!canSearch}
                   className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                    canSearch
-                      ? 'bg-primary hover:bg-primary/90 text-white'
-                      : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
+                    canSearch ? 'bg-primary hover:bg-primary/90 text-white' : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
                   }`}
                 >
                   <Icon name="search" className="text-sm" />
@@ -631,12 +792,10 @@ const RecommenderScreen: React.FC = () => {
             </div>
 
             <div className="lg:col-span-5 glass-panel rounded-xl p-4 md:p-6">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                Top Matches
-              </p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Top Matches</p>
 
               {!isConfirmed ? (
-                <div className="text-sm text-slate-400">Confirm the loaded connections to run a search.</div>
+                <div className="text-sm text-slate-400">Confirm the loaded connections (or load saved) to run a search.</div>
               ) : results.length === 0 ? (
                 <div className="text-sm text-slate-400">Run a search to see results.</div>
               ) : (
@@ -644,17 +803,13 @@ const RecommenderScreen: React.FC = () => {
                   {results.map((r, idx) => {
                     const name =
                       getField(r.row, ['Full Name']) ||
-                      `${getField(r.row, ['First Name', 'first_name', 'firstname'])} ${getField(r.row, [
-                        'Last Name',
-                        'last_name',
-                        'lastname',
-                      ])}`.trim() ||
+                      `${getField(r.row, ['First Name'])} ${getField(r.row, ['Last Name'])}`.trim() ||
                       '(no name)';
 
-                    const title = getField(r.row, ['Position', 'title', 'role', 'position']);
-                    const org = getField(r.row, ['Company', 'org', 'company', 'organization', 'firm']);
-                    const email = getField(r.row, ['Email Address', 'email', 'email_address']);
-                    const url = getField(r.row, ['URL', 'profile', 'linkedin', 'link']);
+                    const title = getField(r.row, ['Position']);
+                    const org = getField(r.row, ['Company']);
+                    const email = getField(r.row, ['Email Address']);
+                    const url = getField(r.row, ['URL']);
 
                     return (
                       <div

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
+import {
+  BarChart,
+  Bar,
+  XAxis,
   ResponsiveContainer,
   Cell
 } from 'recharts';
@@ -24,56 +25,88 @@ const valuationData = [
 
 const DashboardScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
+
       <main className="flex-1 flex flex-col relative overflow-y-auto overflow-x-hidden custom-scrollbar">
         <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
-        
+
         <div className="p-4 md:p-8 pb-20 max-w-7xl mx-auto w-full">
-          
+
           {/* Summary Stats Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-            <StatCard 
-              title="Total AUM" 
-              value="$420.5M" 
-              trend="+12.4% vs LY" 
-              trendUp={true} 
-              icon="trending_up" 
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <StatCard
+              title="Total AUM"
+              value="$420.5M"
+              trend="+12.4% vs LY"
+              trendUp={true}
+              icon="trending_up"
               delay="0ms"
             />
-            <StatCard 
-              title="Active Portfolio" 
-              value="48 Companies" 
-              subtext="Across 4 sectors" 
-              icon="business_center" 
+            <StatCard
+              title="Active Portfolio"
+              value="48 Companies"
+              subtext="Across 4 sectors"
+              icon="business_center"
               delay="100ms"
             />
-            <StatCard 
-              title="Fund IRR" 
-              value="28.4%" 
-              trend="Top Quartile" 
-              trendUp={true} 
-              icon="workspace_premium" 
+            <StatCard
+              title="Fund IRR"
+              value="28.4%"
+              trend="Top Quartile"
+              trendUp={true}
+              icon="workspace_premium"
               delay="200ms"
             />
-            <StatCard 
-              title="Dry Powder" 
-              value="$82.1M" 
-              subtext="Ready for Series A" 
+            <StatCard
+              title="Dry Powder"
+              value="$82.1M"
+              subtext="Ready for Series A"
               icon="account_balance_wallet"
               primary={true}
               delay="300ms"
             />
           </div>
 
+          {/* NEW: Connections actions */}
+          <div
+            className="glass-panel rounded-xl p-4 md:p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fade-in-up"
+            style={{ animationDelay: '350ms', animationFillMode: 'both' }}
+          >
+            <div>
+              <h4 className="text-lg font-bold text-white">Connections</h4>
+              <p className="text-sm text-slate-400">
+                Import your LinkedIn connections CSV, save them to your account, and use them in the recommender.
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => navigate('/recommender')}
+                className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              >
+                <Icon name="upload_file" className="text-sm" />
+                <span>Import CSV</span>
+              </button>
+
+              <button
+                onClick={() => navigate('/connections')}
+                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10"
+              >
+                <Icon name="contacts" className="text-sm" />
+                <span>View Saved</span>
+              </button>
+            </div>
+          </div>
+
           {/* Main Bento Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 auto-rows-min">
-            
+
             {/* Portfolio Valuation Trend */}
-            <div 
+            <div
               className="lg:col-span-8 glass-panel rounded-xl bento-card p-4 md:p-6 flex flex-col h-[380px] md:h-[424px] animate-fade-in-up"
               style={{ animationDelay: '400ms', animationFillMode: 'both' }}
             >
@@ -87,23 +120,23 @@ const DashboardScreen: React.FC = () => {
                   <span className="bg-slate-700 text-slate-300 text-[10px] px-2 py-1 rounded font-bold uppercase cursor-pointer hover:bg-slate-600 transition-colors">Fund II</span>
                 </div>
               </div>
-              
+
               <div className="flex-1 min-h-0 w-full mt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={valuationData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                    <XAxis 
-                      dataKey="month" 
-                      axisLine={false} 
-                      tickLine={false} 
-                      tick={{ fill: '#64748b', fontSize: 10, fontWeight: 'bold' }} 
+                    <XAxis
+                      dataKey="month"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: '#64748b', fontSize: 10, fontWeight: 'bold' }}
                       dy={10}
                     />
                     <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                       {valuationData.map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill="#135bec" 
-                          fillOpacity={0.3 + (index * 0.1)} 
+                        <Cell
+                          key={`cell-${index}`}
+                          fill="#135bec"
+                          fillOpacity={0.3 + (index * 0.1)}
                           className="hover:fill-primary hover:opacity-100 transition-all duration-300 cursor-pointer"
                         />
                       ))}
@@ -114,7 +147,7 @@ const DashboardScreen: React.FC = () => {
             </div>
 
             {/* Deal Flow Funnel */}
-            <div 
+            <div
               className="lg:col-span-4 glass-panel rounded-xl bento-card p-4 md:p-6 flex flex-col h-[380px] md:h-[424px] animate-fade-in-up"
               style={{ animationDelay: '500ms', animationFillMode: 'both' }}
             >
@@ -141,8 +174,9 @@ const DashboardScreen: React.FC = () => {
               </div>
             </div>
 
+            {/* ... rest of your file unchanged ... */}
             {/* Upcoming Meetings */}
-            <div 
+            <div
               className="lg:col-span-4 glass-panel rounded-xl bento-card p-4 md:p-6 h-[424px] animate-fade-in-up"
               style={{ animationDelay: '600ms', animationFillMode: 'both' }}
             >
@@ -153,37 +187,37 @@ const DashboardScreen: React.FC = () => {
                 </button>
               </div>
               <div className="space-y-3">
-                <MeetingItem 
-                  icon="groups" 
-                  color="text-orange-500" 
+                <MeetingItem
+                  icon="groups"
+                  color="text-orange-500"
                   bg="bg-orange-500/20"
-                  title="NovaHealth Series A" 
-                  time="Today, 2:30 PM" 
+                  title="NovaHealth Series A"
+                  time="Today, 2:30 PM"
                   avatars={[
                     "https://lh3.googleusercontent.com/aida-public/AB6AXuBlJS9XZJ5Au1W8j3x5kzNXCZ8JSHaQZ3D9TKRvv4woF36u6sKdMyZGek-ivqKAAqJ2kykPMFaU6EKTikxW5vgIUjDsftybukhEyAXA3uGeW0tOG2xuIPsfRctNIX1fGdWOVJeTmIOAJ1TRVay4iftNnJnPzk21yecV4GxIXx_oDkpYYRG5wyePVGAgSrxSDveoeMrmu-RV1ssRKC7_PsLXLdYeE51ioQ4xsl0F_7wFZsqbzfs2eH5YsZrC4T9WIFfW5suF0AoiBpM",
                     "https://lh3.googleusercontent.com/aida-public/AB6AXuDIE4AG0N2UGXFc1o7988v17sS-g0y1vIvL3aOiqqhaAQyA602dkQcW-sz2DLBoHWouYjnukOiIo1vVJ6VflyQlDz1zL1y36KxMNDcwMJ5VVjGnphcKeHMqe2V6TRQ3AYo0CZYlXafd08yfriNbqk3zcUja5f7J3zuIuqfJpiV0pycuxMN04ztQrFPBCzgzez2pZRrDP3Nr8c-AITR6yaxKAegQLf5be6-XGtZWAy5CU8hITxG0GqxQBSCG3AQ_H3eFve4wJjiadu4"
                   ]}
                   active
                 />
-                <MeetingItem 
-                  icon="gavel" 
-                  color="text-emerald-500" 
+                <MeetingItem
+                  icon="gavel"
+                  color="text-emerald-500"
                   bg="bg-emerald-500/20"
-                  title="Legal Review: Quantify" 
-                  time="Tomorrow, 10:00 AM" 
+                  title="Legal Review: Quantify"
+                  time="Tomorrow, 10:00 AM"
                 />
-                <MeetingItem 
-                  icon="event_note" 
-                  color="text-purple-500" 
+                <MeetingItem
+                  icon="event_note"
+                  color="text-purple-500"
                   bg="bg-purple-500/20"
-                  title="LP Quarterly Update" 
-                  time="Oct 24, 4:00 PM" 
+                  title="LP Quarterly Update"
+                  time="Oct 24, 4:00 PM"
                 />
               </div>
             </div>
 
             {/* Recent Capital Calls */}
-            <div 
+            <div
               className="lg:col-span-8 glass-panel rounded-xl bento-card p-4 md:p-6 overflow-hidden flex flex-col h-[424px] animate-fade-in-up"
               style={{ animationDelay: '700ms', animationFillMode: 'both' }}
             >
@@ -203,33 +237,33 @@ const DashboardScreen: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/50">
-                    <TableRow 
-                      entity="Vanguard LP" 
-                      subEntity="Fund II - Call #4" 
-                      amount="$2,450,000" 
-                      date="Oct 12, 2023" 
-                      status="FUNDED" 
-                      statusColor="text-emerald-500" 
+                    <TableRow
+                      entity="Vanguard LP"
+                      subEntity="Fund II - Call #4"
+                      amount="$2,450,000"
+                      date="Oct 12, 2023"
+                      status="FUNDED"
+                      statusColor="text-emerald-500"
                       statusBg="bg-emerald-500/10"
                       actionIcon="receipt_long"
                     />
-                    <TableRow 
-                      entity="Meridian Group" 
-                      subEntity="Fund II - Call #4" 
-                      amount="$1,120,000" 
-                      date="Oct 12, 2023" 
-                      status="PENDING" 
-                      statusColor="text-blue-500" 
+                    <TableRow
+                      entity="Meridian Group"
+                      subEntity="Fund II - Call #4"
+                      amount="$1,120,000"
+                      date="Oct 12, 2023"
+                      status="PENDING"
+                      statusColor="text-blue-500"
                       statusBg="bg-blue-500/10"
                       actionIcon="receipt_long"
                     />
-                    <TableRow 
-                      entity="Summit Endowments" 
-                      subEntity="Fund II - Call #4" 
-                      amount="$890,000" 
-                      date="Oct 11, 2023" 
-                      status="OVERDUE" 
-                      statusColor="text-red-500" 
+                    <TableRow
+                      entity="Summit Endowments"
+                      subEntity="Fund II - Call #4"
+                      amount="$890,000"
+                      date="Oct 11, 2023"
+                      status="OVERDUE"
+                      statusColor="text-red-500"
                       statusBg="bg-red-500/10"
                       actionIcon="priority_high"
                     />
@@ -250,9 +284,8 @@ const DashboardScreen: React.FC = () => {
 };
 
 // Sub-components
-
 const StatCard = ({ title, value, trend, trendUp, subtext, icon, primary, delay }: any) => (
-  <div 
+  <div
     className="glass-panel p-5 md:p-6 rounded-xl bento-card cursor-pointer group animate-fade-in-up"
     style={{ animationDelay: delay, animationFillMode: 'both' }}
   >

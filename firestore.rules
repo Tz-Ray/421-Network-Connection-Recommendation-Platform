@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Connections stored per user:
+    // users/{uid}/connections/{connectionId}
+    match /users/{userId}/connections/{connectionId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Default deny everything else (keeps scope tight)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

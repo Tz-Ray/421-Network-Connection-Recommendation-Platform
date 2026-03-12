@@ -6,27 +6,59 @@ import DashboardScreen from './screens/DashboardScreen';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 import RecommenderScreen from './screens/RecommenderScreen';
+import ConnectionsScreen from './screens/ConnectionsScreen';
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
-        
-        {/* Public Routes: Redirect to dashboard if already logged in */}
-        <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
-        <Route path="/register" element={<PublicRoute><RegisterScreen /></PublicRoute>} />
-        
-        {/* Protected Route: Redirect to login if NOT logged in */}
-        <Route 
-          path="/dashboard" 
+
+        {/* Public Routes */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginScreen />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterScreen />
+            </PublicRoute>
+          }
+        />
+
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <DashboardScreen />
             </ProtectedRoute>
-          } 
+          }
         />
-        <Route path="/recommender" element={<RecommenderScreen />} />
+
+        <Route
+          path="/recommender"
+          element={
+            <ProtectedRoute>
+              <RecommenderScreen />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/connections"
+          element={
+            <ProtectedRoute>
+              <ConnectionsScreen />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </HashRouter>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from './Icon';
-import { getAuth, signOut } from 'firebase/auth'; //
+import { getAuth, signOut } from 'firebase/auth';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -10,10 +10,12 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
-  const navigate = useNavigate(); //
-  const auth = getAuth(); //
+  const navigate = useNavigate();
+  const auth = getAuth();
+
   const navItems = [
     { name: 'Dashboard', icon: 'dashboard', path: '/dashboard' },
+    { name: 'Connections', icon: 'contacts', path: '/connections' },
     { name: 'Recommender', icon: 'group', path: '/recommender' },
     { name: 'Portfolio', icon: 'pie_chart', path: '' },
     { name: 'Pipeline', icon: 'account_tree', path: '' },
@@ -21,14 +23,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'Documents', icon: 'description', path: '' },
   ];
 
-  // Logout handler
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      // Redirect to login after successful sign out
       navigate('/login');
     } catch (error) {
-      console.error("Error signing out: ", error);
+      console.error('Error signing out: ', error);
     }
   };
 
@@ -36,21 +36,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     <>
       {/* Mobile Overlay */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden transition-opacity duration-300 ${
+          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Sidebar Content */}
       <aside
-        className={`fixed md:static top-0 left-0 h-full w-64 glass-panel border-r border-slate-800 flex flex-col z-40 bg-[#101622]/95 md:bg-transparent transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed md:static top-0 left-0 h-full w-64 glass-panel border-r border-slate-800 flex flex-col z-40 bg-[#101622]/95 md:bg-transparent transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
       >
         <div className="p-6 md:p-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
               <Icon name="insights" className="text-white text-2xl" />
             </div>
-            <span className="font-extrabold text-xl tracking-tight text-white">App Name<span className="text-primary">.</span></span>
+            <span className="font-extrabold text-xl tracking-tight text-white">
+              App Name<span className="text-primary">.</span>
+            </span>
           </div>
 
           <button
@@ -69,11 +75,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <Link
                 key={item.name}
                 to={item.path}
-                onClick={() => onClose()} 
-                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-200 group active:scale-95 ${isActive
+                onClick={() => onClose()}
+                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-200 group active:scale-95 ${
+                  isActive
                     ? 'bg-primary/15 text-primary border-r-2 border-primary shadow-sm shadow-primary/5'
                     : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 hover:translate-x-1'
-                  }`}
+                }`}
               >
                 <Icon
                   name={item.icon}
@@ -84,15 +91,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             );
           })}
 
-          {/* Logout Button integrated into Nav List */}
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
             className="w-full flex items-center px-4 py-3 rounded-lg text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200 group active:scale-95 hover:translate-x-1"
           >
-            <Icon 
-              name="logout" 
-              className="mr-3 transition-colors group-hover:text-red-400" 
-            />
+            <Icon name="logout" className="mr-3 transition-colors group-hover:text-red-400" />
             <span className="font-medium">Logout</span>
           </button>
         </nav>
@@ -105,7 +109,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <span className="text-xs text-slate-400">Deployed</span>
             </div>
             <div className="w-full bg-primary/20 h-1.5 rounded-full overflow-hidden">
-              <div className="bg-primary h-full rounded-full transition-all duration-1000 group-hover:brightness-125" style={{ width: '84%' }}></div>
+              <div
+                className="bg-primary h-full rounded-full transition-all duration-1000 group-hover:brightness-125"
+                style={{ width: '84%' }}
+              ></div>
             </div>
           </div>
         </div>
