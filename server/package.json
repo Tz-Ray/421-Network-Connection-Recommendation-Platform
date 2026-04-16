@@ -1,0 +1,11 @@
+{
+  "name": "ai-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
