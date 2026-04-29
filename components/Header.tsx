@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { Icon } from './Icon';
 
 interface HeaderProps {
@@ -6,6 +9,48 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState('John Doe');
+  const [userPosition, setUserPosition] = useState('No Position');
+  const [userPhoto, setUserPhoto] = useState('https://lh3.googleusercontent.com/aida-public/AB6AXuBCXhFQNn8bjG3hECp_CaJj1ShQC3aagsQv9NVXWrcr_x_CuJ4gW58O4dOjAPL93dPNCv6AccCE8-5CuZ9x7VrZOa8TT1pfnkrWv4inmdhLwEcfDfvGu1RbdB9e5gMNDfPrPP4_ASJC5lqLaNEoERyOqr_lZ7cwwhn5WaIrUIPe-e9ZXAmJqWZXXnS-eT3OUSMboVGQiq85J3Fq1gwse3d4091Ft0DlUBwqqvnLDak2S1Z8U5jKkI20ycsILB2FaquiavgIVY0pYAQ');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        // Set name from Auth
+        if (user.displayName) {
+          setUserName(user.displayName);
+        }
+
+        // Set photo from Auth
+        if (user.photoURL) {
+          setUserPhoto(user.photoURL);
+        }
+
+        // Fetch jobTitle from Firestore
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const data = userDocSnap.data();
+          if (data.jobTitle) {
+            setUserPosition(data.jobTitle);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching header user data:', err);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+  };
+
   return (
     <header className="sticky top-0 z-20 glass-panel h-16 flex items-center justify-between px-4 md:px-8 border-b border-slate-800">
       
@@ -35,13 +80,16 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
         
         <div className="h-8 w-[1px] bg-slate-800 hidden md:block"></div>
         
-        <div className="flex items-center gap-3 md:pl-2 cursor-pointer hover:opacity-80 transition-opacity active:scale-95 rounded-lg p-1">
+        <div 
+          onClick={handleProfileClick}
+          className="flex items-center gap-3 md:pl-2 cursor-pointer hover:opacity-80 transition-opacity active:scale-95 rounded-lg p-1"
+        >
           <div className="text-right hidden sm:block">
-            <p className="text-xs font-bold text-slate-200">John Doe</p>
-            <p className="text-[10px] text-slate-500 uppercase font-medium">General Partner</p>
+            <p className="text-xs font-bold text-slate-200">{userName}</p>
+            <p className="text-[10px] text-slate-500 uppercase font-medium">{userPosition}</p>
           </div>
           <img 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCXhFQNn8bjG3hECp_CaJj1ShQC3aagsQv9NVXWrcr_x_CuJ4gW58O4dOjAPL93dPNCv6AccCE8-5CuZ9x7VrZOa8TT1pfnkrWv4inmdhLwEcfDfvGu1RbdB9e5gMNDfPrPP4_ASJC5lqLaNEoERyOqr_lZ7cwwhn5WaIrUIPe-e9ZXAmJqWZXXnS-eT3OUSMboVGQiq85J3Fq1gwse3d4091Ft0DlUBwqqvnLDak2S1Z8U5jKkI20ycsILB2FaquiavgIVY0pYAQ" 
+            src={userPhoto} 
             alt="Profile" 
             className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-slate-700 object-cover shadow-sm" 
           />
