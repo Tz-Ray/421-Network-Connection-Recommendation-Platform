@@ -14,6 +14,7 @@ interface ProfileData {
   dob: string;
   bio: string;
   gender: string;
+  pronouns: string;
 }
 
 const ProfileScreen: React.FC = () => {
@@ -31,6 +32,7 @@ const ProfileScreen: React.FC = () => {
     dob: '',
     bio: '',
     gender: '',
+    pronouns: '',
   });
 
   useEffect(() => {
@@ -59,6 +61,7 @@ const ProfileScreen: React.FC = () => {
             dob: firestoreData.dob || '',
             bio: firestoreData.bio || '',
             gender: firestoreData.gender || '', // Fetch gender
+            pronouns: firestoreData.pronouns || '',
           }));
         }
 
@@ -110,6 +113,7 @@ const ProfileScreen: React.FC = () => {
           dob: formData.dob,
           bio: formData.bio,
           gender: formData.gender,
+          pronouns: formData.pronouns,
           updatedAt: new Date(),
         },
         { merge: true }
@@ -248,6 +252,18 @@ const ProfileScreen: React.FC = () => {
                     <option value="Other">Other</option>
                     <option value="Prefer not to say">Prefer not to say</option>
                   </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-200 mb-2">Pronouns</label>
+                  <input
+                    type="text"
+                    name="pronouns"
+                    value={formData.pronouns}
+                    onChange={handleInputChange}
+                    placeholder="e.g. she/her, he/him, they/them"
+                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
+                  />
                 </div>
               </div>
             </div>

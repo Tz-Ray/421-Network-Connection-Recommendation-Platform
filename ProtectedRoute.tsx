@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import ChatWidget from './components/ChatWidget';
 
 interface ProtectedRouteProps {
   children: React.ReactElement;
@@ -32,7 +33,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return (
+    <>
+      {children}
+      <ChatWidget />
+    </>
+  );
 };
 
 export default ProtectedRoute;
