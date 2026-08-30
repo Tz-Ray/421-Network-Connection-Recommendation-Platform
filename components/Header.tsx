@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
 import { Icon } from './Icon';
+import { db } from '../firebase';
 import { useAuth } from '../lib/AuthContext';
 
 interface HeaderProps {
@@ -8,9 +11,34 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const [jobTitle, setJobTitle] = useState('');
+
+  // Job title lives in the users/{uid} profile document (see ProfileScreen).
+  useEffect(() => {
+    const uid = user?.uid;
+    if (!uid) {
+      setJobTitle('');
+      return;
+    }
+    let active = true;
+    void (async () => {
+      try {
+        const snap = await getDoc(doc(db, 'users', uid));
+        if (!active) return;
+        const title = snap.exists() ? snap.data()?.jobTitle : '';
+        setJobTitle(typeof title === 'string' ? title : '');
+      } catch (err) {
+        console.error('Error fetching header user data:', err);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [user?.uid]);
 
   const nameLine = user?.displayName || user?.email || 'Signed in';
-  const subLine = user?.displayName ? user?.email ?? '' : '';
+  const subLine = jobTitle || (user?.displayName ? user?.email ?? '' : '');
   const initial = (nameLine.trim()[0] ?? '?').toUpperCase();
 
   return (
@@ -42,7 +70,10 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
         
         <div className="h-8 w-[1px] bg-slate-800 hidden md:block"></div>
         
-        <div className="flex items-center gap-3 md:pl-2 cursor-pointer hover:opacity-80 transition-opacity active:scale-95 rounded-lg p-1">
+        <div
+          onClick={() => navigate('/profile')}
+          className="flex items-center gap-3 md:pl-2 cursor-pointer hover:opacity-80 transition-opacity active:scale-95 rounded-lg p-1"
+        >
           <div className="text-right hidden sm:block">
             <p className="text-xs font-bold text-slate-200">{nameLine}</p>
             <p className="text-[10px] text-slate-500 uppercase font-medium">{subLine}</p>

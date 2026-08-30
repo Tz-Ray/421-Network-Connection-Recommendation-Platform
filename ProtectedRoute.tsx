@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import ChatWidget from './components/ChatWidget';
 import { useAuth } from './lib/AuthContext';
 
 interface ProtectedRouteProps {
@@ -21,7 +22,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return (
+    <>
+      {children}
+      <ChatWidget />
+    </>
+  );
 };
 
 export default ProtectedRoute;
