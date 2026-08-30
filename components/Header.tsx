@@ -1,11 +1,18 @@
 import React from 'react';
 import { Icon } from './Icon';
+import { useAuth } from '../lib/AuthContext';
 
 interface HeaderProps {
   onMenuToggle: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
+  const { user } = useAuth();
+
+  const nameLine = user?.displayName || user?.email || 'Signed in';
+  const subLine = user?.displayName ? user?.email ?? '' : '';
+  const initial = (nameLine.trim()[0] ?? '?').toUpperCase();
+
   return (
     <header className="sticky top-0 z-20 glass-panel h-16 flex items-center justify-between px-4 md:px-8 border-b border-slate-800">
       
@@ -37,14 +44,20 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
         
         <div className="flex items-center gap-3 md:pl-2 cursor-pointer hover:opacity-80 transition-opacity active:scale-95 rounded-lg p-1">
           <div className="text-right hidden sm:block">
-            <p className="text-xs font-bold text-slate-200">John Doe</p>
-            <p className="text-[10px] text-slate-500 uppercase font-medium">General Partner</p>
+            <p className="text-xs font-bold text-slate-200">{nameLine}</p>
+            <p className="text-[10px] text-slate-500 uppercase font-medium">{subLine}</p>
           </div>
-          <img 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCXhFQNn8bjG3hECp_CaJj1ShQC3aagsQv9NVXWrcr_x_CuJ4gW58O4dOjAPL93dPNCv6AccCE8-5CuZ9x7VrZOa8TT1pfnkrWv4inmdhLwEcfDfvGu1RbdB9e5gMNDfPrPP4_ASJC5lqLaNEoERyOqr_lZ7cwwhn5WaIrUIPe-e9ZXAmJqWZXXnS-eT3OUSMboVGQiq85J3Fq1gwse3d4091Ft0DlUBwqqvnLDak2S1Z8U5jKkI20ycsILB2FaquiavgIVY0pYAQ" 
-            alt="Profile" 
-            className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-slate-700 object-cover shadow-sm" 
-          />
+          {user?.photoURL ? (
+            <img
+              src={user.photoURL}
+              alt="Profile"
+              className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-slate-700 object-cover shadow-sm"
+            />
+          ) : (
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-slate-700 object-cover shadow-sm bg-primary/20 text-primary font-bold flex items-center justify-center">
+              {initial}
+            </div>
+          )}
         </div>
       </div>
     </header>

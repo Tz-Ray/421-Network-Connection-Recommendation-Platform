@@ -10,7 +10,26 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 dotenv.config({ path: path.resolve(__dirname, "../.env") }); // fallback if you prefer
 
-const PORT = Number(process.env.AI_PROXY_PORT || 8787);
+const DEFAULT_PORT = 8787;
+
+// Small typed error so handlers can pick their own HTTP status.
+function httpError(status, message) {
+  const err = new Error(message);
+  err.status = status;
+  return err;
+}
+
+function resolvePort(raw) {
+  if (raw === undefined || raw === null || String(raw).trim() === "") return DEFAULT_PORT;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1 || n > 65535) {
+    console.warn(`Invalid AI_PROXY_PORT "${raw}" (want an integer 1-65535); using ${DEFAULT_PORT}.`);
+    return DEFAULT_PORT;
+  }
+  return n;
+}
+
+const PORT = resolvePort(process.env.AI_PROXY_PORT);
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // Normalize model so it works whether user sets "gemini-2.5-flash" or "models/gemini-2.5-flash"
@@ -22,6 +41,20 @@ function normalizeModel(raw) {
 }
 
 let MODEL = normalizeModel(process.env.GEMINI_MODEL || "gemini-1.5-flash");
+// thinkingConfig is only accepted by Gemini 2.5+ models; 1.5 models reject it with HTTP 400.
+const THINKING_BUDGET = Number.isFinite(Number(process.env.GEMINI_THINKING_BUDGET))
+  ? Number(process.env.GEMINI_THINKING_BUDGET)
+  : 0;
+// Optional second model used when the primary is rate-limited / out of daily quota /
+// unavailable. Free tier quotas are per model, so e.g. gemini-3.5-flash-lite keeps
+// working after gemini-2.5-flash's 20 requests/day are spent.
+const FALLBACK_MODEL = normalizeModel(process.env.GEMINI_FALLBACK_MODEL || "");
+// Some models (e.g. gemini-3.5-flash-lite) reject thinkingConfig with HTTP 400 even
+// though they match the version regex; we learn that at runtime and remember it.
+const thinkingUnsupported = new Set();
+function wantsThinkingConfig(model) {
+  return /gemini-(2\.5|[3-9])/i.test(model) && !thinkingUnsupported.has(model);
+}
 
 function sendJson(res, status, obj) {
   const body = JSON.stringify(obj, null, 2);
@@ -43,12 +76,47 @@ function setCors(res, origin) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
+const MAX_BODY_BYTES = 2 * 1024 * 1024; // 2 MB
+
 async function readJson(req) {
   const chunks = [];
-  for await (const ch of req) chunks.push(ch);
+  let total = 0;
+  let tooLarge = false;
+
+  for await (const ch of req) {
+    total += ch.length;
+    if (total > MAX_BODY_BYTES) {
+      // Stop buffering, but keep draining so the 413 response can be delivered.
+      tooLarge = true;
+      continue;
+    }
+    chunks.push(ch);
+  }
+
+  if (tooLarge) {
+    throw httpError(413, `Request body too large (max ${MAX_BODY_BYTES} bytes).`);
+  }
+
   const raw = Buffer.concat(chunks).toString("utf8");
-  if (!raw) return {};
-  return JSON.parse(raw);
+  if (!raw.trim()) return {};
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    throw httpError(400, "Malformed JSON body.");
+  }
+}
+
+// Keep only entries the prompt/normalizer can actually use: real objects with a
+// non-empty string or finite number id.
+function filterValidCandidates(candidates) {
+  if (!Array.isArray(candidates)) return [];
+  return candidates.filter((c) => {
+    if (!c || typeof c !== "object" || Array.isArray(c)) return false;
+    const id = c.id;
+    if (typeof id === "number") return Number.isFinite(id);
+    return typeof id === "string" && id.trim() !== "";
+  });
 }
 
 function formatCandidates(candidates) {
@@ -196,42 +264,134 @@ function extractRecsFromLooseText(outText, candidates) {
   return recs;
 }
 
-// Calls Gemini, returns BOTH raw text and parsed JSON if possible.
-async function callGemini({ system, user, maxOutputTokens = 900, temperature = 0.2 }) {
-  if (!GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is missing. Put it in root .env.local");
-  }
+const RETRYABLE_UPSTREAM_STATUS = new Set([429, 500, 502, 503, 504]);
+const UPSTREAM_MAX_ATTEMPTS = 3;
+const UPSTREAM_RETRY_DELAY_MS = 1500; // doubles each retry: 1.5s, 3s
+const UPSTREAM_ATTEMPT_TIMEOUT_MS = 40_000; // Gemini has been observed hanging ~50s before a 503
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${encodeURIComponent(
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Quota/rate-limit hints from a Gemini 429 body: {retryDelayMs, perDay}
+function parseQuotaHints(text) {
+  try {
+    const j = JSON.parse(text);
+    const details = Array.isArray(j?.error?.details) ? j.error.details : [];
+    let retryDelayMs = null;
+    let perDay = false;
+    for (const d of details) {
+      const type = String(d?.["@type"] || "");
+      if (type.endsWith("RetryInfo") && typeof d.retryDelay === "string") {
+        const secs = parseFloat(d.retryDelay);
+        if (Number.isFinite(secs)) retryDelayMs = Math.round(secs * 1000);
+      }
+      if (type.endsWith("QuotaFailure")) {
+        for (const v of d.violations || []) {
+          if (/PerDay/i.test(String(v?.quotaId || ""))) perDay = true;
+        }
+      }
+    }
+    return { retryDelayMs, perDay };
+  } catch {
+    return { retryDelayMs: null, perDay: false };
+  }
+}
+
+// One model, with retries. Throws httpError(502/503) on failure.
+async function callGeminiModel({ model, system, user, maxOutputTokens, temperature }) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(
     GEMINI_API_KEY
   )}`;
 
-  const body = {
+  const buildBody = () => ({
     systemInstruction: { parts: [{ text: system }] },
     contents: [{ role: "user", parts: [{ text: user }] }],
     generationConfig: {
       responseMimeType: "application/json",
       maxOutputTokens,
       temperature,
+      // Gemini 2.5+ "thinking" tokens are billed against maxOutputTokens. With the
+      // default budget the model spends ~600+ tokens thinking and the JSON answer is
+      // truncated (finishReason MAX_TOKENS), which the loose-text extractor then
+      // salvages into garbage like {id:"c0", reason:"Position"}. Disable thinking
+      // for this structured-output task (override with GEMINI_THINKING_BUDGET).
+      ...(wantsThinkingConfig(model) ? { thinkingConfig: { thinkingBudget: THINKING_BUDGET } } : {}),
     },
-  };
-
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
   });
 
-  const text = await resp.text();
+  let resp = null;
+  let text = "";
+  for (let attempt = 1; attempt <= UPSTREAM_MAX_ATTEMPTS; attempt++) {
+    let transient = null;
+    let delay = UPSTREAM_RETRY_DELAY_MS * 2 ** (attempt - 1);
+    try {
+      const sentThinking = wantsThinkingConfig(model);
+      resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildBody()),
+        signal: AbortSignal.timeout(UPSTREAM_ATTEMPT_TIMEOUT_MS),
+      });
+      text = await resp.text();
+      if (resp.ok) break;
+
+      if (resp.status === 400 && sentThinking) {
+        // Model rejects thinkingConfig: remember and retry immediately without it.
+        thinkingUnsupported.add(model);
+        console.warn(`Gemini ${model} rejected thinkingConfig; retrying without it.`);
+        attempt--;
+        continue;
+      }
+      if (resp.status === 429) {
+        const hints = parseQuotaHints(text);
+        if (hints.perDay) {
+          throw httpError(
+            503,
+            `Gemini free-tier daily quota exhausted for ${model}. Try again tomorrow, set GEMINI_FALLBACK_MODEL / GEMINI_MODEL to another model, or enable billing.`
+          );
+        }
+        if (hints.retryDelayMs) delay = Math.min(30_000, Math.max(delay, hints.retryDelayMs));
+      }
+      if (!RETRYABLE_UPSTREAM_STATUS.has(resp.status)) break;
+      transient = `HTTP ${resp.status}`;
+    } catch (e) {
+      if (e?.status) throw e; // our own httpError
+      resp = null;
+      transient = e?.name === "TimeoutError" ? `timeout after ${UPSTREAM_ATTEMPT_TIMEOUT_MS}ms` : `network error: ${e?.message || e}`;
+    }
+    if (attempt === UPSTREAM_MAX_ATTEMPTS) {
+      if (!resp) throw httpError(502, `Gemini ${model} unreachable (${transient}) after ${attempt} attempts.`);
+      break;
+    }
+    console.warn(`Gemini ${model} ${transient}; retry ${attempt}/${UPSTREAM_MAX_ATTEMPTS - 1} in ${delay}ms.`);
+    await sleep(delay);
+  }
+
   if (!resp.ok) {
-    throw new Error(`Gemini HTTP ${resp.status}: ${text}`);
+    throw httpError(502, `Gemini upstream error ${resp.status} (${model}): ${String(text ?? "").slice(0, 300)}`);
   }
 
   const parsedEnvelope = JSON.parse(text);
   const outText = parsedEnvelope?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
   const parsedJson = tryParseJson(outText);
+  return { outText, parsedJson, model };
+}
 
-  return { outText, parsedJson };
+// Calls Gemini (primary model, then GEMINI_FALLBACK_MODEL if the primary is
+// rate-limited / out of quota / unavailable). Returns BOTH raw text and parsed JSON.
+async function callGemini({ system, user, maxOutputTokens = 900, temperature = 0.2 }) {
+  if (!GEMINI_API_KEY) {
+    throw new Error("GEMINI_API_KEY is missing. Put it in root .env.local");
+  }
+  try {
+    return await callGeminiModel({ model: MODEL, system, user, maxOutputTokens, temperature });
+  } catch (e) {
+    const canFallback = FALLBACK_MODEL && FALLBACK_MODEL !== MODEL && (e?.status === 502 || e?.status === 503);
+    if (!canFallback) throw e;
+    console.warn(`Primary model ${MODEL} failed (${String(e?.message || e).slice(0, 120)}); trying fallback ${FALLBACK_MODEL}.`);
+    return await callGeminiModel({ model: FALLBACK_MODEL, system, user, maxOutputTokens, temperature });
+  }
 }
 
 // Stricter second-pass call when Gemini ignores JSON the first time.
@@ -249,7 +409,7 @@ async function callGeminiStrictJSON({ criteria, candidates }) {
   return await callGemini({
     system,
     user,
-    maxOutputTokens: 700,
+    maxOutputTokens: 1400,
     temperature: 0.0,
   });
 }
@@ -292,8 +452,13 @@ async function handleRerank(body) {
   const criteria = String(body?.criteria ?? "").trim();
   const candidates = body?.candidates;
 
-  if (!criteria) throw new Error("Missing criteria.");
-  if (!Array.isArray(candidates) || candidates.length === 0) throw new Error("Missing candidates.");
+  if (!criteria) throw httpError(400, "Missing criteria.");
+  if (!Array.isArray(candidates) || candidates.length === 0) {
+    throw httpError(400, "Missing candidates.");
+  }
+
+  const pool = filterValidCandidates(candidates);
+  if (pool.length === 0) throw httpError(400, "No valid candidates.");
 
   // Pass 1: normal call
   const system =
@@ -303,48 +468,48 @@ async function handleRerank(body) {
 
   const user =
     `Criteria:\n${criteria}\n\n` +
-    `Candidates:\n${formatCandidates(candidates)}\n\n` +
+    `Candidates:\n${formatCandidates(pool)}\n\n` +
     `Return the best 10 candidate ids in ranked order with a short reason each.`;
 
   let { outText, parsedJson } = await callGemini({
     system,
     user,
-    maxOutputTokens: 700,
+    maxOutputTokens: 1400,
     temperature: 0.2,
   });
 
   // Try JSON response
   let recs =
     parsedJson && Array.isArray(parsedJson?.recommendations)
-      ? normalizeRecs(parsedJson.recommendations, candidates)
+      ? normalizeRecs(parsedJson.recommendations, pool)
       : [];
 
   if (recs.length > 0) return { recommendations: recs };
 
   // If not JSON, try extracting from text (JSON-ish or plain)
-  const extracted = extractRecsFromLooseText(outText, candidates);
-  const extractedNorm = normalizeRecs(extracted, candidates);
+  const extracted = extractRecsFromLooseText(outText, pool);
+  const extractedNorm = normalizeRecs(extracted, pool);
   if (extractedNorm.length > 0) return { recommendations: extractedNorm };
 
   // Pass 2: strict JSON coercion
-  const strict = await callGeminiStrictJSON({ criteria, candidates });
+  const strict = await callGeminiStrictJSON({ criteria, candidates: pool });
   const strictJson = strict.parsedJson;
 
   recs =
     strictJson && Array.isArray(strictJson?.recommendations)
-      ? normalizeRecs(strictJson.recommendations, candidates)
+      ? normalizeRecs(strictJson.recommendations, pool)
       : [];
 
   if (recs.length > 0) return { recommendations: recs };
 
   // Try extracting from strict output text too
-  const extracted2 = extractRecsFromLooseText(strict.outText, candidates);
-  const extracted2Norm = normalizeRecs(extracted2, candidates);
+  const extracted2 = extractRecsFromLooseText(strict.outText, pool);
+  const extracted2Norm = normalizeRecs(extracted2, pool);
   if (extracted2Norm.length > 0) return { recommendations: extracted2Norm };
 
   // Final fallback
   return {
-    recommendations: fallbackRerank(candidates),
+    recommendations: fallbackRerank(pool),
     debug: {
       note: "AI did not return parseable JSON or parsable text. Used baseline ordering.",
       model: MODEL,
@@ -357,8 +522,13 @@ async function handleChat(body) {
   const candidates = body?.candidates;
   const messages = Array.isArray(body?.messages) ? body.messages.slice(-8) : [];
 
-  if (!query) throw new Error("Missing query.");
-  if (!Array.isArray(candidates) || candidates.length === 0) throw new Error("Missing candidates.");
+  if (!query) throw httpError(400, "Missing query.");
+  if (!Array.isArray(candidates) || candidates.length === 0) {
+    throw httpError(400, "Missing candidates.");
+  }
+
+  const pool = filterValidCandidates(candidates);
+  if (pool.length === 0) throw httpError(400, "No valid candidates.");
 
   const system =
     "You answer questions about a user's professional network and suggest intros. " +
@@ -373,13 +543,13 @@ async function handleChat(body) {
   const user =
     `Conversation so far:\n${historyText}\n\n` +
     `User question:\n${query}\n\n` +
-    `Candidate pool:\n${formatCandidates(candidates)}\n\n` +
+    `Candidate pool:\n${formatCandidates(pool)}\n\n` +
     `1) Answer the question.\n2) If appropriate, recommend up to 10 candidate ids with reasons.\n`;
 
   const { outText, parsedJson } = await callGemini({
     system,
     user,
-    maxOutputTokens: 900,
+    maxOutputTokens: 1400,
     temperature: 0.3,
   });
 
@@ -390,9 +560,15 @@ async function handleChat(body) {
     if (answer || recommendations.length) {
       return { answer, recommendations };
     }
+    // Valid JSON, but the model found nothing. Do NOT fall through to raw text:
+    // outText here is just the empty JSON envelope.
+    return {
+      answer: "I couldn't find anything relevant in the loaded connections for that.",
+      recommendations: [],
+    };
   }
 
-  // Fallback: plain text answer
+  // Fallback (parsedJson === null): plain text answer
   return {
     answer: String(outText || "AI returned an empty response. Please try rephrasing."),
     recommendations: [],
@@ -420,6 +596,7 @@ const server = http.createServer(async (req, res) => {
         ok: true,
         model: MODEL,
         keyLoaded: !!GEMINI_API_KEY,
+        fallbackModel: FALLBACK_MODEL || null,
         hint: 'Set GEMINI_MODEL like "gemini-2.5-flash" (no "models/")',
       });
     }
@@ -447,7 +624,8 @@ const server = http.createServer(async (req, res) => {
 
     return sendText(res, 404, "Not found");
   } catch (e) {
-    return sendJson(res, 500, { error: String(e?.message || e) });
+    const status = Number.isFinite(e?.status) ? e.status : 500;
+    return sendJson(res, status, { error: String(e?.message || e) });
   }
 });
 

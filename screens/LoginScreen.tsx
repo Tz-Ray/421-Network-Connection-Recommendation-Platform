@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '../components/Icon';
-import { auth, googleProvider } from '../firebase';
+import { auth, googleProvider, describeAuthError } from '../firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 const LoginScreen: React.FC = () => {
@@ -19,8 +19,8 @@ const LoginScreen: React.FC = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in. Please check your credentials.');
+    } catch (err) {
+      setError(describeAuthError(err));
     } finally {
       setLoading(false);
     }
@@ -32,8 +32,8 @@ const LoginScreen: React.FC = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in with Google.');
+    } catch (err) {
+      setError(describeAuthError(err));
     } finally {
       setLoading(false);
     }

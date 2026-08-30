@@ -1,8 +1,25 @@
 // screens/RecommenderScreen.tsx
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
+import {
+  COMPANY_KEYS,
+  CONNECTED_ON_KEYS,
+  EMAIL_KEYS,
+  FIRST_NAME_KEYS,
+  FULL_NAME_KEYS,
+  LAST_NAME_KEYS,
+  POSITION_KEYS,
+  SESSION_KEY,
+  URL_KEYS,
+  docToCompact,
+  docToRow,
+  loadConnections,
+  saveConnections,
+} from '../lib/connectionsStore';
 
 type Row = Record<string, unknown>;
 
@@ -13,10 +30,75 @@ type RankedRow = {
   reasons: string[];
 };
 
+type CandidateSummary = {
+  id: string; // c0..cN
+  name: string;
+  position: string;
+  company: string;
+  email?: string;
+  url?: string;
+  connectedOn?: string;
+};
+
 const MAX_RESULTS = 10;
+const AI_POOL_SIZE = 50;
+const AI_BASE = (import.meta as any).env?.VITE_AI_PROXY_URL || 'http://localhost:8787';
 
 // -----------------------------
-// Key / value helpers
+// Aliases (INTENDED for title matching)
+// -----------------------------
+const ALIASES: Record<string, string[]> = {
+  'software engineer': ['swe', 'software developer', 'developer', 'full stack', 'fullstack', 'backend', 'frontend', 'web developer'],
+  swe: ['software engineer', 'software developer', 'developer'],
+  developer: ['software engineer', 'software developer', 'full stack', 'backend', 'frontend'],
+  'software developer': ['software engineer', 'developer'],
+  'full stack': ['fullstack', 'frontend', 'backend', 'software engineer'],
+  fullstack: ['full stack', 'frontend', 'backend', 'software engineer'],
+  backend: ['back end', 'api', 'services', 'software engineer'],
+  frontend: ['front end', 'ui', 'web developer', 'software engineer'],
+  devops: ['sre', 'infrastructure', 'platform', 'cloud', 'ci/cd'],
+  sre: ['devops', 'reliability', 'infrastructure'],
+  security: ['infosec', 'appsec', 'security engineer'],
+
+  'data scientist': ['data science', 'machine learning', 'ml', 'ai', 'statistics', 'analytics'],
+  'data science': ['data scientist', 'data analyst', 'machine learning', 'ml', 'ai'],
+  'data analyst': ['analytics', 'bi', 'sql', 'reporting'],
+  'data engineer': ['etl', 'pipelines', 'warehousing', 'sql'],
+  ml: ['machine learning', 'ai', 'data scientist'],
+  ai: ['machine learning', 'ml', 'data science'],
+
+  pm: ['product manager', 'product management'],
+  'product manager': ['pm', 'product management', 'roadmap'],
+  sales: ['account executive', 'business development', 'revenue', 'gtm'],
+  gtm: ['go-to-market', 'sales', 'marketing', 'growth'],
+  ae: ['account executive', 'sales'],
+  'account executive': ['ae', 'sales'],
+  csm: ['customer success manager', 'customer success'],
+
+  ceo: ['founder', 'chief executive officer'],
+  cto: ['chief technology officer', 'engineering leader', 'architecture'],
+  cfo: ['chief financial officer', 'finance'],
+  coo: ['chief operating officer', 'operations'],
+};
+
+function expandWithAliases(text: string): string {
+  const lower = text.toLowerCase();
+  const extras: string[] = [];
+
+  for (const [key, vals] of Object.entries(ALIASES)) {
+    if (key.length <= 3) {
+      const re = new RegExp(`\\b${key.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}\\b`, 'i');
+      if (re.test(lower)) extras.push(...vals);
+    } else {
+      if (lower.includes(key)) extras.push(...vals);
+    }
+  }
+
+  return extras.length ? `${text} ${extras.join(' ')}` : text;
+}
+
+// -----------------------------
+// Helpers
 // -----------------------------
 function toText(v: unknown): string {
   if (v == null) return '';
@@ -31,11 +113,11 @@ function toText(v: unknown): string {
 }
 
 function normalizeKey(k: string) {
-  // normalize for matching headers like "Email Address" vs "email_address"
-  return k
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ''); // keep alnum only
+  return k.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+}
+
+function normalizeText(s: string): string {
+  return s.toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
 function getField(row: Row, keys: string[]): string {
@@ -54,14 +136,128 @@ function tokenizeQuery(q: string): string[] {
     .filter(Boolean);
 }
 
+function isRoleQuery(criteria: string): boolean {
+  const c = normalizeText(criteria);
+  const roleHints = [
+    'engineer', 'developer', 'software', 'fullstack', 'backend', 'frontend', 'devops', 'sre',
+    'data', 'scientist', 'analyst', 'designer', 'product', 'manager', 'director', 'vp',
+    'cto', 'cfo', 'coo', 'ceo', 'founder', 'sales', 'marketing', 'account', 'executive'
+  ];
+  return roleHints.some((k) => c.includes(k));
+}
+
+// Company stopwords / low-signal tokens that cause junk matches
+const COMPANY_STOPWORDS = new Set([
+  'inc', 'llc', 'ltd', 'co', 'company', 'corp', 'corporation',
+  'group', 'partners', 'capital', 'ventures', 'holdings',
+  'technologies', 'technology', 'tech', 'systems', 'solutions', 'services',
+  'engineering', 'engineer', 'web', 'app', 'apps', 'labs', 'studio', 'studios',
+  'consulting', 'associates'
+]);
+
+function filterCompanyTokens(tokens: string[]): string[] {
+  return tokens
+    .map((t) => t.toLowerCase())
+    .filter(Boolean)
+    .filter((t) => t.length >= 3)
+    .filter((t) => !COMPANY_STOPWORDS.has(t));
+}
+
+function unescapeJsonString(s: string): string {
+  return s
+    .replace(/\\n/g, ' ')
+    .replace(/\\t/g, ' ')
+    .replace(/\\"/g, '"')
+    .replace(/\\\\/g, '\\')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * IMPORTANT FIX:
+ * If r.reason comes back as JSON-ish (sometimes the proxy/model nests JSON inside the reason),
+ * this extracts the "reason" field WITHOUT truncating at inner quotes.
+ */
+function extractReasonLenientFromJsonish(text: string): string | null {
+  const s = String(text || '');
+  const idx = s.search(/"reason"\s*:/i);
+  if (idx < 0) return null;
+
+  const colon = s.indexOf(':', idx);
+  if (colon < 0) return null;
+
+  // find first quote after colon
+  let startQuote = -1;
+  for (let i = colon + 1; i < s.length; i++) {
+    if (s[i] === '"') {
+      startQuote = i;
+      break;
+    }
+  }
+  if (startQuote < 0) return null;
+
+  // Scan for an ending quote that looks like the end of this JSON string:
+  // i.e., a quote followed by optional whitespace then one of: , } ]
+  let out = '';
+  for (let i = startQuote + 1; i < s.length; i++) {
+    const ch = s[i];
+
+    // handle escaped sequences
+    if (ch === '\\') {
+      const next = s[i + 1];
+      if (next) {
+        out += `\\${next}`;
+        i++;
+      }
+      continue;
+    }
+
+    if (ch === '"') {
+      // potential terminator — check next non-space char
+      let j = i + 1;
+      while (j < s.length && /\s/.test(s[j])) j++;
+      const nextCh = s[j];
+
+      if (nextCh === ',' || nextCh === '}' || nextCh === ']' || nextCh === '\n' || nextCh === '\r') {
+        return unescapeJsonString(out);
+      }
+
+      // Otherwise this quote is likely inside the reason string → keep it
+      out += '"';
+      continue;
+    }
+
+    out += ch;
+  }
+
+  // truncated JSON — still return what we captured
+  return unescapeJsonString(out);
+}
+
+function sanitizeAiReason(raw: string): string {
+  const s = String(raw || '').trim();
+  if (!s) return '';
+
+  // If it's JSON-ish, extract "reason" leniently
+  if (s.includes('"reason"')) {
+    const extracted = extractReasonLenientFromJsonish(s);
+    if (extracted) return extracted;
+  }
+
+  // If it looks like a JSON blob but we can't extract a reason, show a shortened raw snippet (still "full-ish")
+  if (s.startsWith('{') || s.includes('"recommendations"')) {
+    const snippet = s.length > 320 ? `${s.slice(0, 320)}…` : s;
+    return snippet;
+  }
+
+  return s;
+}
+
 // -----------------------------
 // RFC-4180-ish CSV parser
-// - Handles commas, quotes, escaped quotes
-// - Handles newlines inside quoted fields
-// - Splits rows only on newline outside quotes
 // -----------------------------
 function parseCsvRfc4180(text: string): string[][] {
-  const clean = text.replace(/^\uFEFF/, ''); // strip BOM
+  const clean = text.replace(/^\uFEFF/, '');
   const rows: string[][] = [];
   let row: string[] = [];
   let cell = '';
@@ -72,7 +268,6 @@ function parseCsvRfc4180(text: string): string[][] {
     const next = clean[i + 1];
 
     if (ch === '"') {
-      // Escaped quote
       if (inQuotes && next === '"') {
         cell += '"';
         i++;
@@ -89,13 +284,11 @@ function parseCsvRfc4180(text: string): string[][] {
     }
 
     if ((ch === '\n' || ch === '\r') && !inQuotes) {
-      // Handle CRLF
       if (ch === '\r' && next === '\n') i++;
 
       row.push(cell);
       cell = '';
 
-      // Skip completely empty lines
       const isEmpty = row.every((v) => v.trim() === '');
       if (!isEmpty) rows.push(row.map((v) => v.trim()));
 
@@ -106,7 +299,6 @@ function parseCsvRfc4180(text: string): string[][] {
     cell += ch;
   }
 
-  // last cell
   row.push(cell);
   if (!row.every((v) => v.trim() === '')) {
     rows.push(row.map((v) => v.trim()));
@@ -116,16 +308,14 @@ function parseCsvRfc4180(text: string): string[][] {
 }
 
 function findHeaderRowIndex(table: string[][]): number {
-  // LinkedIn export: scan until we find a row containing First Name + Last Name
-  const has = (r: string[], s: string) =>
-    r.some((c) => c.trim().toLowerCase() === s.toLowerCase());
+  const hasHeader = (r: string[], header: string) =>
+    r.some((c) => normalizeKey(c) === normalizeKey(header));
 
   for (let i = 0; i < table.length; i++) {
     const r = table[i];
-    if (has(r, 'First Name') && has(r, 'Last Name')) return i;
+    if (hasHeader(r, 'First Name') && hasHeader(r, 'Last Name')) return i;
   }
 
-  // fallback: first row
   return table.length > 0 ? 0 : -1;
 }
 
@@ -140,7 +330,6 @@ function parseCsvToObjects(text: string): Row[] {
   const out: Row[] = [];
 
   for (const r of dataRows) {
-    // ignore short / blank rows
     if (r.every((v) => v.trim() === '')) continue;
 
     const obj: Row = {};
@@ -149,11 +338,11 @@ function parseCsvToObjects(text: string): Row[] {
       obj[key] = (r[c] ?? '').trim();
     }
 
-    // If it looks like LinkedIn schema, add a derived full name field
-    const first = getField(obj, ['First Name', 'first_name', 'firstname']);
-    const last = getField(obj, ['Last Name', 'last_name', 'lastname']);
-    if (first || last) {
-      obj['Full Name'] = `${first} ${last}`.trim();
+    // Only synthesize a full name when the export did not already supply one.
+    if (!getField(obj, FULL_NAME_KEYS).trim()) {
+      const first = getField(obj, FIRST_NAME_KEYS);
+      const last = getField(obj, LAST_NAME_KEYS);
+      if (first || last) obj['Full Name'] = `${first} ${last}`.trim();
     }
 
     out.push(obj);
@@ -163,443 +352,116 @@ function parseCsvToObjects(text: string): Row[] {
 }
 
 // -----------------------------
-// Baseline (fallback) keyword scoring
+// Scoring (hard guards against stopword leakage)
 // -----------------------------
-function scoreRowKeyword(row: Row, tokens: string[]): RankedRow {
-  // LinkedIn fields (and fallbacks)
+function scoreRow(
+  row: Row,
+  titleTokens: string[],
+  rawCompanyTokens: string[],
+  criteriaNormalized: string,
+  roleQuery: boolean,
+  strictTitleOnly: boolean
+): RankedRow {
   const fullName =
-    getField(row, ['Full Name']) ||
-    `${getField(row, ['First Name', 'first_name', 'firstname'])} ${getField(row, [
-      'Last Name',
-      'last_name',
-      'lastname',
-    ])}`.trim();
+    getField(row, FULL_NAME_KEYS) ||
+    `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`.trim();
 
-  const position = getField(row, ['Position', 'title', 'role', 'position']);
-  const company = getField(row, ['Company', 'org', 'company', 'organization', 'firm']);
-  const email = getField(row, ['Email Address', 'email', 'email_address']);
-  const url = getField(row, ['URL', 'profile', 'linkedin', 'link']);
-  const connectedOn = getField(row, ['Connected On', 'connected_on', 'connectedon', 'date']);
+  const position = getField(row, POSITION_KEYS);
+  const company = getField(row, COMPANY_KEYS);
 
-  const allText = Object.values(row).map(toText).join(' ');
+  const pos = normalizeText(position);
+  const comp = normalizeText(company);
 
-  const fieldText = {
-    name: fullName.toLowerCase(),
-    position: position.toLowerCase(),
-    company: company.toLowerCase(),
-    email: email.toLowerCase(),
-    url: url.toLowerCase(),
-    connectedOn: connectedOn.toLowerCase(),
-    all: allText.toLowerCase(),
-  };
+  const companyTokens = filterCompanyTokens(rawCompanyTokens);
 
-  const weights = {
-    name: 6,
-    position: 4,
-    company: 4,
-    email: 2,
-    url: 2,
-    connectedOn: 1,
-    all: 1,
-  };
+  const phraseHit = criteriaNormalized.length >= 4 && pos.includes(criteriaNormalized);
 
-  const matchedByField: Record<keyof typeof fieldText, Set<string>> = {
-    name: new Set(),
-    position: new Set(),
-    company: new Set(),
-    email: new Set(),
-    url: new Set(),
-    connectedOn: new Set(),
-    all: new Set(),
-  };
+  const titleHits: string[] = [];
+  const companyHits: string[] = [];
+
+  for (const t of titleTokens) {
+    if (t && pos.includes(t)) titleHits.push(t);
+  }
+
+  for (const t of companyTokens) {
+    if (t && comp.includes(t)) companyHits.push(t);
+  }
+
+  const uniqTitle = Array.from(new Set(titleHits));
+  const uniqCompany = Array.from(new Set(companyHits));
+
+  if (roleQuery && strictTitleOnly && uniqTitle.length === 0 && !phraseHit) {
+    return { row, score: 0, matchedTokens: [], reasons: [] };
+  }
+
+  if (uniqTitle.length === 0 && uniqCompany.length === 0 && !phraseHit) {
+    return { row, score: 0, matchedTokens: [], reasons: [] };
+  }
 
   let score = 0;
+  const reasons: string[] = [];
 
-  for (const t of tokens) {
-    if (!t) continue;
+  if (phraseHit) {
+    score += 50;
+    reasons.push(`Title phrase match: "${criteriaNormalized}"`);
+  }
 
-    // Count token once, in the best matching field
-    const checks: Array<[keyof typeof fieldText, number]> = [
-      ['name', weights.name],
-      ['position', weights.position],
-      ['company', weights.company],
-      ['email', weights.email],
-      ['url', weights.url],
-      ['connectedOn', weights.connectedOn],
-      ['all', weights.all],
-    ];
+  if (uniqTitle.length) {
+    score += 20 * uniqTitle.length;
+    reasons.push(`Title match: ${uniqTitle.slice(0, 8).join(', ')}`);
+  }
 
-    for (const [field, w] of checks) {
-      if (fieldText[field].includes(t)) {
-        score += w;
-        matchedByField[field].add(t);
-        break;
-      }
+  if (uniqCompany.length) {
+    const base = 2 * uniqCompany.length;
+    const penalty = roleQuery && uniqTitle.length === 0 && !phraseHit ? 0.2 : 1.0;
+    score += Math.max(1, Math.floor(base * penalty));
+
+    if (roleQuery && uniqTitle.length === 0 && !phraseHit) {
+      reasons.push(`Weak match (company-only): ${uniqCompany.slice(0, 8).join(', ')}`);
+    } else {
+      reasons.push(`Company match: ${uniqCompany.slice(0, 8).join(', ')}`);
     }
   }
 
-  const matchedTokens = Array.from(
-    new Set(Object.values(matchedByField).flatMap((s) => Array.from(s)))
-  );
+  const nameLower = normalizeText(fullName);
+  for (const t of companyTokens) {
+    if (t && nameLower.includes(t)) score += 2;
+  }
 
-  const reasons: string[] = [];
-  const pushReason = (label: string, field: keyof typeof matchedByField) => {
-    const arr = Array.from(matchedByField[field]);
-    if (arr.length) reasons.push(`${label}: ${arr.slice(0, 8).join(', ')}`);
-  };
+  const matchedTokens = Array.from(new Set([...uniqTitle, ...uniqCompany]));
 
-  pushReason('Name match', 'name');
-  pushReason('Position match', 'position');
-  pushReason('Company match', 'company');
-  pushReason('Email match', 'email');
-
-  if (!reasons.length && matchedTokens.length) reasons.push(`Matched: ${matchedTokens.join(', ')}`);
+  if (roleQuery && (!position || position === '-' || position === '—')) {
+    reasons.push('Note: this connection has no title in the CSV export.');
+  }
 
   return { row, score, matchedTokens, reasons };
 }
 
-// -----------------------------
-// Lightweight “semantic” matcher (fully local)
-// TF-IDF + cosine similarity + small synonym/alias expansion
-// -----------------------------
+function compactRow(row: Row) {
+  const name =
+    getField(row, FULL_NAME_KEYS) ||
+    `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`.trim();
 
-// Very small stopword list (keeps vectors cleaner)
-const STOPWORDS = new Set([
-  'a','an','the','and','or','but','if','then','else','with','without','to','of','in','on','at','for','from','by','as',
-  'i','we','you','they','he','she','it','this','that','these','those','is','are','was','were','be','been','being',
-  'need','needs','looking','seeking','find','someone','person','candidate','intro','introduction'
-]);
-
-// Phrase/term expansions for common roles/abbreviations
-// (Extend this list over time as you see real queries.)
-const ALIASES: Record<string, string[]> = {
-  // --- Acronyms / shorthand ---
-  "cs": ["computer science", "software engineer", "software engineering", "developer", "programming", "coding", "swe", "data scientist", "data science"],
-  "swe": ["software engineer", "software developer", "engineer", "software development"],
-  "sde": ["software engineer", "software developer", "engineer", "software development"],
-  "pm": ["product manager", "product management", "product"],
-  "tpm": ["technical program manager", "program manager", "project manager"],
-  "pmo": ["program management", "project management"],
-  "sdr": ["sales development representative", "sales", "lead generation", "outbound"],
-  "bdr": ["business development representative", "sales", "lead generation", "outbound"],
-  "ae": ["account executive", "sales", "closing", "quota"],
-  "csm": ["customer success manager", "customer success", "account management", "retention"],
-  "revops": ["revenue operations", "sales operations", "marketing operations", "go-to-market operations"],
-  "salesops": ["sales operations", "revenue operations", "crm", "pipeline"],
-  "mops": ["marketing operations", "demand generation", "marketing automation"],
-  "fp&a": ["financial planning", "financial analysis", "finance", "budgeting", "forecasting"],
-
-  // --- Founder / leadership ---
-  "founder": ["cofounder", "ceo", "startup", "entrepreneur", "founding"],
-  "cofounder": ["founder", "ceo", "startup", "founding"],
-
-  "ceo": ["chief executive officer", "founder", "executive", "leadership", "strategy"],
-  "coo": ["chief operating officer", "operations", "operator", "scaling", "process"],
-  "cfo": ["chief financial officer", "finance", "fundraising", "fp&a", "controller", "accounting"],
-  "cto": ["chief technology officer", "engineering leader", "software", "architecture", "technical leadership"],
-  "cio": ["chief information officer", "it leader", "security", "systems"],
-  "ciso": ["chief information security officer", "security", "infosec", "risk"],
-  "cpo": ["chief product officer", "product leadership", "product strategy", "product management"],
-  "cmo": ["chief marketing officer", "marketing leadership", "growth", "brand", "demand gen"],
-  "cro": ["chief revenue officer", "sales leadership", "go-to-market", "revenue", "growth"],
-  "vp": ["vice president", "leadership", "head of"],
-  "director": ["head of", "leader", "management"],
-  "head": ["head of", "director", "leadership"],
-
-  // --- VC / investing (optional) ---
-  "partner": ["general partner", "gp", "investor", "venture capital"],
-  "principal": ["investor", "venture capital", "deal lead"],
-  "associate": ["investor", "venture capital", "sourcing"],
-  "analyst": ["research", "analysis", "investor"],
-  "venture": ["venture capital", "investor", "startup"],
-  "investor": ["venture capital", "angel", "capital", "funding"],
-
-  // --- Engineering families ---
-  "engineer": ["developer", "software engineer", "software developer", "engineering"],
-  "software engineer": ["developer", "software development", "programming", "coding", "computer science"],
-  "software developer": ["developer", "software engineer", "programming", "coding"],
-  "full stack": ["fullstack", "frontend", "backend", "web developer", "software engineer"],
-  "fullstack": ["full stack", "frontend", "backend", "web developer", "software engineer"],
-  "backend": ["back end", "api", "services", "software engineer"],
-  "back end": ["backend", "api", "services", "software engineer"],
-  "frontend": ["front end", "ui", "web developer", "software engineer"],
-  "front end": ["frontend", "ui", "web developer", "software engineer"],
-  "mobile": ["ios", "android", "mobile engineer", "app developer"],
-  "ios": ["mobile", "iphone", "swift", "mobile engineer"],
-  "android": ["mobile", "kotlin", "mobile engineer"],
-  "devops": ["site reliability", "sre", "infrastructure", "cloud", "ci/cd", "platform"],
-  "sre": ["site reliability engineer", "devops", "infrastructure", "reliability"],
-  "platform engineer": ["platform", "devops", "infrastructure", "cloud"],
-  "security": ["infosec", "application security", "ciso", "security engineer"],
-  "qa": ["quality assurance", "test engineer", "automation"],
-  "test engineer": ["qa", "quality assurance", "automation"],
-  "engineering manager": ["em", "people manager", "engineering leadership"],
-  "em": ["engineering manager", "engineering leadership"],
-
-  // --- Data / AI families ---
-  "data science": ["data scientist", "data analyst", "analytics", "machine learning", "ml", "statistics", "ai"],
-  "data scientist": ["data science", "machine learning", "ml", "statistics", "analytics"],
-  "ml engineer": ["machine learning engineer", "ml", "ai", "modeling", "data scientist"],
-  "machine learning": ["ml", "data scientist", "data science", "ai"],
-  "ml": ["machine learning", "data science", "data scientist", "ai"],
-  "ai": ["artificial intelligence", "machine learning", "ml", "data science"],
-  "data analyst": ["analytics", "business intelligence", "bi", "sql", "reporting"],
-  "bi": ["business intelligence", "analytics", "dashboards", "reporting"],
-  "analytics engineer": ["analytics", "data", "sql", "pipelines"],
-  "data engineer": ["data pipelines", "etl", "warehousing", "sql", "spark"],
-  "research scientist": ["research", "machine learning", "ai", "data science"],
-
-  // --- Product / design ---
-  "product manager": ["pm", "product management", "product strategy", "roadmap"],
-  "technical product manager": ["product manager", "pm", "technical", "engineering"],
-  "program manager": ["project manager", "tpm", "delivery", "operations"],
-  "project manager": ["program manager", "delivery", "coordination"],
-  "ux designer": ["product designer", "user experience", "ux", "ui"],
-  "ux": ["user experience", "product designer", "ux designer"],
-  "ui": ["user interface", "visual design", "product designer"],
-  "product designer": ["ux", "ui", "design", "user experience"],
-
-  // --- Sales / GTM ---
-  "sales": ["go-to-market", "gtm", "account executive", "business development", "revenue"],
-  "gtm": ["go-to-market", "sales", "marketing", "growth"],
-  "account executive": ["ae", "sales", "closing", "quota"],
-  "sales manager": ["sales leadership", "team lead", "revenue"],
-  "sales director": ["sales leadership", "vp sales", "revenue"],
-  "vp sales": ["sales leadership", "sales director", "revenue"],
-  "business development": ["biz dev", "partnerships", "alliances", "sales"],
-  "biz dev": ["business development", "partnerships", "alliances", "sales"],
-  "partnerships": ["business development", "alliances", "strategic partnerships"],
-  "customer success": ["csm", "retention", "account management"],
-  "customer success manager": ["csm", "customer success", "retention", "account management"],
-  "account manager": ["customer success", "retention", "renewals"],
-
-  // --- Marketing / growth ---
-  "marketing": ["growth", "demand generation", "content", "brand"],
-  "growth": ["marketing", "acquisition", "activation", "retention"],
-  "demand generation": ["demand gen", "performance marketing", "lead gen"],
-  "demand gen": ["demand generation", "performance marketing", "lead gen"],
-  "product marketing": ["positioning", "messaging", "go-to-market"],
-  "content marketing": ["content", "brand", "communications"],
-  "pr": ["public relations", "communications", "brand"],
-
-  // --- Ops / finance / legal / people ---
-  "operations": ["ops", "coo", "operator", "process", "scaling"],
-  "ops": ["operations", "coo", "operator", "process", "scaling"],
-  "finance": ["cfo", "fp&a", "accounting", "controller"],
-  "controller": ["accounting", "finance", "bookkeeping", "close"],
-  "accounting": ["controller", "finance", "bookkeeping"],
-  "legal": ["general counsel", "counsel", "contracts", "compliance"],
-  "counsel": ["lawyer", "legal", "contracts"],
-  "general counsel": ["legal", "lawyer", "contracts", "compliance"],
-  "hr": ["people ops", "talent", "recruiting", "human resources"],
-  "recruiter": ["recruiting", "talent acquisition", "hiring"],
-  "talent acquisition": ["recruiting", "recruiter", "hiring"],
-  "people ops": ["hr", "talent", "employee experience"],
-};
-
-function normalizeToken(t: string): string {
-  const cleaned = t
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
-
-  if (!cleaned) return '';
-  // Very light stemming for common suffixes
-  if (cleaned.length > 4) {
-    if (cleaned.endsWith('ing')) return cleaned.slice(0, -3);
-    if (cleaned.endsWith('ed')) return cleaned.slice(0, -2);
-    if (cleaned.endsWith('s')) return cleaned.slice(0, -1);
-  }
-  return cleaned;
+  return {
+    name: name || '(no name)',
+    position: getField(row, POSITION_KEYS) || '',
+    company: getField(row, COMPANY_KEYS) || '',
+    email: getField(row, EMAIL_KEYS) || '',
+    url: getField(row, URL_KEYS) || '',
+    connectedOn: getField(row, CONNECTED_ON_KEYS) || '',
+  };
 }
 
-function tokenizeForTfidf(text: string): string[] {
-  const raw = text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .split(/\s+/g)
-    .map((t) => normalizeToken(t))
-    .filter(Boolean)
-    .filter((t) => !STOPWORDS.has(t));
-
-  return raw;
-}
-
-function expandWithAliases(text: string): string {
-  const lower = text.toLowerCase();
-  const extras: string[] = [];
-
-  for (const [key, vals] of Object.entries(ALIASES)) {
-    // Use word boundaries for short keys like "cs", "ml", "pm"
-    if (key.length <= 3) {
-      const re = new RegExp(`\\b${key.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}\\b`, 'i');
-      if (re.test(lower)) extras.push(...vals);
-    } else {
-      if (lower.includes(key)) extras.push(...vals);
-    }
+async function fetchJsonOrThrow(resp: Response) {
+  const text = await resp.text();
+  try {
+    const j = JSON.parse(text);
+    if (!resp.ok) throw new Error(j?.error || text);
+    return j;
+  } catch {
+    if (!resp.ok) throw new Error(text);
+    return {};
   }
-
-  return extras.length ? `${text} ${extras.join(' ')}` : text;
-}
-
-type SparseVec = Map<number, number>;
-type TfidfIndex = {
-  tokenToIndex: Map<string, number>;
-  indexToToken: string[];
-  idf: Float32Array;
-  docVecs: SparseVec[];       // aligned with rows order
-  docNorms: Float32Array;     // aligned with rows order
-};
-
-function buildDocText(row: Row): string {
-  // Focus on the fields users tend to search on
-  const fullName =
-    getField(row, ['Full Name']) ||
-    `${getField(row, ['First Name', 'first_name', 'firstname'])} ${getField(row, [
-      'Last Name',
-      'last_name',
-      'lastname',
-    ])}`.trim();
-
-  const position = getField(row, ['Position', 'title', 'role', 'position']);
-  const company = getField(row, ['Company', 'org', 'company', 'organization', 'firm']);
-
-  const base = `${fullName} ${position} ${company}`.trim();
-
-  // Add alias expansions to help semantic-ish matching
-  return expandWithAliases(base);
-}
-
-function buildTfidfIndex(rows: Row[]): TfidfIndex | null {
-  if (!rows.length) return null;
-
-  // 1) Build vocabulary + df
-  const tokenToIndex = new Map<string, number>();
-  const indexToToken: string[] = [];
-  const df = new Map<number, number>();
-
-  const docTokens: string[][] = rows.map((r) => tokenizeForTfidf(buildDocText(r)));
-
-  for (const tokens of docTokens) {
-    const seen = new Set<number>();
-    for (const tok of tokens) {
-      let idx = tokenToIndex.get(tok);
-      if (idx === undefined) {
-        idx = indexToToken.length;
-        tokenToIndex.set(tok, idx);
-        indexToToken.push(tok);
-      }
-      if (!seen.has(idx)) {
-        seen.add(idx);
-        df.set(idx, (df.get(idx) ?? 0) + 1);
-      }
-    }
-  }
-
-  const N = rows.length;
-  const idfArr = new Float32Array(indexToToken.length);
-  for (let i = 0; i < indexToToken.length; i++) {
-    const dfi = df.get(i) ?? 0;
-    // Smooth IDF: log((N+1)/(df+1)) + 1
-    idfArr[i] = Math.log((N + 1) / (dfi + 1)) + 1;
-  }
-
-  // 2) Build per-doc TF-IDF sparse vectors + norms
-  const docVecs: SparseVec[] = [];
-  const docNorms = new Float32Array(N);
-
-  for (let di = 0; di < N; di++) {
-    const tokens = docTokens[di];
-    const counts = new Map<number, number>();
-    for (const tok of tokens) {
-      const idx = tokenToIndex.get(tok);
-      if (idx === undefined) continue;
-      counts.set(idx, (counts.get(idx) ?? 0) + 1);
-    }
-
-    const total = tokens.length || 1;
-    const vec: SparseVec = new Map();
-    let norm2 = 0;
-
-    for (const [idx, c] of counts.entries()) {
-      const tf = c / total;
-      const w = tf * idfArr[idx];
-      vec.set(idx, w);
-      norm2 += w * w;
-    }
-
-    docVecs.push(vec);
-    docNorms[di] = Math.sqrt(norm2) || 0;
-  }
-
-  return { tokenToIndex, indexToToken, idf: idfArr, docVecs, docNorms };
-}
-
-function buildQueryVec(index: TfidfIndex, query: string): { vec: SparseVec; norm: number } {
-  // Expand query with aliases (e.g., "cs" -> "software engineer", "data science" -> "data analyst", etc.)
-  const expanded = expandWithAliases(query);
-  const tokens = tokenizeForTfidf(expanded);
-
-  const counts = new Map<number, number>();
-  for (const tok of tokens) {
-    const idx = index.tokenToIndex.get(tok);
-    if (idx === undefined) continue;
-    counts.set(idx, (counts.get(idx) ?? 0) + 1);
-  }
-
-  const total = tokens.length || 1;
-  const vec: SparseVec = new Map();
-  let norm2 = 0;
-
-  for (const [idx, c] of counts.entries()) {
-    const tf = c / total;
-    const w = tf * index.idf[idx];
-    vec.set(idx, w);
-    norm2 += w * w;
-  }
-
-  return { vec, norm: Math.sqrt(norm2) || 0 };
-}
-
-function rankRowsSemantic(index: TfidfIndex, rows: Row[], criteria: string, limit: number): RankedRow[] {
-  const q = buildQueryVec(index, criteria);
-  if (!q.norm || q.vec.size === 0) return [];
-
-  const results: RankedRow[] = [];
-
-  for (let i = 0; i < rows.length; i++) {
-    const dVec = index.docVecs[i];
-    const dNorm = index.docNorms[i];
-    if (!dNorm) continue;
-
-    let dot = 0;
-    const contribs: Array<[number, number]> = [];
-
-    for (const [idx, qw] of q.vec.entries()) {
-      const dw = dVec.get(idx);
-      if (!dw) continue;
-      const c = qw * dw;
-      dot += c;
-      contribs.push([idx, c]);
-    }
-
-    const sim = dot / (dNorm * q.norm);
-    if (!Number.isFinite(sim) || sim <= 0) continue;
-
-    contribs.sort((a, b) => b[1] - a[1]);
-    const topTokens = contribs.slice(0, 8).map(([idx]) => index.indexToToken[idx]);
-
-    results.push({
-      row: rows[i],
-      // keep score roughly human-readable
-      score: Math.round(sim * 1000),
-      matchedTokens: topTokens,
-      reasons: topTokens.length ? [`Semantic match: ${topTokens.slice(0, 6).join(', ')}`] : [],
-    });
-  }
-
-  results.sort((a, b) => b.score - a.score);
-  return results.slice(0, limit);
 }
 
 // -----------------------------
@@ -608,8 +470,9 @@ function rankRowsSemantic(index: TfidfIndex, rows: Row[], criteria: string, limi
 const RecommenderScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  // stagedRows: parsed rows immediately after upload
-  // confirmedRows: the snapshot after user clicks "Confirm Connections"
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [fileName, setFileName] = useState<string>('');
   const [stagedRows, setStagedRows] = useState<Row[]>([]);
   const [confirmedRows, setConfirmedRows] = useState<Row[]>([]);
@@ -619,27 +482,35 @@ const RecommenderScreen: React.FC = () => {
   const [criteria, setCriteria] = useState<string>('');
   const [results, setResults] = useState<RankedRow[]>([]);
 
-  // Preview pagination (so “all connections” is browsable even for thousands)
   const [pageSize, setPageSize] = useState<number>(50);
   const [pageIndex, setPageIndex] = useState<number>(0);
 
+  const [aiReranking, setAiReranking] = useState(false);
+  const [aiError, setAiError] = useState<string>('');
+  const [aiInfo, setAiInfo] = useState<string>('');
+  const [saveInfo, setSaveInfo] = useState<string>('');
+  const [saving, setSaving] = useState<boolean>(false);
+
+  const [strictTitleOnly, setStrictTitleOnly] = useState<boolean>(false);
+
   const hasStaged = stagedRows.length > 0;
   const isConfirmed = confirmedRows.length > 0;
-
   const canSearch = isConfirmed && criteria.trim().length > 0;
 
-  // Precompute TF-IDF index whenever the confirmed dataset changes
-  const tfidfIndex = useMemo(() => buildTfidfIndex(confirmedRows), [confirmedRows]);
-
   const stats = useMemo(() => {
+    const sample = stagedRows.slice(0, 500);
+    const missingTitles = sample.filter((r) => !getField(r, POSITION_KEYS).trim()).length;
+    const pctMissing = sample.length ? Math.round((missingTitles / sample.length) * 100) : 0;
+
     return {
       stagedCount: stagedRows.length,
       confirmedCount: confirmedRows.length,
       colCount: columns.length,
+      pctMissingTitle: pctMissing,
     };
   }, [stagedRows, confirmedRows, columns]);
 
-  const previewRows = stagedRows; // show what was loaded (before confirm)
+  const previewRows = stagedRows;
   const totalPages = Math.max(1, Math.ceil(previewRows.length / pageSize));
   const safePageIndex = Math.min(pageIndex, totalPages - 1);
 
@@ -651,24 +522,37 @@ const RecommenderScreen: React.FC = () => {
   function resetForNewFile(newFileName: string) {
     setFileName(newFileName);
     setError('');
+    setAiError('');
+    setAiInfo('');
+    setSaveInfo('');
     setResults([]);
     setCriteria('');
-    setConfirmedRows([]); // require confirm again
+    setConfirmedRows([]);
     setPageIndex(0);
   }
 
   async function handleFile(file: File) {
+    datasetVersion.current += 1;
     resetForNewFile(file.name);
 
-    const text = await file.text();
-
     try {
+      // Reading the file can reject (permissions, the file moved, a decode
+      // error); keep that inside the same catch as the parse failures.
+      const text = await file.text();
+
       let parsed: Row[] = [];
 
       if (file.name.toLowerCase().endsWith('.json')) {
         const json = JSON.parse(text);
         if (!Array.isArray(json)) throw new Error('JSON must be an array of objects.');
-        parsed = json as Row[];
+
+        const objects = json.filter(
+          (r: unknown): r is Row =>
+            r != null && typeof r === 'object' && !Array.isArray(r)
+        );
+        if (!objects.length) throw new Error('JSON file must be an array of objects.');
+
+        parsed = objects;
       } else if (file.name.toLowerCase().endsWith('.csv')) {
         parsed = parseCsvToObjects(text);
       } else {
@@ -677,11 +561,8 @@ const RecommenderScreen: React.FC = () => {
 
       if (!parsed.length) throw new Error('No rows found in file.');
 
-      // Collect columns (sample first 100 rows)
       const colSet = new Set<string>();
-      for (const r of parsed.slice(0, 100)) {
-        Object.keys(r).forEach((k) => colSet.add(k));
-      }
+      for (const r of parsed.slice(0, 100)) Object.keys(r).forEach((k) => colSet.add(k));
 
       setStagedRows(parsed);
       setColumns(Array.from(colSet));
@@ -695,47 +576,263 @@ const RecommenderScreen: React.FC = () => {
 
   function confirmConnections() {
     if (!hasStaged) return;
+    if (saving) return; // a save for this dataset is already in flight
 
-    // Snapshot: later this is where you'd write to Firestore tied to a user.
+    datasetVersion.current += 1;
     setConfirmedRows(stagedRows);
     setResults([]);
     setCriteria('');
+    setAiError('');
+
+    try {
+      const compact = stagedRows.map(compactRow);
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(compact));
+      setAiInfo(`AI dataset updated (${compact.length.toLocaleString()} connections).`);
+    } catch {
+      setAiInfo('AI dataset could not be stored (sessionStorage blocked).');
+    }
+
+    // Fire-and-forget: persist to the signed-in user's account. Local search must
+    // work immediately and must not wait on (or fail because of) this write.
+    const user = getAuth().currentUser;
+    if (user) {
+      const rowsToSave = stagedRows;
+      setSaving(true);
+      setSaveInfo(`Saving ${rowsToSave.length.toLocaleString()} connections to your account…`);
+
+      void saveConnections(user.uid, rowsToSave)
+        .then((n) => setSaveInfo(`Saved ${n.toLocaleString()} connections to your account.`))
+        .catch((e: any) =>
+          setSaveInfo(`Could not save to account: ${e?.message ?? 'unknown error'}`)
+        )
+        .finally(() => setSaving(false));
+    } else {
+      setSaveInfo('');
+    }
   }
 
+  // Load the account-saved connections when arriving from
+  // ConnectionsScreen's "Use in Recommender" button.
+  const accountLoadStarted = useRef(false);
+
+  // Bumped whenever the user replaces the dataset (upload, confirm, clear). The
+  // account load samples it before awaiting Firestore and drops its result if it
+  // changed, so a slow read can never overwrite a newer dataset.
+  const datasetVersion = useRef(0);
+
+  useEffect(() => {
+    const wantsAccountLoad = (location.state as any)?.loadFromAccount === true;
+    if (!wantsAccountLoad || accountLoadStarted.current) return;
+    accountLoadStarted.current = true;
+
+    // Consume the route state so a refresh doesn't re-trigger the load.
+    // NOTE: this changes location.state, which re-runs this effect; the ref
+    // above (not a cleanup-cancel flag) is what keeps the in-flight load alive.
+    navigate('.', { replace: true, state: null });
+
+    const user = getAuth().currentUser;
+    if (!user) {
+      setError('Sign in to load the connections saved to your account.');
+      return;
+    }
+    const uid = user.uid;
+
+    void (async () => {
+      const version = datasetVersion.current;
+
+      setError('');
+      setSaveInfo('Loading your saved connections…');
+
+      // The read is slow enough for the user to sign out, switch accounts, or
+      // upload/clear/confirm another dataset meanwhile. In any of those cases the
+      // result is stale: drop it instead of writing it to state or sessionStorage.
+      const stale = () =>
+        getAuth().currentUser?.uid !== uid || datasetVersion.current !== version;
+
+      try {
+        const docs = await loadConnections(uid);
+        if (stale()) return;
+
+        const rows: Row[] = docs.map(docToRow);
+
+        const colSet = new Set<string>();
+        for (const r of rows.slice(0, 100)) Object.keys(r).forEach((k) => colSet.add(k));
+
+        setFileName(`Saved connections (${rows.length.toLocaleString()})`);
+        setColumns(Array.from(colSet));
+        setStagedRows(rows);
+        setConfirmedRows(rows);
+        setResults([]);
+        setCriteria('');
+        setAiError('');
+        setPageIndex(0);
+        setSaveInfo(`Loaded ${rows.length.toLocaleString()} connections from your account.`);
+
+        try {
+          const compact = docs.map(docToCompact);
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify(compact));
+          setAiInfo(`AI dataset updated (${compact.length.toLocaleString()} connections).`);
+        } catch {
+          setAiInfo('AI dataset could not be stored (sessionStorage blocked).');
+        }
+      } catch (e: any) {
+        if (stale()) return;
+        setSaveInfo('');
+        setError(e?.message ?? 'Failed to load saved connections.');
+      }
+    })();
+  }, [location.state, navigate]);
+
   function clearLoaded() {
+    datasetVersion.current += 1;
+
+    // The cached dataset is what AIScreen reads, so clearing here must clear
+    // there too -- otherwise the AI tab keeps answering from a dataset the user
+    // just removed.
+    try {
+      sessionStorage.removeItem(SESSION_KEY);
+    } catch {
+      // sessionStorage blocked; there is nothing cached to clear.
+    }
+
     setFileName('');
     setStagedRows([]);
     setConfirmedRows([]);
     setColumns([]);
     setError('');
+    setAiError('');
+    setAiInfo('');
+    setSaveInfo('');
     setResults([]);
     setCriteria('');
     setPageIndex(0);
   }
 
   function runSearch() {
+    setAiError('');
+    setAiInfo('');
     if (!canSearch) return;
 
-    // 1) Try local semantic ranking (TF-IDF + cosine + alias expansion)
-    if (tfidfIndex) {
-      const semantic = rankRowsSemantic(tfidfIndex, confirmedRows, criteria, MAX_RESULTS);
-      if (semantic.length) {
-        setResults(semantic);
-        return;
-      }
+    const roleQuery = isRoleQuery(criteria);
+    const expanded = expandWithAliases(criteria);
+
+    const titleTokens = tokenizeQuery(expanded);
+    const companyTokens = tokenizeQuery(criteria);
+    const critNorm = normalizeText(criteria);
+
+    const rankedAll = confirmedRows
+      .map((r) => scoreRow(r, titleTokens, companyTokens, critNorm, roleQuery, strictTitleOnly))
+      .filter((r) => r.score > 0)
+      .sort((a, b) => b.score - a.score);
+
+    const top = rankedAll.slice(0, MAX_RESULTS);
+    setResults(top);
+
+    if (roleQuery && strictTitleOnly && top.length === 0) {
+      setAiInfo('No results. Turn off “Strict title-only” because many CSV rows have blank titles.');
+    } else if (top.length === 0) {
+      setAiInfo('No results. Try broader criteria (e.g., “engineer” or “sales”).');
+    } else {
+      setAiInfo('Search complete. Company-only matches are flagged “Weak”.');
+    }
+  }
+
+  async function aiRerank() {
+    setAiError('');
+    setAiInfo('');
+
+    if (!criteria.trim()) {
+      setAiError('Enter criteria first.');
+      return;
+    }
+    if (!isConfirmed) {
+      setAiError('Confirm connections first.');
+      return;
     }
 
-    // 2) Fallback: weighted keyword matching
-    const tokens = tokenizeQuery(expandWithAliases(criteria));
-    if (!tokens.length) return;
+    const roleQuery = isRoleQuery(criteria);
+    const expanded = expandWithAliases(criteria);
 
-    const ranked = confirmedRows
-      .map((r) => scoreRowKeyword(r, tokens))
+    const titleTokens = tokenizeQuery(expanded);
+    const companyTokens = tokenizeQuery(criteria);
+    const critNorm = normalizeText(criteria);
+
+    const scoredAll = confirmedRows
+      .map((r) => scoreRow(r, titleTokens, companyTokens, critNorm, roleQuery, strictTitleOnly))
       .filter((r) => r.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .slice(0, MAX_RESULTS);
+      .sort((a, b) => b.score - a.score);
 
-    setResults(ranked);
+    const pool = scoredAll.slice(0, AI_POOL_SIZE);
+    if (!pool.length) {
+      setAiError('No candidates available for AI rerank. Try a broader query or disable strict mode.');
+      return;
+    }
+
+    const candidates: CandidateSummary[] = pool.map((p, i) => {
+      const row = p.row;
+      const name =
+        getField(row, FULL_NAME_KEYS) ||
+        `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`.trim() ||
+        '(no name)';
+
+      return {
+        id: `c${i}`,
+        name,
+        position: getField(row, POSITION_KEYS) || '',
+        company: getField(row, COMPANY_KEYS) || '',
+        email: getField(row, EMAIL_KEYS) || '',
+        url: getField(row, URL_KEYS) || '',
+        connectedOn: getField(row, CONNECTED_ON_KEYS) || '',
+      };
+    });
+
+    setAiReranking(true);
+    try {
+      const resp = await fetch(`${AI_BASE}/gemini/rerank`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ criteria: expanded, candidates }),
+      });
+
+      const data = await fetchJsonOrThrow(resp);
+      const recs: Array<{ id: string; reason?: string }> = data?.recommendations ?? [];
+
+      if (!Array.isArray(recs) || recs.length === 0) {
+        setAiError('AI returned no recommendations.');
+        return;
+      }
+
+      const idToIndex = new Map<string, number>();
+      candidates.forEach((c, idx) => idToIndex.set(c.id, idx));
+
+      const newResults: RankedRow[] = [];
+      for (const r of recs.slice(0, MAX_RESULTS)) {
+        const idx = idToIndex.get(r.id);
+        if (idx == null) continue;
+        const original = pool[idx];
+        if (!original) continue;
+
+        // ✅ FIX: show full reason (lenient extraction)
+        const cleaned = sanitizeAiReason(String(r.reason ?? ''));
+
+        newResults.push({
+          ...original,
+          reasons: [...(original.reasons ?? []), ...(cleaned ? [`AI: ${cleaned}`] : [])],
+        });
+      }
+
+      if (!newResults.length) {
+        setAiError('AI rerank result mapping failed.');
+        return;
+      }
+
+      setResults(newResults);
+      setAiInfo('AI rerank applied.');
+    } catch (e: any) {
+      setAiError(e?.message ?? 'AI rerank failed.');
+    } finally {
+      setAiReranking(false);
+    }
   }
 
   return (
@@ -746,35 +843,29 @@ const RecommenderScreen: React.FC = () => {
         <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
 
         <div className="p-4 md:p-8 pb-20 max-w-7xl mx-auto w-full space-y-6">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-white">
-                Connection Recommender (Prototype)
-              </h1>
-              <p className="text-slate-400 mt-1 text-sm">
-                Upload a LinkedIn Connections CSV (or JSON), confirm, and search using a local semantic matcher (TF-IDF).
-              </p>
-            </div>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white">Connection Recommender</h1>
+            <p className="text-slate-400 mt-1 text-sm">
+              Upload CSV → Review → Confirm → Search (AI reasons now render fully even with quotes).
+            </p>
           </div>
 
-          {/* Upload + dataset summary */}
+          {/* Upload */}
           <div className="glass-panel rounded-xl p-4 md:p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                  Network file
-                </p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Network file</p>
                 <div className="flex items-center gap-2">
                   <Icon name="upload_file" className="text-primary" />
-                  <p className="font-semibold text-white">
-                    {fileName ? fileName : 'No file loaded'}
-                  </p>
+                  <p className="font-semibold text-white">{fileName ? fileName : 'No file loaded'}</p>
                 </div>
+
                 {hasStaged && (
                   <p className="text-sm text-slate-400 mt-1">
                     Loaded {stats.stagedCount.toLocaleString()} connections • {stats.colCount} columns detected
+                    <span className="ml-2 text-slate-500">• ~{stats.pctMissingTitle}% missing titles</span>
                     {isConfirmed ? (
-                      <span className="ml-2 text-primary font-bold">• Ready to search</span>
+                      <span className="ml-2 text-primary font-bold">• Confirmed</span>
                     ) : (
                       <span className="ml-2 text-slate-500">• Not confirmed</span>
                     )}
@@ -817,9 +908,27 @@ const RecommenderScreen: React.FC = () => {
                 {error}
               </div>
             )}
+
+            {aiInfo && (
+              <div className="mt-4 bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
+                {aiInfo}
+              </div>
+            )}
+
+            {saveInfo && (
+              <div className="mt-4 bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
+                {saveInfo}
+              </div>
+            )}
+
+            {aiError && (
+              <div className="mt-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
+                {aiError}
+              </div>
+            )}
           </div>
 
-          {/* Preview connections + confirm */}
+          {/* Preview + Confirm */}
           <div className="glass-panel rounded-xl p-4 md:p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
@@ -827,9 +936,7 @@ const RecommenderScreen: React.FC = () => {
                   Loaded connections (preview)
                 </p>
                 <p className="text-sm text-slate-400">
-                  {hasStaged
-                    ? `Browse the full list (paginated). Then confirm to enable search.`
-                    : `Upload a CSV/JSON to preview connections here.`}
+                  {hasStaged ? `Browse the list. Confirm to enable search + AI tab.` : `Upload a CSV/JSON to preview.`}
                 </p>
               </div>
 
@@ -853,13 +960,13 @@ const RecommenderScreen: React.FC = () => {
 
                 <button
                   onClick={confirmConnections}
-                  disabled={!hasStaged}
+                  disabled={!hasStaged || saving}
                   className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                    hasStaged ? 'bg-primary hover:bg-primary/90 text-white' : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
+                    hasStaged && !saving ? 'bg-primary hover:bg-primary/90 text-white' : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
                   }`}
                 >
                   <Icon name={isConfirmed ? 'check_circle' : 'check'} className="text-sm" />
-                  <span>{isConfirmed ? 'Confirmed' : 'Confirm Connections'}</span>
+                  <span>{saving ? 'Saving…' : isConfirmed ? 'Confirmed' : 'Confirm Connections'}</span>
                 </button>
               </div>
             </div>
@@ -907,51 +1014,24 @@ const RecommenderScreen: React.FC = () => {
                         <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Position</th>
                         <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Company</th>
                         <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Connected On</th>
-                        <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Email</th>
-                        <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">URL</th>
                       </tr>
                     </thead>
                     <tbody>
                       {previewSlice.map((r, i) => {
                         const name =
-                          getField(r, ['Full Name']) ||
-                          `${getField(r, ['First Name', 'first_name', 'firstname'])} ${getField(r, [
-                            'Last Name',
-                            'last_name',
-                            'lastname',
-                          ])}`.trim() ||
+                          getField(r, FULL_NAME_KEYS) ||
+                          `${getField(r, FIRST_NAME_KEYS)} ${getField(r, LAST_NAME_KEYS)}`.trim() ||
                           '(no name)';
-
-                        const pos = getField(r, ['Position', 'title', 'role', 'position']);
-                        const comp = getField(r, ['Company', 'org', 'company', 'organization', 'firm']);
-                        const connectedOn = getField(r, ['Connected On', 'connected_on', 'connectedon', 'date']);
-                        const email = getField(r, ['Email Address', 'email', 'email_address']);
-                        const url = getField(r, ['URL', 'profile', 'linkedin', 'link']);
+                        const pos = getField(r, POSITION_KEYS) || '—';
+                        const comp = getField(r, COMPANY_KEYS) || '—';
+                        const connectedOn = getField(r, CONNECTED_ON_KEYS) || '—';
 
                         return (
                           <tr key={`${safePageIndex}-${i}`} className="border-b border-white/5 hover:bg-white/5">
                             <td className="p-3 font-bold text-slate-100 whitespace-nowrap">{name}</td>
-                            <td className="p-3 text-slate-300">{pos || <span className="text-slate-600">—</span>}</td>
-                            <td className="p-3 text-slate-300">{comp || <span className="text-slate-600">—</span>}</td>
-                            <td className="p-3 text-slate-400 whitespace-nowrap">
-                              {connectedOn || <span className="text-slate-600">—</span>}
-                            </td>
-                            <td className="p-3 text-slate-400">{email || <span className="text-slate-600">—</span>}</td>
-                            <td className="p-3">
-                              {url ? (
-                                <a
-                                  className="text-primary hover:underline inline-flex items-center gap-1"
-                                  href={url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  <Icon name="open_in_new" className="text-sm" />
-                                  <span className="text-xs font-bold">Open</span>
-                                </a>
-                              ) : (
-                                <span className="text-slate-600">—</span>
-                              )}
-                            </td>
+                            <td className="p-3 text-slate-300">{pos}</td>
+                            <td className="p-3 text-slate-300">{comp}</td>
+                            <td className="p-3 text-slate-400 whitespace-nowrap">{connectedOn}</td>
                           </tr>
                         );
                       })}
@@ -965,45 +1045,67 @@ const RecommenderScreen: React.FC = () => {
           {/* Search + Results */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
             <div className="lg:col-span-7 glass-panel rounded-xl p-4 md:p-6">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                Criteria
-              </p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Criteria</p>
+
               <textarea
                 value={criteria}
                 onChange={(e) => setCriteria(e.target.value)}
-                placeholder="Example: computer science, data science, healthcare, CTO, fundraising..."
+                placeholder="Example: software engineer, sales, VP Sales, CTO, data scientist..."
                 className="w-full min-h-[120px] mac-input rounded-lg p-3 text-sm text-slate-100 placeholder:text-slate-500"
                 disabled={!isConfirmed}
               />
 
-              <div className="mt-4 flex items-center justify-between gap-3">
+              <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+                <input
+                  type="checkbox"
+                  checked={strictTitleOnly}
+                  onChange={(e) => setStrictTitleOnly(e.target.checked)}
+                  disabled={!isConfirmed}
+                />
+                <span className="font-bold">Strict title-only</span>
+                <span className="text-slate-500">
+                  — blocks company-only matches, may return 0 if titles are missing.
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs text-slate-500">
-                  {!hasStaged
-                    ? 'Load a file first.'
-                    : !isConfirmed
-                    ? 'Confirm connections to enable search.'
-                    : 'Uses TF-IDF + aliases (local/offline).'}
+                  Title matches are prioritized. Company-only matches are marked “Weak”.
                 </p>
 
-                <button
-                  onClick={runSearch}
-                  disabled={!canSearch}
-                  className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                    canSearch
-                      ? 'bg-primary hover:bg-primary/90 text-white'
-                      : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
-                  }`}
-                >
-                  <Icon name="search" className="text-sm" />
-                  <span>Search</span>
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={runSearch}
+                    disabled={!canSearch}
+                    className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
+                      canSearch
+                        ? 'bg-primary hover:bg-primary/90 text-white'
+                        : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
+                    }`}
+                  >
+                    <Icon name="search" className="text-sm" />
+                    <span>Search</span>
+                  </button>
+
+                  <button
+                    onClick={aiRerank}
+                    disabled={!canSearch || aiReranking}
+                    className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] border ${
+                      !canSearch || aiReranking
+                        ? 'bg-white/5 text-slate-600 border-white/10 cursor-not-allowed'
+                        : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
+                    }`}
+                    title="Use Gemini (via local proxy) to rerank best candidates and provide stronger reasons."
+                  >
+                    <Icon name="smart_toy" className="text-sm" />
+                    <span>{aiReranking ? 'Reranking…' : 'AI Rerank'}</span>
+                  </button>
+                </div>
               </div>
             </div>
 
             <div className="lg:col-span-5 glass-panel rounded-xl p-4 md:p-6">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                Top Matches
-              </p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Top Matches</p>
 
               {!isConfirmed ? (
                 <div className="text-sm text-slate-400">Confirm the loaded connections to run a search.</div>
@@ -1013,19 +1115,12 @@ const RecommenderScreen: React.FC = () => {
                 <div className="space-y-3">
                   {results.map((r, idx) => {
                     const name =
-                      getField(r.row, ['Full Name']) ||
-                      `${getField(r.row, ['First Name', 'first_name', 'firstname'])} ${getField(r.row, [
-                        'Last Name',
-                        'last_name',
-                        'lastname',
-                      ])}`.trim() ||
+                      getField(r.row, FULL_NAME_KEYS) ||
+                      `${getField(r.row, FIRST_NAME_KEYS)} ${getField(r.row, LAST_NAME_KEYS)}`.trim() ||
                       '(no name)';
 
-                    const title = getField(r.row, ['Position', 'title', 'role', 'position']);
-                    const org = getField(r.row, ['Company', 'org', 'company', 'organization', 'firm']);
-                    const email = getField(r.row, ['Email Address', 'email', 'email_address']);
-                    const url = getField(r.row, ['URL', 'profile', 'linkedin', 'link']);
-                    const connectedOn = getField(r.row, ['Connected On', 'connected_on', 'connectedon', 'date']);
+                    const title = getField(r.row, POSITION_KEYS);
+                    const org = getField(r.row, COMPANY_KEYS);
 
                     return (
                       <div
@@ -1046,38 +1141,9 @@ const RecommenderScreen: React.FC = () => {
                           </div>
                         </div>
 
-                        {(email || connectedOn) && (
-                          <div className="mt-2 text-[11px] text-slate-400 space-y-1">
-                            {email && (
-                              <p>
-                                Email: <span className="text-slate-300">{email}</span>
-                              </p>
-                            )}
-                            {connectedOn && (
-                              <p>
-                                Connected On: <span className="text-slate-300">{connectedOn}</span>
-                              </p>
-                            )}
-                          </div>
-                        )}
-
-                        {url && (
-                          <div className="mt-2">
-                            <a
-                              className="text-xs text-primary hover:underline inline-flex items-center gap-1"
-                              href={url}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <Icon name="open_in_new" className="text-sm" />
-                              <span>Profile</span>
-                            </a>
-                          </div>
-                        )}
-
                         {r.reasons.length > 0 && (
                           <div className="mt-3 text-xs text-slate-300 space-y-1">
-                            {r.reasons.slice(0, 3).map((reason, i) => (
+                            {r.reasons.slice(0, 5).map((reason, i) => (
                               <p key={i} className="text-slate-400">
                                 <span className="text-slate-300 font-bold">•</span> {reason}
                               </p>
@@ -1107,7 +1173,6 @@ const RecommenderScreen: React.FC = () => {
         </div>
       </main>
 
-      {/* Decorative Background Orbs */}
       <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] md:w-[40%] md:h-[40%] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none"></div>
       <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] md:w-[30%] md:h-[30%] bg-blue-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
     </div>

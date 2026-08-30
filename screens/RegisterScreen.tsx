@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '../components/Icon';
-import { auth, googleProvider } from '../firebase';
+import { auth, googleProvider, describeAuthError } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 
 const RegisterScreen: React.FC = () => {
@@ -19,18 +19,27 @@ const RegisterScreen: React.FC = () => {
     setError('');
     setLoading(true);
 
+    let userCredential;
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Update the user's profile with their name
+      userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setError(describeAuthError(err));
+      setLoading(false);
+      return;
+    }
+
+    // The account exists from here on: a failed display-name update must not be
+    // reported as a failed signup.
+    try {
       if (userCredential.user) {
         await updateProfile(userCredential.user, { displayName: name });
       }
-      navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Failed to create an account.');
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      console.warn('Account created, but setting the display name failed:', err);
     }
+
+    setLoading(false);
+    navigate('/dashboard');
   };
 
   const handleGoogleSignIn = async () => {
@@ -39,8 +48,8 @@ const RegisterScreen: React.FC = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in with Google.');
+    } catch (err) {
+      setError(describeAuthError(err));
     } finally {
       setLoading(false);
     }

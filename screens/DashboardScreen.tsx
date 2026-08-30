@@ -136,7 +136,7 @@ const DashboardScreen: React.FC = () => {
                         <Cell
                           key={`cell-${index}`}
                           fill="#135bec"
-                          fillOpacity={0.3 + (index * 0.1)}
+                          fillOpacity={Math.min(1, 0.3 + (index * 0.1))}
                           className="hover:fill-primary hover:opacity-100 transition-all duration-300 cursor-pointer"
                         />
                       ))}

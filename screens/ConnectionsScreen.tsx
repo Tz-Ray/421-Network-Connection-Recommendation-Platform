@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
@@ -6,17 +6,7 @@ import { Icon } from '../components/Icon';
 import { getAuth } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-
-type ConnectionDoc = {
-  firstName?: string | null;
-  lastName?: string | null;
-  fullName?: string | null;
-  company?: string | null;
-  position?: string | null;
-  email?: string | null;
-  url?: string | null;
-  connectedOnRaw?: string | null;
-};
+import type { ConnectionDoc } from '../lib/connectionsStore';
 
 const DEFAULT_PAGE_SIZE = 50;
 
@@ -32,7 +22,13 @@ const ConnectionsScreen: React.FC = () => {
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [pageIndex, setPageIndex] = useState(0);
 
+  // Only the newest request may write state: a slow first read must not land on
+  // top of a faster Refresh issued after it.
+  const requestId = useRef(0);
+
   async function loadConnections() {
+    const myRequest = ++requestId.current;
+
     setLoading(true);
     setError('');
 
@@ -43,13 +39,16 @@ const ConnectionsScreen: React.FC = () => {
       const col = collection(db, 'users', user.uid, 'connections');
       const snap = await getDocs(col);
 
+      if (myRequest !== requestId.current) return;
+
       const data = snap.docs.map((d) => d.data() as ConnectionDoc);
       setRows(data);
     } catch (e: any) {
+      if (myRequest !== requestId.current) return;
       setError(e?.message ?? 'Failed to load connections.');
       setRows([]);
     } finally {
-      setLoading(false);
+      if (myRequest === requestId.current) setLoading(false);
     }
   }
 
@@ -102,7 +101,7 @@ const ConnectionsScreen: React.FC = () => {
 
               <button
                 onClick={() => navigate('/recommender', { state: { loadFromAccount: true } })}
-                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10"
+                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={rows.length === 0}
               >
                 <Icon name="bolt" className="text-sm" />
@@ -111,7 +110,8 @@ const ConnectionsScreen: React.FC = () => {
 
               <button
                 onClick={() => void loadConnections()}
-                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10"
+                disabled={loading}
+                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Icon name="refresh" className="text-sm" />
                 <span>Refresh</span>
