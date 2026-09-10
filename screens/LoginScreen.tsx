@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '../components/Icon';
 import { auth, googleProvider, describeAuthError } from '../firebase';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 const LoginScreen: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [resetNotice, setResetNotice] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setResetNotice('');
     setLoading(true);
 
     try {
@@ -26,8 +28,32 @@ const LoginScreen: React.FC = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    setError('');
+    setResetNotice('');
+
+    const target = email.trim();
+    if (!target) {
+      setError('Enter your email above first.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, target);
+      // Neutral copy on purpose: email-enumeration protection means Firebase
+      // does not tell us whether the address exists, and we must not either.
+      setResetNotice('If an account exists for that email, a reset link has been sent.');
+    } catch (err) {
+      setError(describeAuthError(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleGoogleSignIn = async () => {
     setError('');
+    setResetNotice('');
     setLoading(true);
     try {
       await signInWithPopup(auth, googleProvider);
@@ -64,7 +90,7 @@ const LoginScreen: React.FC = () => {
       <main className="relative z-10 w-full max-w-[360px] flex flex-col items-center animate-fade-in-up">
         <div className="mb-8 sm:mb-10 text-center">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white drop-shadow-lg mb-2">Welcome Back</h1>
-          <p className="text-sm text-white/60 font-medium">Access your investment dashboard</p>
+          <p className="text-sm text-white/60 font-medium">Find the right person in your own network</p>
         </div>
 
         <div className="bg-[#101622]/40 backdrop-blur-[25px] border border-white/10 w-full p-6 sm:p-8 rounded-2xl shadow-2xl transition-all duration-300 hover:bg-[#101622]/50 hover:border-white/20">
@@ -72,6 +98,13 @@ const LoginScreen: React.FC = () => {
             <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-2 text-red-400">
               <Icon name="error_outline" className="text-lg shrink-0 mt-0.5" />
               <p className="text-xs font-medium leading-relaxed">{error}</p>
+            </div>
+          )}
+
+          {resetNotice && (
+            <div className="mb-4 p-3 bg-white/5 border border-white/10 rounded-xl flex items-start gap-2 text-white/70">
+              <Icon name="mark_email_read" outlined className="text-lg shrink-0 mt-0.5" />
+              <p className="text-xs font-medium leading-relaxed">{resetNotice}</p>
             </div>
           )}
           
@@ -118,7 +151,12 @@ const LoginScreen: React.FC = () => {
         </div>
 
         <div className="mt-6 flex flex-col items-center w-full">
-          <button className="text-xs font-medium text-white/50 hover:text-white transition-colors mb-6 sm:mb-8">
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            disabled={loading}
+            className="text-xs font-medium text-white/50 hover:text-white disabled:opacity-50 transition-colors mb-6 sm:mb-8"
+          >
             Forgot Password?
           </button>
           

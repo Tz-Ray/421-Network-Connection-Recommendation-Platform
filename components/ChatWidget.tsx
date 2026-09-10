@@ -3,6 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { collection, getDocs } from 'firebase/firestore';
 import { Icon } from './Icon';
 import { db } from '../firebase';
+import { PROXY_URL, proxyFetch } from '../lib/proxyClient';
 
 type ChatMessage = {
   role: 'user' | 'model';
@@ -24,8 +25,6 @@ type ConnectionDoc = {
   position?: string | null;
 };
 
-const AI_BASE = (import.meta as any).env?.VITE_AI_PROXY_URL || 'http://localhost:8787';
-const PROXY_CHAT_URL = `${AI_BASE}/gemini/chat`;
 
 function buildCandidates(rows: ConnectionDoc[], fallbackName: string): ProxyCandidate[] {
   const mapped = rows
@@ -169,11 +168,8 @@ const ChatWidget: React.FC = () => {
       const loaded = candidatesRef.current.length ? candidatesRef.current : candidates;
       const safeCandidates = loaded.length ? loaded : buildCandidates([], fallbackName);
 
-      const response = await fetch(PROXY_CHAT_URL, {
+      const response = await proxyFetch('/gemini/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           query,
           messages: toProxyMessages(nextMessages),
@@ -199,7 +195,7 @@ const ChatWidget: React.FC = () => {
         ...prev,
         {
           role: 'model',
-          parts: `I could not reach the Gemini proxy right now. Check that ${AI_BASE} is running and try again.`,
+          parts: `I could not reach the Gemini proxy right now. Check that ${PROXY_URL || 'the AI proxy'} is running and try again.`,
         },
       ]);
     } finally {

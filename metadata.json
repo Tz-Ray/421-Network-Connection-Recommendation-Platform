@@ -1,5 +1,5 @@
 {
   "name": "Connection Recommender",
-  "description": "A venture capital portfolio management dashboard.",
+  "description": "A recommender that ranks a user's own LinkedIn connections against stated criteria and explains who to reach out to first.",
   "requestFramePermissions": []
 }

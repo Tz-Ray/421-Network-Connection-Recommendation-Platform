@@ -1,6 +1,7 @@
 import http from "node:http";
 import { URL } from "node:url";
 import dotenv from "dotenv";
+import * as jose from "jose";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -31,6 +32,52 @@ function resolvePort(raw) {
 
 const PORT = resolvePort(process.env.AI_PROXY_PORT);
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+// --- Auth / abuse-control configuration (read once at startup) --------------
+
+// Firebase project whose ID tokens this proxy accepts. `.env` already carries
+// VITE_FIREBASE_PROJECT_ID for the frontend, so no new value is required.
+const FIREBASE_PROJECT_ID = String(
+  process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || ""
+).trim();
+// Without a project id we cannot verify anything; protected routes then answer
+// 503 instead of silently accepting every caller. /health stays public.
+const AUTH_CONFIGURED = FIREBASE_PROJECT_ID !== "";
+
+const DEFAULT_ALLOWED_ORIGINS = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://connectionrecommender.web.app",
+  "https://connectionrecommender.firebaseapp.com",
+];
+const ALLOWED_ORIGINS = new Set(
+  String(process.env.AI_PROXY_ALLOWED_ORIGINS || "")
+    .split(",")
+    .map((o) => o.trim().replace(/\/+$/, ""))
+    .filter(Boolean)
+);
+if (ALLOWED_ORIGINS.size === 0) {
+  for (const o of DEFAULT_ALLOWED_ORIGINS) ALLOWED_ORIGINS.add(o);
+}
+
+function resolveLimit(raw, fallback, name) {
+  if (raw === undefined || raw === null || String(raw).trim() === "") return fallback;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1) {
+    console.warn(`Invalid ${name} "${raw}" (want a positive integer); using ${fallback}.`);
+    return fallback;
+  }
+  return n;
+}
+
+// Per-uid caps. The Gemini free tier is 20 requests/day/model, so these exist to
+// stop one signed-in account from spending the whole key.
+const RATE_LIMIT_PER_MIN = resolveLimit(process.env.AI_RATE_LIMIT_PER_MIN, 10, "AI_RATE_LIMIT_PER_MIN");
+const RATE_LIMIT_PER_DAY = resolveLimit(process.env.AI_RATE_LIMIT_PER_DAY, 40, "AI_RATE_LIMIT_PER_DAY");
+
+// Test aid: answer with canned JSON and make no Gemini network call at all.
+// Never set this permanently in .env.local.
+const GEMINI_MOCK = /^(1|true|yes|on)$/i.test(String(process.env.GEMINI_MOCK || "").trim());
 
 // Normalize model so it works whether user sets "gemini-2.5-flash" or "models/gemini-2.5-flash"
 function normalizeModel(raw) {
@@ -70,10 +117,127 @@ function sendText(res, status, text) {
   res.end(text);
 }
 
+// --- Firebase ID token verification ----------------------------------------
+
+// Google's public signing keys for Firebase ID tokens. Created once; `jose`
+// caches the key set and refetches only when it sees an unknown `kid`.
+const FIREBASE_JWKS = jose.createRemoteJWKSet(
+  new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
+);
+
+/**
+ * Verifies `Authorization: Bearer <Firebase ID token>` and returns the caller.
+ * Throws httpError(401) on anything unverifiable, with a generic message: the
+ * underlying JWT error is logged, never echoed to the client.
+ */
+async function verifyIdToken(req) {
+  if (!AUTH_CONFIGURED) throw httpError(503, "Proxy auth is not configured.");
+
+  const header = String(req.headers.authorization || "").trim();
+  const match = /^Bearer\s+(\S+)$/i.exec(header);
+  if (!match) throw httpError(401, "Sign in to use the AI proxy.");
+
+  let payload;
+  try {
+    ({ payload } = await jose.jwtVerify(match[1], FIREBASE_JWKS, {
+      issuer: `https://securetoken.google.com/${FIREBASE_PROJECT_ID}`,
+      audience: FIREBASE_PROJECT_ID,
+      algorithms: ["RS256"],
+    }));
+  } catch (e) {
+    console.warn(`Rejected ID token: ${String(e?.message || e).slice(0, 200)}`);
+    throw httpError(401, "Sign in again to use the AI proxy.");
+  }
+
+  // email_verified is deliberately NOT required: email/password accounts are
+  // unverified by default and are legitimate users here.
+  const uid = typeof payload.sub === "string" ? payload.sub.trim() : "";
+  if (!uid) throw httpError(401, "Sign in again to use the AI proxy.");
+  return { uid, email: typeof payload.email === "string" ? payload.email : null };
+}
+
+// --- Per-uid rate limiting (in memory, per proxy process) -------------------
+
+const RATE_WINDOW_MS = 60_000;
+const RATE_PRUNE_INTERVAL_MS = 10 * 60_000;
+const RATE_IDLE_MS = 24 * 60 * 60_000;
+/** uid -> { minute: number[], day: { key, used }, lastSeen } */
+const rateBuckets = new Map();
+
+function utcDayKey(now) {
+  return new Date(now).toISOString().slice(0, 10);
+}
+
+function secondsUntilUtcMidnight(now) {
+  const d = new Date(now);
+  const next = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1);
+  return Math.max(1, Math.ceil((next - now) / 1000));
+}
+
+function rateLimitError(retryAfter, message) {
+  const err = httpError(429, message);
+  err.retryAfter = retryAfter;
+  return err;
+}
+
+/** Counts one request for `uid`. Throws httpError(429) with `retryAfter` on breach. */
+function rateLimit(uid) {
+  const now = Date.now();
+  let bucket = rateBuckets.get(uid);
+  if (!bucket) {
+    bucket = { minute: [], day: { key: utcDayKey(now), used: 0 }, lastSeen: now };
+    rateBuckets.set(uid, bucket);
+  }
+  bucket.lastSeen = now;
+
+  // Sliding 60s window.
+  bucket.minute = bucket.minute.filter((t) => now - t < RATE_WINDOW_MS);
+  if (bucket.minute.length >= RATE_LIMIT_PER_MIN) {
+    const retryAfter = Math.max(1, Math.ceil((RATE_WINDOW_MS - (now - bucket.minute[0])) / 1000));
+    throw rateLimitError(retryAfter, `Rate limit reached. Try again in ${retryAfter} seconds.`);
+  }
+
+  const dayKey = utcDayKey(now);
+  if (bucket.day.key !== dayKey) bucket.day = { key: dayKey, used: 0 };
+  if (bucket.day.used >= RATE_LIMIT_PER_DAY) {
+    const retryAfter = secondsUntilUtcMidnight(now);
+    throw rateLimitError(retryAfter, `Rate limit reached. Try again in ${retryAfter} seconds.`);
+  }
+
+  bucket.minute.push(now);
+  bucket.day.used += 1;
+}
+
+const ratePruneTimer = setInterval(() => {
+  const now = Date.now();
+  for (const [uid, bucket] of rateBuckets) {
+    if (now - bucket.lastSeen > RATE_IDLE_MS) rateBuckets.delete(uid);
+  }
+}, RATE_PRUNE_INTERVAL_MS);
+ratePruneTimer.unref?.();
+
+// --- CORS -------------------------------------------------------------------
+
+/**
+ * Allowlist CORS. Returns false when an Origin header is present but not
+ * allowed; in that case no ACAO header is emitted (and preflights get a 403).
+ * Requests with no Origin (curl, scripts) pass here and are still authenticated.
+ */
 function setCors(res, origin) {
-  res.setHeader("Access-Control-Allow-Origin", origin || "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (!origin) return true;
+
+  const normalized = String(origin).trim().replace(/\/+$/, "");
+  if (!ALLOWED_ORIGINS.has(normalized)) {
+    res.setHeader("Vary", "Origin");
+    return false;
+  }
+
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Vary", "Origin");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Max-Age", "600");
+  return true;
 }
 
 const MAX_BODY_BYTES = 2 * 1024 * 1024; // 2 MB
@@ -378,9 +542,26 @@ async function callGeminiModel({ model, system, user, maxOutputTokens, temperatu
   return { outText, parsedJson, model };
 }
 
+// GEMINI_MOCK stand-in: canned JSON of exactly the shape the handlers parse, so
+// tests exercise the whole request path without spending free-tier quota.
+function mockGeminiReply({ kind, user }) {
+  // formatCandidates() emits lines like "1) id=c0 | name=... | position=...".
+  const ids = [];
+  const re = /^\s*\d+\)\s*id=([^\s|]+)/gm;
+  let m;
+  while ((m = re.exec(String(user || ""))) !== null) {
+    ids.push(m[1]);
+    if (ids.length >= 2) break;
+  }
+  const recommendations = ids.map((id) => ({ id, reason: "mock" }));
+  const payload = kind === "chat" ? { answer: "Mock answer.", recommendations } : { recommendations };
+  return { outText: JSON.stringify(payload), parsedJson: payload, model: `${MODEL} (mock)` };
+}
+
 // Calls Gemini (primary model, then GEMINI_FALLBACK_MODEL if the primary is
 // rate-limited / out of quota / unavailable). Returns BOTH raw text and parsed JSON.
-async function callGemini({ system, user, maxOutputTokens = 900, temperature = 0.2 }) {
+async function callGemini({ system, user, maxOutputTokens = 900, temperature = 0.2, kind = "rerank" }) {
+  if (GEMINI_MOCK) return mockGeminiReply({ kind, user });
   if (!GEMINI_API_KEY) {
     throw new Error("GEMINI_API_KEY is missing. Put it in root .env.local");
   }
@@ -411,6 +592,7 @@ async function callGeminiStrictJSON({ criteria, candidates }) {
     user,
     maxOutputTokens: 1400,
     temperature: 0.0,
+    kind: "rerank",
   });
 }
 
@@ -476,6 +658,7 @@ async function handleRerank(body) {
     user,
     maxOutputTokens: 1400,
     temperature: 0.2,
+    kind: "rerank",
   });
 
   // Try JSON response
@@ -551,6 +734,7 @@ async function handleChat(body) {
     user,
     maxOutputTokens: 1400,
     temperature: 0.3,
+    kind: "chat",
   });
 
   // Preferred: parseable JSON
@@ -583,23 +767,33 @@ const server = http.createServer(async (req, res) => {
   const u = new URL(req.url || "/", "http://localhost");
   const origin = req.headers.origin;
 
-  setCors(res, origin);
+  const originAllowed = setCors(res, origin);
 
   if (req.method === "OPTIONS") {
+    if (!originAllowed) return sendJson(res, 403, { error: "Origin not allowed." });
     res.writeHead(204);
     return res.end();
   }
 
   try {
+    // Public: the only route that works without a token.
     if (req.method === "GET" && u.pathname === "/health") {
       return sendJson(res, 200, {
         ok: true,
         model: MODEL,
         keyLoaded: !!GEMINI_API_KEY,
         fallbackModel: FALLBACK_MODEL || null,
+        mock: GEMINI_MOCK,
+        authConfigured: AUTH_CONFIGURED,
         hint: 'Set GEMINI_MODEL like "gemini-2.5-flash" (no "models/")',
       });
     }
+
+    // Everything below costs money or leaks configuration: authenticate first,
+    // then charge the caller's rate-limit budget BEFORE reading the body, so a
+    // flood of malformed requests counts too.
+    const { uid } = await verifyIdToken(req);
+    rateLimit(uid);
 
     if (req.method === "GET" && u.pathname === "/models") {
       const models = await listModels();
@@ -625,6 +819,7 @@ const server = http.createServer(async (req, res) => {
     return sendText(res, 404, "Not found");
   } catch (e) {
     const status = Number.isFinite(e?.status) ? e.status : 500;
+    if (Number.isFinite(e?.retryAfter)) res.setHeader("Retry-After", String(e.retryAfter));
     return sendJson(res, status, { error: String(e?.message || e) });
   }
 });
@@ -633,4 +828,15 @@ server.listen(PORT, () => {
   console.log(`AI proxy running on http://localhost:${PORT}`);
   console.log(`Model: ${MODEL}`);
   console.log(`Key loaded: ${GEMINI_API_KEY ? "YES" : "NO"}`);
+  console.log(`Rate limit: ${RATE_LIMIT_PER_MIN}/min, ${RATE_LIMIT_PER_DAY}/day per user`);
+  console.log(`Allowed origins: ${[...ALLOWED_ORIGINS].join(", ")}`);
+  if (GEMINI_MOCK) console.log("GEMINI_MOCK=1: no Gemini calls will be made.");
+  if (AUTH_CONFIGURED) {
+    console.log(`Auth: Firebase ID tokens for project ${FIREBASE_PROJECT_ID}`);
+  } else {
+    console.warn(
+      "WARNING: no FIREBASE_PROJECT_ID / VITE_FIREBASE_PROJECT_ID. " +
+        "Every route except /health will answer 503 until one is set."
+    );
+  }
 });

@@ -68,7 +68,7 @@ const RegisterScreen: React.FC = () => {
           
           <div className="text-center mb-6 sm:mb-8">
             <h1 className="text-white text-xl sm:text-2xl font-bold tracking-tight">Create Account</h1>
-            <p className="text-slate-400 text-sm mt-1">Join the venture capital network</p>
+            <p className="text-slate-400 text-sm mt-1">Turn your LinkedIn connections into a shortlist</p>
           </div>
 
           {error && (

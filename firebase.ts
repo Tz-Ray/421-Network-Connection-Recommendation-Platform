@@ -47,6 +47,7 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/email-already-in-use': 'An account with this email already exists.',
   'auth/weak-password': 'Password must be at least 6 characters.',
   'auth/invalid-email': 'Enter a valid email address.',
+  'auth/missing-email': 'Enter your email above first.',
   'auth/too-many-requests': 'Too many attempts. Try again later.',
   'auth/network-request-failed': 'Network error. Check your connection.',
 };

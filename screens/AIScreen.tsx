@@ -6,6 +6,7 @@ import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
 import { SESSION_KEY, docToCompact, loadConnections } from '../lib/connectionsStore';
 import type { CompactConnection } from '../lib/connectionsStore';
+import { proxyFetch } from '../lib/proxyClient';
 
 type ChatMsg = { role: 'user' | 'assistant'; text: string };
 
@@ -20,7 +21,6 @@ type CandidateForModel = {
 };
 
 const MAX_CANDIDATES = 50;
-const AI_BASE = (import.meta as any).env?.VITE_AI_PROXY_URL || 'http://localhost:8787';
 
 function tokenize(q: string) {
   return q
@@ -216,9 +216,8 @@ async function callGeminiChat(args: {
   history: Array<{ role: 'user' | 'assistant'; text: string }>;
   candidates: CandidateForModel[];
 }) {
-  const resp = await fetch(`${AI_BASE}/gemini/chat`, {
+  const resp = await proxyFetch('/gemini/chat', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       query: args.prompt,
       messages: args.history,
@@ -229,9 +228,8 @@ async function callGeminiChat(args: {
 }
 
 async function callGeminiRerank(args: { criteria: string; candidates: CandidateForModel[] }) {
-  const resp = await fetch(`${AI_BASE}/gemini/rerank`, {
+  const resp = await proxyFetch('/gemini/rerank', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       criteria: args.criteria,
       candidates: args.candidates,

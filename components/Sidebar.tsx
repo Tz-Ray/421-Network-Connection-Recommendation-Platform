@@ -55,10 +55,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       >
         <div className="p-6 md:p-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+            <div className="w-10 h-10 shrink-0 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
               <Icon name="insights" className="text-white text-2xl" />
             </div>
-            <span className="font-extrabold text-xl tracking-tight text-white">App Name<span className="text-primary">.</span></span>
+            <span className="font-extrabold text-xl tracking-tight text-white">Connection Recommender<span className="text-primary">.</span></span>
           </div>
 
           <button
@@ -122,18 +122,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </button>
         </nav>
 
-        <div className="p-4 mt-auto mb-4">
-          <div className="bg-primary/10 rounded-xl p-4 border border-primary/20 hover:border-primary/40 transition-colors cursor-pointer group">
-            <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Fund II Status</p>
-            <div className="flex justify-between items-end mb-2">
-              <span className="text-lg font-bold text-slate-100 group-hover:text-white transition-colors">84%</span>
-              <span className="text-xs text-slate-400">Deployed</span>
-            </div>
-            <div className="w-full bg-primary/20 h-1.5 rounded-full overflow-hidden">
-              <div className="bg-primary h-full rounded-full transition-all duration-1000 group-hover:brightness-125" style={{ width: '84%' }}></div>
-            </div>
-          </div>
-        </div>
       </aside>
     </>
   );

@@ -30,6 +30,7 @@ dist-ssr
 CLAUDE.md
 CLAUDE.local.md
 .claude/
+docs/
 
 # Firebase CLI local cache
 .firebase/

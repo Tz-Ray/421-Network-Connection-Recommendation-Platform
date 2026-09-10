@@ -20,6 +20,7 @@ import {
   loadConnections,
   saveConnections,
 } from '../lib/connectionsStore';
+import { proxyFetch } from '../lib/proxyClient';
 
 type Row = Record<string, unknown>;
 
@@ -42,7 +43,6 @@ type CandidateSummary = {
 
 const MAX_RESULTS = 10;
 const AI_POOL_SIZE = 50;
-const AI_BASE = (import.meta as any).env?.VITE_AI_PROXY_URL || 'http://localhost:8787';
 
 // -----------------------------
 // Aliases (INTENDED for title matching)
@@ -788,9 +788,8 @@ const RecommenderScreen: React.FC = () => {
 
     setAiReranking(true);
     try {
-      const resp = await fetch(`${AI_BASE}/gemini/rerank`, {
+      const resp = await proxyFetch('/gemini/rerank', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ criteria: expanded, candidates }),
       });
 
