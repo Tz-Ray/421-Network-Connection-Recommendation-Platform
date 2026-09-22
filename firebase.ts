@@ -50,14 +50,21 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/missing-email': 'Enter your email above first.',
   'auth/too-many-requests': 'Too many attempts. Try again later.',
   'auth/network-request-failed': 'Network error. Check your connection.',
+  'auth/expired-action-code': 'This reset link has expired. Use "Forgot Password?" on the sign-in page to get a new one.',
+  'auth/invalid-action-code': 'This reset link is invalid or has already been used. Use "Forgot Password?" on the sign-in page to get a new one.',
+  'auth/user-disabled': 'This account has been disabled.',
+  'auth/password-does-not-meet-requirements': 'That password does not meet the requirements.',
 };
 
-/** Maps a Firebase auth error to friendly copy; never surfaces raw SDK text. */
-export function describeAuthError(err: unknown): string {
+/**
+ * Maps a Firebase auth error to friendly copy; never surfaces raw SDK text.
+ * Unmapped codes return `fallback`.
+ */
+export function describeAuthError(err: unknown, fallback = 'Sign-in failed. Please try again.'): string {
   const code =
     typeof err === 'object' && err !== null && 'code' in err
       ? String((err as { code?: unknown }).code ?? '')
       : '';
 
-  return AUTH_ERROR_MESSAGES[code] ?? 'Sign-in failed. Please try again.';
+  return AUTH_ERROR_MESSAGES[code] ?? fallback;
 }
