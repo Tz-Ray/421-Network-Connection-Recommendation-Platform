@@ -1,5 +1,5 @@
 {
-  "name": "clever-app-name",
+  "name": "network-connection-recommendation-platform",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -22,15 +22,22 @@
     "typescript": "~5.8.2",
     "vite": "^6.4.1"
   },
-  "description": "**Prerequisites:**  Node.js",
+  "description": "Ranks a user's own LinkedIn connections against plain-language criteria and explains who to reach out to first.",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "linkedin",
+    "connections",
+    "recommendation",
+    "firebase",
+    "gemini",
+    "react"
+  ],
+  "author": "Tz-Ray Wang and Alan Qiu",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues"
   },

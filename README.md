@@ -22,8 +22,8 @@ readable and writable only by you.
 
 This is the course-421 project of Tz-Ray Wang and Alan Qiu. The frontend is Vite, React 19 and TypeScript;
 authentication and storage are Firebase Auth and Cloud Firestore; the AI features go through a small Node
-proxy that holds the Gemini API key server-side so it never reaches the browser. Sprint materials and a
-full requirements and traceability document are linked under Additional Documentation below.
+proxy that holds the Gemini API key server-side so it never reaches the browser. Sprint materials are
+linked under Additional Documentation below.
 
 ## Installation
 
@@ -113,8 +113,10 @@ firebase deploy --only firestore    # after editing firestore.rules
 
 1. **Register or log in.** Open http://localhost:3000. You land on `/login`. Create an account at
    `/register` with an email and password, or use the Google button on either screen. "Forgot Password?"
-   sends a Firebase reset email to the address typed in the email field. Signed-in users who visit `/login`
-   are sent straight to `/dashboard`.
+   sends a Firebase reset email to the address typed in the email field. The app also has its own
+   `/reset-password` page for choosing the new password; the emailed link opens it once the Firebase
+   project's email action URL (Authentication, Templates) points at the deployed site, and until then it
+   opens Firebase's hosted reset page. Signed-in users who visit `/login` are sent straight to `/dashboard`.
 2. **Upload your connections.** Go to Recommender in the sidebar. Download your connections from LinkedIn
    (Settings, Data privacy, Get a copy of your data, Connections) and drop the `.csv` in. A `.json` file with
    a top-level array of objects also works. The parser skips LinkedIn's "Notes:" preamble and recognizes the
@@ -153,17 +155,15 @@ firebase deploy --only firestore    # after editing firestore.rules
   `GEMINI_FALLBACK_MODEL` buys one more model's daily budget.
 - The CSV parser finds the header row by looking for one containing both "First Name" and "Last Name"; if no
   row matches (renamed columns, a non-English export) it falls back to treating row 0 as the header
-  (`screens/RecommenderScreen.tsx:316`), which for a real LinkedIn export is the "Notes:" preamble. Only
+  (`screens/RecommenderScreen.tsx:319`), which for a real LinkedIn export is the "Notes:" preamble. Only
   comma-delimited, UTF-8 files are handled; there is no delimiter detection, no encoding handling beyond a
   BOM strip, no row cap and no per-row error reporting.
 - A connection that matches nothing in your query scores 0 and is filtered out of results entirely
   (`screens/RecommenderScreen.tsx:725`), so rows with a missing title or company can be invisible rather than
   ranked low (issue #30).
 - Saving connections replaces the whole collection and is serialized only within one browser tab
-  (`lib/connectionsStore.ts:148-153`). Confirming uploads from two tabs or two devices at the same time can
+  (`lib/connectionsStore.ts:142-153`). Confirming uploads from two tabs or two devices at the same time can
   interleave.
-- Repository metadata is still partly scaffold: `package.json` is named `clever-app-name`, its `description`
-  field holds a stray fragment, and no LICENSE file exists (see License below).
 
 ## Contributing
 
@@ -182,9 +182,8 @@ firebase deploy --only firestore    # after editing firestore.rules
 
 ## License
 
-No license file has been added to this repository yet, so the code is currently "all rights reserved" by
-default and nobody else has permission to reuse it. The team should pick a license and add it as
-`LICENSE.txt`; the course template recommends the MIT license
-(<https://choosealicense.com/licenses/mit/>). Note that `package.json` currently declares `"license": "ISC"`,
-which does not match any file in the repo; whichever license is chosen, that field should be updated to agree
-with it.
+Copyright (c) 2026 Tz-Ray Wang and Alan Qiu. All rights reserved.
+
+This project was built at a client's request, and no open-source license has been granted. The code is
+publicly viewable for course review only; it may not be used, copied, modified or redistributed without
+written permission from the authors. See [LICENSE](LICENSE).
