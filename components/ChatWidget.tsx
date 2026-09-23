@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
 import { Icon } from './Icon';
-import { db } from '../firebase';
+import { docToRow, loadConnections, loadNetworkContext } from '../lib/connectionsStore';
+import type { ConnectionDoc, NetworkContext } from '../lib/connectionsStore';
+import { buildAiContext, relationshipSignals } from '../lib/relationship';
 import { PROXY_URL, proxyFetch } from '../lib/proxyClient';
 
 type ChatMessage = {
@@ -15,21 +16,23 @@ type ProxyCandidate = {
   name: string;
   position?: string;
   company?: string;
+  relationship?: string; // relationshipSignals(...).aiSummary; omitted when empty
 };
 
-type ConnectionDoc = {
-  firstName?: string | null;
-  lastName?: string | null;
-  fullName?: string | null;
-  company?: string | null;
-  position?: string | null;
-};
-
-
-function buildCandidates(rows: ConnectionDoc[], fallbackName: string): ProxyCandidate[] {
+function buildCandidates(
+  rows: ConnectionDoc[],
+  fallbackName: string,
+  ctx: NetworkContext | null = null
+): ProxyCandidate[] {
+  // Warmest first: the proxy only sees 120 candidates, so a large network sends
+  // the connections the user knows best. Array.sort is stable, so equal bonuses
+  // keep Firestore order.
+  const now = new Date();
   const mapped = rows
+    .map((row) => ({ row, rel: relationshipSignals(docToRow(row), ctx, now) }))
+    .sort((a, b) => b.rel.bonus - a.rel.bonus)
     .slice(0, 120)
-    .map((row, index) => {
+    .map(({ row, rel }, index) => {
       const joinedName = `${row.firstName ?? ''} ${row.lastName ?? ''}`.trim();
       const name = (row.fullName || joinedName || `Connection ${index + 1}`).trim();
       const position = (row.position || '').trim();
@@ -40,6 +43,7 @@ function buildCandidates(rows: ConnectionDoc[], fallbackName: string): ProxyCand
         name,
         position: position || undefined,
         company: company || undefined,
+        ...(rel.aiSummary ? { relationship: rel.aiSummary } : {}),
       };
     });
 
@@ -104,6 +108,8 @@ const ChatWidget: React.FC = () => {
   // closed-over state) so a message typed right after opening the widget is not
   // sent with the single placeholder candidate.
   const candidatesRef = useRef<ProxyCandidate[]>([]);
+  // buildAiContext(...) of the account's network context; '' when there is none.
+  const contextRef = useRef('');
   const candidatesLoadRef = useRef<Promise<void> | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
 
@@ -125,12 +131,15 @@ const ChatWidget: React.FC = () => {
           return;
         }
 
-        const col = collection(db, 'users', user.uid, 'connections');
-        const snap = await getDocs(col);
-        const rows = snap.docs.map((d) => d.data() as ConnectionDoc);
+        // The context is optional: a failed read must not cost the candidates.
+        const [rows, ctx] = await Promise.all([
+          loadConnections(user.uid),
+          loadNetworkContext(user.uid).catch(() => null),
+        ]);
 
-        const built = buildCandidates(rows, fallbackName);
+        const built = buildCandidates(rows, fallbackName, ctx);
         candidatesRef.current = built;
+        contextRef.current = buildAiContext(ctx);
         setCandidates(built);
       } catch {
         const built = buildCandidates([], 'Network Contact');
@@ -167,6 +176,7 @@ const ChatWidget: React.FC = () => {
       if (candidatesLoadRef.current) await candidatesLoadRef.current;
       const loaded = candidatesRef.current.length ? candidatesRef.current : candidates;
       const safeCandidates = loaded.length ? loaded : buildCandidates([], fallbackName);
+      const context = contextRef.current;
 
       const response = await proxyFetch('/gemini/chat', {
         method: 'POST',
@@ -174,6 +184,7 @@ const ChatWidget: React.FC = () => {
           query,
           messages: toProxyMessages(nextMessages),
           candidates: safeCandidates,
+          ...(context ? { context } : {}),
         }),
       });
 

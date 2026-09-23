@@ -271,16 +271,36 @@ async function readJson(req) {
   }
 }
 
+// Optional relationship (per-candidate) / context (per-request) strings from the
+// client: accept strings only, collapse all whitespace (incl. newlines) to one
+// space, replace '|' with '/' (formatCandidates uses '|' as a field separator,
+// and the mock parser keys off it), trim, then cap length.
+const RELATIONSHIP_MAX_LEN = 200;
+const CONTEXT_MAX_LEN = 600;
+function sanitizeAiText(raw, maxLen) {
+  if (typeof raw !== "string") return "";
+  return raw.replace(/\s+/g, " ").replace(/\|/g, "/").trim().slice(0, maxLen);
+}
+
 // Keep only entries the prompt/normalizer can actually use: real objects with a
-// non-empty string or finite number id.
+// non-empty string or finite number id. Also sanitizes the optional
+// `relationship` string (or drops it if it's missing/invalid/blank).
 function filterValidCandidates(candidates) {
   if (!Array.isArray(candidates)) return [];
-  return candidates.filter((c) => {
-    if (!c || typeof c !== "object" || Array.isArray(c)) return false;
-    const id = c.id;
-    if (typeof id === "number") return Number.isFinite(id);
-    return typeof id === "string" && id.trim() !== "";
-  });
+  return candidates
+    .filter((c) => {
+      if (!c || typeof c !== "object" || Array.isArray(c)) return false;
+      const id = c.id;
+      if (typeof id === "number") return Number.isFinite(id);
+      return typeof id === "string" && id.trim() !== "";
+    })
+    .map((c) => {
+      const relationship = sanitizeAiText(c.relationship, RELATIONSHIP_MAX_LEN);
+      const next = { ...c };
+      if (relationship) next.relationship = relationship;
+      else delete next.relationship;
+      return next;
+    });
 }
 
 function formatCandidates(candidates) {
@@ -292,6 +312,7 @@ function formatCandidates(candidates) {
         `name=${c.name}`,
         c.position ? `position=${c.position}` : "",
         c.company ? `company=${c.company}` : "",
+        c.relationship ? `relationship=${c.relationship}` : "",
       ].filter(Boolean);
       return `${i + 1}) ${bits.join(" | ")}`;
     })
@@ -576,7 +597,7 @@ async function callGemini({ system, user, maxOutputTokens = 900, temperature = 0
 }
 
 // Stricter second-pass call when Gemini ignores JSON the first time.
-async function callGeminiStrictJSON({ criteria, candidates }) {
+async function callGeminiStrictJSON({ criteria, candidates, context }) {
   const system =
     "Return ONLY a JSON object. No markdown. No prose. No code fences. " +
     "You MUST ONLY recommend from the provided candidate ids exactly (like c0, c1, c2...). " +
@@ -584,6 +605,7 @@ async function callGeminiStrictJSON({ criteria, candidates }) {
 
   const user =
     `CRITERIA:\n${criteria}\n\n` +
+    (context ? `About the user: ${context}\n\n` : "") +
     `CANDIDATES:\n${formatCandidates(candidates)}\n\n` +
     `Return EXACTLY the JSON object described.`;
 
@@ -633,6 +655,7 @@ function normalizeRecs(recs, candidates) {
 async function handleRerank(body) {
   const criteria = String(body?.criteria ?? "").trim();
   const candidates = body?.candidates;
+  const context = sanitizeAiText(body?.context, CONTEXT_MAX_LEN);
 
   if (!criteria) throw httpError(400, "Missing criteria.");
   if (!Array.isArray(candidates) || candidates.length === 0) {
@@ -644,12 +667,16 @@ async function handleRerank(body) {
 
   // Pass 1: normal call
   const system =
-    "You are helping a VC team pick the best intro candidates from a provided list. " +
+    "You are helping a professional choose whom in their own network to contact first. " +
+    "Relevance to the criteria comes first; among people who are comparably relevant, prefer " +
+    "the one with a stronger relationship, and mention the relationship in the reason when it " +
+    "matters. " +
     "You MUST ONLY recommend from the provided candidates using ids like c0,c1,c2... " +
     'Return ONLY JSON: {"recommendations":[{"id":string,"reason":string}]}';
 
   const user =
     `Criteria:\n${criteria}\n\n` +
+    (context ? `About the user: ${context}\n\n` : "") +
     `Candidates:\n${formatCandidates(pool)}\n\n` +
     `Return the best 10 candidate ids in ranked order with a short reason each.`;
 
@@ -675,7 +702,7 @@ async function handleRerank(body) {
   if (extractedNorm.length > 0) return { recommendations: extractedNorm };
 
   // Pass 2: strict JSON coercion
-  const strict = await callGeminiStrictJSON({ criteria, candidates: pool });
+  const strict = await callGeminiStrictJSON({ criteria, candidates: pool, context });
   const strictJson = strict.parsedJson;
 
   recs =
@@ -704,6 +731,7 @@ async function handleChat(body) {
   const query = String(body?.query ?? "").trim();
   const candidates = body?.candidates;
   const messages = Array.isArray(body?.messages) ? body.messages.slice(-8) : [];
+  const context = sanitizeAiText(body?.context, CONTEXT_MAX_LEN);
 
   if (!query) throw httpError(400, "Missing query.");
   if (!Array.isArray(candidates) || candidates.length === 0) {
@@ -715,6 +743,9 @@ async function handleChat(body) {
 
   const system =
     "You answer questions about a user's professional network and suggest intros. " +
+    "Relevance to the question comes first; among people who are comparably relevant, prefer " +
+    "the one with a stronger relationship, and mention the relationship in the reason when it " +
+    "matters. " +
     "You MUST ONLY recommend from the provided candidates. " +
     'Preferred JSON: {"answer":string,"recommendations":[{"id":string,"reason":string}]}. ' +
     "If you cannot return JSON, return a helpful plain-text answer.";
@@ -726,6 +757,7 @@ async function handleChat(body) {
   const user =
     `Conversation so far:\n${historyText}\n\n` +
     `User question:\n${query}\n\n` +
+    (context ? `About the user: ${context}\n\n` : "") +
     `Candidate pool:\n${formatCandidates(pool)}\n\n` +
     `1) Answer the question.\n2) If appropriate, recommend up to 10 candidate ids with reasons.\n`;
 

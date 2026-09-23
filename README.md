@@ -22,8 +22,8 @@ readable and writable only by you.
 
 This is the course-421 project of Tz-Ray Wang and Alan Qiu. The frontend is Vite, React 19 and TypeScript;
 authentication and storage are Firebase Auth and Cloud Firestore; the AI features go through a small Node
-proxy that holds the Gemini API key server-side so it never reaches the browser. Sprint materials are
-linked under Additional Documentation below.
+proxy that holds the Gemini API key server-side so it never reaches the browser. The previous semester's
+sprint materials are linked under Additional Documentation below.
 
 ## Installation
 
@@ -117,17 +117,35 @@ firebase deploy --only firestore    # after editing firestore.rules
    `/reset-password` page for choosing the new password; the emailed link opens it once the Firebase
    project's email action URL (Authentication, Templates) points at the deployed site, and until then it
    opens Firebase's hosted reset page. Signed-in users who visit `/login` are sent straight to `/dashboard`.
-2. **Upload your connections.** Go to Recommender in the sidebar. Download your connections from LinkedIn
-   (Settings, Data privacy, Get a copy of your data, Connections) and drop the `.csv` in. A `.json` file with
-   a top-level array of objects also works. The parser skips LinkedIn's "Notes:" preamble and recognizes the
-   usual column names plus common synonyms (`Title` or `Role` for Position, `Org` or `Company` for Company).
+2. **Upload your connections.** Go to Recommender in the sidebar. Download your data from LinkedIn
+   (Settings, Data privacy, Get a copy of your data), either the full archive or just Connections, and choose
+   the `.zip` LinkedIn sends you as-is. The zip is opened in your browser and only these files are ever
+   decompressed: `Connections.csv` (required), `messages.csv`, `Invitations.csv`, `Notes.csv`,
+   `Endorsement_Received_Info.csv`, `Recommendations_Received.csv`, `Profile.csv`, `Positions.csv`,
+   `Education.csv`, `Skills.csv`, `Company Follows.csv`, `Job Applications.csv`, `Saved Jobs.csv` and
+   `Job Seeker Preferences.csv`. Everything else in the archive (logins, ads, search history and so on) is
+   listed as "skipped (not read)". From those files the app keeps only derived facts per connection (message
+   counts and dates, who sent the invitation, your own note, endorsements, recommendations) plus a short
+   profile context (headline, industry, positions, skills, target companies). An import summary shows the
+   files used, how many connections each one matched, any warnings, and two privacy notes: "Message text is
+   never stored; only counts and dates." and "AI requests include relationship facts (message counts, last
+   contact month, shared employers) but never your notes or job applications." A plain `Connections.csv`, or
+   a `.json` file with a top-level array of objects, still works as before. The CSV parser skips LinkedIn's
+   "Notes:" preamble and recognizes the usual column names plus common synonyms (`Title` or `Role` for
+   Position, `Org` or `Company` for Company).
 3. **Review and confirm.** The staged rows appear in a preview table with a count and the percentage of rows
    missing a job title. Nothing is saved until you press Confirm. Confirming writes the rows to your Firestore
    account and caches a compact copy for the session, so searching never waits on the network.
 4. **Search (local, no AI needed).** Type your criteria in the textarea, for example `VP Sales fintech` or
-   `swe at Google`. Press Search. You get up to 10 results, each with a score, up to five reason bullets, and
-   the matched-token chips. "Strict title-only" restricts a role query to title matches and has no effect on
-   non-role queries.
+   `swe at Google`. Press Search. You get up to 10 results, each with a score, up to eight reason bullets, and
+   the matched-token chips. Words from your own LinkedIn notes on a person count as matches too. People who
+   match more of your query terms always rank first; among people who match the same number of terms, a
+   relationship bonus of up to 15 points (recent and two-way messages, a shared current or former employer, a
+   company on your target list, an endorsement or recommendation, an invitation they sent you) moves the
+   people you know better up. Those cards show relationship chips such as `12 msgs · Aug 2026`,
+   `Former colleague`, `Also at Acme`, `Target company` or `Endorsed you`, plus a `Relationship:` reason line.
+   The bonus needs a zip import and only applies to people who already match the query. "Strict title-only"
+   restricts a role query to title matches and has no effect on non-role queries.
 5. **AI Rerank (needs the proxy running).** Press AI Rerank instead of Search. The top 50 locally scored
    candidates are sent to Gemini, which reorders them and adds an `AI:` explanation line per result. The score
    badge and chips still come from the local pass.
@@ -151,19 +169,31 @@ firebase deploy --only firestore    # after editing firestore.rules
   shared between proxy instances.
 - The sidebar's Portfolio, Pipeline, Insights and Documents entries are placeholders marked "Soon".
 - The Gemini free tier allows 20 requests per day per model per project. When it is exhausted the proxy
-  returns a 503 naming the model instead of retrying (`server/index.js:513-516`); setting
+  returns a 503 naming the model instead of retrying (`server/index.js:533-536`); setting
   `GEMINI_FALLBACK_MODEL` buys one more model's daily budget.
 - The CSV parser finds the header row by looking for one containing both "First Name" and "Last Name"; if no
   row matches (renamed columns, a non-English export) it falls back to treating row 0 as the header
-  (`screens/RecommenderScreen.tsx:319`), which for a real LinkedIn export is the "Notes:" preamble. Only
+  (`lib/connectionFields.ts:222`), which for a real LinkedIn export is the "Notes:" preamble. Only
   comma-delimited, UTF-8 files are handled; there is no delimiter detection, no encoding handling beyond a
   BOM strip, no row cap and no per-row error reporting.
 - A connection that matches nothing in your query scores 0 and is filtered out of results entirely
-  (`screens/RecommenderScreen.tsx:725`), so rows with a missing title or company can be invisible rather than
+  (`screens/RecommenderScreen.tsx:380`), so rows with a missing title or company can be invisible rather than
   ranked low (issue #30).
 - Saving connections replaces the whole collection and is serialized only within one browser tab
-  (`lib/connectionsStore.ts:142-153`). Confirming uploads from two tabs or two devices at the same time can
+  (`lib/connectionsStore.ts:245-257`). Confirming uploads from two tabs or two devices at the same time can
   interleave.
+- Signals from a LinkedIn export zip are joined to connections by profile URL. When a file's row has no
+  usable profile URL (always the case for `Recommendations_Received.csv`), the importer falls back to the
+  person's name, and only when exactly one connection has that name: people who share a name with another
+  connection get no signals from those rows, and a name spelled differently in two files does not match.
+- Which side of a message thread is yours is inferred, not read: the owner is taken to be the profile URL
+  that appears in the most conversations without being one of your connections, with the name in
+  `Profile.csv` as a tiebreaker. If that cannot be decided, message history is skipped with a warning in the
+  import summary; a wrong guess would misattribute sent and received counts. Group threads with more than
+  five other people are ignored.
+- The zip is read and unzipped entirely in the browser, in memory. Only the whitelisted files are
+  decompressed, but the whole archive is loaded first, so a very large export (years of messages) can be
+  slow or run out of memory on a phone or low-memory machine; uploading `Connections.csv` alone still works.
 
 ## Contributing
 
@@ -174,6 +204,8 @@ firebase deploy --only firestore    # after editing firestore.rules
 5. Submit a pull request :D
 
 ## Additional Documentation
+
+Previous semester (Sprint 2):
 
 - [Sprint 2 report](Sprint%202/Sprint%202%20report.pdf) - what shipped in Sprint 2, unfinished work,
   retrospective and Sprint 3 plans.

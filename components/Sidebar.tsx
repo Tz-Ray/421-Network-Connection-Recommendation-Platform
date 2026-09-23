@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from './Icon';
 import { getAuth, signOut } from 'firebase/auth';
-import { SESSION_KEY } from '../lib/connectionsStore';
+import { CONTEXT_SESSION_KEY, SESSION_KEY } from '../lib/connectionsStore';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -31,6 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       // it behind would hand the previous user's network to the next sign-in.
       try {
         sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem(CONTEXT_SESSION_KEY);
       } catch {
         // sessionStorage blocked; there is nothing cached to clear.
       }

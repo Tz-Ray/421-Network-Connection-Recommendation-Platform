@@ -3,22 +3,37 @@ import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
-import { getAuth } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
-import type { ConnectionDoc } from '../lib/connectionsStore';
+import { useAuth } from '../lib/AuthContext';
+import {
+  docToRow,
+  loadConnections,
+  loadNetworkContext,
+  type ConnectionDoc,
+  type NetworkContext,
+} from '../lib/connectionsStore';
+import { relationshipSignals } from '../lib/relationship';
 
 const DEFAULT_PAGE_SIZE = 50;
+
+type SortMode = 'default' | 'warmest';
+
+function displayName(d: ConnectionDoc): string {
+  const name = d.fullName || `${d.firstName ?? ''} ${d.lastName ?? ''}`.trim();
+  return name || '';
+}
 
 const ConnectionsScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [rows, setRows] = useState<ConnectionDoc[]>([]);
+  const [networkContext, setNetworkContext] = useState<NetworkContext | null>(null);
 
   const [filter, setFilter] = useState('');
+  const [sortMode, setSortMode] = useState<SortMode>('default');
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [pageIndex, setPageIndex] = useState(0);
 
@@ -26,35 +41,40 @@ const ConnectionsScreen: React.FC = () => {
   // top of a faster Refresh issued after it.
   const requestId = useRef(0);
 
-  async function loadConnections() {
+  async function loadAll() {
     const myRequest = ++requestId.current;
 
     setLoading(true);
     setError('');
 
     try {
-      const user = getAuth().currentUser;
       if (!user) throw new Error('Not signed in.');
+      const uid = user.uid;
 
-      const col = collection(db, 'users', user.uid, 'connections');
-      const snap = await getDocs(col);
+      // The owner context is optional: a failed read degrades to "no context"
+      // (no warmth bonus) instead of hiding the connections.
+      const [docs, ctx] = await Promise.all([
+        loadConnections(uid),
+        loadNetworkContext(uid).catch(() => null),
+      ]);
 
       if (myRequest !== requestId.current) return;
 
-      const data = snap.docs.map((d) => d.data() as ConnectionDoc);
-      setRows(data);
+      setRows(docs);
+      setNetworkContext(ctx);
     } catch (e: any) {
       if (myRequest !== requestId.current) return;
       setError(e?.message ?? 'Failed to load connections.');
       setRows([]);
+      setNetworkContext(null);
     } finally {
       if (myRequest === requestId.current) setLoading(false);
     }
   }
 
   useEffect(() => {
-    void loadConnections();
-  }, []);
+    void loadAll();
+  }, [user]);
 
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
@@ -66,13 +86,30 @@ const ConnectionsScreen: React.FC = () => {
     });
   }, [rows, filter]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const sorted = useMemo(() => {
+    if (sortMode !== 'warmest') return filtered;
+
+    const now = new Date();
+    const withBonus = filtered.map((row) => ({
+      row,
+      bonus: relationshipSignals(docToRow(row), networkContext, now).bonus,
+    }));
+
+    withBonus.sort((a, b) => {
+      if (b.bonus !== a.bonus) return b.bonus - a.bonus;
+      return displayName(a.row).localeCompare(displayName(b.row));
+    });
+
+    return withBonus.map((w) => w.row);
+  }, [filtered, sortMode, networkContext]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const safePageIndex = Math.min(pageIndex, totalPages - 1);
 
   const page = useMemo(() => {
     const start = safePageIndex * pageSize;
-    return filtered.slice(start, start + pageSize);
-  }, [filtered, safePageIndex, pageSize]);
+    return sorted.slice(start, start + pageSize);
+  }, [sorted, safePageIndex, pageSize]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
@@ -109,7 +146,7 @@ const ConnectionsScreen: React.FC = () => {
               </button>
 
               <button
-                onClick={() => void loadConnections()}
+                onClick={() => void loadAll()}
                 disabled={loading}
                 className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -142,6 +179,22 @@ const ConnectionsScreen: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+                  <span className="text-xs text-slate-400 font-bold">Sort</span>
+                  <select
+                    value={sortMode}
+                    onChange={(e) => {
+                      setSortMode(e.target.value as SortMode);
+                      setPageIndex(0);
+                    }}
+                    className="bg-transparent text-sm text-slate-200 outline-none"
+                    disabled={loading}
+                  >
+                    <option value="default">Default order</option>
+                    <option value="warmest">Warmest first</option>
+                  </select>
+                </div>
+
                 <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
                   <span className="text-xs text-slate-400 font-bold">Rows/page</span>
                   <select
@@ -198,6 +251,8 @@ const ConnectionsScreen: React.FC = () => {
                     <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Position</th>
                     <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Company</th>
                     <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Connected On</th>
+                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Messages</th>
+                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Last contact</th>
                     <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Email</th>
                     <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">URL</th>
                   </tr>
@@ -205,13 +260,13 @@ const ConnectionsScreen: React.FC = () => {
                 <tbody>
                   {loading ? (
                     <tr>
-                      <td className="p-4 text-slate-400" colSpan={6}>
+                      <td className="p-4 text-slate-400" colSpan={8}>
                         Loading connections…
                       </td>
                     </tr>
                   ) : page.length === 0 ? (
                     <tr>
-                      <td className="p-4 text-slate-400" colSpan={6}>
+                      <td className="p-4 text-slate-400" colSpan={8}>
                         No connections found.
                       </td>
                     </tr>
@@ -222,6 +277,12 @@ const ConnectionsScreen: React.FC = () => {
                         <td className="p-3 text-slate-300">{r.position || <span className="text-slate-600">—</span>}</td>
                         <td className="p-3 text-slate-300">{r.company || <span className="text-slate-600">—</span>}</td>
                         <td className="p-3 text-slate-400 whitespace-nowrap">{r.connectedOnRaw || <span className="text-slate-600">—</span>}</td>
+                        <td className="p-3 text-slate-400 whitespace-nowrap">
+                          {r.messageCount != null ? r.messageCount.toLocaleString() : <span className="text-slate-600">—</span>}
+                        </td>
+                        <td className="p-3 text-slate-400 whitespace-nowrap">
+                          {r.lastMessagedAt || <span className="text-slate-600">—</span>}
+                        </td>
                         <td className="p-3 text-slate-400">{r.email || <span className="text-slate-600">—</span>}</td>
                         <td className="p-3">
                           {r.url ? (

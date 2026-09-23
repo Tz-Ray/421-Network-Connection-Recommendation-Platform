@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Icon } from '../components/Icon';
 import { auth, describeAuthError } from '../firebase';
 import { confirmPasswordReset, signOut, verifyPasswordResetCode } from 'firebase/auth';
-import { SESSION_KEY } from '../lib/connectionsStore';
+import { CONTEXT_SESSION_KEY, SESSION_KEY } from '../lib/connectionsStore';
 
 type Status = 'verifying' | 'ready' | 'invalid' | 'done';
 
@@ -107,6 +107,7 @@ const ResetPasswordScreen: React.FC = () => {
     if (current?.email && current.email.toLowerCase() === email.toLowerCase()) {
       try {
         sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem(CONTEXT_SESSION_KEY);
       } catch {
         // sessionStorage blocked; there is nothing cached to clear.
       }

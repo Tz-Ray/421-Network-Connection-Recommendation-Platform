@@ -7,28 +7,49 @@ import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
 import {
   COMPANY_KEYS,
+  COMPANY_STOPWORDS,
   CONNECTED_ON_KEYS,
+  CONTEXT_SESSION_KEY,
   EMAIL_KEYS,
   FIRST_NAME_KEYS,
   FULL_NAME_KEYS,
   LAST_NAME_KEYS,
+  NOTE_KEYS,
   POSITION_KEYS,
   SESSION_KEY,
   URL_KEYS,
   docToCompact,
   docToRow,
+  getField,
   loadConnections,
+  loadNetworkContext,
+  normalizeText,
+  parseCsvToObjects,
+  rowToDoc,
   saveConnections,
+  saveNetworkContext,
 } from '../lib/connectionsStore';
+import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
+import { parseLinkedInExportZip } from '../lib/linkedinExport';
+import type { ImportSummary } from '../lib/linkedinExport';
+import { buildAiContext, compareRanked, noteMatches, relationshipSignals } from '../lib/relationship';
 import { proxyFetch } from '../lib/proxyClient';
 
 type Row = Record<string, unknown>;
 
-type RankedRow = {
+// Output of the local relevance pass (scoreRow). relevance 0 = no match.
+type ScoredRow = {
   row: Row;
-  score: number;
+  relevance: number;
+  terms: number; // distinct raw query terms matched in any field (+1 alias-only title hits, +1 phrase hit)
   matchedTokens: string[];
   reasons: string[];
+};
+
+type RankedRow = ScoredRow & {
+  score: number; // relevance + relationship bonus (the displayed score)
+  chips: string[]; // relationship chips
+  aiSummary: string; // privacy-safe relationship facts for AI candidates
 };
 
 type CandidateSummary = {
@@ -39,6 +60,7 @@ type CandidateSummary = {
   email?: string;
   url?: string;
   connectedOn?: string;
+  relationship?: string;
 };
 
 const MAX_RESULTS = 10;
@@ -100,34 +122,6 @@ function expandWithAliases(text: string): string {
 // -----------------------------
 // Helpers
 // -----------------------------
-function toText(v: unknown): string {
-  if (v == null) return '';
-  if (typeof v === 'string') return v;
-  if (typeof v === 'number' || typeof v === 'boolean') return String(v);
-  if (Array.isArray(v)) return v.map(toText).join(' ');
-  try {
-    return JSON.stringify(v);
-  } catch {
-    return '';
-  }
-}
-
-function normalizeKey(k: string) {
-  return k.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
-}
-
-function normalizeText(s: string): string {
-  return s.toLowerCase().replace(/\s+/g, ' ').trim();
-}
-
-function getField(row: Row, keys: string[]): string {
-  const keySet = new Set(keys.map(normalizeKey));
-  for (const [k, v] of Object.entries(row)) {
-    if (keySet.has(normalizeKey(k))) return toText(v);
-  }
-  return '';
-}
-
 function tokenizeQuery(q: string): string[] {
   return q
     .toLowerCase()
@@ -145,15 +139,6 @@ function isRoleQuery(criteria: string): boolean {
   ];
   return roleHints.some((k) => c.includes(k));
 }
-
-// Company stopwords / low-signal tokens that cause junk matches
-const COMPANY_STOPWORDS = new Set([
-  'inc', 'llc', 'ltd', 'co', 'company', 'corp', 'corporation',
-  'group', 'partners', 'capital', 'ventures', 'holdings',
-  'technologies', 'technology', 'tech', 'systems', 'solutions', 'services',
-  'engineering', 'engineer', 'web', 'app', 'apps', 'labs', 'studio', 'studios',
-  'consulting', 'associates'
-]);
 
 function filterCompanyTokens(tokens: string[]): string[] {
   return tokens
@@ -254,104 +239,6 @@ function sanitizeAiReason(raw: string): string {
 }
 
 // -----------------------------
-// RFC-4180-ish CSV parser
-// -----------------------------
-function parseCsvRfc4180(text: string): string[][] {
-  const clean = text.replace(/^\uFEFF/, '');
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let cell = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < clean.length; i++) {
-    const ch = clean[i];
-    const next = clean[i + 1];
-
-    if (ch === '"') {
-      if (inQuotes && next === '"') {
-        cell += '"';
-        i++;
-        continue;
-      }
-      inQuotes = !inQuotes;
-      continue;
-    }
-
-    if (ch === ',' && !inQuotes) {
-      row.push(cell);
-      cell = '';
-      continue;
-    }
-
-    if ((ch === '\n' || ch === '\r') && !inQuotes) {
-      if (ch === '\r' && next === '\n') i++;
-
-      row.push(cell);
-      cell = '';
-
-      const isEmpty = row.every((v) => v.trim() === '');
-      if (!isEmpty) rows.push(row.map((v) => v.trim()));
-
-      row = [];
-      continue;
-    }
-
-    cell += ch;
-  }
-
-  row.push(cell);
-  if (!row.every((v) => v.trim() === '')) {
-    rows.push(row.map((v) => v.trim()));
-  }
-
-  return rows;
-}
-
-function findHeaderRowIndex(table: string[][]): number {
-  const hasHeader = (r: string[], header: string) =>
-    r.some((c) => normalizeKey(c) === normalizeKey(header));
-
-  for (let i = 0; i < table.length; i++) {
-    const r = table[i];
-    if (hasHeader(r, 'First Name') && hasHeader(r, 'Last Name')) return i;
-  }
-
-  return table.length > 0 ? 0 : -1;
-}
-
-function parseCsvToObjects(text: string): Row[] {
-  const table = parseCsvRfc4180(text);
-  const headerIdx = findHeaderRowIndex(table);
-  if (headerIdx === -1) return [];
-
-  const headers = table[headerIdx].map((h) => h.trim());
-  const dataRows = table.slice(headerIdx + 1);
-
-  const out: Row[] = [];
-
-  for (const r of dataRows) {
-    if (r.every((v) => v.trim() === '')) continue;
-
-    const obj: Row = {};
-    for (let c = 0; c < headers.length; c++) {
-      const key = headers[c] || `col_${c}`;
-      obj[key] = (r[c] ?? '').trim();
-    }
-
-    // Only synthesize a full name when the export did not already supply one.
-    if (!getField(obj, FULL_NAME_KEYS).trim()) {
-      const first = getField(obj, FIRST_NAME_KEYS);
-      const last = getField(obj, LAST_NAME_KEYS);
-      if (first || last) obj['Full Name'] = `${first} ${last}`.trim();
-    }
-
-    out.push(obj);
-  }
-
-  return out;
-}
-
-// -----------------------------
 // Scoring (hard guards against stopword leakage)
 // -----------------------------
 function scoreRow(
@@ -359,9 +246,10 @@ function scoreRow(
   titleTokens: string[],
   rawCompanyTokens: string[],
   criteriaNormalized: string,
+  rawCriteria: string,
   roleQuery: boolean,
   strictTitleOnly: boolean
-): RankedRow {
+): ScoredRow {
   const fullName =
     getField(row, FULL_NAME_KEYS) ||
     `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`.trim();
@@ -390,12 +278,20 @@ function scoreRow(
   const uniqTitle = Array.from(new Set(titleHits));
   const uniqCompany = Array.from(new Set(companyHits));
 
+  // The user's own note on this connection: whole words of the RAW query (no
+  // alias expansion), at most one hit per query term. A note hit counts as
+  // relevance.
+  const note = getField(row, NOTE_KEYS);
+  const noteHits = noteMatches(note, rawCriteria);
+
+  const noMatch: ScoredRow = { row, relevance: 0, terms: 0, matchedTokens: [], reasons: [] };
+
   if (roleQuery && strictTitleOnly && uniqTitle.length === 0 && !phraseHit) {
-    return { row, score: 0, matchedTokens: [], reasons: [] };
+    return noMatch;
   }
 
-  if (uniqTitle.length === 0 && uniqCompany.length === 0 && !phraseHit) {
-    return { row, score: 0, matchedTokens: [], reasons: [] };
+  if (uniqTitle.length === 0 && uniqCompany.length === 0 && !phraseHit && noteHits.length === 0) {
+    return noMatch;
   }
 
   let score = 0;
@@ -423,33 +319,84 @@ function scoreRow(
     }
   }
 
+  if (noteHits.length) {
+    score += 10 * noteHits.length;
+    reasons.push(`Note match: ${noteHits.slice(0, 8).join(', ')}`);
+  }
+
   const nameLower = normalizeText(fullName);
   for (const t of companyTokens) {
     if (t && nameLower.includes(t)) score += 2;
   }
 
-  const matchedTokens = Array.from(new Set([...uniqTitle, ...uniqCompany]));
+  const matchedTokens = Array.from(new Set([...uniqTitle, ...uniqCompany, ...noteHits]));
+
+  // terms: distinct RAW query terms matched in title, company or note. Alias-only
+  // title hits add at most one term (synonyms never outnumber what the user
+  // typed), and a phrase hit adds one more.
+  const rawTerms = new Set(rawCompanyTokens);
+  let terms = 0;
+  for (const t of rawTerms) {
+    if (
+      uniqTitle.includes(t) ||
+      uniqCompany.includes(t) ||
+      (noteHits.length > 0 && noteMatches(note, t).length > 0)
+    ) {
+      terms += 1;
+    }
+  }
+  if (uniqTitle.some((t) => !rawTerms.has(t))) terms += 1;
+  if (phraseHit) terms += 1;
 
   if (roleQuery && (!position || position === '-' || position === '—')) {
     reasons.push('Note: this connection has no title in the CSV export.');
   }
 
-  return { row, score, matchedTokens, reasons };
+  return { row, relevance: score, terms, matchedTokens, reasons };
 }
 
-function compactRow(row: Row) {
-  const name =
-    getField(row, FULL_NAME_KEYS) ||
-    `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`.trim();
+/**
+ * Local relevance pass + relationship bonus, in display order. The bonus only
+ * applies to rows that already match (relevance > 0), and compareRanked sorts
+ * by matched terms first, so relationship strength only reorders rows that
+ * matched the same number of query terms. The AI pool is a prefix of this order.
+ */
+function rankConnections(
+  rows: Row[],
+  criteria: string,
+  strictTitleOnly: boolean,
+  ctx: NetworkContext | null
+): { expanded: string; roleQuery: boolean; ranked: RankedRow[] } {
+  const roleQuery = isRoleQuery(criteria);
+  const expanded = expandWithAliases(criteria);
 
-  return {
-    name: name || '(no name)',
-    position: getField(row, POSITION_KEYS) || '',
-    company: getField(row, COMPANY_KEYS) || '',
-    email: getField(row, EMAIL_KEYS) || '',
-    url: getField(row, URL_KEYS) || '',
-    connectedOn: getField(row, CONNECTED_ON_KEYS) || '',
-  };
+  const titleTokens = tokenizeQuery(expanded);
+  const companyTokens = tokenizeQuery(criteria);
+  const critNorm = normalizeText(criteria);
+  const now = new Date();
+
+  const ranked = rows
+    .map((r) => scoreRow(r, titleTokens, companyTokens, critNorm, criteria, roleQuery, strictTitleOnly))
+    .filter((s) => s.relevance > 0)
+    .map((s): RankedRow => {
+      const rel = relationshipSignals(s.row, ctx, now);
+      return {
+        ...s,
+        score: s.relevance + rel.bonus,
+        reasons: [...s.reasons, ...rel.reasons],
+        chips: rel.chips,
+        aiSummary: rel.aiSummary,
+      };
+    })
+    .sort(compareRanked);
+
+  return { expanded, roleQuery, ranked };
+}
+
+// Same shape the account-load path writes (docToCompact), so AIScreen sees the
+// enrichment fields however the dataset was confirmed.
+function compactRow(row: Row): CompactConnection {
+  return docToCompact(rowToDoc(row));
 }
 
 async function fetchJsonOrThrow(resp: Response) {
@@ -478,6 +425,12 @@ const RecommenderScreen: React.FC = () => {
   const [confirmedRows, setConfirmedRows] = useState<Row[]>([]);
   const [columns, setColumns] = useState<string[]>([]);
   const [error, setError] = useState<string>('');
+
+  // Owner context from a LinkedIn export zip (null for CSV / JSON / a
+  // Connections-only zip). Staged alongside the rows, confirmed with them.
+  const [stagedContext, setStagedContext] = useState<NetworkContext | null>(null);
+  const [confirmedContext, setConfirmedContext] = useState<NetworkContext | null>(null);
+  const [importSummary, setImportSummary] = useState<ImportSummary | null>(null);
 
   const [criteria, setCriteria] = useState<string>('');
   const [results, setResults] = useState<RankedRow[]>([]);
@@ -519,6 +472,53 @@ const RecommenderScreen: React.FC = () => {
     return previewRows.slice(start, start + pageSize);
   }, [previewRows, safePageIndex, pageSize]);
 
+  // Import summary lines (zip only). A coverage line is shown only for files the
+  // archive actually had; message coverage only when the owner was detected.
+  const importCoverage = useMemo(() => {
+    if (!importSummary) return [];
+    const used = new Set(importSummary.filesUsed.map((f) => f.name.toLowerCase()));
+    const total = importSummary.connections.toLocaleString();
+    const m = importSummary.matched;
+    const lines: string[] = [];
+
+    if (importSummary.ownerDetected === true) {
+      lines.push(`Message history matched to ${m.messages.toLocaleString()} of ${total} connections`);
+    }
+    if (used.has('invitations.csv')) {
+      lines.push(`Invitations matched to ${m.invitations.toLocaleString()} of ${total} connections`);
+    }
+    if (used.has('notes.csv')) {
+      lines.push(`Your notes matched to ${m.notes.toLocaleString()} of ${total} connections`);
+    }
+    if (used.has('endorsement_received_info.csv')) {
+      lines.push(`Endorsements matched to ${m.endorsements.toLocaleString()} of ${total} connections`);
+    }
+    if (used.has('recommendations_received.csv')) {
+      lines.push(`Recommendations matched to ${m.recommendations.toLocaleString()} of ${total} connections`);
+    }
+    return lines;
+  }, [importSummary]);
+
+  // Owner context found in the zip: counts only, never the values.
+  const contextCounts = useMemo(() => {
+    const c = stagedContext;
+    if (!c) return [];
+    const items: [number, string, string][] = [
+      [c.positions.length, 'position', 'positions'],
+      [c.schools.length, 'school', 'schools'],
+      [c.skills.length, 'skill', 'skills'],
+      [c.followedCompanies.length, 'followed company', 'followed companies'],
+      [c.dreamCompanies.length, 'target company', 'target companies'],
+      [c.desiredTitles.length, 'desired title', 'desired titles'],
+      [c.appliedCompanies.length, 'applied / saved-job company', 'applied / saved-job companies'],
+      [c.appliedTitles.length, 'applied / saved-job title', 'applied / saved-job titles'],
+    ];
+    const out = items.filter(([n]) => n > 0).map(([n, one, many]) => `${n} ${n === 1 ? one : many}`);
+    if (c.headline) out.unshift('headline');
+    if (c.industry) out.unshift('industry');
+    return out;
+  }, [stagedContext]);
+
   function resetForNewFile(newFileName: string) {
     setFileName(newFileName);
     setError('');
@@ -527,23 +527,45 @@ const RecommenderScreen: React.FC = () => {
     setSaveInfo('');
     setResults([]);
     setCriteria('');
+    // Also drop the previous staged rows, so they can't be confirmed (without
+    // their context) while the new file is still being read.
+    setStagedRows([]);
+    setColumns([]);
     setConfirmedRows([]);
+    setStagedContext(null);
+    setConfirmedContext(null);
+    setImportSummary(null);
     setPageIndex(0);
   }
 
   async function handleFile(file: File) {
     datasetVersion.current += 1;
+    const version = datasetVersion.current;
     resetForNewFile(file.name);
+
+    // A newer upload, clear, confirm or account load replaced the dataset while
+    // this file was being read: drop the result.
+    const stale = () => datasetVersion.current !== version;
 
     try {
       // Reading the file can reject (permissions, the file moved, a decode
       // error); keep that inside the same catch as the parse failures.
-      const text = await file.text();
+      const lowerName = file.name.toLowerCase();
 
       let parsed: Row[] = [];
+      let context: NetworkContext | null = null;
+      let summary: ImportSummary | null = null;
 
-      if (file.name.toLowerCase().endsWith('.json')) {
-        const json = JSON.parse(text);
+      if (lowerName.endsWith('.zip')) {
+        // LinkedIn's full data export, unzipped in the browser. Only
+        // whitelisted files are decompressed; message text is never kept.
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        const result = parseLinkedInExportZip(bytes, file.name);
+        parsed = result.rows;
+        context = result.context;
+        summary = result.summary;
+      } else if (lowerName.endsWith('.json')) {
+        const json = JSON.parse(await file.text());
         if (!Array.isArray(json)) throw new Error('JSON must be an array of objects.');
 
         const objects = json.filter(
@@ -553,11 +575,13 @@ const RecommenderScreen: React.FC = () => {
         if (!objects.length) throw new Error('JSON file must be an array of objects.');
 
         parsed = objects;
-      } else if (file.name.toLowerCase().endsWith('.csv')) {
-        parsed = parseCsvToObjects(text);
+      } else if (lowerName.endsWith('.csv')) {
+        parsed = parseCsvToObjects(await file.text());
       } else {
-        throw new Error('Unsupported file type. Please upload a .csv or .json file.');
+        throw new Error('Unsupported file type. Please upload a .zip, .csv or .json file.');
       }
+
+      if (stale()) return;
 
       if (!parsed.length) throw new Error('No rows found in file.');
 
@@ -566,7 +590,10 @@ const RecommenderScreen: React.FC = () => {
 
       setStagedRows(parsed);
       setColumns(Array.from(colSet));
+      setStagedContext(context);
+      setImportSummary(summary);
     } catch (e: any) {
+      if (stale()) return;
       setStagedRows([]);
       setConfirmedRows([]);
       setColumns([]);
@@ -579,14 +606,21 @@ const RecommenderScreen: React.FC = () => {
     if (saving) return; // a save for this dataset is already in flight
 
     datasetVersion.current += 1;
+    const contextToSave = stagedContext;
     setConfirmedRows(stagedRows);
+    setConfirmedContext(contextToSave);
     setResults([]);
     setCriteria('');
     setAiError('');
 
     try {
+      // Drop the previous context first so a failed write below can never
+      // pair it with the new rows. 'null' records "this dataset has no
+      // context", so AIScreen does not wait on Firestore for it.
+      sessionStorage.removeItem(CONTEXT_SESSION_KEY);
       const compact = stagedRows.map(compactRow);
       sessionStorage.setItem(SESSION_KEY, JSON.stringify(compact));
+      sessionStorage.setItem(CONTEXT_SESSION_KEY, JSON.stringify(contextToSave));
       setAiInfo(`AI dataset updated (${compact.length.toLocaleString()} connections).`);
     } catch {
       setAiInfo('AI dataset could not be stored (sessionStorage blocked).');
@@ -594,17 +628,32 @@ const RecommenderScreen: React.FC = () => {
 
     // Fire-and-forget: persist to the signed-in user's account. Local search must
     // work immediately and must not wait on (or fail because of) this write.
+    // Both writes go through the store's per-uid queue, in this order. The
+    // context is written even when null, so a CSV/JSON import clears an older
+    // zip's context instead of mixing with it.
     const user = getAuth().currentUser;
     if (user) {
       const rowsToSave = stagedRows;
       setSaving(true);
       setSaveInfo(`Saving ${rowsToSave.length.toLocaleString()} connections to your account…`);
 
-      void saveConnections(user.uid, rowsToSave)
-        .then((n) => setSaveInfo(`Saved ${n.toLocaleString()} connections to your account.`))
-        .catch((e: any) =>
-          setSaveInfo(`Could not save to account: ${e?.message ?? 'unknown error'}`)
-        )
+      void Promise.allSettled([
+        saveConnections(user.uid, rowsToSave),
+        saveNetworkContext(user.uid, contextToSave),
+      ])
+        .then(([rowsResult, contextResult]) => {
+          const parts: string[] = [
+            rowsResult.status === 'fulfilled'
+              ? `Saved ${rowsResult.value.toLocaleString()} connections to your account.`
+              : `Could not save to account: ${rowsResult.reason?.message ?? 'unknown error'}`,
+          ];
+          if (contextResult.status === 'rejected') {
+            parts.push(`Could not save your profile context: ${contextResult.reason?.message ?? 'unknown error'}`);
+          } else if (contextToSave) {
+            parts.push('Saved your profile context.');
+          }
+          setSaveInfo(parts.join(' '));
+        })
         .finally(() => setSaving(false));
     } else {
       setSaveInfo('');
@@ -650,7 +699,16 @@ const RecommenderScreen: React.FC = () => {
         getAuth().currentUser?.uid !== uid || datasetVersion.current !== version;
 
       try {
-        const docs = await loadConnections(uid);
+        // The owner context is optional: a failed read degrades to "no
+        // context" instead of failing the whole load.
+        let contextFailed = false;
+        const [docs, context] = await Promise.all([
+          loadConnections(uid),
+          loadNetworkContext(uid).catch(() => {
+            contextFailed = true;
+            return null;
+          }),
+        ]);
         if (stale()) return;
 
         const rows: Row[] = docs.map(docToRow);
@@ -662,15 +720,31 @@ const RecommenderScreen: React.FC = () => {
         setColumns(Array.from(colSet));
         setStagedRows(rows);
         setConfirmedRows(rows);
+        setStagedContext(context);
+        setConfirmedContext(context);
+        setImportSummary(null);
         setResults([]);
         setCriteria('');
         setAiError('');
         setPageIndex(0);
-        setSaveInfo(`Loaded ${rows.length.toLocaleString()} connections from your account.`);
+        setSaveInfo(
+          `Loaded ${rows.length.toLocaleString()} connections from your account.` +
+            (context
+              ? ' Profile context loaded.'
+              : contextFailed
+                ? ' Your profile context could not be loaded.'
+                : '')
+        );
 
         try {
+          sessionStorage.removeItem(CONTEXT_SESSION_KEY);
           const compact = docs.map(docToCompact);
           sessionStorage.setItem(SESSION_KEY, JSON.stringify(compact));
+          // A failed context read stays absent (AIScreen retries it); a known
+          // "no context" is stored as 'null'.
+          if (context || !contextFailed) {
+            sessionStorage.setItem(CONTEXT_SESSION_KEY, JSON.stringify(context));
+          }
           setAiInfo(`AI dataset updated (${compact.length.toLocaleString()} connections).`);
         } catch {
           setAiInfo('AI dataset could not be stored (sessionStorage blocked).');
@@ -691,6 +765,7 @@ const RecommenderScreen: React.FC = () => {
     // just removed.
     try {
       sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(CONTEXT_SESSION_KEY);
     } catch {
       // sessionStorage blocked; there is nothing cached to clear.
     }
@@ -698,6 +773,9 @@ const RecommenderScreen: React.FC = () => {
     setFileName('');
     setStagedRows([]);
     setConfirmedRows([]);
+    setStagedContext(null);
+    setConfirmedContext(null);
+    setImportSummary(null);
     setColumns([]);
     setError('');
     setAiError('');
@@ -713,19 +791,9 @@ const RecommenderScreen: React.FC = () => {
     setAiInfo('');
     if (!canSearch) return;
 
-    const roleQuery = isRoleQuery(criteria);
-    const expanded = expandWithAliases(criteria);
+    const { roleQuery, ranked } = rankConnections(confirmedRows, criteria, strictTitleOnly, confirmedContext);
 
-    const titleTokens = tokenizeQuery(expanded);
-    const companyTokens = tokenizeQuery(criteria);
-    const critNorm = normalizeText(criteria);
-
-    const rankedAll = confirmedRows
-      .map((r) => scoreRow(r, titleTokens, companyTokens, critNorm, roleQuery, strictTitleOnly))
-      .filter((r) => r.score > 0)
-      .sort((a, b) => b.score - a.score);
-
-    const top = rankedAll.slice(0, MAX_RESULTS);
+    const top = ranked.slice(0, MAX_RESULTS);
     setResults(top);
 
     if (roleQuery && strictTitleOnly && top.length === 0) {
@@ -750,19 +818,11 @@ const RecommenderScreen: React.FC = () => {
       return;
     }
 
-    const roleQuery = isRoleQuery(criteria);
-    const expanded = expandWithAliases(criteria);
+    // Identical local ranking (relevance, then relationship) as runSearch; the
+    // AI can only reorder / select within the top AI_POOL_SIZE of this order.
+    const { expanded, ranked } = rankConnections(confirmedRows, criteria, strictTitleOnly, confirmedContext);
 
-    const titleTokens = tokenizeQuery(expanded);
-    const companyTokens = tokenizeQuery(criteria);
-    const critNorm = normalizeText(criteria);
-
-    const scoredAll = confirmedRows
-      .map((r) => scoreRow(r, titleTokens, companyTokens, critNorm, roleQuery, strictTitleOnly))
-      .filter((r) => r.score > 0)
-      .sort((a, b) => b.score - a.score);
-
-    const pool = scoredAll.slice(0, AI_POOL_SIZE);
+    const pool = ranked.slice(0, AI_POOL_SIZE);
     if (!pool.length) {
       setAiError('No candidates available for AI rerank. Try a broader query or disable strict mode.');
       return;
@@ -783,14 +843,19 @@ const RecommenderScreen: React.FC = () => {
         email: getField(row, EMAIL_KEYS) || '',
         url: getField(row, URL_KEYS) || '',
         connectedOn: getField(row, CONNECTED_ON_KEYS) || '',
+        // Derived relationship facts only (never note text or applications).
+        ...(p.aiSummary ? { relationship: p.aiSummary } : {}),
       };
     });
+
+    // Owner context for the prompt (never name, schools, follows or applications).
+    const context = buildAiContext(confirmedContext);
 
     setAiReranking(true);
     try {
       const resp = await proxyFetch('/gemini/rerank', {
         method: 'POST',
-        body: JSON.stringify({ criteria: expanded, candidates }),
+        body: JSON.stringify({ criteria: expanded, candidates, ...(context ? { context } : {}) }),
       });
 
       const data = await fetchJsonOrThrow(resp);
@@ -845,7 +910,7 @@ const RecommenderScreen: React.FC = () => {
           <div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-white">Connection Recommender</h1>
             <p className="text-slate-400 mt-1 text-sm">
-              Upload CSV → Review → Confirm → Search (AI reasons now render fully even with quotes).
+              Upload your full LinkedIn data export (.zip), or just Connections.csv / JSON → Review → Confirm → Search.
             </p>
           </div>
 
@@ -878,7 +943,7 @@ const RecommenderScreen: React.FC = () => {
                   <span>Choose File</span>
                   <input
                     type="file"
-                    accept=".csv,.json"
+                    accept=".zip,.csv,.json"
                     className="hidden"
                     onChange={(e) => {
                       const f = e.target.files?.[0];
@@ -927,6 +992,85 @@ const RecommenderScreen: React.FC = () => {
             )}
           </div>
 
+          {/* Import summary (LinkedIn export zip only) */}
+          {importSummary && (
+            <div className="glass-panel rounded-xl p-4 md:p-6">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Import summary</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-sm">
+                <div className="min-w-0">
+                  <p className="text-slate-300 font-bold mb-2">Files used</p>
+                  <ul className="space-y-1">
+                    {importSummary.filesUsed.map((f) => (
+                      <li key={f.name} className="flex items-center justify-between gap-3 text-slate-400">
+                        <span className="truncate">{f.name}</span>
+                        <span className="text-slate-300 font-bold shrink-0">
+                          {f.rows.toLocaleString()} {f.rows === 1 ? 'row' : 'rows'}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="min-w-0 space-y-4">
+                  {importCoverage.length > 0 && (
+                    <div>
+                      <p className="text-slate-300 font-bold mb-2">Match coverage</p>
+                      <ul className="space-y-1 text-slate-400">
+                        {importCoverage.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div>
+                    <p className="text-slate-300 font-bold mb-2">Your profile context</p>
+                    <p className="text-slate-400">
+                      {!stagedContext
+                        ? 'No profile files in this archive (connections only).'
+                        : contextCounts.length
+                          ? `Found: ${contextCounts.join(' • ')}`
+                          : 'Profile files found, but they were empty.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {importSummary.warnings.length > 0 && (
+                <div className="mt-4 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-200 space-y-1">
+                  {importSummary.warnings.map((w, i) => (
+                    <p key={i}>{w}</p>
+                  ))}
+                </div>
+              )}
+
+              {importSummary.filesSkipped.length > 0 && (
+                <details className="mt-4 text-sm">
+                  <summary className="cursor-pointer text-slate-400 font-bold">
+                    {importSummary.filesSkipped.length.toLocaleString()}{' '}
+                    {importSummary.filesSkipped.length === 1 ? 'file' : 'files'} skipped (not read)
+                  </summary>
+                  <p className="mt-2 text-xs text-slate-500 break-words">{importSummary.filesSkipped.join(', ')}</p>
+                </details>
+              )}
+
+              <div className="mt-4 border-t border-white/10 pt-3 text-xs text-slate-400 space-y-1">
+                <p className="flex items-start gap-2">
+                  <Icon name="lock" className="text-sm text-primary shrink-0" />
+                  <span>Message text is never stored; only counts and dates.</span>
+                </p>
+                <p className="flex items-start gap-2">
+                  <Icon name="smart_toy" className="text-sm text-primary shrink-0" />
+                  <span>
+                    AI requests include relationship facts (message counts, last contact month, shared employers) but
+                    never your notes or job applications.
+                  </span>
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Preview + Confirm */}
           <div className="glass-panel rounded-xl p-4 md:p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -935,7 +1079,7 @@ const RecommenderScreen: React.FC = () => {
                   Loaded connections (preview)
                 </p>
                 <p className="text-sm text-slate-400">
-                  {hasStaged ? `Browse the list. Confirm to enable search + AI tab.` : `Upload a CSV/JSON to preview.`}
+                  {hasStaged ? `Browse the list. Confirm to enable search + AI tab.` : `Upload a LinkedIn export .zip, CSV or JSON to preview.`}
                 </p>
               </div>
 
@@ -1142,10 +1286,23 @@ const RecommenderScreen: React.FC = () => {
 
                         {r.reasons.length > 0 && (
                           <div className="mt-3 text-xs text-slate-300 space-y-1">
-                            {r.reasons.slice(0, 5).map((reason, i) => (
+                            {r.reasons.slice(0, 8).map((reason, i) => (
                               <p key={i} className="text-slate-400">
                                 <span className="text-slate-300 font-bold">•</span> {reason}
                               </p>
+                            ))}
+                          </div>
+                        )}
+
+                        {r.chips.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {r.chips.map((chip, i) => (
+                              <span
+                                key={`${chip}-${i}`}
+                                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
+                              >
+                                {chip}
+                              </span>
                             ))}
                           </div>
                         )}

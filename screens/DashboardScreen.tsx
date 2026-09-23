@@ -21,6 +21,13 @@ function displayName(d: ConnectionDoc): string {
   return name || '(no name)';
 }
 
+/** Days between an ISO 'YYYY-MM-DD' date and `now` (ms), or null if unparsable. */
+function daysSince(iso: string, now: number): number | null {
+  const ts = Date.parse(iso);
+  if (Number.isNaN(ts)) return null;
+  return Math.floor((now - ts) / 86_400_000);
+}
+
 const DashboardScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
@@ -91,12 +98,24 @@ const DashboardScreen: React.FC = () => {
       .slice(0, RECENT_COUNT)
       .map((e) => e.doc);
 
+    // Message data is only present on docs enriched from a LinkedIn export
+    // zip; older CSV/JSON imports leave messageCount null on every doc.
+    const hasMessageData = docs.some((d) => d.messageCount != null);
+    const now = Date.now();
+    const messagedLast12Months = docs.filter((d) => {
+      if (!d.lastMessagedAt) return false;
+      const days = daysSince(d.lastMessagedAt, now);
+      return days != null && days >= 0 && days <= 365;
+    }).length;
+
     return {
       total,
       pctMissingTitle,
       companyCount: counts.size,
       topCompanies,
       recent,
+      hasMessageData,
+      messagedLast12Months,
     };
   }, [docs]);
 
@@ -116,7 +135,7 @@ const DashboardScreen: React.FC = () => {
           )}
 
           {/* Summary Stats Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${summary.hasMessageData ? 4 : 3} gap-4 md:gap-6 mb-6`}>
             <StatCard
               title="Connections saved"
               value={summary.total.toLocaleString()}
@@ -138,6 +157,15 @@ const DashboardScreen: React.FC = () => {
               icon="business_center"
               delay="200ms"
             />
+            {summary.hasMessageData && (
+              <StatCard
+                title="Messaged in the last 12 months"
+                value={summary.messagedLast12Months.toLocaleString()}
+                subtext="Contacted recently"
+                icon="forum"
+                delay="300ms"
+              />
+            )}
           </div>
 
           {/* Connections actions */}

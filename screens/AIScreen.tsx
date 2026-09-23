@@ -4,8 +4,34 @@ import { getAuth } from 'firebase/auth';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
-import { SESSION_KEY, docToCompact, loadConnections } from '../lib/connectionsStore';
-import type { CompactConnection } from '../lib/connectionsStore';
+import {
+  COMPANY_KEYS,
+  CONNECTED_ON_ISO_KEYS,
+  CONNECTED_ON_KEYS,
+  CONTEXT_SESSION_KEY,
+  EMAIL_KEYS,
+  ENDORSEMENT_COUNT_KEYS,
+  FIRST_MESSAGED_KEYS,
+  FULL_NAME_KEYS,
+  INVITATION_KEYS,
+  INVITED_AT_KEYS,
+  LAST_MESSAGED_KEYS,
+  MESSAGE_COUNT_KEYS,
+  MESSAGES_RECEIVED_KEYS,
+  MESSAGES_SENT_KEYS,
+  NOTE_KEYS,
+  POSITION_KEYS,
+  RECOMMENDED_YOU_KEYS,
+  SESSION_KEY,
+  URL_KEYS,
+  docToCompact,
+  loadConnections,
+  loadNetworkContext,
+  toNetworkContext,
+} from '../lib/connectionsStore';
+import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
+import { buildAiContext, noteMatches, relationshipSignals } from '../lib/relationship';
+import type { Relationship } from '../lib/relationship';
 import { proxyFetch } from '../lib/proxyClient';
 
 type ChatMsg = { role: 'user' | 'assistant'; text: string };
@@ -18,6 +44,7 @@ type CandidateForModel = {
   email?: string;
   url?: string;
   connectedOn?: string;
+  relationship?: string; // relationshipSignals(...).aiSummary; omitted when empty
 };
 
 const MAX_CANDIDATES = 50;
@@ -30,7 +57,7 @@ function tokenize(q: string) {
     .filter(Boolean);
 }
 
-function scoreConnection(c: CompactConnection, tokens: string[]) {
+function scoreConnection(c: CompactConnection, tokens: string[], rawQuery: string) {
   const name = (c.name ?? '').toLowerCase();
   const position = (c.position ?? '').toLowerCase();
   const company = (c.company ?? '').toLowerCase();
@@ -42,7 +69,60 @@ function scoreConnection(c: CompactConnection, tokens: string[]) {
     else if (company.includes(t)) score += 2;
     else if (name.includes(t)) score += 1;
   }
+
+  // Whole-word hits in the owner's own note count as relevance (+2 each). The
+  // note text itself never leaves this function.
+  if (typeof c.note === 'string' && c.note) {
+    score += 2 * noteMatches(c.note, rawQuery).length;
+  }
   return score;
+}
+
+/**
+ * docToRow-equivalent for the compact session copy: canonical header keys, so
+ * relationshipSignals reads it exactly as it reads an imported row. Enrichment
+ * keys are emitted only when the value is known.
+ */
+function compactToRow(c: CompactConnection): Record<string, unknown> {
+  const row: Record<string, unknown> = {
+    [FULL_NAME_KEYS[0]]: c.name ?? '',
+    [POSITION_KEYS[0]]: c.position ?? '',
+    [COMPANY_KEYS[0]]: c.company ?? '',
+    [EMAIL_KEYS[0]]: c.email ?? '',
+    [URL_KEYS[0]]: c.url ?? '',
+    [CONNECTED_ON_KEYS[0]]: c.connectedOn ?? '',
+  };
+
+  const put = (keys: string[], v: unknown) => {
+    if (v != null) row[keys[0]] = v;
+  };
+  put(CONNECTED_ON_ISO_KEYS, c.connectedOnIso);
+  put(MESSAGE_COUNT_KEYS, c.messageCount);
+  put(MESSAGES_SENT_KEYS, c.messagesSent);
+  put(MESSAGES_RECEIVED_KEYS, c.messagesReceived);
+  put(LAST_MESSAGED_KEYS, c.lastMessagedAt);
+  put(FIRST_MESSAGED_KEYS, c.firstMessagedAt);
+  put(INVITATION_KEYS, c.invitation);
+  put(INVITED_AT_KEYS, c.invitedAt);
+  put(NOTE_KEYS, c.note);
+  put(ENDORSEMENT_COUNT_KEYS, c.endorsementCount);
+  put(RECOMMENDED_YOU_KEYS, c.recommendedYou);
+
+  return row;
+}
+
+/** sessionStorage[CONTEXT_SESSION_KEY]: `present` is false when absent or unreadable. */
+function contextFromSession(): { present: boolean; ctx: NetworkContext | null } {
+  try {
+    const raw = sessionStorage.getItem(CONTEXT_SESSION_KEY);
+    if (raw == null) return { present: false, ctx: null };
+    const parsed = JSON.parse(raw);
+    if (parsed === null) return { present: true, ctx: null }; // known: no context
+    const ctx = toNetworkContext(parsed);
+    return ctx ? { present: true, ctx } : { present: false, ctx: null };
+  } catch {
+    return { present: false, ctx: null };
+  }
 }
 
 async function fetchJsonOrThrow(resp: Response) {
@@ -215,6 +295,7 @@ async function callGeminiChat(args: {
   prompt: string;
   history: Array<{ role: 'user' | 'assistant'; text: string }>;
   candidates: CandidateForModel[];
+  context: string; // buildAiContext(...); omitted when empty
 }) {
   const resp = await proxyFetch('/gemini/chat', {
     method: 'POST',
@@ -222,17 +303,23 @@ async function callGeminiChat(args: {
       query: args.prompt,
       messages: args.history,
       candidates: args.candidates,
+      ...(args.context ? { context: args.context } : {}),
     }),
   });
   return await fetchJsonOrThrow(resp);
 }
 
-async function callGeminiRerank(args: { criteria: string; candidates: CandidateForModel[] }) {
+async function callGeminiRerank(args: {
+  criteria: string;
+  candidates: CandidateForModel[];
+  context: string; // buildAiContext(...); omitted when empty
+}) {
   const resp = await proxyFetch('/gemini/rerank', {
     method: 'POST',
     body: JSON.stringify({
       criteria: args.criteria,
       candidates: args.candidates,
+      ...(args.context ? { context: args.context } : {}),
     }),
   });
   return await fetchJsonOrThrow(resp);
@@ -255,6 +342,20 @@ const AIScreen: React.FC = () => {
   const [dataset, setDataset] = useState<CompactConnection[]>([]);
   const [datasetLoading, setDatasetLoading] = useState(false);
 
+  // Owner context from a LinkedIn export zip (null for CSV/JSON datasets).
+  const [networkContext, setNetworkContext] = useState<NetworkContext | null>(null);
+  const [contextLoading, setContextLoading] = useState(false);
+
+  // relationshipSignals is query-independent but not cheap with a large owner
+  // context, so each connection's result is computed lazily and cached until the
+  // dataset, the context or the UTC day changes.
+  const relCache = useRef<{
+    dataset: CompactConnection[];
+    ctx: NetworkContext | null;
+    day: string;
+    map: Map<CompactConnection, Relationship>;
+  } | null>(null);
+
   // StrictMode mounts effects twice in development; without this the Firestore
   // fallback would issue two reads of the same collection on every mount.
   const datasetLoadStarted = useRef(false);
@@ -276,10 +377,14 @@ const AIScreen: React.FC = () => {
     };
 
     const cached = fromSession();
-    if (cached.length) {
-      setDataset(cached);
-      return;
-    }
+    if (cached.length) setDataset(cached);
+
+    const cachedCtx = contextFromSession();
+    if (cachedCtx.present) setNetworkContext(cachedCtx.ctx);
+
+    const needDataset = cached.length === 0;
+    const needContext = !cachedCtx.present;
+    if (!needDataset && !needContext) return;
 
     const user = getAuth().currentUser;
     if (!user) return;
@@ -288,34 +393,80 @@ const AIScreen: React.FC = () => {
     datasetLoadStarted.current = true;
 
     const uid = user.uid;
-    setDatasetLoading(true);
 
-    void (async () => {
-      try {
-        const docs = await loadConnections(uid);
+    if (needDataset) {
+      setDatasetLoading(true);
 
-        // Signed out (or switched accounts) while the read was in flight: never
-        // publish one account's connections into the next session. The finally
-        // block still clears the loading flag.
-        if (getAuth().currentUser?.uid !== uid) return;
-
-        const compact = docs.map(docToCompact);
-        setDataset(compact);
-
+      void (async () => {
         try {
-          sessionStorage.setItem(SESSION_KEY, JSON.stringify(compact));
-        } catch {
-          // sessionStorage blocked; the in-memory dataset still works.
+          const docs = await loadConnections(uid);
+
+          // Signed out (or switched accounts) while the read was in flight: never
+          // publish one account's connections into the next session. The finally
+          // block still clears the loading flag.
+          if (getAuth().currentUser?.uid !== uid) return;
+
+          const compact = docs.map(docToCompact);
+          setDataset(compact);
+
+          try {
+            sessionStorage.setItem(SESSION_KEY, JSON.stringify(compact));
+          } catch {
+            // sessionStorage blocked; the in-memory dataset still works.
+          }
+        } catch (e: any) {
+          if (getAuth().currentUser?.uid !== uid) return;
+          setDataset([]);
+          setError(e?.message ?? 'Failed to load your saved connections.');
+        } finally {
+          setDatasetLoading(false);
         }
-      } catch (e: any) {
-        if (getAuth().currentUser?.uid !== uid) return;
-        setDataset([]);
-        setError(e?.message ?? 'Failed to load your saved connections.');
-      } finally {
-        setDatasetLoading(false);
-      }
-    })();
+      })();
+    }
+
+    if (needContext) {
+      setContextLoading(true);
+
+      void (async () => {
+        try {
+          const ctx = await loadNetworkContext(uid);
+
+          // Same rule as the dataset: nothing from a previous account.
+          if (getAuth().currentUser?.uid !== uid) return;
+
+          setNetworkContext(ctx);
+
+          try {
+            // 'null' records "this account has no context", so the next mount
+            // does not read Firestore again.
+            sessionStorage.setItem(CONTEXT_SESSION_KEY, JSON.stringify(ctx));
+          } catch {
+            // sessionStorage blocked; the in-memory context still works.
+          }
+        } catch {
+          // Context is optional: rank and chat without it.
+        } finally {
+          setContextLoading(false);
+        }
+      })();
+    }
   }, []);
+
+  function relationshipFor(c: CompactConnection, now: Date): Relationship {
+    const day = now.toISOString().slice(0, 10);
+    let cache = relCache.current;
+    if (!cache || cache.dataset !== dataset || cache.ctx !== networkContext || cache.day !== day) {
+      cache = { dataset, ctx: networkContext, day, map: new Map() };
+      relCache.current = cache;
+    }
+
+    let rel = cache.map.get(c);
+    if (!rel) {
+      rel = relationshipSignals(compactToRow(c), networkContext, now);
+      cache.map.set(c, rel);
+    }
+    return rel;
+  }
 
   async function send() {
     setError('');
@@ -323,7 +474,7 @@ const AIScreen: React.FC = () => {
     if (!userText) return;
     if (busy) return;
 
-    if (datasetLoading) {
+    if (datasetLoading || contextLoading) {
       setError('Still loading your connections…');
       return;
     }
@@ -338,20 +489,29 @@ const AIScreen: React.FC = () => {
     setBusy(true);
 
     try {
-      // Candidate pool from local scoring
+      // Candidate pool from local scoring. Relevance ranks first; the
+      // relationship bonus only breaks ties between equal scores, so it is
+      // computed only for rows at or above the pool's cutoff score.
+      const now = new Date();
       const tokens = tokenize(userText);
-      const ranked = dataset
-        .map((c, idx) => ({ idx, c, score: scoreConnection(c, tokens) }))
+      const scored = dataset
+        .map((c, idx) => ({ idx, c, score: scoreConnection(c, tokens, userText) }))
         .filter((x) => x.score > 0)
-        .sort((a, b) => b.score - a.score)
-        .slice(0, MAX_CANDIDATES);
+        .sort((a, b) => b.score - a.score || a.idx - b.idx);
 
-      const pool =
-        ranked.length > 0
-          ? ranked
-          : dataset
-              .slice(0, Math.min(MAX_CANDIDATES, dataset.length))
-              .map((c, idx) => ({ idx, c, score: 0 }));
+      let pool: Array<{ idx: number; c: CompactConnection; score: number; rel: Relationship }>;
+      if (scored.length > 0) {
+        const cutoff = scored[Math.min(MAX_CANDIDATES, scored.length) - 1].score;
+        pool = scored
+          .filter((x) => x.score >= cutoff)
+          .map((x) => ({ ...x, rel: relationshipFor(x.c, now) }))
+          .sort((a, b) => b.score - a.score || b.rel.bonus - a.rel.bonus || a.idx - b.idx)
+          .slice(0, MAX_CANDIDATES);
+      } else {
+        pool = dataset
+          .slice(0, Math.min(MAX_CANDIDATES, dataset.length))
+          .map((c, idx) => ({ idx, c, score: 0, rel: relationshipFor(c, now) }));
+      }
 
       // IMPORTANT: sequential ids c0..cN so Gemini behaves
       const candidates: CandidateForModel[] = pool.map((x, i) => ({
@@ -362,7 +522,12 @@ const AIScreen: React.FC = () => {
         email: x.c.email || '',
         url: x.c.url || '',
         connectedOn: x.c.connectedOn || '',
+        ...(x.rel.aiSummary ? { relationship: x.rel.aiSummary } : {}),
       }));
+
+      // Owner context for the prompt (never names, schools, follows or job
+      // applications; see buildAiContext).
+      const context = buildAiContext(networkContext);
 
       // History (last few turns)
       const history = messages
@@ -379,7 +544,7 @@ const AIScreen: React.FC = () => {
         `- For each recommendation, include the candidate id (like c0) and a 1-sentence reason.\n` +
         `- Do not ask follow-up questions unless there are truly zero plausible candidates.\n`;
 
-      const data = await callGeminiChat({ prompt, history, candidates });
+      const data = await callGeminiChat({ prompt, history, candidates, context });
 
       // Interpret answer + recs even if JSON-ish / truncated
       const rawAnswer =
@@ -415,7 +580,7 @@ const AIScreen: React.FC = () => {
       const answerEmpty = !String(data?.answer ?? '').trim();
 
       if (recommendations.length === 0 && (chatParseFailed || answerEmpty)) {
-        const rr = await callGeminiRerank({ criteria: userText, candidates });
+        const rr = await callGeminiRerank({ criteria: userText, candidates, context });
         if (Array.isArray(rr?.recommendations) && rr.recommendations.length > 0) {
           recommendations = rr.recommendations;
         }
