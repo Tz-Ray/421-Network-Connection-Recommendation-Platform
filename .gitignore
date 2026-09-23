@@ -37,3 +37,6 @@ docs/
 
 # Cloud Functions build output
 functions/lib/
+
+# Local-only demo/testing driver (never commit)
+local/
