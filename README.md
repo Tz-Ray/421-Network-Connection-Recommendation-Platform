@@ -67,21 +67,14 @@ npm run dev          # http://localhost:8787
 curl localhost:8787/health
 ```
 
-Create a `.env.local` file in the repository root with the following variable names (values come from your own
-Firebase console and Google AI Studio account; never commit this file, it is gitignored):
+The proxy's routes, request and response shapes, error codes and limits are described in
+[server/README.md](server/README.md).
 
-```
-VITE_FIREBASE_API_KEY=
-VITE_FIREBASE_AUTH_DOMAIN=
-VITE_FIREBASE_PROJECT_ID=
-VITE_FIREBASE_STORAGE_BUCKET=
-VITE_FIREBASE_MESSAGING_SENDER_ID=
-VITE_FIREBASE_APP_ID=
-VITE_FIREBASE_MEASUREMENT_ID=
-VITE_AI_PROXY_URL=http://localhost:8787
-GEMINI_API_KEY=
-GEMINI_MODEL=
-GEMINI_FALLBACK_MODEL=
+Copy `.env.example` to `.env.local` in the repository root and fill in the values. They come from your own
+Firebase console and Google AI Studio account. Never commit `.env.local`; it is gitignored:
+
+```bash
+cp .env.example .env.local
 ```
 
 The `VITE_*` variables are read by the browser bundle; `GEMINI_*` are read only by the proxy, which loads
@@ -113,6 +106,8 @@ firebase deploy --only firestore    # after editing firestore.rules
 ```
 
 Hosting the AI proxy itself (Cloud Run or Cloud Functions) needs the Firebase project on the paid Blaze plan.
+The `functions/` folder holds an unused Cloud Functions version of the proxy that the app never calls; see
+[functions/README.md](functions/README.md).
 
 ## Functionality
 
