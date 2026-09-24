@@ -32,7 +32,7 @@ import {
 import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
 import { buildAiContext, noteMatches, relationshipSignals } from '../lib/relationship';
 import type { Relationship } from '../lib/relationship';
-import { proxyFetch } from '../lib/proxyClient';
+import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
 
 type ChatMsg = { role: 'user' | 'assistant'; text: string };
 
@@ -625,6 +625,12 @@ const AIScreen: React.FC = () => {
             </p>
           </div>
 
+          {AI_DISABLED && (
+            <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
+              {AI_DISABLED_MESSAGE} Search and ranking on the Recommender page work without it.
+            </div>
+          )}
+
           {error && (
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
               {error}
@@ -662,13 +668,13 @@ const AIScreen: React.FC = () => {
                     void send();
                   }
                 }}
-                disabled={busy}
+                disabled={busy || AI_DISABLED}
               />
               <button
                 onClick={() => void send()}
-                disabled={busy}
+                disabled={busy || AI_DISABLED}
                 className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                  busy
+                  busy || AI_DISABLED
                     ? 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
                     : 'bg-primary hover:bg-primary/90 text-white'
                 }`}

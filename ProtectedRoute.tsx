@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import ChatWidget from './components/ChatWidget';
+import { AI_DISABLED } from './lib/proxyClient';
 import { useAuth } from './lib/AuthContext';
 
 interface ProtectedRouteProps {
@@ -25,7 +26,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   return (
     <>
       {children}
-      <ChatWidget />
+      {!AI_DISABLED && <ChatWidget />}
     </>
   );
 };

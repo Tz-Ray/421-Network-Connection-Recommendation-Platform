@@ -670,7 +670,8 @@ async function handleRerank(body) {
     "You are helping a professional choose whom in their own network to contact first. " +
     "Relevance to the criteria comes first; among people who are comparably relevant, prefer " +
     "the one with a stronger relationship, and mention the relationship in the reason when it " +
-    "matters. " +
+    "matters. Write each reason to the user in the second person (\"you\", \"your\"), never " +
+    "\"the user\", and never mention candidate ids in the reason text. " +
     "You MUST ONLY recommend from the provided candidates using ids like c0,c1,c2... " +
     'Return ONLY JSON: {"recommendations":[{"id":string,"reason":string}]}';
 
@@ -745,7 +746,8 @@ async function handleChat(body) {
     "You answer questions about a user's professional network and suggest intros. " +
     "Relevance to the question comes first; among people who are comparably relevant, prefer " +
     "the one with a stronger relationship, and mention the relationship in the reason when it " +
-    "matters. " +
+    "matters. Address the user as \"you\" (never \"the user\") and never mention candidate ids " +
+    "such as c0 in the answer or reason text. " +
     "You MUST ONLY recommend from the provided candidates. " +
     'Preferred JSON: {"answer":string,"recommendations":[{"id":string,"reason":string}]}. ' +
     "If you cannot return JSON, return a helpful plain-text answer.";

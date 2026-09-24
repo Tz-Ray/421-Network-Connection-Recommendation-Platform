@@ -33,7 +33,7 @@ import type { CompactConnection, NetworkContext } from '../lib/connectionsStore'
 import { parseLinkedInExportZip } from '../lib/linkedinExport';
 import type { ImportSummary } from '../lib/linkedinExport';
 import { buildAiContext, compareRanked, noteMatches, relationshipSignals } from '../lib/relationship';
-import { proxyFetch } from '../lib/proxyClient';
+import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
 
 type Row = Record<string, unknown>;
 
@@ -1232,13 +1232,17 @@ const RecommenderScreen: React.FC = () => {
 
                   <button
                     onClick={aiRerank}
-                    disabled={!canSearch || aiReranking}
+                    disabled={AI_DISABLED || !canSearch || aiReranking}
                     className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] border ${
-                      !canSearch || aiReranking
+                      AI_DISABLED || !canSearch || aiReranking
                         ? 'bg-white/5 text-slate-600 border-white/10 cursor-not-allowed'
                         : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
                     }`}
-                    title="Use Gemini (via local proxy) to rerank best candidates and provide stronger reasons."
+                    title={
+                      AI_DISABLED
+                        ? AI_DISABLED_MESSAGE
+                        : 'Use Gemini (via the AI proxy) to rerank the best candidates and explain each pick.'
+                    }
                   >
                     <Icon name="smart_toy" className="text-sm" />
                     <span>{aiReranking ? 'Reranking…' : 'AI Rerank'}</span>

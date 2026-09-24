@@ -9,7 +9,18 @@
 
 import { auth } from '../firebase';
 
+/**
+ * `VITE_AI_PROXY_URL=off` builds the app with AI features deliberately switched
+ * off (used for a Hosting deploy while no public proxy exists). The AI buttons,
+ * the /ai page and the chat widget then explain that instead of failing.
+ */
+export const AI_DISABLED: boolean =
+  (import.meta.env.VITE_AI_PROXY_URL ?? '').trim().toLowerCase() === 'off';
+
+export const AI_DISABLED_MESSAGE = "AI features aren't available on this deployment yet.";
+
 function resolveProxyUrl(): string {
+  if (AI_DISABLED) return '';
   const configured = import.meta.env.VITE_AI_PROXY_URL;
   if (configured && configured.trim()) {
     return configured.trim().replace(/\/+$/, '');
@@ -31,7 +42,7 @@ export const PROXY_CONFIGURED: boolean = PROXY_URL !== '';
  */
 export async function proxyFetch(path: string, init?: RequestInit): Promise<Response> {
   if (!PROXY_CONFIGURED) {
-    throw new Error('AI proxy is not configured for this build.');
+    throw new Error(AI_DISABLED ? AI_DISABLED_MESSAGE : 'AI proxy is not configured for this build.');
   }
 
   const user = auth.currentUser;

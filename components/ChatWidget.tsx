@@ -66,22 +66,29 @@ function toProxyMessages(messages: ChatMessage[]) {
   }));
 }
 
-function formatAssistantReply(data: any): string {
+function formatAssistantReply(data: any, candidates: ProxyCandidate[]): string {
   const answer = typeof data?.answer === 'string' ? data.answer.trim() : '';
   const recommendations = Array.isArray(data?.recommendations) ? data.recommendations : [];
+  const byId = new Map(candidates.map((c) => [c.id, c]));
 
   if (!recommendations.length) {
     return answer || 'I could not generate recommendations yet. Please try again.';
   }
 
+  // Ids (c0, c1, ...) are an internal contract with the proxy; show the person instead.
   const lines = recommendations
+    .map((r: any) => ({ cand: byId.get(String(r?.id ?? '').trim()), reason: String(r?.reason ?? '').trim() }))
+    .filter((r: { cand?: ProxyCandidate }) => r.cand)
     .slice(0, 8)
-    .map((r: any, idx: number) => {
-      const id = String(r?.id ?? '').trim();
-      const reason = String(r?.reason ?? '').trim();
-      return `${idx + 1}. ${id || 'candidate'}${reason ? ` - ${reason}` : ''}`;
+    .map(({ cand, reason }: { cand: ProxyCandidate; reason: string }, idx: number) => {
+      const role = [cand.position, cand.company].filter(Boolean).join(' • ');
+      return `${idx + 1}. ${cand.name}${role ? ` (${role})` : ''}${reason ? ` - ${reason}` : ''}`;
     })
     .join('\n');
+
+  if (!lines) {
+    return answer || 'I could not generate recommendations yet. Please try again.';
+  }
 
   if (!answer) {
     return `Top intros from your network:\n${lines}`;
@@ -194,7 +201,7 @@ const ChatWidget: React.FC = () => {
       }
 
       const data = await response.json();
-      const assistantText = formatAssistantReply(data);
+      const assistantText = formatAssistantReply(data, safeCandidates);
 
       setMessages((prev) => [...prev, { role: 'model', parts: assistantText }]);
 

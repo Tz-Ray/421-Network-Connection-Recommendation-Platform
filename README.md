@@ -100,14 +100,19 @@ There is no lint or unit-test script in this repo. The one check to run before c
 npx tsc --noEmit
 ```
 
-To deploy the frontend (Firebase project `connectionrecommender`), set `VITE_AI_PROXY_URL` to a reachable
-proxy URL first; a production build without it fails on purpose, since the bundle would otherwise call
-`http://localhost:8787` from each visitor's own machine. Then:
+To deploy the frontend (Firebase project `connectionrecommender`), a production build must be told where the
+AI proxy lives. Set `VITE_AI_PROXY_URL` in the shell to a public proxy URL, or to `off` to ship with the AI
+features switched off (the AI page, AI Rerank and the chat bubble then say so instead of failing). The build
+fails on purpose when the variable is missing or points at `localhost`, which is what `.env.local` holds for
+development, since the bundle would otherwise call each visitor's own machine. The shell value overrides
+`.env.local`:
 
 ```bash
-npm run build && firebase deploy --only hosting
+VITE_AI_PROXY_URL=off npm run build && firebase deploy --only hosting   # no public proxy yet
 firebase deploy --only firestore    # after editing firestore.rules
 ```
+
+Hosting the AI proxy itself (Cloud Run or Cloud Functions) needs the Firebase project on the paid Blaze plan.
 
 ## Functionality
 
@@ -168,6 +173,8 @@ firebase deploy --only firestore    # after editing firestore.rules
 - The AI proxy's per-user rate limit is held in memory, so it resets whenever the proxy restarts and is not
   shared between proxy instances.
 - The sidebar's Portfolio, Pipeline, Insights and Documents entries are placeholders marked "Soon".
+- The deployed site (connectionrecommender.web.app) is built with `VITE_AI_PROXY_URL=off`: there is no public
+  AI proxy yet, so AI Rerank, the AI page and the chat bubble only work when running locally with the proxy.
 - The Gemini free tier allows 20 requests per day per model per project. When it is exhausted the proxy
   returns a 503 naming the model instead of retrying (`server/index.js:533-536`); setting
   `GEMINI_FALLBACK_MODEL` buys one more model's daily budget.

@@ -176,7 +176,7 @@ const DashboardScreen: React.FC = () => {
             <div>
               <h4 className="text-lg font-bold text-white">Connections</h4>
               <p className="text-sm text-slate-400">
-                Import your LinkedIn connections CSV, save them to your account, and use them in the recommender.
+                Import your LinkedIn data export (.zip) or Connections.csv, save it to your account, and use it in the recommender.
               </p>
             </div>
 
@@ -186,7 +186,7 @@ const DashboardScreen: React.FC = () => {
                 className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
               >
                 <Icon name="upload_file" className="text-sm" />
-                <span>Import CSV</span>
+                <span>Import LinkedIn data</span>
               </button>
 
               <button
@@ -224,6 +224,8 @@ const DashboardScreen: React.FC = () => {
                       axisLine={false}
                       tickLine={false}
                       tick={{ fill: '#64748b', fontSize: 10, fontWeight: 'bold' }}
+                      interval={0}
+                      tickFormatter={(v: string) => (v.length > 14 ? `${v.slice(0, 13)}…` : v)}
                       dy={10}
                     />
                     <Bar dataKey="count" radius={[4, 4, 0, 0]}>
@@ -258,7 +260,7 @@ const DashboardScreen: React.FC = () => {
                     className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                   >
                     <Icon name="upload_file" className="text-sm" />
-                    <span>Import CSV</span>
+                    <span>Import LinkedIn data</span>
                   </button>
                 </div>
               ) : (

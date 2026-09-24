@@ -133,7 +133,7 @@ const ConnectionsScreen: React.FC = () => {
                 className="bg-primary hover:bg-primary/90 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
               >
                 <Icon name="upload_file" className="text-sm" />
-                <span>Import CSV</span>
+                <span>Import LinkedIn data</span>
               </button>
 
               <button
