@@ -183,7 +183,7 @@ const DashboardScreen: React.FC = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => navigate('/recommender')}
-                className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 whitespace-nowrap transition-all active:scale-[0.98]"
               >
                 <Icon name="upload_file" className="text-sm" />
                 <span>Import LinkedIn data</span>
@@ -191,7 +191,7 @@ const DashboardScreen: React.FC = () => {
 
               <button
                 onClick={() => navigate('/connections')}
-                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10"
+                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 whitespace-nowrap transition-all active:scale-[0.98] border border-white/10"
               >
                 <Icon name="contacts" className="text-sm" />
                 <span>View Saved</span>
@@ -218,7 +218,7 @@ const DashboardScreen: React.FC = () => {
 
               <div className="flex-1 min-h-0 w-full mt-4">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={summary.topCompanies} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                  <BarChart data={summary.topCompanies} margin={{ top: 0, right: 8, left: 8, bottom: 0 }}>
                     <XAxis
                       dataKey="name"
                       axisLine={false}
@@ -257,7 +257,7 @@ const DashboardScreen: React.FC = () => {
                   </p>
                   <button
                     onClick={() => navigate('/recommender')}
-                    className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                    className="bg-primary hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 whitespace-nowrap transition-all active:scale-[0.98]"
                   >
                     <Icon name="upload_file" className="text-sm" />
                     <span>Import LinkedIn data</span>
