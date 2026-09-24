@@ -173,8 +173,10 @@ Hosting the AI proxy itself (Cloud Run or Cloud Functions) needs the Firebase pr
 - The AI proxy's per-user rate limit is held in memory, so it resets whenever the proxy restarts and is not
   shared between proxy instances.
 - The sidebar's Portfolio, Pipeline, Insights and Documents entries are placeholders marked "Soon".
-- The deployed site (connectionrecommender.web.app) is built with `VITE_AI_PROXY_URL=off`: there is no public
-  AI proxy yet, so AI Rerank, the AI page and the chat bubble only work when running locally with the proxy.
+- The hosted site (connectionrecommender.web.app) is built with `VITE_AI_PROXY_URL=off` and has no AI
+  features: the project does not use paid plans, and hosting the AI proxy on Firebase or Google Cloud requires
+  one. AI Rerank, the AI page and the chat bubble work when running locally with the proxy; on the hosted site
+  they show a notice instead.
 - The Gemini free tier allows 20 requests per day per model per project. When it is exhausted the proxy
   returns a 503 naming the model instead of retrying (`server/index.js:533-536`); setting
   `GEMINI_FALLBACK_MODEL` buys one more model's daily budget.

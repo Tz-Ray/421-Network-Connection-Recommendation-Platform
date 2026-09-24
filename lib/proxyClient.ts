@@ -17,7 +17,8 @@ import { auth } from '../firebase';
 export const AI_DISABLED: boolean =
   (import.meta.env.VITE_AI_PROXY_URL ?? '').trim().toLowerCase() === 'off';
 
-export const AI_DISABLED_MESSAGE = "AI features aren't available on this deployment yet.";
+export const AI_DISABLED_MESSAGE =
+  "AI features (AI Rerank and the AI assistant) aren't available on the hosted version of this app.";
 
 function resolveProxyUrl(): string {
   if (AI_DISABLED) return '';

@@ -1248,6 +1248,12 @@ const RecommenderScreen: React.FC = () => {
                     <span>{aiReranking ? 'Reranking…' : 'AI Rerank'}</span>
                   </button>
                 </div>
+                {AI_DISABLED && (
+                  <p className="text-xs text-slate-400 mt-2">
+                    AI Rerank isn't available on the hosted version of this app. Search ranks by your query and your
+                    relationships without it.
+                  </p>
+                )}
               </div>
             </div>
 

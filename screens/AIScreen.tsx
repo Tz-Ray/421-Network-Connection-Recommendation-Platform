@@ -627,7 +627,7 @@ const AIScreen: React.FC = () => {
 
           {AI_DISABLED && (
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
-              {AI_DISABLED_MESSAGE} Search and ranking on the Recommender page work without it.
+              {AI_DISABLED_MESSAGE} Search, ranking and relationship insights on the Recommender page still work.
             </div>
           )}
 
