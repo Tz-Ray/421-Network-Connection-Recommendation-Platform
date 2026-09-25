@@ -138,14 +138,22 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
    account and caches a compact copy for the session, so searching never waits on the network.
 4. **Search (local, no AI needed).** Type your criteria in the textarea, for example `VP Sales fintech` or
    `swe at Google`. Press Search. You get up to 10 results, each with a score, up to eight reason bullets, and
-   the matched-token chips. Words from your own LinkedIn notes on a person count as matches too. People who
-   match more of your query terms always rank first; among people who match the same number of terms, a
-   relationship bonus of up to 15 points (recent and two-way messages, a shared current or former employer, a
-   company on your target list, an endorsement or recommendation, an invitation they sent you) moves the
-   people you know better up. Those cards show relationship chips such as `12 msgs · Aug 2026`,
-   `Former colleague`, `Also at Acme`, `Target company` or `Endorsed you`, plus a `Relationship:` reason line.
-   The bonus needs a zip import and only applies to people who already match the query. "Strict title-only"
-   restricts a role query to title matches and has no effect on non-role queries.
+   the matched-token chips. The scorer reads a title by its meaning: whole-word matching, abbreviations
+   including ambiguous ones that match every sense (`PM` = product or project manager, `CMO` = marketing or
+   medical), word forms (`underwriting` finds `underwriter`), and a title's head noun (a "Physician Recruiter"
+   is a recruiter, not a physician). Acronyms from initials also match (`ed` = Executive Director), industry
+   queries (utilities, government, nonprofit, …) credit everyone at a matching company, and phrases like
+   "covers energy" map to occupations. It normalizes company name variants (`J.P. Morgan`, `JPMorgan Chase &
+   Co.`), reads an industry off the company name when the title alone doesn't say enough (a "Partner" at a law
+   firm is legal), understands hiring and leadership phrasing ("hire designers", "hospital leadership"), and
+   corrects typos it can't otherwise place with a `(you typed "...")` note. Words from your own LinkedIn notes
+   on a person count as matches too. People who match more of your query terms always rank first; among people
+   who match comparably well, a relationship bonus of up to 15 points (recent and two-way messages, a shared
+   current or former employer, a company on your target list, an endorsement or recommendation, an invitation
+   they sent you) moves the people you know better up, shown as chips such as `12 msgs · Aug 2026`, `Former
+   colleague`, `Also at Acme` or `Target company`, plus a `Relationship:` line. The bonus needs a zip import
+   and only applies to people who already match the query. "Strict title-only" restricts a role query to title
+   matches and has no effect on non-role queries.
 5. **AI Rerank (needs the proxy running).** Press AI Rerank instead of Search. The top 50 locally scored
    candidates are sent to Gemini, which reorders them and adds an `AI:` explanation line per result. The score
    badge and chips still come from the local pass.
@@ -180,9 +188,12 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
   (`lib/connectionFields.ts:222`), which for a real LinkedIn export is the "Notes:" preamble. Only
   comma-delimited, UTF-8 files are handled; there is no delimiter detection, no encoding handling beyond a
   BOM strip, no row cap and no per-row error reporting.
-- A connection that matches nothing in your query scores 0 and is filtered out of results entirely
-  (`screens/RecommenderScreen.tsx:380`), so rows with a missing title or company can be invisible rather than
-  ranked low (issue #30).
+- A connection that matches nothing in your query scores 0 and is filtered out of results entirely (the
+  `rankConnections` loop in `lib/search.ts`), so rows with a missing title or company can be invisible rather
+  than ranked low (issue #30).
+- The job-title and industry knowledge (abbreviations, head nouns, company-to-industry keywords) is a
+  hand-written English list in `lib/searchTaxonomy.ts`, not a general model: an unusual or niche title, or a
+  non-English export, falls back to plain word matching instead of being understood.
 - Saving connections replaces the whole collection and is serialized only within one browser tab
   (`lib/connectionsStore.ts:245-257`). Confirming uploads from two tabs or two devices at the same time can
   interleave.

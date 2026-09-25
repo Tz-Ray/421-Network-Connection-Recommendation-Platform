@@ -7,14 +7,12 @@ import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
 import {
   COMPANY_KEYS,
-  COMPANY_STOPWORDS,
   CONNECTED_ON_KEYS,
   CONTEXT_SESSION_KEY,
   EMAIL_KEYS,
   FIRST_NAME_KEYS,
   FULL_NAME_KEYS,
   LAST_NAME_KEYS,
-  NOTE_KEYS,
   POSITION_KEYS,
   SESSION_KEY,
   URL_KEYS,
@@ -23,7 +21,6 @@ import {
   getField,
   loadConnections,
   loadNetworkContext,
-  normalizeText,
   parseCsvToObjects,
   rowToDoc,
   saveConnections,
@@ -32,25 +29,12 @@ import {
 import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
 import { parseLinkedInExportZip } from '../lib/linkedinExport';
 import type { ImportSummary } from '../lib/linkedinExport';
-import { buildAiContext, compareRanked, noteMatches, relationshipSignals } from '../lib/relationship';
+import { buildAiContext } from '../lib/relationship';
+import { rankConnections } from '../lib/search';
+import type { RankedRow } from '../lib/search';
 import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
 
 type Row = Record<string, unknown>;
-
-// Output of the local relevance pass (scoreRow). relevance 0 = no match.
-type ScoredRow = {
-  row: Row;
-  relevance: number;
-  terms: number; // distinct raw query terms matched in any field (+1 alias-only title hits, +1 phrase hit)
-  matchedTokens: string[];
-  reasons: string[];
-};
-
-type RankedRow = ScoredRow & {
-  score: number; // relevance + relationship bonus (the displayed score)
-  chips: string[]; // relationship chips
-  aiSummary: string; // privacy-safe relationship facts for AI candidates
-};
 
 type CandidateSummary = {
   id: string; // c0..cN
@@ -65,88 +49,6 @@ type CandidateSummary = {
 
 const MAX_RESULTS = 10;
 const AI_POOL_SIZE = 50;
-
-// -----------------------------
-// Aliases (INTENDED for title matching)
-// -----------------------------
-const ALIASES: Record<string, string[]> = {
-  'software engineer': ['swe', 'software developer', 'developer', 'full stack', 'fullstack', 'backend', 'frontend', 'web developer'],
-  swe: ['software engineer', 'software developer', 'developer'],
-  developer: ['software engineer', 'software developer', 'full stack', 'backend', 'frontend'],
-  'software developer': ['software engineer', 'developer'],
-  'full stack': ['fullstack', 'frontend', 'backend', 'software engineer'],
-  fullstack: ['full stack', 'frontend', 'backend', 'software engineer'],
-  backend: ['back end', 'api', 'services', 'software engineer'],
-  frontend: ['front end', 'ui', 'web developer', 'software engineer'],
-  devops: ['sre', 'infrastructure', 'platform', 'cloud', 'ci/cd'],
-  sre: ['devops', 'reliability', 'infrastructure'],
-  security: ['infosec', 'appsec', 'security engineer'],
-
-  'data scientist': ['data science', 'machine learning', 'ml', 'ai', 'statistics', 'analytics'],
-  'data science': ['data scientist', 'data analyst', 'machine learning', 'ml', 'ai'],
-  'data analyst': ['analytics', 'bi', 'sql', 'reporting'],
-  'data engineer': ['etl', 'pipelines', 'warehousing', 'sql'],
-  ml: ['machine learning', 'ai', 'data scientist'],
-  ai: ['machine learning', 'ml', 'data science'],
-
-  pm: ['product manager', 'product management'],
-  'product manager': ['pm', 'product management', 'roadmap'],
-  sales: ['account executive', 'business development', 'revenue', 'gtm'],
-  gtm: ['go-to-market', 'sales', 'marketing', 'growth'],
-  ae: ['account executive', 'sales'],
-  'account executive': ['ae', 'sales'],
-  csm: ['customer success manager', 'customer success'],
-
-  ceo: ['founder', 'chief executive officer'],
-  cto: ['chief technology officer', 'engineering leader', 'architecture'],
-  cfo: ['chief financial officer', 'finance'],
-  coo: ['chief operating officer', 'operations'],
-};
-
-function expandWithAliases(text: string): string {
-  const lower = text.toLowerCase();
-  const extras: string[] = [];
-
-  for (const [key, vals] of Object.entries(ALIASES)) {
-    if (key.length <= 3) {
-      const re = new RegExp(`\\b${key.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}\\b`, 'i');
-      if (re.test(lower)) extras.push(...vals);
-    } else {
-      if (lower.includes(key)) extras.push(...vals);
-    }
-  }
-
-  return extras.length ? `${text} ${extras.join(' ')}` : text;
-}
-
-// -----------------------------
-// Helpers
-// -----------------------------
-function tokenizeQuery(q: string): string[] {
-  return q
-    .toLowerCase()
-    .split(/[\s,;]+/g)
-    .map((t) => t.trim())
-    .filter(Boolean);
-}
-
-function isRoleQuery(criteria: string): boolean {
-  const c = normalizeText(criteria);
-  const roleHints = [
-    'engineer', 'developer', 'software', 'fullstack', 'backend', 'frontend', 'devops', 'sre',
-    'data', 'scientist', 'analyst', 'designer', 'product', 'manager', 'director', 'vp',
-    'cto', 'cfo', 'coo', 'ceo', 'founder', 'sales', 'marketing', 'account', 'executive'
-  ];
-  return roleHints.some((k) => c.includes(k));
-}
-
-function filterCompanyTokens(tokens: string[]): string[] {
-  return tokens
-    .map((t) => t.toLowerCase())
-    .filter(Boolean)
-    .filter((t) => t.length >= 3)
-    .filter((t) => !COMPANY_STOPWORDS.has(t));
-}
 
 function unescapeJsonString(s: string): string {
   return s
@@ -236,161 +138,6 @@ function sanitizeAiReason(raw: string): string {
   }
 
   return s;
-}
-
-// -----------------------------
-// Scoring (hard guards against stopword leakage)
-// -----------------------------
-function scoreRow(
-  row: Row,
-  titleTokens: string[],
-  rawCompanyTokens: string[],
-  criteriaNormalized: string,
-  rawCriteria: string,
-  roleQuery: boolean,
-  strictTitleOnly: boolean
-): ScoredRow {
-  const fullName =
-    getField(row, FULL_NAME_KEYS) ||
-    `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`.trim();
-
-  const position = getField(row, POSITION_KEYS);
-  const company = getField(row, COMPANY_KEYS);
-
-  const pos = normalizeText(position);
-  const comp = normalizeText(company);
-
-  const companyTokens = filterCompanyTokens(rawCompanyTokens);
-
-  const phraseHit = criteriaNormalized.length >= 4 && pos.includes(criteriaNormalized);
-
-  const titleHits: string[] = [];
-  const companyHits: string[] = [];
-
-  for (const t of titleTokens) {
-    if (t && pos.includes(t)) titleHits.push(t);
-  }
-
-  for (const t of companyTokens) {
-    if (t && comp.includes(t)) companyHits.push(t);
-  }
-
-  const uniqTitle = Array.from(new Set(titleHits));
-  const uniqCompany = Array.from(new Set(companyHits));
-
-  // The user's own note on this connection: whole words of the RAW query (no
-  // alias expansion), at most one hit per query term. A note hit counts as
-  // relevance.
-  const note = getField(row, NOTE_KEYS);
-  const noteHits = noteMatches(note, rawCriteria);
-
-  const noMatch: ScoredRow = { row, relevance: 0, terms: 0, matchedTokens: [], reasons: [] };
-
-  if (roleQuery && strictTitleOnly && uniqTitle.length === 0 && !phraseHit) {
-    return noMatch;
-  }
-
-  if (uniqTitle.length === 0 && uniqCompany.length === 0 && !phraseHit && noteHits.length === 0) {
-    return noMatch;
-  }
-
-  let score = 0;
-  const reasons: string[] = [];
-
-  if (phraseHit) {
-    score += 50;
-    reasons.push(`Title phrase match: "${criteriaNormalized}"`);
-  }
-
-  if (uniqTitle.length) {
-    score += 20 * uniqTitle.length;
-    reasons.push(`Title match: ${uniqTitle.slice(0, 8).join(', ')}`);
-  }
-
-  if (uniqCompany.length) {
-    const base = 2 * uniqCompany.length;
-    const penalty = roleQuery && uniqTitle.length === 0 && !phraseHit ? 0.2 : 1.0;
-    score += Math.max(1, Math.floor(base * penalty));
-
-    if (roleQuery && uniqTitle.length === 0 && !phraseHit) {
-      reasons.push(`Weak match (company-only): ${uniqCompany.slice(0, 8).join(', ')}`);
-    } else {
-      reasons.push(`Company match: ${uniqCompany.slice(0, 8).join(', ')}`);
-    }
-  }
-
-  if (noteHits.length) {
-    score += 10 * noteHits.length;
-    reasons.push(`Note match: ${noteHits.slice(0, 8).join(', ')}`);
-  }
-
-  const nameLower = normalizeText(fullName);
-  for (const t of companyTokens) {
-    if (t && nameLower.includes(t)) score += 2;
-  }
-
-  const matchedTokens = Array.from(new Set([...uniqTitle, ...uniqCompany, ...noteHits]));
-
-  // terms: distinct RAW query terms matched in title, company or note. Alias-only
-  // title hits add at most one term (synonyms never outnumber what the user
-  // typed), and a phrase hit adds one more.
-  const rawTerms = new Set(rawCompanyTokens);
-  let terms = 0;
-  for (const t of rawTerms) {
-    if (
-      uniqTitle.includes(t) ||
-      uniqCompany.includes(t) ||
-      (noteHits.length > 0 && noteMatches(note, t).length > 0)
-    ) {
-      terms += 1;
-    }
-  }
-  if (uniqTitle.some((t) => !rawTerms.has(t))) terms += 1;
-  if (phraseHit) terms += 1;
-
-  if (roleQuery && (!position || position === '-' || position === '—')) {
-    reasons.push('Note: this connection has no title in the CSV export.');
-  }
-
-  return { row, relevance: score, terms, matchedTokens, reasons };
-}
-
-/**
- * Local relevance pass + relationship bonus, in display order. The bonus only
- * applies to rows that already match (relevance > 0), and compareRanked sorts
- * by matched terms first, so relationship strength only reorders rows that
- * matched the same number of query terms. The AI pool is a prefix of this order.
- */
-function rankConnections(
-  rows: Row[],
-  criteria: string,
-  strictTitleOnly: boolean,
-  ctx: NetworkContext | null
-): { expanded: string; roleQuery: boolean; ranked: RankedRow[] } {
-  const roleQuery = isRoleQuery(criteria);
-  const expanded = expandWithAliases(criteria);
-
-  const titleTokens = tokenizeQuery(expanded);
-  const companyTokens = tokenizeQuery(criteria);
-  const critNorm = normalizeText(criteria);
-  const now = new Date();
-
-  const ranked = rows
-    .map((r) => scoreRow(r, titleTokens, companyTokens, critNorm, criteria, roleQuery, strictTitleOnly))
-    .filter((s) => s.relevance > 0)
-    .map((s): RankedRow => {
-      const rel = relationshipSignals(s.row, ctx, now);
-      return {
-        ...s,
-        score: s.relevance + rel.bonus,
-        reasons: [...s.reasons, ...rel.reasons],
-        chips: rel.chips,
-        aiSummary: rel.aiSummary,
-      };
-    })
-    .sort(compareRanked);
-
-  return { expanded, roleQuery, ranked };
 }
 
 // Same shape the account-load path writes (docToCompact), so AIScreen sees the
