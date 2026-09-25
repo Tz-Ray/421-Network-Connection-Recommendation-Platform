@@ -95,7 +95,10 @@ const THINKING_BUDGET = Number.isFinite(Number(process.env.GEMINI_THINKING_BUDGE
 // Optional second model used when the primary is rate-limited / out of daily quota /
 // unavailable. Free tier quotas are per model, so e.g. gemini-3.5-flash-lite keeps
 // working after gemini-2.5-flash's 20 requests/day are spent.
-const FALLBACK_MODEL = normalizeModel(process.env.GEMINI_FALLBACK_MODEL || "");
+// Unset or blank means "no fallback" (normalizeModel would turn "" into its default model).
+const FALLBACK_MODEL = String(process.env.GEMINI_FALLBACK_MODEL || "").trim()
+  ? normalizeModel(process.env.GEMINI_FALLBACK_MODEL)
+  : "";
 // Some models (e.g. gemini-3.5-flash-lite) reject thinkingConfig with HTTP 400 even
 // though they match the version regex; we learn that at runtime and remember it.
 const thinkingUnsupported = new Set();
@@ -774,7 +777,11 @@ async function handleChat(body) {
   // Preferred: parseable JSON
   if (parsedJson && typeof parsedJson === "object") {
     const answer = typeof parsedJson.answer === "string" ? parsedJson.answer : "";
-    const recommendations = Array.isArray(parsedJson.recommendations) ? parsedJson.recommendations : [];
+    // Same rules as rerank: only ids that were sent, no duplicates, at most 10.
+    const recommendations = normalizeRecs(
+      Array.isArray(parsedJson.recommendations) ? parsedJson.recommendations : [],
+      pool
+    );
     if (answer || recommendations.length) {
       return { answer, recommendations };
     }

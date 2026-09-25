@@ -43,8 +43,9 @@ for chat, and keep the last 8 chat messages. Beyond that:
 
 - **Protocol and errors.** Callable `HttpsError` codes here; the proxy uses HTTP routes and status codes with
   `{ "error": string }` bodies, and verifies the ID token itself (`verifyIdToken`).
-- **Model.** Hardcoded here. The proxy reads `GEMINI_MODEL` (default `gemini-1.5-flash` when unset) and tries
-  `GEMINI_FALLBACK_MODEL` once when the primary fails with 502 or 503. There is no fallback model here.
+- **Model.** Hardcoded here. The proxy reads `GEMINI_MODEL` (default `gemini-1.5-flash` when unset) and, when
+  `GEMINI_FALLBACK_MODEL` is set, tries it once when the primary fails with 502 or 503. There is no fallback
+  model here.
 - **Thinking config.** Always sent here. The proxy sends it only for 2.5+/3.x model names, takes the budget from
   `GEMINI_THINKING_BUDGET` (default 0), and stops sending it to a model that rejects it with HTTP 400.
 - **Retries and quota.** None here: one `fetch` with no timeout of its own. The proxy makes up to 3 attempts
@@ -56,9 +57,10 @@ for chat, and keep the last 8 chat messages. Beyond that:
   never read. The proxy sanitizes both (`sanitizeAiText`) and puts them in the prompt.
 - **Parsing and fallbacks.** Single pass here. The proxy's `handleRerank` falls back from strict JSON to
   loose-text extraction, a second temperature-0 JSON-only call, extraction again, and finally the first 10
-  candidates unranked with a `debug.note`, and filters results through `normalizeRecs` (known ids only, no
-  duplicates, at most 10). Its `handleChat` gives a default answer for empty JSON and the raw text plus `debug`
-  for unparseable output; this version returns `""` or throws `internal`.
+  candidates unranked with a `debug.note`. Both of its handlers filter results through `normalizeRecs` (known
+  ids only, no duplicates, at most 10); this version returns the model's array unchecked. Its `handleChat`
+  gives a default answer for empty JSON and the raw text plus `debug` for unparseable output; this version
+  returns `""` or throws `internal`.
 - **Prompts.** The rerank system prompt here still says "helping a VC team choose the best people in a
   professional network for an introduction", and neither prompt mentions relationships. The proxy's prompts
   put relevance first and then prefer the stronger relationship.

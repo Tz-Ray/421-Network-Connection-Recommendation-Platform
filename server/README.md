@@ -36,7 +36,7 @@ Every environment variable the proxy reads:
 |---|---|---|
 | `GEMINI_API_KEY` | none | Gemini API key. Without it `/health` reports `keyLoaded: false`, and rerank, chat (unless `GEMINI_MOCK` is on) and `/models` fail with a 500. |
 | `GEMINI_MODEL` | `gemini-1.5-flash` | Primary model, for example `gemini-2.5-flash`. A leading `models/` is stripped. |
-| `GEMINI_FALLBACK_MODEL` | `gemini-1.5-flash` | Model tried once when the primary fails with a 502 or 503. An empty value normalizes to `gemini-1.5-flash`, so leaving it unset does not disable the fallback; it is skipped only when it equals the primary model. |
+| `GEMINI_FALLBACK_MODEL` | none | Model tried once when the primary fails with a 502 or 503, for example `gemini-3.5-flash-lite`. A leading `models/` is stripped. Unset or blank means no fallback (`/health` reports `fallbackModel: null`); it is also skipped when it equals the primary model. |
 | `GEMINI_THINKING_BUDGET` | `0` | `thinkingBudget` sent to models that take `thinkingConfig` (see below). A non-numeric value means 0. |
 | `AI_PROXY_PORT` | `8787` | Listening port. Invalid values fall back to 8787 with a warning. |
 | `FIREBASE_PROJECT_ID` | value of `VITE_FIREBASE_PROJECT_ID` | Firebase project whose ID tokens are accepted. If both are empty, every route except `/health` answers 503. |
@@ -152,9 +152,9 @@ Answers a question about the user's network. Used by the `/ai` screen and the ch
   same rules as rerank.
 - `messages` (optional) is the prior conversation; only the last 8 entries are kept. An entry with
   `role: "assistant"` is labelled as the AI, anything else as the user.
-- `recommendations` is passed through as the model produced it: the proxy does not check the ids against the
-  candidates, remove duplicates or cap the list (the prompt asks for up to 10). Match ids against the
-  candidates you sent. `answer` can be an empty string when `recommendations` is not empty.
+- `recommendations` follows the same rules as rerank (`normalizeRecs`): only ids of valid candidates that were
+  sent, no duplicates, at most 10, and a missing reason becomes `Recommended by AI.` `answer` can be an empty
+  string when `recommendations` is not empty.
 - `debug` appears only when the model's reply was not parseable JSON (see below).
 
 Keep both response shapes stable: `{ recommendations: [{ id, reason }], debug? }` and
@@ -242,8 +242,8 @@ When the fallback model is tried, the status comes from whichever model was trie
   candidates in the order sent, each with the reason
   `Fallback: AI response was not parseable; kept baseline ordering.`, plus `debug: { note, model }`. A rerank
   request can therefore cost two Gemini requests.
-- **Chat replies** (`handleChat`). Parseable JSON with an `answer` or any `recommendations` is returned as
-  `{ answer, recommendations }`. Valid JSON with neither returns the fixed answer
+- **Chat replies** (`handleChat`). Parseable JSON is reduced to its `answer` and its `recommendations` after
+  `normalizeRecs`; if either is non-empty it is returned as `{ answer, recommendations }`. Valid JSON with neither returns the fixed answer
   `I couldn't find anything relevant in the loaded connections for that.` with no recommendations and no
   `debug`. A reply that is not parseable JSON is returned as the `answer` (raw model text), with
   `recommendations: []` and `debug: { note, model }`.
@@ -254,7 +254,7 @@ When the fallback model is tried, the status comes from whichever model was trie
 |---|---|
 | Request body | 2 MB (`MAX_BODY_BYTES`) |
 | Candidates in the prompt | first 120 (`formatCandidates`) |
-| Recommendations returned by rerank | 10 (`normalizeRecs`, `fallbackRerank`); chat asks the model for up to 10 but does not enforce it |
+| Recommendations returned | 10 (`normalizeRecs` for rerank and chat, `fallbackRerank`) |
 | Chat history kept | last 8 `messages` |
 | `relationship` per candidate | 200 characters (`RELATIONSHIP_MAX_LEN`) |
 | `context` per request | 600 characters (`CONTEXT_MAX_LEN`) |
@@ -290,5 +290,4 @@ in.
 - The Gemini free tier allows 20 requests per day per model per project. The default per-user day limit (40)
   is above that, so a single account can use up a model's daily quota; a rerank that needs the strict second
   pass uses two requests.
-- Leaving `GEMINI_FALLBACK_MODEL` unset makes `gemini-1.5-flash` the fallback model (see Configuration).
 - There is no public deployment of this proxy; the hosted site ships with the AI features switched off.
