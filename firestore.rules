@@ -14,6 +14,33 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
+    // Latest ranking vote per (search, candidate); read back to reorder AI Rerank results.
+    match /users/{userId}/rankingFeedback/{voteId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['candidateId', 'queryKey', 'feedback', 'updatedAt'])
+        && request.resource.data.candidateId is string
+        && request.resource.data.candidateId.matches('^[0-9a-f]{64}$')
+        && request.resource.data.queryKey is string
+        && request.resource.data.queryKey.matches('^[0-9a-f]{64}$')
+        && voteId == request.resource.data.queryKey + '_' + request.resource.data.candidateId
+        && request.resource.data.feedback in ['relevant', 'irrelevant']
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    // Ranking feedback telemetry: append-only, own docs only, never readable by clients.
+    match /ranking_telemetry/{eventId} {
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['userId', 'candidateId', 'queryText', 'feedback', 'timestamp'])
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.candidateId is string
+        && request.resource.data.candidateId.matches('^[0-9a-f]{64}$')
+        && request.resource.data.queryText is string
+        && request.resource.data.queryText.size() <= 500
+        && request.resource.data.feedback in ['relevant', 'irrelevant']
+        && request.resource.data.timestamp == request.time;
+    }
+
     // Default deny everything else (keeps scope tight)
     match /{document=**} {
       allow read, write: if false;

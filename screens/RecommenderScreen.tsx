@@ -33,6 +33,8 @@ import { buildAiContext } from '../lib/relationship';
 import { rankConnections } from '../lib/search';
 import type { RankedRow } from '../lib/search';
 import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
+import { candidateIdFor, loadQueryFeedback, recordRankingFeedback } from '../lib/telemetry';
+import type { RankingFeedback } from '../lib/telemetry';
 
 type Row = Record<string, unknown>;
 
@@ -159,6 +161,48 @@ async function fetchJsonOrThrow(resp: Response) {
 }
 
 // -----------------------------
+// Feedback ordering
+// -----------------------------
+type Votes = Map<string, RankingFeedback>;
+
+/** Your saved votes for this search and the pool's candidate ids. Never rejects: on failure nothing is reordered. */
+function loadVotes(pool: RankedRow[], queryText: string): Promise<[Votes, string[]]> {
+  return Promise.all([
+    loadQueryFeedback(queryText).catch((): Votes => new Map()),
+    Promise.all(pool.map((p) => candidateIdFor(p.row))),
+  ]).catch((): [Votes, string[]] => [new Map(), []]);
+}
+
+/**
+ * Relevant first, unvoted in the given order, irrelevant last. `extras` (rows
+ * outside `ordered`) are included only when voted relevant, with `addedNote`.
+ */
+function applyVotes(
+  ordered: { row: RankedRow; id?: string }[],
+  extras: { row: RankedRow; id?: string }[],
+  votes: Votes,
+  addedNote = ''
+): { rows: RankedRow[]; up: number; down: number } {
+  const note = (r: RankedRow, text: string): RankedRow => ({ ...r, reasons: [...r.reasons, text] });
+  const up: RankedRow[] = [];
+  const unvoted: RankedRow[] = [];
+  const down: RankedRow[] = [];
+  for (const { row, id } of ordered) {
+    const vote = id ? votes.get(id) : undefined;
+    if (vote === 'relevant') up.push(note(row, 'Moved up: you marked this relevant for this search.'));
+    else if (vote === 'irrelevant') down.push(note(row, 'Moved down: you marked this not relevant for this search.'));
+    else unvoted.push(row);
+  }
+  for (const { row, id } of extras) {
+    if (id && votes.get(id) === 'relevant') up.push(note(row, addedNote));
+  }
+  return { rows: [...up, ...unvoted, ...down].slice(0, MAX_RESULTS), up: up.length, down: down.length };
+}
+
+const feedbackSummary = (up: number, down: number) =>
+  up || down ? ` Your feedback moved ${up} up and ${down} down.` : '';
+
+// -----------------------------
 // Screen
 // -----------------------------
 const RecommenderScreen: React.FC = () => {
@@ -192,6 +236,33 @@ const RecommenderScreen: React.FC = () => {
   const [saving, setSaving] = useState<boolean>(false);
 
   const [strictTitleOnly, setStrictTitleOnly] = useState<boolean>(false);
+
+  // The criteria that produced `results` (the textarea may be edited since).
+  const [resultsQuery, setResultsQuery] = useState<string>('');
+  // candidateIdFor(results[i].row), filled in asynchronously after each new result set.
+  const [resultIds, setResultIds] = useState<string[]>([]);
+  // Votes for `resultsQuery`, by candidateId (saved ones are loaded with each result set).
+  const [feedback, setFeedback] = useState<Record<string, RankingFeedback>>({});
+  const [feedbackPending, setFeedbackPending] = useState<Record<string, boolean>>({});
+  const [feedbackError, setFeedbackError] = useState<string>('');
+
+  useEffect(() => {
+    setResultIds([]);
+    setFeedback({});
+    setFeedbackPending({});
+    setFeedbackError('');
+    if (!results.length) return;
+
+    let cancelled = false;
+    Promise.all(results.map((r) => candidateIdFor(r.row)))
+      .then((ids) => { if (!cancelled) setResultIds(ids); })
+      .catch(() => undefined);
+    loadQueryFeedback(resultsQuery)
+      // Votes cast while this was loading are newer than the saved ones.
+      .then((votes) => { if (!cancelled) setFeedback((prev) => ({ ...Object.fromEntries(votes), ...prev })); })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, [results, resultsQuery]);
 
   const hasStaged = stagedRows.length > 0;
   const isConfirmed = confirmedRows.length > 0;
@@ -533,22 +604,31 @@ const RecommenderScreen: React.FC = () => {
     setPageIndex(0);
   }
 
-  function runSearch() {
+  async function runSearch() {
     setAiError('');
     setAiInfo('');
     if (!canSearch) return;
 
-    const { roleQuery, ranked } = rankConnections(confirmedRows, criteria, strictTitleOnly, confirmedContext);
+    const queryText = criteria;
+    const version = datasetVersion.current;
+    const seq = ++searchSeq.current;
+    const { roleQuery, ranked } = rankConnections(confirmedRows, queryText, strictTitleOnly, confirmedContext);
 
-    const top = ranked.slice(0, MAX_RESULTS);
+    // Votes can lift anyone from the same pool AI Rerank uses into the top results.
+    const pool = ranked.slice(0, AI_POOL_SIZE);
+    const [votes, ids] = await loadVotes(pool, queryText);
+    if (seq !== searchSeq.current || version !== datasetVersion.current) return;
+
+    const { rows: top, up, down } = applyVotes(pool.map((row, i) => ({ row, id: ids[i] })), [], votes);
     setResults(top);
+    setResultsQuery(queryText);
 
     if (roleQuery && strictTitleOnly && top.length === 0) {
       setAiInfo('No results. Turn off “Strict title-only” because many CSV rows have blank titles.');
     } else if (top.length === 0) {
       setAiInfo('No results. Try broader criteria (e.g., “engineer” or “sales”).');
     } else {
-      setAiInfo('Search complete. Company-only matches are flagged “Weak”.');
+      setAiInfo(`Search complete. Company-only matches are flagged “Weak”.${feedbackSummary(up, down)}`);
     }
   }
 
@@ -598,6 +678,11 @@ const RecommenderScreen: React.FC = () => {
     // Owner context for the prompt (never name, schools, follows or applications).
     const context = buildAiContext(confirmedContext);
 
+    // Fetched alongside the AI call; if it fails the AI order is used as is.
+    const votesPromise = loadVotes(pool, criteria);
+    // A Search still waiting on its votes must not overwrite the AI results.
+    ++searchSeq.current;
+
     setAiReranking(true);
     try {
       const resp = await proxyFetch('/gemini/rerank', {
@@ -616,33 +701,70 @@ const RecommenderScreen: React.FC = () => {
       const idToIndex = new Map<string, number>();
       candidates.forEach((c, idx) => idToIndex.set(c.id, idx));
 
-      const newResults: RankedRow[] = [];
-      for (const r of recs.slice(0, MAX_RESULTS)) {
+      const aiOrder: { idx: number; reason: string }[] = [];
+      const picked = new Set<number>();
+      for (const r of recs) {
         const idx = idToIndex.get(r.id);
-        if (idx == null) continue;
-        const original = pool[idx];
-        if (!original) continue;
-
+        if (idx == null || picked.has(idx) || !pool[idx]) continue;
+        picked.add(idx);
         // ✅ FIX: show full reason (lenient extraction)
-        const cleaned = sanitizeAiReason(String(r.reason ?? ''));
-
-        newResults.push({
-          ...original,
-          reasons: [...(original.reasons ?? []), ...(cleaned ? [`AI: ${cleaned}`] : [])],
-        });
+        aiOrder.push({ idx, reason: sanitizeAiReason(String(r.reason ?? '')) });
       }
 
-      if (!newResults.length) {
+      if (!aiOrder.length) {
         setAiError('AI rerank result mapping failed.');
         return;
       }
 
+      // Your votes for this search override the AI order.
+      const [votes, poolIds] = await votesPromise;
+      const withAiReason = (idx: number, reason: string): RankedRow => ({
+        ...pool[idx],
+        reasons: [...(pool[idx].reasons ?? []), ...(reason ? [`AI: ${reason}`] : [])],
+      });
+
+      const { rows: newResults, up, down } = applyVotes(
+        aiOrder.map(({ idx, reason }) => ({ row: withAiReason(idx, reason), id: poolIds[idx] })),
+        pool.flatMap((row, idx) => (picked.has(idx) ? [] : [{ row, id: poolIds[idx] }])),
+        votes,
+        'Added: you marked this relevant for this search (the AI did not pick it).'
+      );
+
       setResults(newResults);
-      setAiInfo('AI rerank applied.');
+      setResultsQuery(criteria);
+      setAiInfo(`AI rerank applied.${feedbackSummary(up, down)}`);
     } catch (e: any) {
       setAiError(e?.message ?? 'AI rerank failed.');
     } finally {
       setAiReranking(false);
+    }
+  }
+
+  // Lets an in-flight vote detect that the results now belong to another search.
+  const resultsQueryRef = useRef(resultsQuery);
+  resultsQueryRef.current = resultsQuery;
+  // Latest search / rerank; an older one still loading votes drops its results.
+  const searchSeq = useRef(0);
+
+  async function sendFeedback(idx: number, value: RankingFeedback) {
+    const target = results[idx];
+    if (!target) return;
+    const queryText = resultsQuery;
+
+    setFeedbackError('');
+    try {
+      const candidateId = resultIds[idx] ?? (await candidateIdFor(target.row));
+      if (feedbackPending[candidateId] || feedback[candidateId] === value) return;
+
+      setFeedbackPending((p) => ({ ...p, [candidateId]: true }));
+      try {
+        await recordRankingFeedback({ candidateId, queryText, feedback: value });
+        if (resultsQueryRef.current === queryText) setFeedback((f) => ({ ...f, [candidateId]: value }));
+      } finally {
+        setFeedbackPending((p) => ({ ...p, [candidateId]: false }));
+      }
+    } catch (e: any) {
+      if (resultsQueryRef.current === queryText) setFeedbackError(e?.message ?? 'Could not send feedback.');
     }
   }
 
@@ -1013,6 +1135,11 @@ const RecommenderScreen: React.FC = () => {
                 <div className="text-sm text-slate-400">Run a search to see results.</div>
               ) : (
                 <div className="space-y-3">
+                  {feedbackError && (
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
+                      {feedbackError}
+                    </div>
+                  )}
                   {results.map((r, idx) => {
                     const name =
                       getField(r.row, FULL_NAME_KEYS) ||
@@ -1076,6 +1203,40 @@ const RecommenderScreen: React.FC = () => {
                             ))}
                           </div>
                         )}
+
+                        <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+                          {(
+                            [
+                              ['relevant', 'thumb_up', 'Relevant'],
+                              ['irrelevant', 'thumb_down', 'Irrelevant'],
+                            ] as const
+                          ).map(([value, icon, label]) => {
+                            const cid = resultIds[idx];
+                            const selected = cid != null && feedback[cid] === value;
+                            const pending = cid != null && !!feedbackPending[cid];
+                            return (
+                              <button
+                                key={value}
+                                onClick={() => void sendFeedback(idx, value)}
+                                disabled={pending || selected}
+                                aria-pressed={selected}
+                                title={`Mark as ${label.toLowerCase()} for this search`}
+                                className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
+                                  selected
+                                    ? value === 'relevant'
+                                      ? 'bg-primary/15 border-primary/30 text-primary'
+                                      : 'bg-red-500/10 border-red-500/20 text-red-200'
+                                    : pending
+                                      ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
+                                      : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
+                                }`}
+                              >
+                                <Icon name={icon} className="text-sm" outlined={!selected} />
+                                <span>{label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
                     );
                   })}
