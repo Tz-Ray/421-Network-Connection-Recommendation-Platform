@@ -1,0 +1,1213 @@
+{
+  "id": "C06",
+  "file": "networks/classic/C06_hannah-walker.csv",
+  "format": "classic",
+  "owner": {
+    "personId": "P02939",
+    "name": "Hannah Walker",
+    "url": "https://www.linkedin.com/in/hannah-walker-714c91a"
+  },
+  "exportDate": "2026-02-09",
+  "rows": [
+    {
+      "personId": "P02162",
+      "url": "https://www.linkedin.com/in/michal-kaplan-7f4b1416",
+      "firstName": "Michal",
+      "lastName": "Kaplan",
+      "email": "",
+      "company": "Ryanair",
+      "position": "Associate",
+      "connectedOnIso": "2026-02-03"
+    },
+    {
+      "personId": "P02731",
+      "url": "https://www.linkedin.com/in/priya-reddy-ad03d7e",
+      "firstName": "Priya",
+      "lastName": "Reddy",
+      "email": "",
+      "company": "Selfridges",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2026-01-03"
+    },
+    {
+      "personId": "P04587",
+      "url": "https://www.linkedin.com/in/mekonnen-bah-d47cd16e",
+      "firstName": "Mekonnen",
+      "lastName": "Bah",
+      "email": "",
+      "company": "Paramount Global",
+      "position": "Line Producer",
+      "connectedOnIso": "2026-01-01"
+    },
+    {
+      "personId": "P03893",
+      "url": "https://www.linkedin.com/in/gregory-smith-e49add",
+      "firstName": "Gregory",
+      "lastName": "Smith",
+      "email": "",
+      "company": "Jacobs Engineering Group",
+      "position": "Senior Associate",
+      "connectedOnIso": "2025-12-27"
+    },
+    {
+      "personId": "P02860",
+      "url": "https://www.linkedin.com/in/michael-turner-ff7b926d",
+      "firstName": "Michael",
+      "lastName": "Turner",
+      "email": "michael_turner@example.org",
+      "company": "Marks & Spencer",
+      "position": "Regional Sales Lead",
+      "connectedOnIso": "2025-12-19"
+    },
+    {
+      "personId": "P02816",
+      "url": "https://www.linkedin.com/in/li-liu-2dec196",
+      "firstName": "Li",
+      "lastName": "Liu",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Head of Buying",
+      "connectedOnIso": "2025-09-27"
+    },
+    {
+      "personId": "P01167",
+      "url": "https://www.linkedin.com/in/jaewoo-han-10fcd7e",
+      "firstName": "Jaewoo",
+      "lastName": "Han",
+      "email": "",
+      "company": "Outreach",
+      "position": "Sales Executive 🚀",
+      "connectedOnIso": "2025-09-10"
+    },
+    {
+      "personId": "P03285",
+      "url": "https://www.linkedin.com/in/lars-desai-4bad90c",
+      "firstName": "Lars",
+      "lastName": "Desai",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Finance Lead",
+      "connectedOnIso": "2025-08-19"
+    },
+    {
+      "personId": "P02742",
+      "url": "https://www.linkedin.com/in/lauren-edwards-94b0f0",
+      "firstName": "Lauren",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Boots UK",
+      "position": "Buying Director",
+      "connectedOnIso": "2025-06-11"
+    },
+    {
+      "personId": "P02931",
+      "url": "https://www.linkedin.com/in/katarzynakhumalo46",
+      "firstName": "Katarzyna",
+      "lastName": "Khumalo",
+      "email": "",
+      "company": "John Lewis Partnership",
+      "position": "Head of Buying",
+      "connectedOnIso": "2025-06-06"
+    },
+    {
+      "personId": "P02725",
+      "url": "https://www.linkedin.com/in/thomasadams",
+      "firstName": "Thomas",
+      "lastName": "Adams",
+      "email": "",
+      "company": "Marks & Spencer",
+      "position": "VP of Supply Chain",
+      "connectedOnIso": "2025-05-18"
+    },
+    {
+      "personId": "P02892",
+      "url": "https://www.linkedin.com/in/benjamin-parker-0a7bc1a",
+      "firstName": "Benjamin",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Compass Group",
+      "position": "Senior Operations Manager, Hospitality",
+      "connectedOnIso": "2025-03-23"
+    },
+    {
+      "personId": "P01871",
+      "url": "https://www.linkedin.com/in/sean-jackson-4c5c1f1e",
+      "firstName": "Sean",
+      "lastName": "Jackson",
+      "email": "",
+      "company": "Citigroup",
+      "position": "Deal Team Lead",
+      "connectedOnIso": "2025-03-18"
+    },
+    {
+      "personId": "P04140",
+      "url": "https://www.linkedin.com/in/grace-phillips-711472a8",
+      "firstName": "Grace",
+      "lastName": "Phillips",
+      "email": "",
+      "company": "Riot Games",
+      "position": "Senior Product Designer",
+      "connectedOnIso": "2025-02-24"
+    },
+    {
+      "personId": "P03004",
+      "url": "https://www.linkedin.com/in/hui-cao-ae2a98",
+      "firstName": "Hui",
+      "lastName": "Cao",
+      "email": "",
+      "company": "Compass Group",
+      "position": "General Manager",
+      "connectedOnIso": "2025-02-12"
+    },
+    {
+      "personId": "P02740",
+      "url": "https://www.linkedin.com/in/thomas-turner-1894f38",
+      "firstName": "Thomas",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Burberry",
+      "position": "Merchandising Intern",
+      "connectedOnIso": "2025-02-06"
+    },
+    {
+      "personId": "P02998",
+      "url": "https://www.linkedin.com/in/lauren-johnson-ef1677",
+      "firstName": "Lauren",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "Booking.com",
+      "position": "Managing Director",
+      "connectedOnIso": "2025-02-05"
+    },
+    {
+      "personId": "P02793",
+      "url": "https://www.linkedin.com/in/gustav-mikkelsen-5088bf",
+      "firstName": "Gustav",
+      "lastName": "Mikkelsen",
+      "email": "gustav.mikkelsen@example.net",
+      "company": "Compass Group",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2025-01-29"
+    },
+    {
+      "personId": "P03003",
+      "url": "https://www.linkedin.com/in/amanda-young-611db5b0",
+      "firstName": "Amanda",
+      "lastName": "Young",
+      "email": "",
+      "company": "Sainsbury's",
+      "position": "Chief of Staff",
+      "connectedOnIso": "2025-01-11"
+    },
+    {
+      "personId": "P02677",
+      "url": "https://www.linkedin.com/in/aakash-hoang-70ceb6",
+      "firstName": "Aakash",
+      "lastName": "Hoàng",
+      "email": "",
+      "company": "H&M",
+      "position": "Supply Chain Intern",
+      "connectedOnIso": "2024-12-25"
+    },
+    {
+      "personId": "P02994",
+      "url": "https://www.linkedin.com/in/lea-fontana-5869f5c7",
+      "firstName": "Léa",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "Ryanair",
+      "position": "Operations Lead",
+      "connectedOnIso": "2024-12-21"
+    },
+    {
+      "personId": "P02755",
+      "url": "https://www.linkedin.com/in/anil-rahman-20647e76",
+      "firstName": "Anil",
+      "lastName": "Rahman",
+      "email": "anilrahman10@example.com",
+      "company": "Self-employed",
+      "position": "Senior Product Designer",
+      "connectedOnIso": "2024-12-16"
+    },
+    {
+      "personId": "P02746",
+      "url": "https://www.linkedin.com/in/henry-johnson-c36ce4",
+      "firstName": "Henry",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "easyJet",
+      "position": "Director of Sales",
+      "connectedOnIso": "2024-12-01"
+    },
+    {
+      "personId": "P01650",
+      "url": "https://www.linkedin.com/in/olga-kristiansen-b2489f",
+      "firstName": "Olga",
+      "lastName": "Kristiansen",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Analyst, Venture Capital",
+      "connectedOnIso": "2024-11-26"
+    },
+    {
+      "personId": "P00531",
+      "url": "https://www.linkedin.com/in/emilio-garcia-lopez-0562f1",
+      "firstName": "Emilio",
+      "lastName": "García-López",
+      "email": "",
+      "company": "Meta",
+      "position": "Software Engineer II | Java",
+      "connectedOnIso": "2024-11-17"
+    },
+    {
+      "personId": "P02778",
+      "url": "https://www.linkedin.com/in/william-green-1602ac",
+      "firstName": "William",
+      "lastName": "Green",
+      "email": "william_green@example.com",
+      "company": "Whitbread",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2024-11-02"
+    },
+    {
+      "personId": "P03011",
+      "url": "https://www.linkedin.com/in/celine-fontana-efea551",
+      "firstName": "Céline",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "Whitbread",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2024-09-19"
+    },
+    {
+      "personId": "P04452",
+      "url": "https://www.linkedin.com/in/emoore",
+      "firstName": "Emily",
+      "lastName": "Moore",
+      "email": "",
+      "company": "Warner Bros. Discovery",
+      "position": "HR Manager",
+      "connectedOnIso": "2024-08-27"
+    },
+    {
+      "personId": "P02872",
+      "url": "https://www.linkedin.com/in/zainab-traore-ba6216",
+      "firstName": "Zainab",
+      "lastName": "Traore",
+      "email": "",
+      "company": "InterContinental Hotels Group",
+      "position": "Restaurant Manager",
+      "connectedOnIso": "2024-08-22"
+    },
+    {
+      "personId": "P02184",
+      "url": "https://www.linkedin.com/in/ling-song",
+      "firstName": "Ling",
+      "lastName": "Song",
+      "email": "",
+      "company": "Sullivan & Cromwell",
+      "position": "Senior Associate",
+      "connectedOnIso": "2024-08-17"
+    },
+    {
+      "personId": "P02843",
+      "url": "https://www.linkedin.com/in/scott-collins-fcc22f",
+      "firstName": "Scott",
+      "lastName": "Collins",
+      "email": "",
+      "company": "Compass Group plc",
+      "position": "Guest Services Manager",
+      "connectedOnIso": "2024-08-06"
+    },
+    {
+      "personId": "P02926",
+      "url": "https://www.linkedin.com/in/charles-adams-06f642",
+      "firstName": "Charles",
+      "lastName": "Adams",
+      "email": "",
+      "company": "Monzo",
+      "position": "Senior Customer Success Manager",
+      "connectedOnIso": "2024-07-04"
+    },
+    {
+      "personId": "P01731",
+      "url": "https://www.linkedin.com/in/andrew-johnson-b0f374a9",
+      "firstName": "Andrew",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "RAND Corporation",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2024-06-25"
+    },
+    {
+      "personId": "P02750",
+      "url": "https://www.linkedin.com/in/larisa-fedorov-cef1631c",
+      "firstName": "Larisa",
+      "lastName": "Fedorov",
+      "email": "",
+      "company": "Next plc",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2024-06-06"
+    },
+    {
+      "personId": "P01862",
+      "url": "https://www.linkedin.com/in/olga-vasiliev-4081c8d",
+      "firstName": "Olga",
+      "lastName": "Vasiliev",
+      "email": "",
+      "company": "Goldman Sachs",
+      "position": "Executive Director, IBD (Contract)",
+      "connectedOnIso": "2024-05-15"
+    },
+    {
+      "personId": "P02912",
+      "url": "https://www.linkedin.com/in/zola-costa-c25647",
+      "firstName": "Zola",
+      "lastName": "Costa",
+      "email": "",
+      "company": "Whitbread",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2024-05-05"
+    },
+    {
+      "personId": "P02061",
+      "url": "https://www.linkedin.com/in/julia-martin-c63d95d",
+      "firstName": "Julia",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Goldman Sachs",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2024-04-23"
+    },
+    {
+      "personId": "P02070",
+      "url": "https://www.linkedin.com/in/chen-wu-cd5d84",
+      "firstName": "Chen",
+      "lastName": "Wu",
+      "email": "",
+      "company": "easyJet",
+      "position": "Finance Lead",
+      "connectedOnIso": "2024-03-13"
+    },
+    {
+      "personId": "P02692",
+      "url": "https://www.linkedin.com/in/baptiste-schmidt-199ca2",
+      "firstName": "Baptiste",
+      "lastName": "Schmidt",
+      "email": "",
+      "company": "ASOS",
+      "position": "Operations Intern",
+      "connectedOnIso": "2024-02-21"
+    },
+    {
+      "personId": "P02717",
+      "url": "https://www.linkedin.com/in/deepak-iyer-1d57e4",
+      "firstName": "Deepak",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Tesco",
+      "position": "Commercial Director",
+      "connectedOnIso": "2024-02-09"
+    },
+    {
+      "personId": "P02686",
+      "url": "https://www.linkedin.com/in/hala-novikov-445f77",
+      "firstName": "Hala",
+      "lastName": "Novikov",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Buyer",
+      "connectedOnIso": "2024-02-04"
+    },
+    {
+      "personId": "P03748",
+      "url": "https://www.linkedin.com/in/sean-stewart-aa8e1ac",
+      "firstName": "Sean",
+      "lastName": "Stewart",
+      "email": "",
+      "company": "AA",
+      "position": "VP of Supply Chain",
+      "connectedOnIso": "2024-01-30"
+    },
+    {
+      "personId": "P02108",
+      "url": "https://www.linkedin.com/in/anil-bhatt-8290a272",
+      "firstName": "Anil",
+      "lastName": "Bhatt",
+      "email": "",
+      "company": "BlackRock",
+      "position": "Finance Intern",
+      "connectedOnIso": "2024-01-24"
+    },
+    {
+      "personId": "P02540",
+      "url": "https://www.linkedin.com/in/lorenzo-moretti-9b0ad31",
+      "firstName": "Lorenzo",
+      "lastName": "Moretti",
+      "email": "lorenzo.moretti@example.net",
+      "company": "Harrods",
+      "position": "Operations Director",
+      "connectedOnIso": "2024-01-13"
+    },
+    {
+      "personId": "P03192",
+      "url": "https://www.linkedin.com/in/elizabeth-davis-570d44e",
+      "firstName": "Elizabeth",
+      "lastName": "Davis",
+      "email": "",
+      "company": "Unilever",
+      "position": "Sr. FP&A Manager",
+      "connectedOnIso": "2023-12-25"
+    },
+    {
+      "personId": "P02340",
+      "url": "https://www.linkedin.com/in/dahyun-cho",
+      "firstName": "Dahyun",
+      "lastName": "Cho",
+      "email": "",
+      "company": "Tufts Medical Center",
+      "position": "Director of Nursing",
+      "connectedOnIso": "2023-12-16"
+    },
+    {
+      "personId": "P02713",
+      "url": "https://www.linkedin.com/in/amit-iyer-b2fc73e0",
+      "firstName": "Amit",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2023-12-10"
+    },
+    {
+      "personId": "P02682",
+      "url": "https://www.linkedin.com/in/chiamaka-adegoke-d60a8ea",
+      "firstName": "Chiamaka",
+      "lastName": "Adegoke",
+      "email": "",
+      "company": "Ryanair",
+      "position": "Manager, Sales",
+      "connectedOnIso": "2023-11-04"
+    },
+    {
+      "personId": "P02883",
+      "url": "https://www.linkedin.com/in/caroline-white-dc21dc09",
+      "firstName": "Caroline",
+      "lastName": "White",
+      "email": "",
+      "company": "Primark",
+      "position": "Merchandiser",
+      "connectedOnIso": "2023-11-03"
+    },
+    {
+      "personId": "P02852",
+      "url": "https://www.linkedin.com/in/rfakhoury",
+      "firstName": "Rania",
+      "lastName": "Fakhoury",
+      "email": "",
+      "company": "Sainsbury's",
+      "position": "Marketing Coordinator",
+      "connectedOnIso": "2023-10-20"
+    },
+    {
+      "personId": "P02721",
+      "url": "https://www.linkedin.com/in/batya-abramson-30dc5d",
+      "firstName": "Batya",
+      "lastName": "Abramson",
+      "email": "babramson@example.net",
+      "company": "Selfridges",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2023-10-13"
+    },
+    {
+      "personId": "P02982",
+      "url": "https://www.linkedin.com/in/aditya-krishnan-cc57df6",
+      "firstName": "Aditya",
+      "lastName": "Krishnan",
+      "email": "",
+      "company": "easyJet plc",
+      "position": "Sales Director",
+      "connectedOnIso": "2023-10-03"
+    },
+    {
+      "personId": "P02841",
+      "url": "https://www.linkedin.com/in/li-lin-phd",
+      "firstName": "Li",
+      "lastName": "Lin",
+      "email": "",
+      "company": "Compass Group",
+      "position": "Senior Operations Manager, Hospitality",
+      "connectedOnIso": "2023-09-18"
+    },
+    {
+      "personId": "P02927",
+      "url": "https://www.linkedin.com/in/greta-bauer-822038",
+      "firstName": "Greta",
+      "lastName": "Bauer",
+      "email": "",
+      "company": "John Lewis Partnership",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2023-09-07"
+    },
+    {
+      "personId": "P02840",
+      "url": "https://www.linkedin.com/in/james-wright-7f1bbf8",
+      "firstName": "James",
+      "lastName": "Wright",
+      "email": "",
+      "company": "Boots UK",
+      "position": "Logistics Coordinator",
+      "connectedOnIso": "2023-08-22"
+    },
+    {
+      "personId": "P02925",
+      "url": "https://www.linkedin.com/in/sean-edwards-f46c77",
+      "firstName": "Sean",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Ted Baker",
+      "position": "Merchandising Manager",
+      "connectedOnIso": "2023-08-22"
+    },
+    {
+      "personId": "P03303",
+      "url": "https://www.linkedin.com/in/beatrice-ferrari-d0ab11",
+      "firstName": "Beatrice",
+      "lastName": "Ferrari",
+      "email": "",
+      "company": "OICR",
+      "position": "Co-Founder & CEO",
+      "connectedOnIso": "2023-08-19"
+    },
+    {
+      "personId": "P03076",
+      "url": "https://www.linkedin.com/in/douglas-green-7f1e41",
+      "firstName": "Douglas",
+      "lastName": "Green",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2023-08-15"
+    },
+    {
+      "personId": "P01777",
+      "url": "https://www.linkedin.com/in/james-paquette-d946e73",
+      "firstName": "James",
+      "lastName": "Paquette",
+      "email": "",
+      "company": "S&P Global",
+      "position": "Director of Talent Acquisition",
+      "connectedOnIso": "2023-07-15"
+    },
+    {
+      "personId": "P02805",
+      "url": "https://www.linkedin.com/in/sarah-baker-1bd538",
+      "firstName": "Sarah",
+      "lastName": "Baker",
+      "email": "",
+      "company": "Freelancer",
+      "position": "Associate Marketing Manager",
+      "connectedOnIso": "2023-05-19"
+    },
+    {
+      "personId": "P02791",
+      "url": "https://www.linkedin.com/in/sipho-zulu-44632011",
+      "firstName": "Sipho",
+      "lastName": "Zulu",
+      "email": "",
+      "company": "H&M",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2023-05-13"
+    },
+    {
+      "personId": "P02786",
+      "url": "https://www.linkedin.com/in/rekha-shah-b5d4fcfc",
+      "firstName": "Rekha",
+      "lastName": "Shah",
+      "email": "",
+      "company": "Burberry",
+      "position": "Supply Chain Lead",
+      "connectedOnIso": "2023-04-02"
+    },
+    {
+      "personId": "P01873",
+      "url": "https://www.linkedin.com/in/wei-ma-phd",
+      "firstName": "Wei",
+      "lastName": "Ma",
+      "email": "",
+      "company": "Citadel Securities",
+      "position": "",
+      "connectedOnIso": "2023-02-10"
+    },
+    {
+      "personId": "P01130",
+      "url": "https://www.linkedin.com/in/lina-boutros-a0092566",
+      "firstName": "Lina",
+      "lastName": "Boutros",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Investment Manager",
+      "connectedOnIso": "2023-01-29"
+    },
+    {
+      "personId": "P01813",
+      "url": "https://www.linkedin.com/in/joanna-sidorov-99177b",
+      "firstName": "Joanna",
+      "lastName": "Sidorov",
+      "email": "",
+      "company": "JPMorgan Chase & Co.",
+      "position": "Investment Banking Manager",
+      "connectedOnIso": "2023-01-03"
+    },
+    {
+      "personId": "P02819",
+      "url": "https://www.linkedin.com/in/charles-martin-b31f38",
+      "firstName": "Charles",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Ocado",
+      "position": "VP of Merchandising",
+      "connectedOnIso": "2022-12-30"
+    },
+    {
+      "personId": "P00893",
+      "url": "https://www.linkedin.com/in/isabelle-ong-4cec0617",
+      "firstName": "Isabelle",
+      "lastName": "Ông",
+      "email": "iong@example.org",
+      "company": "REI",
+      "position": "AE",
+      "connectedOnIso": "2022-11-13"
+    },
+    {
+      "personId": "P02076",
+      "url": "https://www.linkedin.com/in/ren-ito-fea2c7",
+      "firstName": "Ren",
+      "lastName": "Ito",
+      "email": "",
+      "company": "AIG",
+      "position": "Finance Lead",
+      "connectedOnIso": "2022-11-11"
+    },
+    {
+      "personId": "P02907",
+      "url": "https://www.linkedin.com/in/gabrielnunez95",
+      "firstName": "Gabriel",
+      "lastName": "Núñez",
+      "email": "",
+      "company": "Marks & Spencer",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2022-10-15"
+    },
+    {
+      "personId": "P04498",
+      "url": "https://www.linkedin.com/in/anil-davis-7b53248b",
+      "firstName": "Anil",
+      "lastName": "Davis",
+      "email": "",
+      "company": "Starbucks Corporation",
+      "position": "Senior Recruiter",
+      "connectedOnIso": "2022-10-03"
+    },
+    {
+      "personId": "P02763",
+      "url": "https://www.linkedin.com/in/thibault-greco-pmp",
+      "firstName": "Thibault",
+      "lastName": "Greco",
+      "email": "",
+      "company": "ASOS",
+      "position": "Merchandising Coordinator",
+      "connectedOnIso": "2022-09-20"
+    },
+    {
+      "personId": "P02770",
+      "url": "https://www.linkedin.com/in/joanna-dvorak-117ed1",
+      "firstName": "Joanna",
+      "lastName": "Dvořák",
+      "email": "jdvorak@example.net",
+      "company": "Premier Inn",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2022-05-31"
+    },
+    {
+      "personId": "P02853",
+      "url": "https://www.linkedin.com/in/iman-haidar-0e9dcd",
+      "firstName": "Iman",
+      "lastName": "Haidar",
+      "email": "",
+      "company": "Ted Baker",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2022-05-25"
+    },
+    {
+      "personId": "P00149",
+      "url": "https://www.linkedin.com/in/lea-wagner-pmp",
+      "firstName": "Léa",
+      "lastName": "Wagner",
+      "email": "",
+      "company": "Meta",
+      "position": "VP Engineering",
+      "connectedOnIso": "2022-04-26"
+    },
+    {
+      "personId": "P02933",
+      "url": "https://www.linkedin.com/in/roman-piotrowski-c0cb48",
+      "firstName": "Roman",
+      "lastName": "Piotrowski",
+      "email": "",
+      "company": "Zalando SE",
+      "position": "Sr. Product Marketing Manager",
+      "connectedOnIso": "2022-04-19"
+    },
+    {
+      "personId": "P01799",
+      "url": "https://www.linkedin.com/in/otieno-rosen-9234de3e",
+      "firstName": "Otieno",
+      "lastName": "Rosen",
+      "email": "",
+      "company": "JPMorgan Chase & Co.",
+      "position": "Investment Banking Manager",
+      "connectedOnIso": "2022-04-18"
+    },
+    {
+      "personId": "P02435",
+      "url": "https://www.linkedin.com/in/khoa-diep-af477b",
+      "firstName": "Khoa",
+      "lastName": "Diệp",
+      "email": "kdiep@example.com",
+      "company": "HubSpot Inc.",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2022-04-02"
+    },
+    {
+      "personId": "P02847",
+      "url": "https://www.linkedin.com/in/brian-gonzales-06c85ff0",
+      "firstName": "Brian",
+      "lastName": "Gonzales",
+      "email": "bgonzales@example.org",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2022-03-22"
+    },
+    {
+      "personId": "P02690",
+      "url": "https://www.linkedin.com/in/ling-suzuki-9bf34796",
+      "firstName": "Ling",
+      "lastName": "Suzuki",
+      "email": "",
+      "company": "Harrods",
+      "position": "Sr. AE",
+      "connectedOnIso": "2022-02-14"
+    },
+    {
+      "personId": "P01937",
+      "url": "https://www.linkedin.com/in/michelle-salazar-566fe9",
+      "firstName": "Michelle",
+      "lastName": "Salazar",
+      "email": "",
+      "company": "Blackstone",
+      "position": "Director of Finance",
+      "connectedOnIso": "2022-01-29"
+    },
+    {
+      "personId": "P01886",
+      "url": "https://www.linkedin.com/in/john-brown-928812",
+      "firstName": "John",
+      "lastName": "Brown",
+      "email": "",
+      "company": "BlackRock",
+      "position": "Talent Acquisition Manager",
+      "connectedOnIso": "2022-01-03"
+    },
+    {
+      "personId": "P04053",
+      "url": "https://www.linkedin.com/in/emeka-keita",
+      "firstName": "Emeka",
+      "lastName": "Keita",
+      "email": "",
+      "company": "Live Nation Entertainment",
+      "position": "Director  of Sales",
+      "connectedOnIso": "2021-12-01"
+    },
+    {
+      "personId": "P02715",
+      "url": "https://www.linkedin.com/in/edward-lewis-d67a6e09",
+      "firstName": "Edward",
+      "lastName": "Lewis",
+      "email": "",
+      "company": "ASOS",
+      "position": "Operations Manager",
+      "connectedOnIso": "2021-11-25"
+    },
+    {
+      "personId": "P02519",
+      "url": "https://www.linkedin.com/in/grace-collins-ac103b",
+      "firstName": "Grace",
+      "lastName": "Collins",
+      "email": "",
+      "company": "AT&T Inc.",
+      "position": "Financial Planning Lead",
+      "connectedOnIso": "2021-11-09"
+    },
+    {
+      "personId": "P02155",
+      "url": "https://www.linkedin.com/in/marina-zielinski-6897c0a",
+      "firstName": "Marina",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Citadel",
+      "position": "VP, Sales",
+      "connectedOnIso": "2021-10-29"
+    },
+    {
+      "personId": "P01826",
+      "url": "https://www.linkedin.com/in/seokjin-han-5c5690",
+      "firstName": "Seokjin",
+      "lastName": "Han",
+      "email": "",
+      "company": "JPMorgan Chase & Co.",
+      "position": "Senior Associate, M&A",
+      "connectedOnIso": "2021-10-04"
+    },
+    {
+      "personId": "P02815",
+      "url": "https://www.linkedin.com/in/jessica-turner-90ac9f9c",
+      "firstName": "Jessica",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Adyen",
+      "position": "Senior Marketing Manager",
+      "connectedOnIso": "2021-09-01"
+    },
+    {
+      "personId": "P01977",
+      "url": "https://www.linkedin.com/in/seanmoore",
+      "firstName": "Sean",
+      "lastName": "Moore",
+      "email": "",
+      "company": "EY",
+      "position": "Principal",
+      "connectedOnIso": "2021-08-20"
+    },
+    {
+      "personId": "P02920",
+      "url": "https://www.linkedin.com/in/tao-han-60f2b7a",
+      "firstName": "Tao",
+      "lastName": "Han",
+      "email": "",
+      "company": "Monzo",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2021-07-14"
+    },
+    {
+      "personId": "P02236",
+      "url": "https://www.linkedin.com/in/nam-vu-413a28bf",
+      "firstName": "Nam",
+      "lastName": "Vũ",
+      "email": "",
+      "company": "Boston University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-07-04"
+    },
+    {
+      "personId": "P02990",
+      "url": "https://www.linkedin.com/in/hannah-phillips-a04f6a",
+      "firstName": "Hannah",
+      "lastName": "Phillips",
+      "email": "",
+      "company": "Unilever plc",
+      "position": "Supply Chain Lead",
+      "connectedOnIso": "2021-06-24"
+    },
+    {
+      "personId": "P02709",
+      "url": "https://www.linkedin.com/in/hao-chen-633444a",
+      "firstName": "Hao",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Zalando",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2021-05-28"
+    },
+    {
+      "personId": "P02963",
+      "url": "https://www.linkedin.com/in/william-garcia-ccf33621",
+      "firstName": "William",
+      "lastName": "García",
+      "email": "",
+      "company": "Harrods",
+      "position": "Merchandising Manager",
+      "connectedOnIso": "2021-03-28"
+    },
+    {
+      "personId": "P02290",
+      "url": "https://www.linkedin.com/in/leandro-ignacio-05fb87f",
+      "firstName": "Leandro",
+      "lastName": "Ignacio",
+      "email": "",
+      "company": "Fidelity Investments",
+      "position": "Executive  Director",
+      "connectedOnIso": "2020-12-20"
+    },
+    {
+      "personId": "P02729",
+      "url": "https://www.linkedin.com/in/caroline-scott-da46fd",
+      "firstName": "Caroline",
+      "lastName": "Scott",
+      "email": "carolinescott37@example.net",
+      "company": "Selfridges",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2020-12-19"
+    },
+    {
+      "personId": "P02028",
+      "url": "https://www.linkedin.com/in/ingrid-wilson-6eddd3",
+      "firstName": "Ingrid",
+      "lastName": "Wilson",
+      "email": "",
+      "company": "AmEx",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2020-11-29"
+    },
+    {
+      "personId": "P02032",
+      "url": "https://www.linkedin.com/in/yu-luo-a2bf383",
+      "firstName": "Yu",
+      "lastName": "Luo",
+      "email": "",
+      "company": "Point72 Asset Management",
+      "position": "Director, Investment Banking",
+      "connectedOnIso": "2020-10-27"
+    },
+    {
+      "personId": "P02968",
+      "url": "https://www.linkedin.com/in/giorgio-fontana-b3b290e5",
+      "firstName": "Giorgio",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "Whitbread",
+      "position": "Senior Operations Manager, Hospitality",
+      "connectedOnIso": "2020-10-04"
+    },
+    {
+      "personId": "P02954",
+      "url": "https://www.linkedin.com/in/anita-singh-1e6870fb",
+      "firstName": "Anita",
+      "lastName": "Singh",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Customer Success Manager",
+      "connectedOnIso": "2020-07-31"
+    },
+    {
+      "personId": "P02792",
+      "url": "https://www.linkedin.com/in/grace-clark-b35a3c8",
+      "firstName": "Grace",
+      "lastName": "Clark",
+      "email": "",
+      "company": "InterContinental Hotels Group",
+      "position": "Senior Operations Manager, Hospitality",
+      "connectedOnIso": "2020-07-25"
+    },
+    {
+      "personId": "P01984",
+      "url": "https://www.linkedin.com/in/priya-kumar-3530347",
+      "firstName": "Priya",
+      "lastName": "Kumar",
+      "email": "",
+      "company": "BlackRock Inc.",
+      "position": "Staff Accountant",
+      "connectedOnIso": "2020-07-23"
+    },
+    {
+      "personId": "P02943",
+      "url": "https://www.linkedin.com/in/laura-martin-9bd31fa2",
+      "firstName": "Laura",
+      "lastName": "Martin",
+      "email": "",
+      "company": "British Airways",
+      "position": "VP of Customer Success",
+      "connectedOnIso": "2020-05-18"
+    },
+    {
+      "personId": "P02069",
+      "url": "https://www.linkedin.com/in/patricia-vargas-ab95ad02",
+      "firstName": "Patricia",
+      "lastName": "Vargas",
+      "email": "",
+      "company": "Bridgewater Associates",
+      "position": "Sales Executive",
+      "connectedOnIso": "2020-05-08"
+    },
+    {
+      "personId": "P03006",
+      "url": "https://www.linkedin.com/in/jie-deng-e2ccdad",
+      "firstName": "Jie",
+      "lastName": "Deng",
+      "email": "jdeng@example.org",
+      "company": "Zalando",
+      "position": "Head of Buying",
+      "connectedOnIso": "2020-05-01"
+    },
+    {
+      "personId": "P02932",
+      "url": "https://www.linkedin.com/in/klaus-zielinski-75bb2009",
+      "firstName": "Klaus",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Compass Group",
+      "position": "Senior Operations Manager, Hospitality",
+      "connectedOnIso": "2020-02-17"
+    },
+    {
+      "personId": "P02870",
+      "url": "https://www.linkedin.com/in/kevin-wilson",
+      "firstName": "Kevin",
+      "lastName": "Wilson",
+      "email": "",
+      "company": "Tesco",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2019-11-14"
+    },
+    {
+      "personId": "P02781",
+      "url": "https://www.linkedin.com/in/lerato-haile-e2562e",
+      "firstName": "Lerato",
+      "lastName": "Haile",
+      "email": "",
+      "company": "Ryanair",
+      "position": "Supply Chain Lead",
+      "connectedOnIso": "2019-07-05"
+    },
+    {
+      "personId": "P02775",
+      "url": "https://www.linkedin.com/in/sanjay-banerjee-3b414bbb",
+      "firstName": "Sanjay",
+      "lastName": "Banerjee",
+      "email": "",
+      "company": "Revolut",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2018-12-26"
+    },
+    {
+      "personId": "P02274",
+      "url": "https://www.linkedin.com/in/LaurenRoberts",
+      "firstName": "Lauren",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "Vertex Pharmaceuticals",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2018-11-12"
+    },
+    {
+      "personId": "P02823",
+      "url": "https://www.linkedin.com/in/dmiller",
+      "firstName": "Daniel",
+      "lastName": "Miller",
+      "email": "",
+      "company": "Harrods",
+      "position": "Senior Manager, Business Operations",
+      "connectedOnIso": "2018-09-14"
+    },
+    {
+      "personId": "P02720",
+      "url": "https://www.linkedin.com/in/naledi-toure-6c2f018",
+      "firstName": "Naledi",
+      "lastName": "Toure",
+      "email": "",
+      "company": "Harrods",
+      "position": "Senior Supply Chain Manager",
+      "connectedOnIso": "2018-04-11"
+    },
+    {
+      "personId": "P02747",
+      "url": "https://www.linkedin.com/in/songtobiloba",
+      "firstName": "Tobiloba",
+      "lastName": "Song",
+      "email": "",
+      "company": "Marks & Spencer",
+      "position": "VP, Ops",
+      "connectedOnIso": "2017-09-11"
+    },
+    {
+      "personId": "P02726",
+      "url": "https://www.linkedin.com/in/brian-edwards-52096ae9",
+      "firstName": "Brian",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "H&M",
+      "position": "Head of Buying",
+      "connectedOnIso": "2016-07-11"
+    },
+    {
+      "personId": "P02711",
+      "url": "https://www.linkedin.com/in/andrei-piotrowski-e28499",
+      "firstName": "Andrei",
+      "lastName": "Piotrowski",
+      "email": "",
+      "company": "InterContinental Hotels Group",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2016-04-24"
+    },
+    {
+      "personId": "P03342",
+      "url": "https://www.linkedin.com/in/emily-scott-1896ae7a",
+      "firstName": "Emily",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Booking.com",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2015-03-16"
+    },
+    {
+      "personId": "P00629",
+      "url": "https://www.linkedin.com/in/ishaan-mishra-e88421d",
+      "firstName": "Ishaan",
+      "lastName": "Mishra",
+      "email": "",
+      "company": "Microsoft",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2014-08-08"
+    },
+    {
+      "personId": "P02850",
+      "url": "https://www.linkedin.com/in/mathilde-conti-71445f",
+      "firstName": "Mathilde",
+      "lastName": "Conti",
+      "email": "",
+      "company": "Boots UK",
+      "position": "Head of Buying",
+      "connectedOnIso": "2014-07-26"
+    },
+    {
+      "personId": "P02706",
+      "url": "https://www.linkedin.com/in/michael-turner-73887e46",
+      "firstName": "Michael",
+      "lastName": "Turner",
+      "email": "",
+      "company": "",
+      "position": "Group Operations Manager",
+      "connectedOnIso": "2014-07-18"
+    },
+    {
+      "personId": "P02679",
+      "url": "https://www.linkedin.com/in/tao-han-a50b31f9",
+      "firstName": "Tao",
+      "lastName": "Han",
+      "email": "",
+      "company": "Primark",
+      "position": "Senior Manager, Supply Chain",
+      "connectedOnIso": "2014-03-15"
+    },
+    {
+      "personId": "P01757",
+      "url": "https://www.linkedin.com/in/maria-de-la-cruz-0c86e734",
+      "firstName": "María",
+      "lastName": "De La Cruz",
+      "email": "mdelacruz@example.net",
+      "company": "Revolut",
+      "position": "Managing Counsel",
+      "connectedOnIso": "2013-07-04"
+    }
+  ]
+}

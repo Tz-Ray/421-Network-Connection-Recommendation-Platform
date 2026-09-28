@@ -1,0 +1,4373 @@
+{
+  "graphDefinition": "Observed graph = undirected union of owner->connection edges in graph/edges_connected.csv (nodes = every person in any of the 20 datasets, owners included).",
+  "distinctPeople": 4436,
+  "connectedComponents": 1,
+  "datasets": [
+    {
+      "datasetId": "N01",
+      "ownerPersonId": "P01020",
+      "community": "SEA_TECH",
+      "format": "full",
+      "exportDate": "2026-09-28",
+      "degree": 1450,
+      "ownerObservedDegree": 1450
+    },
+    {
+      "datasetId": "N02",
+      "ownerPersonId": "P01132",
+      "community": "SF_FINTECH",
+      "format": "full",
+      "exportDate": "2026-08-14",
+      "degree": 820,
+      "ownerObservedDegree": 820
+    },
+    {
+      "datasetId": "N03",
+      "ownerPersonId": "P01958",
+      "community": "NYC_FINANCE",
+      "format": "full",
+      "exportDate": "2026-03-02",
+      "degree": 610,
+      "ownerObservedDegree": 610
+    },
+    {
+      "datasetId": "N04",
+      "ownerPersonId": "P02201",
+      "community": "BOS_HEALTH",
+      "format": "full",
+      "exportDate": "2025-11-19",
+      "degree": 390,
+      "ownerObservedDegree": 390
+    },
+    {
+      "datasetId": "N05",
+      "ownerPersonId": "P02576",
+      "community": "CHI_CONSULT",
+      "format": "full",
+      "exportDate": "2026-06-30",
+      "degree": 260,
+      "ownerObservedDegree": 260
+    },
+    {
+      "datasetId": "N06",
+      "ownerPersonId": "P02750",
+      "community": "LDN_RETAIL",
+      "format": "full",
+      "exportDate": "2025-09-08",
+      "degree": 540,
+      "ownerObservedDegree": 540
+    },
+    {
+      "datasetId": "N07",
+      "ownerPersonId": "P03285",
+      "community": "TOR_ACADEMIA",
+      "format": "full",
+      "exportDate": "2026-01-22",
+      "degree": 175,
+      "ownerObservedDegree": 175
+    },
+    {
+      "datasetId": "N08",
+      "ownerPersonId": "P03447",
+      "community": "DC_POLICY",
+      "format": "full",
+      "exportDate": "2025-05-12",
+      "degree": 95,
+      "ownerObservedDegree": 95
+    },
+    {
+      "datasetId": "N09",
+      "ownerPersonId": "P03801",
+      "community": "HOU_ENERGY",
+      "format": "full",
+      "exportDate": "2026-04-17",
+      "degree": 330,
+      "ownerObservedDegree": 330
+    },
+    {
+      "datasetId": "N10",
+      "ownerPersonId": "P04300",
+      "community": "LA_MEDIA",
+      "format": "full",
+      "exportDate": "2025-07-25",
+      "degree": 1050,
+      "ownerObservedDegree": 1050
+    },
+    {
+      "datasetId": "C01",
+      "ownerPersonId": "P00576",
+      "community": "SEA_TECH",
+      "format": "classic",
+      "exportDate": "2026-05-05",
+      "degree": 900,
+      "ownerObservedDegree": 900
+    },
+    {
+      "datasetId": "C02",
+      "ownerPersonId": "P01617",
+      "community": "SF_FINTECH",
+      "format": "classic",
+      "exportDate": "2026-09-20",
+      "degree": 420,
+      "ownerObservedDegree": 420
+    },
+    {
+      "datasetId": "C03",
+      "ownerPersonId": "P01777",
+      "community": "NYC_FINANCE",
+      "format": "classic",
+      "exportDate": "2025-10-06",
+      "degree": 300,
+      "ownerObservedDegree": 300
+    },
+    {
+      "datasetId": "C04",
+      "ownerPersonId": "P02409",
+      "community": "BOS_HEALTH",
+      "format": "classic",
+      "exportDate": "2026-07-11",
+      "degree": 210,
+      "ownerObservedDegree": 210
+    },
+    {
+      "datasetId": "C05",
+      "ownerPersonId": "P02669",
+      "community": "CHI_CONSULT",
+      "format": "classic",
+      "exportDate": "2025-12-15",
+      "degree": 150,
+      "ownerObservedDegree": 150
+    },
+    {
+      "datasetId": "C06",
+      "ownerPersonId": "P02939",
+      "community": "LDN_RETAIL",
+      "format": "classic",
+      "exportDate": "2026-02-09",
+      "degree": 120,
+      "ownerObservedDegree": 120
+    },
+    {
+      "datasetId": "C07",
+      "ownerPersonId": "P03354",
+      "community": "TOR_ACADEMIA",
+      "format": "classic",
+      "exportDate": "2025-08-27",
+      "degree": 640,
+      "ownerObservedDegree": 640
+    },
+    {
+      "datasetId": "C08",
+      "ownerPersonId": "P03435",
+      "community": "DC_POLICY",
+      "format": "classic-legacy",
+      "exportDate": "2025-06-20",
+      "degree": 75,
+      "ownerObservedDegree": 75
+    },
+    {
+      "datasetId": "C09",
+      "ownerPersonId": "P03784",
+      "community": "HOU_ENERGY",
+      "format": "classic-legacy",
+      "exportDate": "2025-05-28",
+      "degree": 480,
+      "ownerObservedDegree": 480
+    },
+    {
+      "datasetId": "C10",
+      "ownerPersonId": "P04532",
+      "community": "LA_MEDIA",
+      "format": "classic",
+      "exportDate": "2026-09-01",
+      "degree": 250,
+      "ownerObservedDegree": 250
+    }
+  ],
+  "ownerPairs": [
+    {
+      "a": "N01",
+      "b": "N02",
+      "mutualConnections": 465,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N01",
+      "b": "N03",
+      "mutualConnections": 149,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N04",
+      "mutualConnections": 79,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N05",
+      "mutualConnections": 43,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N06",
+      "mutualConnections": 85,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N07",
+      "mutualConnections": 40,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N08",
+      "mutualConnections": 18,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N09",
+      "mutualConnections": 57,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "N10",
+      "mutualConnections": 342,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N01",
+      "b": "C01",
+      "mutualConnections": 342,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N01",
+      "b": "C02",
+      "mutualConnections": 215,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N01",
+      "b": "C03",
+      "mutualConnections": 56,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C04",
+      "mutualConnections": 36,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C05",
+      "mutualConnections": 19,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C06",
+      "mutualConnections": 24,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C07",
+      "mutualConnections": 153,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C08",
+      "mutualConnections": 7,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C09",
+      "mutualConnections": 81,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N01",
+      "b": "C10",
+      "mutualConnections": 84,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N03",
+      "mutualConnections": 78,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N02",
+      "b": "N04",
+      "mutualConnections": 30,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N05",
+      "mutualConnections": 23,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N06",
+      "mutualConnections": 46,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N07",
+      "mutualConnections": 20,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N08",
+      "mutualConnections": 13,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N09",
+      "mutualConnections": 26,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "N10",
+      "mutualConnections": 245,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C01",
+      "mutualConnections": 256,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C02",
+      "mutualConnections": 140,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N02",
+      "b": "C03",
+      "mutualConnections": 42,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C04",
+      "mutualConnections": 17,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C05",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C06",
+      "mutualConnections": 9,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C07",
+      "mutualConnections": 61,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C08",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C09",
+      "mutualConnections": 46,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N02",
+      "b": "C10",
+      "mutualConnections": 57,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "N04",
+      "mutualConnections": 111,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N03",
+      "b": "N05",
+      "mutualConnections": 56,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "N06",
+      "mutualConnections": 131,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "N07",
+      "mutualConnections": 37,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "N08",
+      "mutualConnections": 17,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "N09",
+      "mutualConnections": 22,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "N10",
+      "mutualConnections": 92,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C01",
+      "mutualConnections": 93,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C02",
+      "mutualConnections": 36,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C03",
+      "mutualConnections": 90,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N03",
+      "b": "C04",
+      "mutualConnections": 71,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C05",
+      "mutualConnections": 37,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C06",
+      "mutualConnections": 25,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C07",
+      "mutualConnections": 96,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C08",
+      "mutualConnections": 20,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N03",
+      "b": "C09",
+      "mutualConnections": 39,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N03",
+      "b": "C10",
+      "mutualConnections": 18,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "N05",
+      "mutualConnections": 13,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N04",
+      "b": "N06",
+      "mutualConnections": 43,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "N07",
+      "mutualConnections": 45,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "N08",
+      "mutualConnections": 14,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "N09",
+      "mutualConnections": 14,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "N10",
+      "mutualConnections": 48,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C01",
+      "mutualConnections": 42,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C02",
+      "mutualConnections": 15,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C03",
+      "mutualConnections": 70,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C04",
+      "mutualConnections": 76,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N04",
+      "b": "C05",
+      "mutualConnections": 9,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C06",
+      "mutualConnections": 10,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C07",
+      "mutualConnections": 168,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C08",
+      "mutualConnections": 10,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C09",
+      "mutualConnections": 23,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N04",
+      "b": "C10",
+      "mutualConnections": 11,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "N06",
+      "mutualConnections": 30,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N05",
+      "b": "N07",
+      "mutualConnections": 8,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "N08",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "N09",
+      "mutualConnections": 55,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "N10",
+      "mutualConnections": 35,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C01",
+      "mutualConnections": 29,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C02",
+      "mutualConnections": 13,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C03",
+      "mutualConnections": 31,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C04",
+      "mutualConnections": 17,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C05",
+      "mutualConnections": 61,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N05",
+      "b": "C06",
+      "mutualConnections": 4,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C07",
+      "mutualConnections": 16,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C08",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N05",
+      "b": "C09",
+      "mutualConnections": 71,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N05",
+      "b": "C10",
+      "mutualConnections": 9,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "N07",
+      "mutualConnections": 23,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N06",
+      "b": "N08",
+      "mutualConnections": 3,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "N09",
+      "mutualConnections": 17,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "N10",
+      "mutualConnections": 80,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C01",
+      "mutualConnections": 65,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C02",
+      "mutualConnections": 23,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C03",
+      "mutualConnections": 59,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C04",
+      "mutualConnections": 25,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C05",
+      "mutualConnections": 19,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C06",
+      "mutualConnections": 51,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N06",
+      "b": "C07",
+      "mutualConnections": 72,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C08",
+      "mutualConnections": 4,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C09",
+      "mutualConnections": 39,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N06",
+      "b": "C10",
+      "mutualConnections": 13,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N07",
+      "b": "N08",
+      "mutualConnections": 3,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N07",
+      "b": "N09",
+      "mutualConnections": 4,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "N10",
+      "mutualConnections": 22,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C01",
+      "mutualConnections": 21,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C02",
+      "mutualConnections": 10,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C03",
+      "mutualConnections": 16,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C04",
+      "mutualConnections": 16,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C05",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C06",
+      "mutualConnections": 7,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N07",
+      "b": "C07",
+      "mutualConnections": 61,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N07",
+      "b": "C08",
+      "mutualConnections": 7,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C09",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N07",
+      "b": "C10",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "N09",
+      "mutualConnections": 10,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N08",
+      "b": "N10",
+      "mutualConnections": 20,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C01",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C02",
+      "mutualConnections": 3,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C03",
+      "mutualConnections": 4,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C04",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C05",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C06",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C07",
+      "mutualConnections": 10,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C08",
+      "mutualConnections": 21,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N08",
+      "b": "C09",
+      "mutualConnections": 12,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N08",
+      "b": "C10",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "N10",
+      "mutualConnections": 61,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N09",
+      "b": "C01",
+      "mutualConnections": 35,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C02",
+      "mutualConnections": 14,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C03",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C04",
+      "mutualConnections": 8,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C05",
+      "mutualConnections": 29,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C06",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C07",
+      "mutualConnections": 11,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C08",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N09",
+      "b": "C09",
+      "mutualConnections": 102,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "N09",
+      "b": "C10",
+      "mutualConnections": 18,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C01",
+      "mutualConnections": 226,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C02",
+      "mutualConnections": 131,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C03",
+      "mutualConnections": 36,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C04",
+      "mutualConnections": 34,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C05",
+      "mutualConnections": 14,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C06",
+      "mutualConnections": 24,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C07",
+      "mutualConnections": 76,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C08",
+      "mutualConnections": 8,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C09",
+      "mutualConnections": 86,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "N10",
+      "b": "C10",
+      "mutualConnections": 93,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C01",
+      "b": "C02",
+      "mutualConnections": 130,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C01",
+      "b": "C03",
+      "mutualConnections": 43,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C01",
+      "b": "C04",
+      "mutualConnections": 24,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C01",
+      "b": "C05",
+      "mutualConnections": 16,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C01",
+      "b": "C06",
+      "mutualConnections": 11,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C01",
+      "b": "C07",
+      "mutualConnections": 66,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C01",
+      "b": "C08",
+      "mutualConnections": 4,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C01",
+      "b": "C09",
+      "mutualConnections": 54,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C01",
+      "b": "C10",
+      "mutualConnections": 54,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C03",
+      "mutualConnections": 19,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C04",
+      "mutualConnections": 9,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C05",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C06",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C07",
+      "mutualConnections": 22,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C08",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C09",
+      "mutualConnections": 20,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C02",
+      "b": "C10",
+      "mutualConnections": 24,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C03",
+      "b": "C04",
+      "mutualConnections": 37,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C03",
+      "b": "C05",
+      "mutualConnections": 16,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C03",
+      "b": "C06",
+      "mutualConnections": 11,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C03",
+      "b": "C07",
+      "mutualConnections": 51,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C03",
+      "b": "C08",
+      "mutualConnections": 8,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C03",
+      "b": "C09",
+      "mutualConnections": 18,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C03",
+      "b": "C10",
+      "mutualConnections": 10,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C04",
+      "b": "C05",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C04",
+      "b": "C06",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C04",
+      "b": "C07",
+      "mutualConnections": 75,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C04",
+      "b": "C08",
+      "mutualConnections": 5,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C04",
+      "b": "C09",
+      "mutualConnections": 11,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C04",
+      "b": "C10",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C05",
+      "b": "C06",
+      "mutualConnections": 4,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C05",
+      "b": "C07",
+      "mutualConnections": 12,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C05",
+      "b": "C08",
+      "mutualConnections": 1,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C05",
+      "b": "C09",
+      "mutualConnections": 43,
+      "directlyConnected": true,
+      "directInBothFiles": true
+    },
+    {
+      "a": "C05",
+      "b": "C10",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C06",
+      "b": "C07",
+      "mutualConnections": 19,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C06",
+      "b": "C08",
+      "mutualConnections": 0,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C06",
+      "b": "C09",
+      "mutualConnections": 9,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C06",
+      "b": "C10",
+      "mutualConnections": 3,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C07",
+      "b": "C08",
+      "mutualConnections": 9,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C07",
+      "b": "C09",
+      "mutualConnections": 34,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C07",
+      "b": "C10",
+      "mutualConnections": 14,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C08",
+      "b": "C09",
+      "mutualConnections": 6,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C08",
+      "b": "C10",
+      "mutualConnections": 2,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    },
+    {
+      "a": "C09",
+      "b": "C10",
+      "mutualConnections": 25,
+      "directlyConnected": false,
+      "directInBothFiles": false
+    }
+  ],
+  "shortestPaths": [
+    {
+      "a": "N01",
+      "b": "C01",
+      "aPersonId": "P01020",
+      "bPersonId": "P00576",
+      "hops": 1
+    },
+    {
+      "a": "N01",
+      "b": "N02",
+      "aPersonId": "P01020",
+      "bPersonId": "P01132",
+      "hops": 1
+    },
+    {
+      "a": "C03",
+      "b": "C05",
+      "aPersonId": "P01777",
+      "bPersonId": "P02669",
+      "hops": 1
+    },
+    {
+      "a": "N08",
+      "b": "C10",
+      "aPersonId": "P03447",
+      "bPersonId": "P04532",
+      "hops": 2
+    },
+    {
+      "a": "C04",
+      "b": "C05",
+      "aPersonId": "P02409",
+      "bPersonId": "P02669",
+      "hops": 2
+    },
+    {
+      "a": "C06",
+      "b": "C08",
+      "aPersonId": "P02939",
+      "bPersonId": "P03435",
+      "hops": 3
+    },
+    {
+      "a": "N01",
+      "b": "N05",
+      "aPersonId": "P01020",
+      "bPersonId": "P02576",
+      "hops": 2
+    },
+    {
+      "a": "N02",
+      "b": "C09",
+      "aPersonId": "P01132",
+      "bPersonId": "P03784",
+      "hops": 2
+    },
+    {
+      "a": "C08",
+      "b": "C04",
+      "aPersonId": "P03435",
+      "bPersonId": "P02409",
+      "hops": 2
+    },
+    {
+      "a": "N04",
+      "b": "N09",
+      "aPersonId": "P02201",
+      "bPersonId": "P03801",
+      "hops": 2
+    },
+    {
+      "a": "C03",
+      "b": "N10",
+      "aPersonId": "P01777",
+      "bPersonId": "P04300",
+      "hops": 2
+    },
+    {
+      "a": "N06",
+      "b": "C02",
+      "aPersonId": "P02750",
+      "bPersonId": "P01617",
+      "hops": 2
+    },
+    {
+      "a": "N07",
+      "b": "C05",
+      "aPersonId": "P03285",
+      "bPersonId": "P02669",
+      "hops": 2
+    },
+    {
+      "a": "C06",
+      "b": "C09",
+      "aPersonId": "P02939",
+      "bPersonId": "P03784",
+      "hops": 2
+    },
+    {
+      "a": "C01",
+      "b": "C10",
+      "aPersonId": "P00576",
+      "bPersonId": "P04532",
+      "hops": 2
+    }
+  ],
+  "topByExportsAppearing": [
+    {
+      "personId": "P03412",
+      "name": "Sarah Thomas",
+      "exportsAppearingIn": 10,
+      "datasets": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N07",
+        "N10",
+        "C01",
+        "C03",
+        "C07",
+        "C08"
+      ],
+      "observedDegree": 10,
+      "isOwner": false
+    },
+    {
+      "personId": "P00274",
+      "name": "Vikram Nair",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N01",
+        "N02",
+        "N03",
+        "N08",
+        "N10",
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P01650",
+      "name": "Olga Kristiansen",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N01",
+        "N02",
+        "N04",
+        "N06",
+        "N09",
+        "N10",
+        "C02",
+        "C06"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P01715",
+      "name": "Amina Mehta",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N01",
+        "N02",
+        "N07",
+        "N10",
+        "C01",
+        "C02",
+        "C04",
+        "C07"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P01782",
+      "name": "Henry Baker",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N02",
+        "N03",
+        "N05",
+        "N06",
+        "N09",
+        "C03",
+        "C05",
+        "C09"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P01977",
+      "name": "Sean Moore",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N02",
+        "N03",
+        "N06",
+        "N07",
+        "C03",
+        "C06",
+        "C07",
+        "C09"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P02374",
+      "name": "Miguel Ramos",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N01",
+        "N03",
+        "N04",
+        "N08",
+        "N09",
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P02465",
+      "name": "Karan Banerjee",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N03",
+        "N04",
+        "N06",
+        "N07",
+        "N08",
+        "N10",
+        "C01",
+        "C07"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P02519",
+      "name": "Grace Collins",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N05",
+        "N06",
+        "C01",
+        "C05",
+        "C06",
+        "C07",
+        "C09",
+        "C10"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    },
+    {
+      "personId": "P03015",
+      "name": "Leandro Marquez",
+      "exportsAppearingIn": 8,
+      "datasets": [
+        "N01",
+        "N02",
+        "N04",
+        "N05",
+        "N08",
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "observedDegree": 8,
+      "isOwner": false
+    }
+  ],
+  "topByObservedDegree": [
+    {
+      "personId": "P01020",
+      "name": "Kavita Raghavan",
+      "observedDegree": 1450,
+      "isOwner": true
+    },
+    {
+      "personId": "P04300",
+      "name": "Lorenzo Russo",
+      "observedDegree": 1050,
+      "isOwner": true
+    },
+    {
+      "personId": "P00576",
+      "name": "Fang Chen",
+      "observedDegree": 900,
+      "isOwner": true
+    },
+    {
+      "personId": "P01132",
+      "name": "Vivek Singh",
+      "observedDegree": 820,
+      "isOwner": true
+    },
+    {
+      "personId": "P03354",
+      "name": "Abigail Harris",
+      "observedDegree": 640,
+      "isOwner": true
+    },
+    {
+      "personId": "P01958",
+      "name": "Aminata Adeyemi",
+      "observedDegree": 610,
+      "isOwner": true
+    },
+    {
+      "personId": "P02750",
+      "name": "Larisa Fedorov",
+      "observedDegree": 540,
+      "isOwner": true
+    },
+    {
+      "personId": "P03784",
+      "name": "Rafael Medina",
+      "observedDegree": 480,
+      "isOwner": true
+    },
+    {
+      "personId": "P01617",
+      "name": "Sota Wang",
+      "observedDegree": 420,
+      "isOwner": true
+    },
+    {
+      "personId": "P02201",
+      "name": "Kristine Chua",
+      "observedDegree": 390,
+      "isOwner": true
+    }
+  ],
+  "jobChangesAcrossSnapshots": {
+    "definition": "People listed in >= 2 exports whose trimmed (Company, Position) differ between at least two of those exports.",
+    "count": 198,
+    "peopleInMultipleExports": 2725,
+    "fraction": 0.0727,
+    "examples": [
+      {
+        "personId": "P00011",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Expedia Group",
+            "position": "General Manager"
+          },
+          {
+            "datasetId": "N06",
+            "exportDate": "2025-09-08",
+            "company": "Expedia Group",
+            "position": "Senior Chief of Staff"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Expedia Group",
+            "position": "General Manager"
+          }
+        ]
+      },
+      {
+        "personId": "P00027",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Avalara",
+            "position": "Senior Associate Product Manager"
+          },
+          {
+            "datasetId": "N02",
+            "exportDate": "2026-08-14",
+            "company": "Avalara",
+            "position": "Senior Associate Product Manager"
+          },
+          {
+            "datasetId": "N03",
+            "exportDate": "2026-03-02",
+            "company": "F5",
+            "position": "Senior Associate Product Manager"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Avalara",
+            "position": "Senior Associate Product Manager"
+          }
+        ]
+      },
+      {
+        "personId": "P00038",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Outreach",
+            "position": "Director of Customer Success"
+          },
+          {
+            "datasetId": "N02",
+            "exportDate": "2026-08-14",
+            "company": "Outreach",
+            "position": "Director of Customer Success"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Outreach",
+            "position": "Director of Customer Success"
+          },
+          {
+            "datasetId": "C07",
+            "exportDate": "2025-08-27",
+            "company": "Outreach",
+            "position": "Group Manager, Customer Success"
+          }
+        ]
+      },
+      {
+        "personId": "P00055",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Expedia Group",
+            "position": "Director, Analytics"
+          },
+          {
+            "datasetId": "N02",
+            "exportDate": "2026-08-14",
+            "company": "Expedia Group",
+            "position": "Director, Analytics"
+          },
+          {
+            "datasetId": "C03",
+            "exportDate": "2025-10-06",
+            "company": "Expedia Group",
+            "position": "Data Science Manager"
+          }
+        ]
+      },
+      {
+        "personId": "P00090",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Wizards of the Coast",
+            "position": "Vice  President, Engineering"
+          },
+          {
+            "datasetId": "N10",
+            "exportDate": "2025-07-25",
+            "company": "Wizards of the Coast",
+            "position": "Director  of Engineering"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Wizards of the Coast",
+            "position": "Vice  President, Engineering"
+          },
+          {
+            "datasetId": "C02",
+            "exportDate": "2026-09-20",
+            "company": "Wizards of the Coast",
+            "position": "Vice  President, Engineering"
+          }
+        ]
+      },
+      {
+        "personId": "P00153",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "A24",
+            "position": "Account Executive"
+          },
+          {
+            "datasetId": "N05",
+            "exportDate": "2026-06-30",
+            "company": "ArenaNet",
+            "position": "Sales Executive"
+          },
+          {
+            "datasetId": "N10",
+            "exportDate": "2025-07-25",
+            "company": "ArenaNet",
+            "position": "Sales Executive"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "ArenaNet",
+            "position": "Sales Executive"
+          }
+        ]
+      },
+      {
+        "personId": "P00162",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Fandom",
+            "position": "Sr. Machine Learning Engineer"
+          },
+          {
+            "datasetId": "N10",
+            "exportDate": "2025-07-25",
+            "company": "Snap Inc.",
+            "position": "Senior Applied Scientist"
+          }
+        ]
+      },
+      {
+        "personId": "P00163",
+        "snapshots": [
+          {
+            "datasetId": "N01",
+            "exportDate": "2026-09-28",
+            "company": "Starbucks Corporation",
+            "position": "Product Marketing Manager"
+          },
+          {
+            "datasetId": "N10",
+            "exportDate": "2025-07-25",
+            "company": "Google",
+            "position": "Marketing Manager"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Starbucks Corporation",
+            "position": "Product Marketing Manager"
+          }
+        ]
+      },
+      {
+        "personId": "P00165",
+        "snapshots": [
+          {
+            "datasetId": "N02",
+            "exportDate": "2026-08-14",
+            "company": "Amazon Web Services (AWS)",
+            "position": "Data Science Manager"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Bungie",
+            "position": "Data Science Manager"
+          }
+        ]
+      },
+      {
+        "personId": "P00180",
+        "snapshots": [
+          {
+            "datasetId": "N10",
+            "exportDate": "2025-07-25",
+            "company": "Microsoft",
+            "position": "Engineering Director"
+          },
+          {
+            "datasetId": "C01",
+            "exportDate": "2026-05-05",
+            "company": "Microsoft",
+            "position": "VP of Engineering"
+          }
+        ]
+      }
+    ],
+    "examplePersonIds": [
+      "P00011",
+      "P00027",
+      "P00038",
+      "P00055",
+      "P00090",
+      "P00153",
+      "P00162",
+      "P00163",
+      "P00165",
+      "P00180"
+    ]
+  },
+  "edgeCases": [
+    {
+      "id": "duplicate-names-within-dataset",
+      "description": "Different people (different URLs) with identical full names in one file; name-only joins must treat them as ambiguous.",
+      "details": {
+        "N01": [
+          {
+            "name": "Mariana Pérez",
+            "personIds": [
+              "P00944",
+              "P00363"
+            ]
+          },
+          {
+            "name": "Fatima Mishra",
+            "personIds": [
+              "P00182",
+              "P00070"
+            ]
+          },
+          {
+            "name": "Andrew Brown",
+            "personIds": [
+              "P01100",
+              "P00695"
+            ]
+          }
+        ],
+        "N02": [
+          {
+            "name": "Ronaldo Castillo",
+            "personIds": [
+              "P01688",
+              "P01472"
+            ]
+          },
+          {
+            "name": "Khoa Quách",
+            "personIds": [
+              "P01248",
+              "P01703"
+            ]
+          },
+          {
+            "name": "Haruto Zhang",
+            "personIds": [
+              "P01641",
+              "P01572"
+            ]
+          }
+        ],
+        "N03": [
+          {
+            "name": "Daniela Ruiz",
+            "personIds": [
+              "P02123",
+              "P02014"
+            ]
+          },
+          {
+            "name": "Chen He",
+            "personIds": [
+              "P01921",
+              "P01966"
+            ]
+          },
+          {
+            "name": "Divya Rahman",
+            "personIds": [
+              "P01736",
+              "P01858"
+            ]
+          }
+        ],
+        "N04": [
+          {
+            "name": "Annie Desrosiers",
+            "personIds": [
+              "P02286",
+              "P02381"
+            ]
+          },
+          {
+            "name": "Camille Gallo",
+            "personIds": [
+              "P02258",
+              "P02425"
+            ]
+          },
+          {
+            "name": "Vy Vương",
+            "personIds": [
+              "P02396",
+              "P02254"
+            ]
+          }
+        ],
+        "N05": [
+          {
+            "name": "José Sánchez",
+            "personIds": [
+              "P02504",
+              "P02513"
+            ]
+          },
+          {
+            "name": "Stefan Neumann",
+            "personIds": [
+              "P02567",
+              "P02630"
+            ]
+          }
+        ],
+        "N06": [
+          {
+            "name": "Yan Barbieri",
+            "personIds": [
+              "P02874",
+              "P02707"
+            ]
+          },
+          {
+            "name": "Kevin Scott",
+            "personIds": [
+              "P02905",
+              "P02839"
+            ]
+          },
+          {
+            "name": "Chiara Lewis",
+            "personIds": [
+              "P02829",
+              "P02764"
+            ]
+          }
+        ],
+        "N07": [
+          {
+            "name": "Shreya Gupta",
+            "personIds": [
+              "P03026",
+              "P02453"
+            ]
+          },
+          {
+            "name": "Karan Mishra",
+            "personIds": [
+              "P03197",
+              "P03370"
+            ]
+          }
+        ],
+        "N08": [
+          {
+            "name": "Danielle Caron",
+            "personIds": [
+              "P03494",
+              "P03489"
+            ]
+          },
+          {
+            "name": "Simon Edwards",
+            "personIds": [
+              "P03460",
+              "P03472"
+            ]
+          }
+        ],
+        "N09": [
+          {
+            "name": "Miguel Chávez",
+            "personIds": [
+              "P03656",
+              "P03907"
+            ]
+          },
+          {
+            "name": "Gabriel García-López",
+            "personIds": [
+              "P03703",
+              "P03737"
+            ]
+          },
+          {
+            "name": "Chiara Esposito",
+            "personIds": [
+              "P03641",
+              "P03602"
+            ]
+          }
+        ],
+        "N10": [
+          {
+            "name": "Olga Wiśniewski",
+            "personIds": [
+              "P03982",
+              "P04499"
+            ]
+          },
+          {
+            "name": "Mariana Sánchez",
+            "personIds": [
+              "P03971",
+              "P04281"
+            ]
+          },
+          {
+            "name": "Yuna Suzuki",
+            "personIds": [
+              "P04132",
+              "P03995"
+            ]
+          }
+        ],
+        "C01": [
+          {
+            "name": "David Lewis",
+            "personIds": [
+              "P00723",
+              "P00327"
+            ]
+          },
+          {
+            "name": "Hiền Đinh",
+            "personIds": [
+              "P00453",
+              "P00819"
+            ]
+          },
+          {
+            "name": "Antonio Aguilar",
+            "personIds": [
+              "P00155",
+              "P01006"
+            ]
+          }
+        ],
+        "C02": [
+          {
+            "name": "Nadia Sokołowski",
+            "personIds": [
+              "P01406",
+              "P01563"
+            ]
+          },
+          {
+            "name": "Sota Peng",
+            "personIds": [
+              "P01642",
+              "P01562"
+            ]
+          },
+          {
+            "name": "Chiara Müller",
+            "personIds": [
+              "P01003",
+              "P01352"
+            ]
+          }
+        ],
+        "C03": [
+          {
+            "name": "Charmaine González",
+            "personIds": [
+              "P01742",
+              "P01965"
+            ]
+          },
+          {
+            "name": "Charles Allen",
+            "personIds": [
+              "P01959",
+              "P01761"
+            ]
+          },
+          {
+            "name": "Angeline Ocampo",
+            "personIds": [
+              "P01842",
+              "P02127"
+            ]
+          }
+        ],
+        "C04": [
+          {
+            "name": "Andrew Green",
+            "personIds": [
+              "P02464",
+              "P02224"
+            ]
+          },
+          {
+            "name": "Tao Chen",
+            "personIds": [
+              "P02347",
+              "P02298"
+            ]
+          }
+        ],
+        "C05": [
+          {
+            "name": "Amarachi Okonjo",
+            "personIds": [
+              "P02634",
+              "P02629"
+            ]
+          },
+          {
+            "name": "Emily Wilson",
+            "personIds": [
+              "P02627",
+              "P02485"
+            ]
+          }
+        ],
+        "C06": [
+          {
+            "name": "Tao Han",
+            "personIds": [
+              "P02679",
+              "P02920"
+            ]
+          },
+          {
+            "name": "Michael Turner",
+            "personIds": [
+              "P02706",
+              "P02860"
+            ]
+          }
+        ],
+        "C07": [
+          {
+            "name": "Andrew Harris",
+            "personIds": [
+              "P03229",
+              "P03371"
+            ]
+          },
+          {
+            "name": "Henry Núñez",
+            "personIds": [
+              "P03355",
+              "P03236"
+            ]
+          },
+          {
+            "name": "Vivek Das",
+            "personIds": [
+              "P03181",
+              "P03109"
+            ]
+          }
+        ],
+        "C08": [
+          {
+            "name": "Kamau Traore",
+            "personIds": [
+              "P03469",
+              "P03513"
+            ]
+          },
+          {
+            "name": "Marie Schröder",
+            "personIds": [
+              "P03441",
+              "P03446"
+            ]
+          }
+        ],
+        "C09": [
+          {
+            "name": "Rania Malik",
+            "personIds": [
+              "P03642",
+              "P03865"
+            ]
+          },
+          {
+            "name": "Sergio Martínez",
+            "personIds": [
+              "P03672",
+              "P03552"
+            ]
+          },
+          {
+            "name": "Bintou Hailu",
+            "personIds": [
+              "P03563",
+              "P03577"
+            ]
+          }
+        ],
+        "C10": [
+          {
+            "name": "Feng Miller",
+            "personIds": [
+              "P00291",
+              "P03946"
+            ]
+          },
+          {
+            "name": "Rachel Edwards",
+            "personIds": [
+              "P04113",
+              "P04038"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-name-across-datasets",
+      "description": "Different people sharing a full name across two datasets; entity resolution must use the profile URL.",
+      "details": [
+        {
+          "name": "Greta Marino",
+          "a": {
+            "datasetId": "N03",
+            "personId": "P01985"
+          },
+          "b": {
+            "datasetId": "C05",
+            "personId": "P02543"
+          }
+        },
+        {
+          "name": "Shaira Uy",
+          "a": {
+            "datasetId": "N01",
+            "personId": "P00478"
+          },
+          "b": {
+            "datasetId": "N10",
+            "personId": "P04287"
+          }
+        },
+        {
+          "name": "Pooja Kumar",
+          "a": {
+            "datasetId": "C02",
+            "personId": "P01705"
+          },
+          "b": {
+            "datasetId": "N06",
+            "personId": "P02864"
+          }
+        },
+        {
+          "name": "Scott Johnson",
+          "a": {
+            "datasetId": "N09",
+            "personId": "P03586"
+          },
+          "b": {
+            "datasetId": "C07",
+            "personId": "P03058"
+          }
+        },
+        {
+          "name": "Sameer Sharma",
+          "a": {
+            "datasetId": "C04",
+            "personId": "P02295"
+          },
+          "b": {
+            "datasetId": "N02",
+            "personId": "P01203"
+          }
+        },
+        {
+          "name": "Erik Aas",
+          "a": {
+            "datasetId": "N08",
+            "personId": "P03448"
+          },
+          "b": {
+            "datasetId": "C10",
+            "personId": "P04110"
+          }
+        },
+        {
+          "name": "Bintou Tadesse",
+          "a": {
+            "datasetId": "N04",
+            "personId": "P02280"
+          },
+          "b": {
+            "datasetId": "C09",
+            "personId": "P03886"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-character-names",
+      "description": "Names needing CSV quoting or Unicode handling: embedded double quotes, apostrophes, commas in last names (credentials/suffixes), diacritics, hyphens, a CJK name with a percent-encoded profile slug.",
+      "details": [
+        {
+          "datasetId": "N01",
+          "personId": "P00968",
+          "name": "Katherine \"Kate\" O'Donnell",
+          "url": "https://www.linkedin.com/in/katherine-kate-odonnell-b60a4e",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N02",
+          "personId": "P01700",
+          "name": "Seán Ó Briain",
+          "url": "https://www.linkedin.com/in/sean-o-briain-2610285",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N03",
+          "personId": "P02043",
+          "name": "María José de la Cruz Ortega",
+          "url": "https://www.linkedin.com/in/maria-jose-de-la-cruz-ortega-59edd7e",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N04",
+          "personId": "P02399",
+          "name": "Jean-François Bélanger",
+          "url": "https://www.linkedin.com/in/jean-francois-belanger-32fdf2",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N06",
+          "personId": "P02705",
+          "name": "Zoë van der Berg",
+          "url": "https://www.linkedin.com/in/zoe-van-der-berg-4fec277f",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N07",
+          "personId": "P03171",
+          "name": "D'Andre St. Clair",
+          "url": "https://www.linkedin.com/in/dandre-st-clair-ead27dc4",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N08",
+          "personId": "P03454",
+          "name": "Siobhán Mac Giolla Phádraig",
+          "url": "https://www.linkedin.com/in/siobhan-mac-giolla-phadraig-ba56123",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N09",
+          "personId": "P03849",
+          "name": "Anne-Sophie Dubois-Lefèvre",
+          "url": "https://www.linkedin.com/in/anne-sophie-dubois-lefevre-f2dca988",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N10",
+          "personId": "P04124",
+          "name": "Øystein Kjærgaard",
+          "url": "https://www.linkedin.com/in/oystein-kjaergaard-90f722d",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "C01",
+          "personId": "P00751",
+          "name": "Łukasz Wiśniewski",
+          "url": "https://www.linkedin.com/in/lukasz-wisniewski-e4919efe",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "C03",
+          "personId": "P01954",
+          "name": "Chiamaka Nwachukwu-Eze",
+          "url": "https://www.linkedin.com/in/chiamaka-nwachukwu-eze-9de57a",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "C08",
+          "personId": "P03439",
+          "name": "Robert \"Bobby\" McAllister, Jr.",
+          "url": "https://www.linkedin.com/in/robert-bobby-mcallister-jr-4ffa3e1",
+          "urlInFile": false
+        },
+        {
+          "datasetId": "C09",
+          "personId": "P03816",
+          "name": "Sarah Lindqvist, CPA",
+          "url": "https://www.linkedin.com/in/sarah-lindqvist-cpa-cdc7110",
+          "urlInFile": false
+        },
+        {
+          "datasetId": "N05",
+          "personId": "P02605",
+          "name": "Michael Okonjo, MBA",
+          "url": "https://www.linkedin.com/in/michael-okonjo-mba-4fc21c53",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "C07",
+          "personId": "P03359",
+          "name": "Renée L'Heureux",
+          "url": "https://www.linkedin.com/in/renee-lheureux-631a926b",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "N01",
+          "personId": "P00347",
+          "name": "José Luis Núñez",
+          "url": "https://www.linkedin.com/in/jose-luis-nunez-0423f0a",
+          "urlInFile": true
+        },
+        {
+          "datasetId": "C04",
+          "personId": "P02405",
+          "name": "美玲 陈",
+          "url": "https://www.linkedin.com/in/%E7%BE%8E%E7%8E%B2-%E9%99%88-9c50d6",
+          "urlInFile": true
+        }
+      ]
+    },
+    {
+      "id": "blank-company-or-position",
+      "description": "Rows with blank Company and/or Position (hidden current role, no current role).",
+      "details": {
+        "N01": {
+          "blankCompany": 49,
+          "blankPosition": 45,
+          "rows": 1450
+        },
+        "N02": {
+          "blankCompany": 29,
+          "blankPosition": 22,
+          "rows": 820
+        },
+        "N03": {
+          "blankCompany": 13,
+          "blankPosition": 11,
+          "rows": 610
+        },
+        "N04": {
+          "blankCompany": 9,
+          "blankPosition": 8,
+          "rows": 390
+        },
+        "N05": {
+          "blankCompany": 6,
+          "blankPosition": 6,
+          "rows": 260
+        },
+        "N06": {
+          "blankCompany": 12,
+          "blankPosition": 10,
+          "rows": 540
+        },
+        "N07": {
+          "blankCompany": 2,
+          "blankPosition": 2,
+          "rows": 175
+        },
+        "N08": {
+          "blankCompany": 4,
+          "blankPosition": 7,
+          "rows": 95
+        },
+        "N09": {
+          "blankCompany": 7,
+          "blankPosition": 8,
+          "rows": 330
+        },
+        "N10": {
+          "blankCompany": 28,
+          "blankPosition": 28,
+          "rows": 1050
+        },
+        "C01": {
+          "blankCompany": 37,
+          "blankPosition": 38,
+          "rows": 900
+        },
+        "C02": {
+          "blankCompany": 16,
+          "blankPosition": 13,
+          "rows": 420
+        },
+        "C03": {
+          "blankCompany": 12,
+          "blankPosition": 14,
+          "rows": 300
+        },
+        "C04": {
+          "blankCompany": 10,
+          "blankPosition": 10,
+          "rows": 210
+        },
+        "C05": {
+          "blankCompany": 3,
+          "blankPosition": 4,
+          "rows": 150
+        },
+        "C06": {
+          "blankCompany": 3,
+          "blankPosition": 3,
+          "rows": 120
+        },
+        "C07": {
+          "blankCompany": 13,
+          "blankPosition": 15,
+          "rows": 640
+        },
+        "C08": {
+          "blankCompany": 4,
+          "blankPosition": 2,
+          "rows": 75
+        },
+        "C09": {
+          "blankCompany": 11,
+          "blankPosition": 15,
+          "rows": 480
+        },
+        "C10": {
+          "blankCompany": 9,
+          "blankPosition": 7,
+          "rows": 250
+        }
+      }
+    },
+    {
+      "id": "generic-employers",
+      "description": "Current employer is Self-employed / Freelance / Stealth Startup / Independent Consultant / Open to work / Retired (or a variant).",
+      "details": {
+        "N01": 81,
+        "N02": 42,
+        "N03": 23,
+        "N04": 21,
+        "N05": 20,
+        "N06": 29,
+        "N07": 5,
+        "N08": 9,
+        "N09": 20,
+        "N10": 48,
+        "C01": 51,
+        "C02": 15,
+        "C03": 26,
+        "C04": 11,
+        "C05": 8,
+        "C06": 3,
+        "C07": 36,
+        "C08": 4,
+        "C09": 25,
+        "C10": 8
+      }
+    },
+    {
+      "id": "messy-titles",
+      "description": "Titles with ALL CAPS, pipes, emoji, double spaces, leading spaces (trimmed by the parser), commas and embedded quotes.",
+      "details": {
+        "N01": [
+          "P00171",
+          "P01052",
+          "P03364",
+          "P02450",
+          "P00635",
+          "P00692",
+          "P00090",
+          "P00878",
+          "P00426",
+          "P00142",
+          "P00012",
+          "P04109",
+          "P00200",
+          "P01418",
+          "P02071",
+          "P01213",
+          "P00389",
+          "P04053",
+          "P01309",
+          "P00318",
+          "P01284",
+          "P03428",
+          "P00331",
+          "P00952",
+          "P00875",
+          "P01268",
+          "P00188",
+          "P02026",
+          "P01257",
+          "P00654",
+          "P00083",
+          "P04378",
+          "P00175",
+          "P00558",
+          "P00494",
+          "P01631",
+          "P00866",
+          "P01399",
+          "P00604",
+          "P00596",
+          "P00904",
+          "P01207",
+          "P01035",
+          "P00948",
+          "P01538",
+          "P01488",
+          "P02271",
+          "P04345",
+          "P00547",
+          "P03138",
+          "P00672",
+          "P00917",
+          "P01147",
+          "P00954",
+          "P00577",
+          "P01167",
+          "P00531",
+          "P04115"
+        ],
+        "N02": [
+          "P00012",
+          "P01649",
+          "P01442",
+          "P01268",
+          "P02507",
+          "P00558",
+          "P03756",
+          "P01145",
+          "P01147",
+          "P00083",
+          "P01538",
+          "P01727",
+          "P01686",
+          "P01488",
+          "P00672",
+          "P01537",
+          "P00952",
+          "P00210",
+          "P00171",
+          "P01153",
+          "P04581",
+          "P01317",
+          "P00742",
+          "P01167",
+          "P01418",
+          "P01284",
+          "P00531",
+          "P00195",
+          "P04541",
+          "P01213",
+          "P01631",
+          "P00494",
+          "P03428",
+          "P01613",
+          "P03402",
+          "P01207",
+          "P00635",
+          "P00547",
+          "P01545"
+        ],
+        "N03": [
+          "P01739",
+          "P01808",
+          "P01862",
+          "P02271",
+          "P02310",
+          "P03138",
+          "P03082",
+          "P00692",
+          "P03364",
+          "P01831",
+          "P01895",
+          "P02290",
+          "P02165",
+          "P01815",
+          "P02107",
+          "P01545",
+          "P02125",
+          "P01839",
+          "P00426",
+          "P02146",
+          "P02026"
+        ],
+        "N04": [
+          "P02290",
+          "P02271",
+          "P03056",
+          "P02450",
+          "P02146",
+          "P02426",
+          "P02330",
+          "P02310",
+          "P02339",
+          "P02475",
+          "P00904",
+          "P03069",
+          "P03518",
+          "P02391"
+        ],
+        "N05": [
+          "P04020",
+          "P02125",
+          "P03823",
+          "P01815",
+          "P02012",
+          "P02507",
+          "P04115",
+          "P02606",
+          "P02546",
+          "P02560",
+          "P02621"
+        ],
+        "N06": [
+          "P02940",
+          "P02146",
+          "P02165",
+          "P01895",
+          "P02861",
+          "P02908",
+          "P02818",
+          "P02125",
+          "P02934",
+          "P01831",
+          "P02842",
+          "P03756",
+          "P01759",
+          "P01808",
+          "P02716",
+          "P02979",
+          "P03056",
+          "P04378",
+          "P02997",
+          "P02071"
+        ],
+        "N07": [
+          "P03427",
+          "P03393",
+          "P02475",
+          "P02940",
+          "P03428",
+          "P03044",
+          "P03138",
+          "P03082",
+          "P02083"
+        ],
+        "N08": [
+          "P04044",
+          "P04345",
+          "P03518"
+        ],
+        "N09": [
+          "P03845",
+          "P03848",
+          "P04160",
+          "P02621",
+          "P02546",
+          "P02668",
+          "P00952",
+          "P03912",
+          "P03662",
+          "P03798",
+          "P03759",
+          "P02613"
+        ],
+        "N10": [
+          "P01268",
+          "P03938",
+          "P04541",
+          "P00175",
+          "P04251",
+          "P04202",
+          "P00558",
+          "P01649",
+          "P04053",
+          "P04397",
+          "P01418",
+          "P04160",
+          "P04115",
+          "P01545",
+          "P04378",
+          "P04342",
+          "P00090",
+          "P00952",
+          "P03827",
+          "P04158",
+          "P04414",
+          "P00547",
+          "P04314",
+          "P04109",
+          "P01309",
+          "P02026",
+          "P01538",
+          "P00171",
+          "P04581",
+          "P01862",
+          "P04013",
+          "P02165",
+          "P04320",
+          "P00012",
+          "P04044",
+          "P00596",
+          "P01686",
+          "P01167",
+          "P03996",
+          "P04020",
+          "P04345",
+          "P04260",
+          "P03981"
+        ],
+        "C01": [
+          "P00012",
+          "P02146",
+          "P00186",
+          "P00142",
+          "P00482",
+          "P03521",
+          "P00924",
+          "P00513",
+          "P00547",
+          "P01176",
+          "P00494",
+          "P03622",
+          "P00742",
+          "P01613",
+          "P00558",
+          "P00948",
+          "P00672",
+          "P00878",
+          "P00304",
+          "P00210",
+          "P04260",
+          "P04314",
+          "P01035",
+          "P00822",
+          "P04115",
+          "P00676",
+          "P01442",
+          "P02934",
+          "P00850",
+          "P00531",
+          "P00904",
+          "P01545",
+          "P00425",
+          "P00952",
+          "P01255",
+          "P01317",
+          "P00090",
+          "P00195"
+        ],
+        "C02": [
+          "P03428",
+          "P01140",
+          "P01035",
+          "P00577",
+          "P01492",
+          "P04053",
+          "P01540",
+          "P01176",
+          "P00924",
+          "P01862",
+          "P00083",
+          "P01538",
+          "P01255",
+          "P00558",
+          "P01399",
+          "P01309",
+          "P00952",
+          "P01257",
+          "P00090",
+          "P01134",
+          "P01488",
+          "P01127",
+          "P01147",
+          "P01167"
+        ],
+        "C03": [
+          "P01127",
+          "P01759",
+          "P01255",
+          "P01613",
+          "P01784",
+          "P02125",
+          "P02012",
+          "P01649",
+          "P02450",
+          "P02089",
+          "P02621",
+          "P02071"
+        ],
+        "C04": [
+          "P02107",
+          "P02125",
+          "P01399",
+          "P01815",
+          "P01808",
+          "P02339"
+        ],
+        "C05": [
+          "P01255",
+          "P03823",
+          "P02613",
+          "P02560",
+          "P01895"
+        ],
+        "C06": [
+          "P01167",
+          "P00531",
+          "P01862",
+          "P04053",
+          "P02290"
+        ],
+        "C07": [
+          "P02475",
+          "P02339",
+          "P03138",
+          "P03082",
+          "P03195",
+          "P03056",
+          "P03428",
+          "P03364",
+          "P03290",
+          "P03166",
+          "P03069",
+          "P02271",
+          "P02940",
+          "P00917",
+          "P02290",
+          "P02861",
+          "P03327",
+          "P02310",
+          "P03167",
+          "P03402",
+          "P03393",
+          "P00531",
+          "P00577",
+          "P04160",
+          "P03130",
+          "P02997"
+        ],
+        "C08": [],
+        "C09": [
+          "P03069",
+          "P03798",
+          "P00494",
+          "P03166",
+          "P03827",
+          "P02668",
+          "P03551",
+          "P03756",
+          "P03912",
+          "P03839",
+          "P03981",
+          "P02613",
+          "P03823",
+          "P02908",
+          "P01895",
+          "P03741",
+          "P03622",
+          "P04202",
+          "P03521",
+          "P03662",
+          "P02271"
+        ],
+        "C10": [
+          "P00904",
+          "P00012",
+          "P04432",
+          "P04202",
+          "P01545",
+          "P04044"
+        ]
+      }
+    },
+    {
+      "id": "company-names-with-commas",
+      "description": "Company cells that need CSV quoting (e.g. \"Bain & Company, Inc.\", \"Block, Inc.\", \"Skadden, Arps, Slate, Meagher & Flom\").",
+      "details": {
+        "N01": 10,
+        "N02": 12,
+        "N03": 5,
+        "N04": 0,
+        "N05": 0,
+        "N06": 2,
+        "N07": 0,
+        "N08": 0,
+        "N09": 1,
+        "N10": 3,
+        "C01": 7,
+        "C02": 10,
+        "C03": 3,
+        "C04": 0,
+        "C05": 1,
+        "C06": 0,
+        "C07": 1,
+        "C08": 0,
+        "C09": 1,
+        "C10": 3
+      }
+    },
+    {
+      "id": "mixed-case-vanity-urls",
+      "description": "Vanity slugs written with capitals in Connections.csv but lowercase in messages/invitations; joins must normalize case.",
+      "details": {
+        "N01": [
+          "P03234",
+          "P03746",
+          "P00509",
+          "P00053",
+          "P00139",
+          "P01377",
+          "P03271",
+          "P01239",
+          "P00077",
+          "P01151",
+          "P00697",
+          "P01071",
+          "P00369",
+          "P00986",
+          "P00547",
+          "P00782"
+        ],
+        "N02": [
+          "P01304",
+          "P01151",
+          "P04151",
+          "P01239",
+          "P01377",
+          "P00139",
+          "P00547",
+          "P02814"
+        ],
+        "N03": [
+          "P00986",
+          "P02838",
+          "P02305",
+          "P02111",
+          "P02145",
+          "P00509"
+        ],
+        "N04": [
+          "P02274",
+          "P02293",
+          "P02305"
+        ],
+        "N05": [
+          "P03746",
+          "P02103",
+          "P01834",
+          "P02658"
+        ],
+        "N06": [
+          "P02814",
+          "P03271",
+          "P02838",
+          "P02951",
+          "P02848",
+          "P02145",
+          "P02830",
+          "P02482",
+          "P02987",
+          "P02866"
+        ],
+        "N07": [
+          "P02212",
+          "P02305"
+        ],
+        "N08": [],
+        "N09": [
+          "P03887",
+          "P02658",
+          "P03832"
+        ],
+        "N10": [
+          "P01377",
+          "P04569",
+          "P04443",
+          "P03288",
+          "P04510",
+          "P04542",
+          "P01239",
+          "P00547",
+          "P02111",
+          "P04151",
+          "P00204",
+          "P04504"
+        ],
+        "C01": [
+          "P04151",
+          "P03887",
+          "P00204",
+          "P00547",
+          "P03622",
+          "P00053",
+          "P01071",
+          "P02838",
+          "P00369",
+          "P00077",
+          "P00986",
+          "P00782"
+        ],
+        "C02": [
+          "P01513"
+        ],
+        "C03": [
+          "P02103",
+          "P01834",
+          "P02274",
+          "P01987"
+        ],
+        "C04": [
+          "P02212",
+          "P02274",
+          "P04542",
+          "P02305"
+        ],
+        "C05": [
+          "P03746",
+          "P02658",
+          "P02482"
+        ],
+        "C06": [
+          "P02274"
+        ],
+        "C07": [
+          "P03131",
+          "P03234",
+          "P02293",
+          "P02274",
+          "P03288",
+          "P03064",
+          "P03271"
+        ],
+        "C08": [],
+        "C09": [
+          "P02103",
+          "P03887",
+          "P03746",
+          "P03622"
+        ],
+        "C10": [
+          "P04510"
+        ]
+      }
+    },
+    {
+      "id": "url-shapes",
+      "description": "Endorsement URLs are written without scheme (www.linkedin.com/in/<slug>), Notes URLs with a trailing slash; both normalize to linkedin.com/in/<slug>.",
+      "details": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N09",
+        "N10"
+      ]
+    },
+    {
+      "id": "legacy-header",
+      "description": "Pre-2020 header \"First Name,Last Name,Email Address,Company,Position,Connected On\" with no URL column and no Notes preamble; C08 also uses M/D/YY dates.",
+      "details": [
+        "C08",
+        "C09"
+      ]
+    },
+    {
+      "id": "utf8-bom",
+      "description": "Classic file starting with a UTF-8 BOM (FORMAT.md 1.3: stripped by parseCsvRfc4180).",
+      "details": [
+        "C03"
+      ]
+    },
+    {
+      "id": "nested-zip-folder",
+      "description": "Every file sits under Complete_LinkedInDataExport_<MM-DD-YYYY>/ inside the zip.",
+      "details": [
+        "N02"
+      ]
+    },
+    {
+      "id": "basic-export",
+      "description": "Basic-shaped export: Connections, messages, Invitations, Profile, Positions, Education, Skills only (plus 8 non-whitelisted files).",
+      "details": [
+        "N08"
+      ]
+    },
+    {
+      "id": "message-drafts",
+      "description": "messages.csv has the 12th IS MESSAGE DRAFT column; TRUE rows are skipped (including 2 draft-only conversations).",
+      "details": [
+        "N01"
+      ]
+    },
+    {
+      "id": "spam-folder",
+      "description": "FOLDER=SPAM rows are skipped; N03 also has SPAM threads from connections.",
+      "details": [
+        "N01",
+        "N03",
+        "N10"
+      ]
+    },
+    {
+      "id": "no-messages-file",
+      "description": "Zip without messages.csv: ownerDetected must be null and no message fields on rows.",
+      "details": [
+        "N05"
+      ]
+    },
+    {
+      "id": "owner-detected-by-profile-name",
+      "description": "messages.csv never shows the owner's own URL (blank SENDER PROFILE URL on owner rows, owner omitted from RECIPIENT PROFILE URLS); every non-connection URL appears in exactly one conversation, so URL detection ties and fails and the importer falls back to the Profile.csv name.",
+      "details": [
+        "N04"
+      ]
+    },
+    {
+      "id": "large-group-threads",
+      "description": "Conversations with more than 5 non-owner participants are ignored for every counter.",
+      "details": {
+        "N01": 2,
+        "N02": 2,
+        "N03": 1,
+        "N04": 1,
+        "N05": null,
+        "N06": 3,
+        "N07": 2,
+        "N08": 1,
+        "N09": 1,
+        "N10": 1,
+        "C01": null,
+        "C02": null,
+        "C03": null,
+        "C04": null,
+        "C05": null,
+        "C06": null,
+        "C07": null,
+        "C08": null,
+        "C09": null,
+        "C10": null
+      }
+    },
+    {
+      "id": "sponsored-and-inmail",
+      "description": "Sponsored messages from company pages (non-/in/ sender URL) and recruiter InMail from non-connections; neither credits a connection.",
+      "details": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N06",
+        "N07",
+        "N08",
+        "N09",
+        "N10"
+      ]
+    },
+    {
+      "id": "invitation-rules",
+      "description": "Pending invitations to/from non-connections (dropped), blank-URL rows joined by unique name, an older opposite-direction row where the latest-dated row wins, ambiguous-name rows dropped.",
+      "details": {
+        "N01": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P01656",
+              "P04252"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P03046",
+              "P01558"
+            ]
+          }
+        ],
+        "N02": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P01169",
+              "P03756"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P00834",
+              "P01057"
+            ]
+          },
+          {
+            "kind": "invitation-ambiguous-name-dropped",
+            "personId": "P01248"
+          }
+        ],
+        "N03": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P02028",
+              "P00145"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P01876",
+              "P02403"
+            ]
+          }
+        ],
+        "N04": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P02105",
+              "P01988"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P03506",
+              "P02338"
+            ]
+          },
+          {
+            "kind": "invitation-ambiguous-name-dropped",
+            "personId": "P02396"
+          }
+        ],
+        "N05": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P02667",
+              "P02103"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P01763",
+              "P02103"
+            ]
+          }
+        ],
+        "N06": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P02854",
+              "P02800"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P02743",
+              "P03261"
+            ]
+          },
+          {
+            "kind": "invitation-ambiguous-name-dropped",
+            "personId": "P02905"
+          }
+        ],
+        "N07": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P01976",
+              "P03198"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P01421",
+              "P03899"
+            ]
+          },
+          {
+            "kind": "invitation-ambiguous-name-dropped",
+            "personId": "P03197"
+          }
+        ],
+        "N08": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P03451",
+              "P01111"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P03453",
+              "P01041"
+            ]
+          }
+        ],
+        "N09": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P03847",
+              "P04316"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P02601",
+              "P04431"
+            ]
+          },
+          {
+            "kind": "invitation-ambiguous-name-dropped",
+            "personId": "P03656"
+          }
+        ],
+        "N10": [
+          {
+            "kind": "invitation-latest-wins",
+            "personIds": [
+              "P00479",
+              "P04535"
+            ]
+          },
+          {
+            "kind": "invitation-name-join",
+            "personIds": [
+              "P02265",
+              "P03479"
+            ]
+          },
+          {
+            "kind": "invitation-ambiguous-name-dropped",
+            "personId": "P04499"
+          }
+        ],
+        "C01": [],
+        "C02": [],
+        "C03": [],
+        "C04": [],
+        "C05": [],
+        "C06": [],
+        "C07": [],
+        "C08": [],
+        "C09": [],
+        "C10": []
+      }
+    },
+    {
+      "id": "notes-rules",
+      "description": "Multiple notes per connection concatenated, one note > 500 chars (capped), multi-line note (collapsed), blank note (skipped), note for a non-connection and for an ambiguous name (dropped), blank-URL name joins.",
+      "details": {
+        "N01": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P01057",
+              "P00545"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P02271"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P00546"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P01433",
+              "P00634"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P00146"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P04373"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P00695"
+          }
+        ],
+        "N02": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P00531",
+              "P01671"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P01385"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P01307"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P04074",
+              "P01471"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P00689"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P03768"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P01248"
+          }
+        ],
+        "N03": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P02032",
+              "P02465"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P02175"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P01986"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P02121",
+              "P03138"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P01889"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P01289"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P01736"
+          }
+        ],
+        "N04": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P02355",
+              "P02336"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P02311"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P03201"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P02153",
+              "P03765"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P03802"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P01182"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P02396"
+          }
+        ],
+        "N05": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P03841",
+              "P02546"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P01815"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P00804"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P02620",
+              "P02602"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P02636"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P00180"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P02504"
+          }
+        ],
+        "N06": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P02146",
+              "P04137"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P01745"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P01886"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P02676",
+              "P01770"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P01908"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P01357"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P02905"
+          }
+        ],
+        "N07": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P03068",
+              "P02863"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P03318"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P03378"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P03037"
+            ]
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P00116"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P03197"
+          }
+        ],
+        "N08": [],
+        "N09": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P00734",
+              "P00255"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P03811"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P00794"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P03662",
+              "P03068"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P03899"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P00420"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P03656"
+          }
+        ],
+        "N10": [
+          {
+            "kind": "note-concatenated",
+            "personIds": [
+              "P03785",
+              "P04023"
+            ]
+          },
+          {
+            "kind": "note-over-500-chars",
+            "personId": "P04095"
+          },
+          {
+            "kind": "note-multiline",
+            "personId": "P03330"
+          },
+          {
+            "kind": "note-name-join",
+            "personIds": [
+              "P02488",
+              "P04179"
+            ]
+          },
+          {
+            "kind": "note-blank-skipped",
+            "personId": "P01658"
+          },
+          {
+            "kind": "note-non-connection-dropped",
+            "personId": "P02042"
+          },
+          {
+            "kind": "note-ambiguous-name-dropped",
+            "personId": "P04499"
+          }
+        ],
+        "C01": [],
+        "C02": [],
+        "C03": [],
+        "C04": [],
+        "C05": [],
+        "C06": [],
+        "C07": [],
+        "C08": [],
+        "C09": [],
+        "C10": []
+      }
+    },
+    {
+      "id": "endorsement-rules",
+      "description": "PENDING/REJECTED rows not counted (one endorser has only PENDING rows => endorsementCount 0), blank-URL rows joined by unique name, endorsers who are not connections dropped.",
+      "details": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N09",
+        "N10"
+      ]
+    },
+    {
+      "id": "recommendation-rules",
+      "description": "Name-only join: non-VISIBLE rows leave recommendedYou false, an ambiguous-name VISIBLE row and a non-connection VISIBLE row are dropped.",
+      "details": {
+        "N01": [
+          {
+            "kind": "recommendation-ambiguous-name-dropped",
+            "personId": "P00695"
+          },
+          {
+            "kind": "recommendation-non-connection-dropped",
+            "personId": "P04392"
+          }
+        ],
+        "N02": [],
+        "N03": [],
+        "N04": [],
+        "N05": [],
+        "N06": [
+          {
+            "kind": "recommendation-ambiguous-name-dropped",
+            "personId": "P02905"
+          }
+        ],
+        "N07": [],
+        "N08": [],
+        "N09": [
+          {
+            "kind": "recommendation-non-connection-dropped",
+            "personId": "P03056"
+          }
+        ],
+        "N10": [
+          {
+            "kind": "recommendation-ambiguous-name-dropped",
+            "personId": "P04499"
+          }
+        ],
+        "C01": [],
+        "C02": [],
+        "C03": [],
+        "C04": [],
+        "C05": [],
+        "C06": [],
+        "C07": [],
+        "C08": [],
+        "C09": [],
+        "C10": []
+      }
+    },
+    {
+      "id": "context-caps",
+      "description": "NETWORK_CONTEXT_CAPS exercised: N01 Company Follows.csv has 216 rows (one duplicate) => 200 followedCompanies; N07 Skills.csv has 57 rows (one case-duplicate) => 50 skills.",
+      "details": [
+        "N01",
+        "N07"
+      ]
+    },
+    {
+      "id": "job-changes-across-snapshots",
+      "description": "The same person shows a different employer/title in two exports taken at different dates (see expected_graph.json jobChangesAcrossSnapshots).",
+      "details": {
+        "count": 198,
+        "examplePersonIds": [
+          "P00011",
+          "P00027",
+          "P00038",
+          "P00055",
+          "P00090",
+          "P00153",
+          "P00162",
+          "P00163",
+          "P00165",
+          "P00180"
+        ]
+      }
+    },
+    {
+      "id": "owner-owner-links",
+      "description": "Owner-to-owner connections appear in both owners' files with the same Connected On date.",
+      "details": [
+        {
+          "a": "N01",
+          "b": "C01",
+          "connectedOn": "2020-07-05"
+        },
+        {
+          "a": "N02",
+          "b": "C02",
+          "connectedOn": "2019-08-16"
+        },
+        {
+          "a": "N03",
+          "b": "C03",
+          "connectedOn": "2020-08-22"
+        },
+        {
+          "a": "N04",
+          "b": "C04",
+          "connectedOn": "2020-11-19"
+        },
+        {
+          "a": "N05",
+          "b": "C05",
+          "connectedOn": "2021-07-28"
+        },
+        {
+          "a": "N06",
+          "b": "C06",
+          "connectedOn": "2024-06-06"
+        },
+        {
+          "a": "N07",
+          "b": "C07",
+          "connectedOn": "2020-06-01"
+        },
+        {
+          "a": "N08",
+          "b": "C08",
+          "connectedOn": "2021-03-13"
+        },
+        {
+          "a": "N09",
+          "b": "C09",
+          "connectedOn": "2022-05-04"
+        },
+        {
+          "a": "N10",
+          "b": "C10",
+          "connectedOn": "2019-09-11"
+        },
+        {
+          "a": "N01",
+          "b": "N02",
+          "connectedOn": "2021-08-23"
+        },
+        {
+          "a": "N02",
+          "b": "N03",
+          "connectedOn": "2009-04-26"
+        },
+        {
+          "a": "N03",
+          "b": "N04",
+          "connectedOn": "2015-08-15"
+        },
+        {
+          "a": "N04",
+          "b": "N05",
+          "connectedOn": "2023-12-01"
+        },
+        {
+          "a": "N05",
+          "b": "N06",
+          "connectedOn": "2024-06-09"
+        },
+        {
+          "a": "N06",
+          "b": "N07",
+          "connectedOn": "2020-01-06"
+        },
+        {
+          "a": "N07",
+          "b": "N08",
+          "connectedOn": "2021-04-26"
+        },
+        {
+          "a": "N08",
+          "b": "N09",
+          "connectedOn": "2024-12-30"
+        },
+        {
+          "a": "N09",
+          "b": "N10",
+          "connectedOn": "2024-08-13"
+        },
+        {
+          "a": "N10",
+          "b": "N01",
+          "connectedOn": "2019-09-18"
+        },
+        {
+          "a": "C01",
+          "b": "C07",
+          "connectedOn": "2022-09-29"
+        },
+        {
+          "a": "C01",
+          "b": "C08",
+          "connectedOn": "2022-01-27"
+        },
+        {
+          "a": "C02",
+          "b": "C10",
+          "connectedOn": "2023-03-22"
+        },
+        {
+          "a": "C02",
+          "b": "N01",
+          "connectedOn": "2026-04-27"
+        },
+        {
+          "a": "C03",
+          "b": "C05",
+          "connectedOn": "2021-07-05"
+        },
+        {
+          "a": "C03",
+          "b": "C06",
+          "connectedOn": "2023-07-15"
+        },
+        {
+          "a": "C04",
+          "b": "C07",
+          "connectedOn": "2019-10-08"
+        },
+        {
+          "a": "C05",
+          "b": "C09",
+          "connectedOn": "2015-07-19"
+        },
+        {
+          "a": "C06",
+          "b": "N07",
+          "connectedOn": "2025-08-19"
+        },
+        {
+          "a": "C08",
+          "b": "N03",
+          "connectedOn": "2023-03-02"
+        },
+        {
+          "a": "C09",
+          "b": "N05",
+          "connectedOn": "2020-10-07"
+        },
+        {
+          "a": "C10",
+          "b": "N06",
+          "connectedOn": "2024-09-14"
+        }
+      ]
+    },
+    {
+      "id": "fictional-contact-data",
+      "description": "Emails use example.com/.net/.org, phone numbers use 555-01xx, IPs use documentation ranges.",
+      "details": null
+    }
+  ]
+}

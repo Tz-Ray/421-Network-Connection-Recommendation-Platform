@@ -1,0 +1,4213 @@
+{
+  "id": "C02",
+  "file": "networks/classic/C02_sota-wang.csv",
+  "format": "classic",
+  "owner": {
+    "personId": "P01617",
+    "name": "Sota Wang",
+    "url": "https://www.linkedin.com/in/sota-wang-pmp"
+  },
+  "exportDate": "2026-09-20",
+  "rows": [
+    {
+      "personId": "P01549",
+      "url": "https://www.linkedin.com/in/emmanuel-tolentino-0211e71",
+      "firstName": "Emmanuel",
+      "lastName": "Tolentino",
+      "email": "",
+      "company": "Twilio",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2026-09-18"
+    },
+    {
+      "personId": "P01519",
+      "url": "https://www.linkedin.com/in/pranav-chatterjee-6f559155",
+      "firstName": "Pranav",
+      "lastName": "Chatterjee",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "VC Associate",
+      "connectedOnIso": "2026-09-17"
+    },
+    {
+      "personId": "P03940",
+      "url": "https://www.linkedin.com/in/ludmila-bianchi-401bd3",
+      "firstName": "Ludmila",
+      "lastName": "Bianchi",
+      "email": "",
+      "company": "Lionsgate",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2026-09-08"
+    },
+    {
+      "personId": "P00849",
+      "url": "https://www.linkedin.com/in/nadia-kozlov-ecc1e6e",
+      "firstName": "Nadia",
+      "lastName": "Kozlov",
+      "email": "",
+      "company": "Valve Corporation",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2026-09-01"
+    },
+    {
+      "personId": "P01333",
+      "url": "https://www.linkedin.com/in/amina-bose-fffa19",
+      "firstName": "Amina",
+      "lastName": "Bose",
+      "email": "",
+      "company": "Intuit",
+      "position": "Senior Manager, Product Management",
+      "connectedOnIso": "2026-09-01"
+    },
+    {
+      "personId": "P00342",
+      "url": "https://www.linkedin.com/in/batya-friedman-eb5a71",
+      "firstName": "Batya",
+      "lastName": "Friedman",
+      "email": "",
+      "company": "Smartsheet",
+      "position": "Senior SWE",
+      "connectedOnIso": "2026-08-31"
+    },
+    {
+      "personId": "P03928",
+      "url": "https://www.linkedin.com/in/rohan-menon-b441cf8",
+      "firstName": "Rohan",
+      "lastName": "Menon",
+      "email": "",
+      "company": "Sony Pictures Entertainment",
+      "position": "Production Manager",
+      "connectedOnIso": "2026-08-12"
+    },
+    {
+      "personId": "P04169",
+      "url": "https://www.linkedin.com/in/kavita-krishnan-ef3212",
+      "firstName": "Kavita",
+      "lastName": "Krishnan",
+      "email": "kavita.krishnan@example.net",
+      "company": "Snap Inc.",
+      "position": "UI/UX Designer",
+      "connectedOnIso": "2026-08-06"
+    },
+    {
+      "personId": "P00564",
+      "url": "https://www.linkedin.com/in/owen-clark-25fa701",
+      "firstName": "Owen",
+      "lastName": "Clark",
+      "email": "oclark@example.org",
+      "company": "Tableau Software",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2026-07-29"
+    },
+    {
+      "personId": "P00404",
+      "url": "https://www.linkedin.com/in/na-zhou-b085c90",
+      "firstName": "Na",
+      "lastName": "Zhou",
+      "email": "",
+      "company": "Weyerhaeuser",
+      "position": "--",
+      "connectedOnIso": "2026-07-27"
+    },
+    {
+      "personId": "P00804",
+      "url": "https://www.linkedin.com/in/hong-suzuki-d6e8d1fd",
+      "firstName": "Hong",
+      "lastName": "Suzuki",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "Principal Data Scientist",
+      "connectedOnIso": "2026-07-23"
+    },
+    {
+      "personId": "P01542",
+      "url": "https://www.linkedin.com/in/francesca-esposito-04dfd5",
+      "firstName": "Francesca",
+      "lastName": "Esposito",
+      "email": "",
+      "company": "Salesforce",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2026-07-19"
+    },
+    {
+      "personId": "P03150",
+      "url": "https://www.linkedin.com/in/lefebvresamuel",
+      "firstName": "Samuel",
+      "lastName": "Lefebvre",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Sr. FP&A Manager",
+      "connectedOnIso": "2026-07-19"
+    },
+    {
+      "personId": "P01247",
+      "url": "https://www.linkedin.com/in/aditya-kapoor-a1f79deb",
+      "firstName": "Aditya",
+      "lastName": "Kapoor",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Senior Product Manager",
+      "connectedOnIso": "2026-07-11"
+    },
+    {
+      "personId": "P00702",
+      "url": "https://www.linkedin.com/in/simran-joshi-791f1489",
+      "firstName": "Simran",
+      "lastName": "Joshi",
+      "email": "",
+      "company": "T-Mobile US",
+      "position": "VP, Ops",
+      "connectedOnIso": "2026-07-06"
+    },
+    {
+      "personId": "P00109",
+      "url": "https://www.linkedin.com/in/omorozov",
+      "firstName": "Oleg",
+      "lastName": "Morozov",
+      "email": "oleg.morozov@example.org",
+      "company": "Meta",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2026-07-05"
+    },
+    {
+      "personId": "P01122",
+      "url": "https://www.linkedin.com/in/meera-iyer",
+      "firstName": "Meera",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Uber",
+      "position": "Director of Sales",
+      "connectedOnIso": "2026-06-29"
+    },
+    {
+      "personId": "P00349",
+      "url": "https://www.linkedin.com/in/peng-peng-22ab46f7",
+      "firstName": "Peng",
+      "lastName": "Peng",
+      "email": "peng_peng@example.net",
+      "company": "Redfin",
+      "position": "Sr. AE",
+      "connectedOnIso": "2026-06-28"
+    },
+    {
+      "personId": "P01226",
+      "url": "https://www.linkedin.com/in/bruno-russo-80aaf61d",
+      "firstName": "Bruno",
+      "lastName": "Russo",
+      "email": "",
+      "company": "SoFi",
+      "position": "VP Product Management",
+      "connectedOnIso": "2026-06-03"
+    },
+    {
+      "personId": "P00756",
+      "url": "https://www.linkedin.com/in/laura-edwards-ec760a",
+      "firstName": "Laura",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "Principal Product Manager",
+      "connectedOnIso": "2026-05-27"
+    },
+    {
+      "personId": "P00583",
+      "url": "https://www.linkedin.com/in/fredrik-christensen-b8a4a1",
+      "firstName": "Fredrik",
+      "lastName": "Christensen",
+      "email": "",
+      "company": "Redfin",
+      "position": "Sales Executive",
+      "connectedOnIso": "2026-05-19"
+    },
+    {
+      "personId": "P01300",
+      "url": "https://www.linkedin.com/in/karan-sharma-ea7bf5e",
+      "firstName": "Karan",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Charles Schwab",
+      "position": "Sales Team Lead",
+      "connectedOnIso": "2026-05-19"
+    },
+    {
+      "personId": "P00459",
+      "url": "https://www.linkedin.com/in/marie-wolf-43fd500",
+      "firstName": "Marie",
+      "lastName": "Wolf",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Software Engineer",
+      "connectedOnIso": "2026-05-07"
+    },
+    {
+      "personId": "P01550",
+      "url": "https://www.linkedin.com/in/marie-greco-2cf544",
+      "firstName": "Marie",
+      "lastName": "Greco",
+      "email": "",
+      "company": "Coinbase",
+      "position": "Tech Lead",
+      "connectedOnIso": "2026-05-06"
+    },
+    {
+      "personId": "P04104",
+      "url": "https://www.linkedin.com/in/rania-fares-c6fb464d",
+      "firstName": "Rania",
+      "lastName": "Fares",
+      "email": "",
+      "company": "Costco Wholesale",
+      "position": "Managing Counsel",
+      "connectedOnIso": "2026-05-06"
+    },
+    {
+      "personId": "P01113",
+      "url": "https://www.linkedin.com/in/hana-ito-638d4f",
+      "firstName": "Hana",
+      "lastName": "Ito",
+      "email": "",
+      "company": "Intuit",
+      "position": "Engineering Director",
+      "connectedOnIso": "2026-05-04"
+    },
+    {
+      "personId": "P00890",
+      "url": "https://www.linkedin.com/in/kristine-salazar-a11ed12",
+      "firstName": "Kristine",
+      "lastName": "Salazar",
+      "email": "",
+      "company": "REI",
+      "position": "Operations Manager",
+      "connectedOnIso": "2026-04-28"
+    },
+    {
+      "personId": "P01020",
+      "url": "https://www.linkedin.com/in/kavita-raghavan-0c2c395",
+      "firstName": "Kavita",
+      "lastName": "Raghavan",
+      "email": "",
+      "company": "Redfin",
+      "position": "Group Product Manager",
+      "connectedOnIso": "2026-04-27"
+    },
+    {
+      "personId": "P01314",
+      "url": "https://www.linkedin.com/in/elior-blum-3ffab4c",
+      "firstName": "Elior",
+      "lastName": "Blum",
+      "email": "",
+      "company": "Meta",
+      "position": "Team Lead, Customer Success",
+      "connectedOnIso": "2026-04-26"
+    },
+    {
+      "personId": "P01725",
+      "url": "https://www.linkedin.com/in/robert-parker-4342ae6",
+      "firstName": "Robert",
+      "lastName": "Parker",
+      "email": "",
+      "company": "TikTok",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2026-04-18"
+    },
+    {
+      "personId": "P01551",
+      "url": "https://www.linkedin.com/in/zara-verma-26fb49f",
+      "firstName": "Zara",
+      "lastName": "Verma",
+      "email": "",
+      "company": "Affirm",
+      "position": "Sales Executive",
+      "connectedOnIso": "2026-04-17"
+    },
+    {
+      "personId": "P00035",
+      "url": "https://www.linkedin.com/in/michael-wilson",
+      "firstName": "Michael",
+      "lastName": "Wilson",
+      "email": "",
+      "company": "Microsoft",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2026-04-10"
+    },
+    {
+      "personId": "P00235",
+      "url": "https://www.linkedin.com/in/yu-zhou-311bee",
+      "firstName": "Yu",
+      "lastName": "Zhou",
+      "email": "",
+      "company": "Freelancer",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2026-04-10"
+    },
+    {
+      "personId": "P01308",
+      "url": "https://www.linkedin.com/in/nils-larsson-8c82ba",
+      "firstName": "Nils",
+      "lastName": "Larsson",
+      "email": "",
+      "company": "Uber",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2026-04-10"
+    },
+    {
+      "personId": "P01460",
+      "url": "https://www.linkedin.com/in/teodoro-rivera-1f64f9",
+      "firstName": "Teodoro",
+      "lastName": "Rivera",
+      "email": "",
+      "company": "Robinhood",
+      "position": "Product Manager",
+      "connectedOnIso": "2026-04-01"
+    },
+    {
+      "personId": "P04442",
+      "url": "https://www.linkedin.com/in/kwangho-gu-c3f2fd",
+      "firstName": "Kwangho",
+      "lastName": "Gu",
+      "email": "",
+      "company": "Getty Images",
+      "position": "Post-Production Lead",
+      "connectedOnIso": "2026-03-28"
+    },
+    {
+      "personId": "P00714",
+      "url": "https://www.linkedin.com/in/desaiarjun",
+      "firstName": "Arjun",
+      "lastName": "Desai",
+      "email": "arjundesai15@example.net",
+      "company": "Valve Corporation",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2026-03-23"
+    },
+    {
+      "personId": "P00192",
+      "url": "https://www.linkedin.com/in/anwar-aoun-4a3cf04d",
+      "firstName": "Anwar",
+      "lastName": "Aoun",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2026-03-20"
+    },
+    {
+      "personId": "P03802",
+      "url": "https://www.linkedin.com/in/scott-campbell-ac63486",
+      "firstName": "Scott",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "Fluor Corporation",
+      "position": "Supply Chain Lead",
+      "connectedOnIso": "2026-03-17"
+    },
+    {
+      "personId": "P01583",
+      "url": "https://www.linkedin.com/in/ling-gao-c0eba59c",
+      "firstName": "Ling",
+      "lastName": "Gao",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2026-03-07"
+    },
+    {
+      "personId": "P01469",
+      "url": "https://www.linkedin.com/in/george-parker-7f379712",
+      "firstName": "George",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Customer Success Intern",
+      "connectedOnIso": "2026-03-01"
+    },
+    {
+      "personId": "P02114",
+      "url": "https://www.linkedin.com/in/igor-andreev-6cf405b",
+      "firstName": "Igor",
+      "lastName": "Andreev",
+      "email": "",
+      "company": "Morgan Stanley",
+      "position": "Executive Director, IBD",
+      "connectedOnIso": "2026-02-25"
+    },
+    {
+      "personId": "P01433",
+      "url": "https://www.linkedin.com/in/yosef-tannenbaum-a804b15b",
+      "firstName": "Yosef",
+      "lastName": "Tannenbaum",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "Design Lead",
+      "connectedOnIso": "2026-02-13"
+    },
+    {
+      "personId": "P01274",
+      "url": "https://www.linkedin.com/in/shmuel-gonzalez-03c712f",
+      "firstName": "Shmuel",
+      "lastName": "González",
+      "email": "",
+      "company": "",
+      "position": "Founder & CPO",
+      "connectedOnIso": "2026-02-11"
+    },
+    {
+      "personId": "P02047",
+      "url": "https://www.linkedin.com/in/sungjun-bae-16e521",
+      "firstName": "Sungjun",
+      "lastName": "Bae",
+      "email": "",
+      "company": "S&P Global",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2026-02-03"
+    },
+    {
+      "personId": "P03646",
+      "url": "https://www.linkedin.com/in/pranav-singh-419d299",
+      "firstName": "Pranav",
+      "lastName": "Singh",
+      "email": "",
+      "company": "BP America",
+      "position": "Sales Director",
+      "connectedOnIso": "2026-02-03"
+    },
+    {
+      "personId": "P01697",
+      "url": "https://www.linkedin.com/in/aryan-mehta-514164f",
+      "firstName": "Aryan",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Chime",
+      "position": "Senior PM",
+      "connectedOnIso": "2026-01-28"
+    },
+    {
+      "personId": "P00374",
+      "url": "https://www.linkedin.com/in/xia-yang-006cc06",
+      "firstName": "Xia",
+      "lastName": "Yang",
+      "email": "",
+      "company": "PitchBook Data",
+      "position": "",
+      "connectedOnIso": "2026-01-22"
+    },
+    {
+      "personId": "P01715",
+      "url": "https://www.linkedin.com/in/amehta",
+      "firstName": "Amina",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Chime",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2026-01-19"
+    },
+    {
+      "personId": "P01368",
+      "url": "https://www.linkedin.com/in/patrick-thomas-f61e606",
+      "firstName": "Patrick",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Meta",
+      "position": "General Manager",
+      "connectedOnIso": "2026-01-02"
+    },
+    {
+      "personId": "P02308",
+      "url": "https://www.linkedin.com/in/halima-sow-01f54852",
+      "firstName": "Halima",
+      "lastName": "Sow",
+      "email": "",
+      "company": "Harvard University",
+      "position": "Research Manager",
+      "connectedOnIso": "2025-12-26"
+    },
+    {
+      "personId": "P00471",
+      "url": "https://www.linkedin.com/in/yael-perlman-b40ac7",
+      "firstName": "Yael",
+      "lastName": "Perlman",
+      "email": "",
+      "company": "Redfin Corporation",
+      "position": "Sr. PM",
+      "connectedOnIso": "2025-12-25"
+    },
+    {
+      "personId": "P03428",
+      "url": "https://www.linkedin.com/in/eduardo-reyes-692791e",
+      "firstName": "Eduardo",
+      "lastName": "Reyes",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Senior Recruiter 🚀",
+      "connectedOnIso": "2025-12-18"
+    },
+    {
+      "personId": "P01638",
+      "url": "https://www.linkedin.com/in/sarah-miller-4162dc4",
+      "firstName": "Sarah",
+      "lastName": "Miller",
+      "email": "",
+      "company": "Snowflake Inc.",
+      "position": "Frontend Engineer",
+      "connectedOnIso": "2025-12-09"
+    },
+    {
+      "personId": "P03233",
+      "url": "https://www.linkedin.com/in/marina-egorov-f5cae4",
+      "firstName": "Marina",
+      "lastName": "Egorov",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2025-12-09"
+    },
+    {
+      "personId": "P01470",
+      "url": "https://www.linkedin.com/in/bayani-uy-67176d",
+      "firstName": "Bayani",
+      "lastName": "Uy",
+      "email": "",
+      "company": "Intuit",
+      "position": "CSM",
+      "connectedOnIso": "2025-12-03"
+    },
+    {
+      "personId": "P02666",
+      "url": "https://www.linkedin.com/in/scott-carter-c65cbecb",
+      "firstName": "Scott",
+      "lastName": "Carter",
+      "email": "",
+      "company": "EY",
+      "position": "Engagement Manager",
+      "connectedOnIso": "2025-12-03"
+    },
+    {
+      "personId": "P00241",
+      "url": "https://www.linkedin.com/in/yuna-peng-cf7fd4",
+      "firstName": "Yuna",
+      "lastName": "Peng",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2025-11-24"
+    },
+    {
+      "personId": "P01345",
+      "url": "https://www.linkedin.com/in/ngozi-dlamini-1d0b8cde",
+      "firstName": "Ngozi",
+      "lastName": "Dlamini",
+      "email": "ngozidlamini51@example.net",
+      "company": "Andreessen Horowitz",
+      "position": "Analyst, Venture Capital",
+      "connectedOnIso": "2025-11-16"
+    },
+    {
+      "personId": "P01326",
+      "url": "https://www.linkedin.com/in/karancohen",
+      "firstName": "Karan",
+      "lastName": "Cohen",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Design Lead",
+      "connectedOnIso": "2025-11-13"
+    },
+    {
+      "personId": "P01227",
+      "url": "https://www.linkedin.com/in/njeri-girma",
+      "firstName": "Njeri",
+      "lastName": "Girma",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Managing Partner",
+      "connectedOnIso": "2025-11-11"
+    },
+    {
+      "personId": "P01449",
+      "url": "https://www.linkedin.com/in/oluwafemi-obiora-eda2d2",
+      "firstName": "Oluwafemi",
+      "lastName": "Obiora",
+      "email": "",
+      "company": "DoorDash Inc.",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2025-11-09"
+    },
+    {
+      "personId": "P01183",
+      "url": "https://www.linkedin.com/in/yuna-tanaka-add8a88",
+      "firstName": "Yuna",
+      "lastName": "Tanaka",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Senior Associate, Venture Capital",
+      "connectedOnIso": "2025-11-06"
+    },
+    {
+      "personId": "P01575",
+      "url": "https://www.linkedin.com/in/kristine-reyes-b2365ba",
+      "firstName": "Kristine",
+      "lastName": "Reyes",
+      "email": "",
+      "company": "Charles Schwab",
+      "position": "Junior Financial Analyst",
+      "connectedOnIso": "2025-10-30"
+    },
+    {
+      "personId": "P01678",
+      "url": "https://www.linkedin.com/in/faisal-qureshi-b5d00b02",
+      "firstName": "Faisal",
+      "lastName": "Qureshi",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2025-10-29"
+    },
+    {
+      "personId": "P01140",
+      "url": "https://www.linkedin.com/in/mei-kobayashi-pmp",
+      "firstName": "Mei",
+      "lastName": "Kobayashi",
+      "email": "",
+      "company": "DoorDash",
+      "position": "Sales Manager 🚀",
+      "connectedOnIso": "2025-10-28"
+    },
+    {
+      "personId": "P01382",
+      "url": "https://www.linkedin.com/in/kwame-vik-d4b853a",
+      "firstName": "Kwame",
+      "lastName": "Vik",
+      "email": "",
+      "company": "Coinbase",
+      "position": "Engineering Director",
+      "connectedOnIso": "2025-10-20"
+    },
+    {
+      "personId": "P01597",
+      "url": "https://www.linkedin.com/in/aryan-fine-ae4bca",
+      "firstName": "Aryan",
+      "lastName": "Fine",
+      "email": "",
+      "company": "Stripe",
+      "position": "Applied Scientist",
+      "connectedOnIso": "2025-10-15"
+    },
+    {
+      "personId": "P01441",
+      "url": "https://www.linkedin.com/in/francesca-wagner-b10f65db",
+      "firstName": "Francesca",
+      "lastName": "Wagner",
+      "email": "",
+      "company": "Meta",
+      "position": "VP Engineering",
+      "connectedOnIso": "2025-10-04"
+    },
+    {
+      "personId": "P01059",
+      "url": "https://www.linkedin.com/in/bo-wang-5f8d029c",
+      "firstName": "Bo",
+      "lastName": "Wang",
+      "email": "",
+      "company": "Lyft",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2025-10-01"
+    },
+    {
+      "personId": "P01197",
+      "url": "https://www.linkedin.com/in/chen-suzuki-3a7e08",
+      "firstName": "Chen",
+      "lastName": "Suzuki",
+      "email": "",
+      "company": "Palantir Technologies",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2025-09-30"
+    },
+    {
+      "personId": "P00248",
+      "url": "https://www.linkedin.com/in/sota-liu-f9f0d72d",
+      "firstName": "Sota",
+      "lastName": "Liu",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "Data Analytics Intern",
+      "connectedOnIso": "2025-09-23"
+    },
+    {
+      "personId": "P01720",
+      "url": "https://www.linkedin.com/in/yuki-tanaka-30d477",
+      "firstName": "Yuki",
+      "lastName": "Tanaka",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2025-09-16"
+    },
+    {
+      "personId": "P01281",
+      "url": "https://www.linkedin.com/in/na-zheng-30c216",
+      "firstName": "Na",
+      "lastName": "Zheng",
+      "email": "",
+      "company": "Intuit",
+      "position": "Chief Revenue Officer",
+      "connectedOnIso": "2025-09-07"
+    },
+    {
+      "personId": "P00530",
+      "url": "https://www.linkedin.com/in/yuri-svoboda-857dfe6",
+      "firstName": "Yuri",
+      "lastName": "Svoboda",
+      "email": "",
+      "company": "Tableau Software",
+      "position": "Senior SWE",
+      "connectedOnIso": "2025-08-30"
+    },
+    {
+      "personId": "P03673",
+      "url": "https://www.linkedin.com/in/carlos-de-la-cruz-b86092df",
+      "firstName": "Carlos",
+      "lastName": "De La Cruz",
+      "email": "",
+      "company": "Chevron",
+      "position": "Lead Engineer",
+      "connectedOnIso": "2025-08-28"
+    },
+    {
+      "personId": "P00115",
+      "url": "https://www.linkedin.com/in/jie-chen-a94392",
+      "firstName": "Jie",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Senior PM",
+      "connectedOnIso": "2025-08-27"
+    },
+    {
+      "personId": "P03841",
+      "url": "https://www.linkedin.com/in/rasha-fares-e93dd71",
+      "firstName": "Rasha",
+      "lastName": "Fares",
+      "email": "",
+      "company": "Marathon Petroleum",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2025-08-20"
+    },
+    {
+      "personId": "P01229",
+      "url": "https://www.linkedin.com/in/ritu-joshi-1cf1d49",
+      "firstName": "Ritu",
+      "lastName": "Joshi",
+      "email": "",
+      "company": "Lyft",
+      "position": "Executive Director",
+      "connectedOnIso": "2025-08-19"
+    },
+    {
+      "personId": "P01266",
+      "url": "https://www.linkedin.com/in/tgoldstein",
+      "firstName": "Talia",
+      "lastName": "Goldstein",
+      "email": "",
+      "company": "Twilio",
+      "position": "Product Manager",
+      "connectedOnIso": "2025-08-19"
+    },
+    {
+      "personId": "P00955",
+      "url": "https://www.linkedin.com/in/timothy-ha-92830c",
+      "firstName": "Timothy",
+      "lastName": "Ha",
+      "email": "",
+      "company": "Avalara Inc.",
+      "position": "Director of Engineering",
+      "connectedOnIso": "2025-08-16"
+    },
+    {
+      "personId": "P00897",
+      "url": "https://www.linkedin.com/in/emily-miller-6249c9d",
+      "firstName": "Emily",
+      "lastName": "Miller",
+      "email": "",
+      "company": "Microsoft",
+      "position": "--",
+      "connectedOnIso": "2025-08-14"
+    },
+    {
+      "personId": "P00458",
+      "url": "https://www.linkedin.com/in/zhi-sato-f02857",
+      "firstName": "Zhi",
+      "lastName": "Sato",
+      "email": "",
+      "company": "Anthropic",
+      "position": "Manager, UX",
+      "connectedOnIso": "2025-08-03"
+    },
+    {
+      "personId": "P00050",
+      "url": "https://www.linkedin.com/in/grace-ignacio-31592cc",
+      "firstName": "Grace",
+      "lastName": "Ignacio",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Co-Founder, Product",
+      "connectedOnIso": "2025-08-02"
+    },
+    {
+      "personId": "P01666",
+      "url": "https://www.linkedin.com/in/feng-hu-1b47ad",
+      "firstName": "Feng",
+      "lastName": "Hu",
+      "email": "",
+      "company": "Palantir Technologies",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2025-08-02"
+    },
+    {
+      "personId": "P01003",
+      "url": "https://www.linkedin.com/in/chiara-muller-1e40ba",
+      "firstName": "Chiara",
+      "lastName": "Müller",
+      "email": "",
+      "company": "Avalara",
+      "position": "PM",
+      "connectedOnIso": "2025-08-01"
+    },
+    {
+      "personId": "P01947",
+      "url": "https://www.linkedin.com/in/vikram-iyer-213b8d",
+      "firstName": "Vikram",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Visa",
+      "position": "Accounting Lead",
+      "connectedOnIso": "2025-07-22"
+    },
+    {
+      "personId": "P04382",
+      "url": "https://www.linkedin.com/in/jack-davis-a70fc2cb",
+      "firstName": "Jack",
+      "lastName": "Davis",
+      "email": "jackdavis72@example.net",
+      "company": "Warner Bros. Discovery",
+      "position": "Senior Recruiter",
+      "connectedOnIso": "2025-07-21"
+    },
+    {
+      "personId": "P01337",
+      "url": "https://www.linkedin.com/in/anjali-fedorov-5b5293",
+      "firstName": "Anjali",
+      "lastName": "Fedorov",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2025-07-15"
+    },
+    {
+      "personId": "P01603",
+      "url": "https://www.linkedin.com/in/uyen-tang-a47c299d",
+      "firstName": "Uyên",
+      "lastName": "Tăng",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & General Partner",
+      "connectedOnIso": "2025-07-14"
+    },
+    {
+      "personId": "P01192",
+      "url": "https://www.linkedin.com/in/anjali-bhatt-e8106b0",
+      "firstName": "Anjali",
+      "lastName": "Bhatt",
+      "email": "",
+      "company": "Meta",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2025-07-10"
+    },
+    {
+      "personId": "P00130",
+      "url": "https://www.linkedin.com/in/caroline-baker-4865cd2",
+      "firstName": "Caroline",
+      "lastName": "Baker",
+      "email": "",
+      "company": "Instacart",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2025-07-08"
+    },
+    {
+      "personId": "P01527",
+      "url": "https://www.linkedin.com/in/xiang-cao-01aa096f",
+      "firstName": "Xiang",
+      "lastName": "Cao",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2025-06-30"
+    },
+    {
+      "personId": "P01566",
+      "url": "https://www.linkedin.com/in/ingrid-schulz-6e525618",
+      "firstName": "Ingrid",
+      "lastName": "Schulz",
+      "email": "",
+      "company": "Salesforce",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2025-06-30"
+    },
+    {
+      "personId": "P00071",
+      "url": "https://www.linkedin.com/in/na-ma-621ce3",
+      "firstName": "Na",
+      "lastName": "Ma",
+      "email": "",
+      "company": "Valve Corporation",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2025-06-27"
+    },
+    {
+      "personId": "P00222",
+      "url": "https://www.linkedin.com/in/karan-chopra-cab227",
+      "firstName": "Karan",
+      "lastName": "Chopra",
+      "email": "",
+      "company": "Avalara",
+      "position": "Group Product Manager",
+      "connectedOnIso": "2025-06-24"
+    },
+    {
+      "personId": "P00988",
+      "url": "https://www.linkedin.com/in/fsato",
+      "firstName": "Fang",
+      "lastName": "Sato",
+      "email": "fang.sato@example.com",
+      "company": "Nordstrom",
+      "position": "Director of Operations",
+      "connectedOnIso": "2025-06-13"
+    },
+    {
+      "personId": "P01634",
+      "url": "https://www.linkedin.com/in/greta-greco-aaa1dc9",
+      "firstName": "Greta",
+      "lastName": "Greco",
+      "email": "",
+      "company": "Uber Technologies",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2025-06-13"
+    },
+    {
+      "personId": "P00036",
+      "url": "https://www.linkedin.com/in/thomas-davis-d39dee",
+      "firstName": "Thomas",
+      "lastName": "Davis",
+      "email": "tdavis@example.com",
+      "company": "F5 Inc.",
+      "position": "Senior UX Designer",
+      "connectedOnIso": "2025-05-30"
+    },
+    {
+      "personId": "P01035",
+      "url": "https://www.linkedin.com/in/katarzyna-nowak-7f40ae",
+      "firstName": "Katarzyna",
+      "lastName": "Nowak",
+      "email": "",
+      "company": "",
+      "position": "Associate Software Engineer - Remote",
+      "connectedOnIso": "2025-04-24"
+    },
+    {
+      "personId": "P00649",
+      "url": "https://www.linkedin.com/in/samuel-taylor-e01e4f3",
+      "firstName": "Samuel",
+      "lastName": "Taylor",
+      "email": "",
+      "company": "T-Mobile US",
+      "position": "Business Operations Analyst",
+      "connectedOnIso": "2025-04-23"
+    },
+    {
+      "personId": "P01490",
+      "url": "https://www.linkedin.com/in/david-okafor-9ac3d560",
+      "firstName": "David",
+      "lastName": "Okafor",
+      "email": "",
+      "company": "Snowflake",
+      "position": "Data Science Manager",
+      "connectedOnIso": "2025-04-18"
+    },
+    {
+      "personId": "P01195",
+      "url": "https://www.linkedin.com/in/rachel-young-cf70460",
+      "firstName": "Rachel",
+      "lastName": "Young",
+      "email": "",
+      "company": "Affirm",
+      "position": "Finance Lead",
+      "connectedOnIso": "2025-04-10"
+    },
+    {
+      "personId": "P04355",
+      "url": "https://www.linkedin.com/in/kavita-chaudhary-mba",
+      "firstName": "Kavita",
+      "lastName": "Chaudhary",
+      "email": "",
+      "company": "Live Nation Entertainment",
+      "position": "Operations Intern",
+      "connectedOnIso": "2025-04-07"
+    },
+    {
+      "personId": "P00383",
+      "url": "https://www.linkedin.com/in/ling-zhu-68f23065",
+      "firstName": "Ling",
+      "lastName": "Zhu",
+      "email": "",
+      "company": "Rover.com",
+      "position": "Sales Director",
+      "connectedOnIso": "2025-03-28"
+    },
+    {
+      "personId": "P01980",
+      "url": "https://www.linkedin.com/in/levi-pillai-7d7accf6",
+      "firstName": "Levi",
+      "lastName": "Pillai",
+      "email": "",
+      "company": "Bridgewater Associates",
+      "position": "Financial Planning Lead",
+      "connectedOnIso": "2025-03-25"
+    },
+    {
+      "personId": "P01660",
+      "url": "https://www.linkedin.com/in/neha-mehta-5385fc",
+      "firstName": "Neha",
+      "lastName": "Mehta",
+      "email": "neha_mehta@example.com",
+      "company": "Kleiner Perkins",
+      "position": "Senior Associate, Venture Capital",
+      "connectedOnIso": "2025-03-13"
+    },
+    {
+      "personId": "P01726",
+      "url": "https://www.linkedin.com/in/alejandro-aguilar",
+      "firstName": "Alejandro",
+      "lastName": "Aguilar",
+      "email": "aaguilar@example.com",
+      "company": "",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2025-02-21"
+    },
+    {
+      "personId": "P00267",
+      "url": "https://www.linkedin.com/in/kamau-zulu-cfa",
+      "firstName": "Kamau",
+      "lastName": "Zulu",
+      "email": "",
+      "company": "Redfin Corporation",
+      "position": "Sr. Designer",
+      "connectedOnIso": "2025-02-19"
+    },
+    {
+      "personId": "P00660",
+      "url": "https://www.linkedin.com/in/anastasia-sokolowski-74232a",
+      "firstName": "Anastasia",
+      "lastName": "Sokołowski",
+      "email": "anastasia_sokolowski@example.net",
+      "company": "Outreach",
+      "position": "Senior PM",
+      "connectedOnIso": "2025-02-05"
+    },
+    {
+      "personId": "P04284",
+      "url": "https://www.linkedin.com/in/timothy-bauer-040691",
+      "firstName": "Timothy",
+      "lastName": "Bauer",
+      "email": "",
+      "company": "TikTok",
+      "position": "Senior Account Executive",
+      "connectedOnIso": "2025-02-04"
+    },
+    {
+      "personId": "P01339",
+      "url": "https://www.linkedin.com/in/gtran",
+      "firstName": "Giang",
+      "lastName": "Trần",
+      "email": "",
+      "company": "Redfin",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2025-01-31"
+    },
+    {
+      "personId": "P00703",
+      "url": "https://www.linkedin.com/in/nnamdi-fashola-a6a1bc8d",
+      "firstName": "Nnamdi",
+      "lastName": "Fashola",
+      "email": "",
+      "company": "Boeing",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2025-01-22"
+    },
+    {
+      "personId": "P01414",
+      "url": "https://www.linkedin.com/in/amina-chatterjee-de44738",
+      "firstName": "Amina",
+      "lastName": "Chatterjee",
+      "email": "",
+      "company": "Robinhood",
+      "position": "Data Science Manager",
+      "connectedOnIso": "2025-01-05"
+    },
+    {
+      "personId": "P04190",
+      "url": "https://www.linkedin.com/in/rafael-silva-8781e37",
+      "firstName": "Rafael",
+      "lastName": "Silva",
+      "email": "",
+      "company": "Netflix",
+      "position": "Director",
+      "connectedOnIso": "2025-01-03"
+    },
+    {
+      "personId": "P01174",
+      "url": "https://www.linkedin.com/in/hong-guo",
+      "firstName": "Hong",
+      "lastName": "Guo",
+      "email": "",
+      "company": "Meta",
+      "position": "Senior Associate Product Manager",
+      "connectedOnIso": "2025-01-01"
+    },
+    {
+      "personId": "P01451",
+      "url": "https://www.linkedin.com/in/adamsmegan",
+      "firstName": "Megan",
+      "lastName": "Adams",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2024-12-31"
+    },
+    {
+      "personId": "P01645",
+      "url": "https://www.linkedin.com/in/timothy-stewart-4a6bd889",
+      "firstName": "Timothy",
+      "lastName": "Stewart",
+      "email": "tstewart@example.com",
+      "company": "Robinhood",
+      "position": "Marketing Lead",
+      "connectedOnIso": "2024-12-28"
+    },
+    {
+      "personId": "P02171",
+      "url": "https://www.linkedin.com/in/damilare-adebisi-e82cbb",
+      "firstName": "Damilare",
+      "lastName": "Adebisi",
+      "email": "",
+      "company": "AIG",
+      "position": "VP of Operations",
+      "connectedOnIso": "2024-12-26"
+    },
+    {
+      "personId": "P01201",
+      "url": "https://www.linkedin.com/in/paula-delgado-f487dd81",
+      "firstName": "Paula",
+      "lastName": "Delgado",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Account Manager",
+      "connectedOnIso": "2024-12-22"
+    },
+    {
+      "personId": "P01672",
+      "url": "https://www.linkedin.com/in/karim-hamdan-5d91f95c",
+      "firstName": "Karim",
+      "lastName": "Hamdan",
+      "email": "",
+      "company": "Meta",
+      "position": "Senior PM",
+      "connectedOnIso": "2024-12-17"
+    },
+    {
+      "personId": "P03594",
+      "url": "https://www.linkedin.com/in/obi-radebe-2fb046",
+      "firstName": "Obi",
+      "lastName": "Radebe",
+      "email": "oradebe@example.net",
+      "company": "NextEra Energy",
+      "position": "",
+      "connectedOnIso": "2024-12-17"
+    },
+    {
+      "personId": "P01108",
+      "url": "https://www.linkedin.com/in/ayesha-iyer-03232d0",
+      "firstName": "Ayesha",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Amazon Web Services",
+      "position": "Software Engineering Intern",
+      "connectedOnIso": "2024-12-13"
+    },
+    {
+      "personId": "P02248",
+      "url": "https://www.linkedin.com/in/ritu-berg-db8380",
+      "firstName": "Ritu",
+      "lastName": "Berg",
+      "email": "",
+      "company": "Harvard University",
+      "position": "Associate Chair",
+      "connectedOnIso": "2024-12-11"
+    },
+    {
+      "personId": "P01299",
+      "url": "https://www.linkedin.com/in/pablo-silva-679c43",
+      "firstName": "Pablo",
+      "lastName": "Silva",
+      "email": "pablo.silva@example.com",
+      "company": "DocuSign",
+      "position": "Regional Sales Lead",
+      "connectedOnIso": "2024-12-08"
+    },
+    {
+      "personId": "P01126",
+      "url": "https://www.linkedin.com/in/junzhou",
+      "firstName": "Jun",
+      "lastName": "Zhou",
+      "email": "",
+      "company": "Wells Fargo",
+      "position": "FP&A Analyst",
+      "connectedOnIso": "2024-12-06"
+    },
+    {
+      "personId": "P04224",
+      "url": "https://www.linkedin.com/in/marie-claude-davis-1e75416e",
+      "firstName": "Marie-Claude",
+      "lastName": "Davis",
+      "email": "",
+      "company": "Getty Images",
+      "position": "Producer",
+      "connectedOnIso": "2024-12-03"
+    },
+    {
+      "personId": "P04025",
+      "url": "https://www.linkedin.com/in/isabella-ruiz-e05ed89",
+      "firstName": "Isabella",
+      "lastName": "Ruiz",
+      "email": "",
+      "company": "Fox Corporation",
+      "position": "Line Producer",
+      "connectedOnIso": "2024-11-27"
+    },
+    {
+      "personId": "P01563",
+      "url": "https://www.linkedin.com/in/nadia-sokolowski-06813422",
+      "firstName": "Nadia",
+      "lastName": "Sokołowski",
+      "email": "",
+      "company": "Visa",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2024-11-22"
+    },
+    {
+      "personId": "P01131",
+      "url": "https://www.linkedin.com/in/tatiana-petrov-ba77c517",
+      "firstName": "Tatiana",
+      "lastName": "Petrov",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Senior Manager, Customer Success",
+      "connectedOnIso": "2024-11-20"
+    },
+    {
+      "personId": "P01156",
+      "url": "https://www.linkedin.com/in/matthew-mitchell-a8a3c417",
+      "firstName": "Matthew",
+      "lastName": "Mitchell",
+      "email": "mmitchell@example.org",
+      "company": "Meta",
+      "position": "Director of Engineering",
+      "connectedOnIso": "2024-11-15"
+    },
+    {
+      "personId": "P04278",
+      "url": "https://www.linkedin.com/in/emily-campbell-b51a35",
+      "firstName": "Emily",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "Fandom",
+      "position": "BDR",
+      "connectedOnIso": "2024-11-14"
+    },
+    {
+      "personId": "P03614",
+      "url": "https://www.linkedin.com/in/ayesha-mishra-da04d4",
+      "firstName": "Ayesha",
+      "lastName": "Mishra",
+      "email": "",
+      "company": "Fluor Corporation",
+      "position": "VP of Supply Chain",
+      "connectedOnIso": "2024-11-03"
+    },
+    {
+      "personId": "P00515",
+      "url": "https://www.linkedin.com/in/bayani-dizon-ccb8a08",
+      "firstName": "Bayani",
+      "lastName": "Dizon",
+      "email": "bayani_dizon@example.org",
+      "company": "DocuSign",
+      "position": "Data Science Lead",
+      "connectedOnIso": "2024-10-29"
+    },
+    {
+      "personId": "P01422",
+      "url": "https://www.linkedin.com/in/amina-desai-066e39",
+      "firstName": "Amina",
+      "lastName": "Desai",
+      "email": "",
+      "company": "Google",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2024-10-27"
+    },
+    {
+      "personId": "P00078",
+      "url": "https://www.linkedin.com/in/yuito74",
+      "firstName": "Yu",
+      "lastName": "Ito",
+      "email": "",
+      "company": "Zillow",
+      "position": "Lead Software Engineer",
+      "connectedOnIso": "2024-10-20"
+    },
+    {
+      "personId": "P01381",
+      "url": "https://www.linkedin.com/in/ezra-zimmerman-23acbf",
+      "firstName": "Ezra",
+      "lastName": "Zimmerman",
+      "email": "",
+      "company": "WotC",
+      "position": "Senior Product Manager",
+      "connectedOnIso": "2024-10-20"
+    },
+    {
+      "personId": "P01529",
+      "url": "https://www.linkedin.com/in/anil-bhatia-6f757bb",
+      "firstName": "Anil",
+      "lastName": "Bhatia",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Analyst, Venture Capital",
+      "connectedOnIso": "2024-10-15"
+    },
+    {
+      "personId": "P04462",
+      "url": "https://www.linkedin.com/in/isabelle-koch-7d68568",
+      "firstName": "Isabelle",
+      "lastName": "Koch",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2024-10-10"
+    },
+    {
+      "personId": "P00559",
+      "url": "https://www.linkedin.com/in/nicolas-wagner-db499f27",
+      "firstName": "Nicolas",
+      "lastName": "Wagner",
+      "email": "",
+      "company": "Nintendo of America",
+      "position": "Associate UX Designer",
+      "connectedOnIso": "2024-10-04"
+    },
+    {
+      "personId": "P00028",
+      "url": "https://www.linkedin.com/in/ganderson",
+      "firstName": "George",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "AE",
+      "connectedOnIso": "2024-09-25"
+    },
+    {
+      "personId": "P01590",
+      "url": "https://www.linkedin.com/in/ling-cao-2697e7de",
+      "firstName": "Ling",
+      "lastName": "Cao",
+      "email": "",
+      "company": "Stripe",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2024-09-23"
+    },
+    {
+      "personId": "P01878",
+      "url": "https://www.linkedin.com/in/ariel-eisen-afdc747",
+      "firstName": "Ariel",
+      "lastName": "Eisen",
+      "email": "",
+      "company": "Moody's",
+      "position": "Finance Lead",
+      "connectedOnIso": "2024-09-22"
+    },
+    {
+      "personId": "P00177",
+      "url": "https://www.linkedin.com/in/christopher-okoye-6b5b1b",
+      "firstName": "Christopher",
+      "lastName": "Okoye",
+      "email": "",
+      "company": "Microsoft",
+      "position": "Senior SWE",
+      "connectedOnIso": "2024-09-21"
+    },
+    {
+      "personId": "P00205",
+      "url": "https://www.linkedin.com/in/jose-herrera-2e39b8a",
+      "firstName": "José",
+      "lastName": "Herrera",
+      "email": "",
+      "company": "F5",
+      "position": "Sr. PM",
+      "connectedOnIso": "2024-09-21"
+    },
+    {
+      "personId": "P00577",
+      "url": "https://www.linkedin.com/in/bilal-qureshi-d440b6",
+      "firstName": "Bilal",
+      "lastName": "Qureshi",
+      "email": "",
+      "company": "Alaska Airlines",
+      "position": "Director, Client Services, Churn Reduction",
+      "connectedOnIso": "2024-09-15"
+    },
+    {
+      "personId": "P01168",
+      "url": "https://www.linkedin.com/in/peng-takahashi-d6c3967",
+      "firstName": "Peng",
+      "lastName": "Takahashi",
+      "email": "",
+      "company": "Visa",
+      "position": "Finance Lead",
+      "connectedOnIso": "2024-09-14"
+    },
+    {
+      "personId": "P01188",
+      "url": "https://www.linkedin.com/in/ayelet-gross-4e33d1a",
+      "firstName": "Ayelet",
+      "lastName": "Gross",
+      "email": "ayelet.gross@example.net",
+      "company": "Wells Fargo",
+      "position": "Director of Finance",
+      "connectedOnIso": "2024-09-11"
+    },
+    {
+      "personId": "P01653",
+      "url": "https://www.linkedin.com/in/luzviminda-rivera-e281af",
+      "firstName": "Luzviminda",
+      "lastName": "Rivera",
+      "email": "",
+      "company": "Valve Corporation",
+      "position": "VP of Engineering",
+      "connectedOnIso": "2024-09-03"
+    },
+    {
+      "personId": "P01305",
+      "url": "https://www.linkedin.com/in/yong-tang-8aa4e39",
+      "firstName": "Yong",
+      "lastName": "Tang",
+      "email": "",
+      "company": "Twilio",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2024-08-30"
+    },
+    {
+      "personId": "P01328",
+      "url": "https://www.linkedin.com/in/juan-alvarez-e14caeb",
+      "firstName": "Juan",
+      "lastName": "Álvarez",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Principal, Venture Capital",
+      "connectedOnIso": "2024-08-29"
+    },
+    {
+      "personId": "P01420",
+      "url": "https://www.linkedin.com/in/nisha-banerjee-9cec030",
+      "firstName": "Nisha",
+      "lastName": "Banerjee",
+      "email": "",
+      "company": "Chime",
+      "position": "Data Science Lead",
+      "connectedOnIso": "2024-08-29"
+    },
+    {
+      "personId": "P01492",
+      "url": "https://www.linkedin.com/in/asher-berkowitz-c1ff767",
+      "firstName": "Asher",
+      "lastName": "Berkowitz",
+      "email": "",
+      "company": "Chime",
+      "position": "Senior Software Engineer, Unit Testing",
+      "connectedOnIso": "2024-08-29"
+    },
+    {
+      "personId": "P01125",
+      "url": "https://www.linkedin.com/in/kavita-sharma-f361cc0a",
+      "firstName": "Kavita",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Instacart",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2024-08-21"
+    },
+    {
+      "personId": "P00900",
+      "url": "https://www.linkedin.com/in/soomin-kwon-2baea2",
+      "firstName": "Soomin",
+      "lastName": "Kwon",
+      "email": "",
+      "company": "Nintendo of America",
+      "position": "Design Manager",
+      "connectedOnIso": "2024-08-20"
+    },
+    {
+      "personId": "P01232",
+      "url": "https://www.linkedin.com/in/karan-rao-2f5f89a0",
+      "firstName": "Karan",
+      "lastName": "Rao",
+      "email": "",
+      "company": "Kleiner Perkins",
+      "position": "Associate, Venture Capital",
+      "connectedOnIso": "2024-08-13"
+    },
+    {
+      "personId": "P01539",
+      "url": "https://www.linkedin.com/in/nnamdi-mishra-07ec87e",
+      "firstName": "Nnamdi",
+      "lastName": "Mishra",
+      "email": "",
+      "company": "F5",
+      "position": "Manager, Data Science",
+      "connectedOnIso": "2024-08-13"
+    },
+    {
+      "personId": "P01579",
+      "url": "https://www.linkedin.com/in/xiang-li-13fc47a",
+      "firstName": "Xiang",
+      "lastName": "Li",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Co-Founder, Engineering",
+      "connectedOnIso": "2024-08-09"
+    },
+    {
+      "personId": "P02785",
+      "url": "https://www.linkedin.com/in/joanna-zielinski-6da9fc3",
+      "firstName": "Joanna",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Wise",
+      "position": "Sr. Product Marketing Manager",
+      "connectedOnIso": "2024-08-07"
+    },
+    {
+      "personId": "P01562",
+      "url": "https://www.linkedin.com/in/sota-peng-f55d392e",
+      "firstName": "Sota",
+      "lastName": "Peng",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & CEO",
+      "connectedOnIso": "2024-08-01"
+    },
+    {
+      "personId": "P01155",
+      "url": "https://www.linkedin.com/in/amal-saleh-4067e5",
+      "firstName": "Amal",
+      "lastName": "Saleh",
+      "email": "",
+      "company": "Chime",
+      "position": "Senior Marketing Manager",
+      "connectedOnIso": "2024-07-31"
+    },
+    {
+      "personId": "P01373",
+      "url": "https://www.linkedin.com/in/hussein-thomas-80a8cc",
+      "firstName": "Hussein",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2024-07-30"
+    },
+    {
+      "personId": "P01716",
+      "url": "https://www.linkedin.com/in/samuel-nelson-7c8ca84a",
+      "firstName": "Samuel",
+      "lastName": "Nelson",
+      "email": "samuelnelson64@example.net",
+      "company": "Instacart",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2024-07-24"
+    },
+    {
+      "personId": "P02121",
+      "url": "https://www.linkedin.com/in/krzysztof-pavlov-2d4cb7f3",
+      "firstName": "Krzysztof",
+      "lastName": "Pavlov",
+      "email": "",
+      "company": "KPMG LLP",
+      "position": "Project Leader",
+      "connectedOnIso": "2024-07-08"
+    },
+    {
+      "personId": "P01250",
+      "url": "https://www.linkedin.com/in/isabelle-rossi-57dc593",
+      "firstName": "Isabelle",
+      "lastName": "Rossi",
+      "email": "isabelle_rossi@example.net",
+      "company": "Databricks",
+      "position": "AE",
+      "connectedOnIso": "2024-07-03"
+    },
+    {
+      "personId": "P01511",
+      "url": "https://www.linkedin.com/in/zhi-kobayashi-cb9013",
+      "firstName": "Zhi",
+      "lastName": "Kobayashi",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Principal, Venture Capital",
+      "connectedOnIso": "2024-07-01"
+    },
+    {
+      "personId": "P02143",
+      "url": "https://www.linkedin.com/in/dlamininomvula",
+      "firstName": "Nomvula",
+      "lastName": "Dlamini",
+      "email": "",
+      "company": "American Express",
+      "position": "M&A Associate",
+      "connectedOnIso": "2024-06-21"
+    },
+    {
+      "personId": "P00608",
+      "url": "https://www.linkedin.com/in/lina-hakim-48a106",
+      "firstName": "Lina",
+      "lastName": "Hakim",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Director, Product Management",
+      "connectedOnIso": "2024-06-18"
+    },
+    {
+      "personId": "P01650",
+      "url": "https://www.linkedin.com/in/olga-kristiansen-b2489f",
+      "firstName": "Olga",
+      "lastName": "Kristiansen",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Analyst, Venture Capital",
+      "connectedOnIso": "2024-06-18"
+    },
+    {
+      "personId": "P01704",
+      "url": "https://www.linkedin.com/in/katherine-thompson-123fa88",
+      "firstName": "Katherine",
+      "lastName": "Thompson",
+      "email": "",
+      "company": "Intuit",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2024-06-11"
+    },
+    {
+      "personId": "P01142",
+      "url": "https://www.linkedin.com/in/adel-sabbagh-025bb73",
+      "firstName": "Adel",
+      "lastName": "Sabbagh",
+      "email": "",
+      "company": "Snowflake",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2024-06-10"
+    },
+    {
+      "personId": "P01453",
+      "url": "https://www.linkedin.com/in/sunita-desai-a20db216",
+      "firstName": "Sunita",
+      "lastName": "Desai",
+      "email": "",
+      "company": "Stripe",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2024-06-10"
+    },
+    {
+      "personId": "P04123",
+      "url": "https://www.linkedin.com/in/john-collins-59a9e01e",
+      "firstName": "John",
+      "lastName": "Collins",
+      "email": "",
+      "company": "The Walt Disney Company",
+      "position": "Marketing Director",
+      "connectedOnIso": "2024-06-07"
+    },
+    {
+      "personId": "P00008",
+      "url": "https://www.linkedin.com/in/karan-kapoor-4ab442",
+      "firstName": "Karan",
+      "lastName": "Kapoor",
+      "email": "",
+      "company": "Meta",
+      "position": "SVP",
+      "connectedOnIso": "2024-05-29"
+    },
+    {
+      "personId": "P03812",
+      "url": "https://www.linkedin.com/in/anunez",
+      "firstName": "Andrés",
+      "lastName": "Núñez",
+      "email": "",
+      "company": "Kinder Morgan",
+      "position": "Senior Process Engineer",
+      "connectedOnIso": "2024-05-27"
+    },
+    {
+      "personId": "P01495",
+      "url": "https://www.linkedin.com/in/raghavannikhil",
+      "firstName": "Nikhil",
+      "lastName": "Raghavan",
+      "email": "",
+      "company": "SoFi",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2024-05-21"
+    },
+    {
+      "personId": "P00593",
+      "url": "https://www.linkedin.com/in/larisa-baranov-2be977",
+      "firstName": "Larisa",
+      "lastName": "Baranov",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Senior SWE",
+      "connectedOnIso": "2024-05-20"
+    },
+    {
+      "personId": "P01349",
+      "url": "https://www.linkedin.com/in/aakash-bhatt-b73636",
+      "firstName": "Aakash",
+      "lastName": "Bhatt",
+      "email": "",
+      "company": "Rover.com",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2024-05-20"
+    },
+    {
+      "personId": "P01161",
+      "url": "https://www.linkedin.com/in/ayesha-desai-52cded",
+      "firstName": "Ayesha",
+      "lastName": "Desai",
+      "email": "",
+      "company": "",
+      "position": "Associate Data Scientist",
+      "connectedOnIso": "2024-05-14"
+    },
+    {
+      "personId": "P03381",
+      "url": "https://www.linkedin.com/in/emma-chen-7ccf617",
+      "firstName": "Emma",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2024-05-04"
+    },
+    {
+      "personId": "P01286",
+      "url": "https://www.linkedin.com/in/yuna-kobayashi-ab64171",
+      "firstName": "Yuna",
+      "lastName": "Kobayashi",
+      "email": "",
+      "company": "Meta",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2024-04-27"
+    },
+    {
+      "personId": "P04061",
+      "url": "https://www.linkedin.com/in/ccollins",
+      "firstName": "Claire",
+      "lastName": "Collins",
+      "email": "",
+      "company": "NBCUniversal",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2024-04-24"
+    },
+    {
+      "personId": "P02179",
+      "url": "https://www.linkedin.com/in/daniel-baker-5645d5",
+      "firstName": "Daniel",
+      "lastName": "Baker",
+      "email": "",
+      "company": "Bridgewater Associates",
+      "position": "Associate, Investment Banking",
+      "connectedOnIso": "2024-04-19"
+    },
+    {
+      "personId": "P00323",
+      "url": "https://www.linkedin.com/in/trosenberg",
+      "firstName": "Tamar",
+      "lastName": "Rosenberg",
+      "email": "",
+      "company": "Meta",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2024-04-18"
+    },
+    {
+      "personId": "P03830",
+      "url": "https://www.linkedin.com/in/antoine-wagner-pmp",
+      "firstName": "Antoine",
+      "lastName": "Wagner",
+      "email": "",
+      "company": "ConocoPhillips",
+      "position": "Senior Process Engineer",
+      "connectedOnIso": "2024-04-15"
+    },
+    {
+      "personId": "P01585",
+      "url": "https://www.linkedin.com/in/nomvula-mensah-b21d96",
+      "firstName": "Nomvula",
+      "lastName": "Mensah",
+      "email": "",
+      "company": "Charles Schwab",
+      "position": "Senior Account Executive",
+      "connectedOnIso": "2024-03-28"
+    },
+    {
+      "personId": "P04483",
+      "url": "https://www.linkedin.com/in/rina-silverman-aa6731f9",
+      "firstName": "Rina",
+      "lastName": "Silverman",
+      "email": "",
+      "company": "Universal Music Group",
+      "position": "CMO",
+      "connectedOnIso": "2024-03-12"
+    },
+    {
+      "personId": "P01135",
+      "url": "https://www.linkedin.com/in/matthew-williams-7607206",
+      "firstName": "Matthew",
+      "lastName": "Williams",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "Customer Success Manager",
+      "connectedOnIso": "2024-03-08"
+    },
+    {
+      "personId": "P01118",
+      "url": "https://www.linkedin.com/in/angeline-ignacio-a036ae",
+      "firstName": "Angeline",
+      "lastName": "Ignacio",
+      "email": "",
+      "company": "Intuit",
+      "position": "Product Designer",
+      "connectedOnIso": "2024-03-02"
+    },
+    {
+      "personId": "P00274",
+      "url": "https://www.linkedin.com/in/vikramnair95",
+      "firstName": "Vikram",
+      "lastName": "Nair",
+      "email": "",
+      "company": "Intuit",
+      "position": "Team Lead, Customer Success",
+      "connectedOnIso": "2024-02-26"
+    },
+    {
+      "personId": "P04053",
+      "url": "https://www.linkedin.com/in/emeka-keita",
+      "firstName": "Emeka",
+      "lastName": "Keita",
+      "email": "",
+      "company": "Live Nation Entertainment",
+      "position": "Director  of Sales",
+      "connectedOnIso": "2024-02-24"
+    },
+    {
+      "personId": "P01552",
+      "url": "https://www.linkedin.com/in/corazon-cruz-c7bcc9d5",
+      "firstName": "Corazon",
+      "lastName": "Cruz",
+      "email": "",
+      "company": "Databricks",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2024-02-16"
+    },
+    {
+      "personId": "P00417",
+      "url": "https://www.linkedin.com/in/giulia-schmidt-d6a47e84",
+      "firstName": "Giulia",
+      "lastName": "Schmidt",
+      "email": "",
+      "company": "Blue Origin",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2024-02-15"
+    },
+    {
+      "personId": "P01673",
+      "url": "https://www.linkedin.com/in/antoine-muller-936975",
+      "firstName": "Antoine",
+      "lastName": "Müller",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "VC Associate",
+      "connectedOnIso": "2024-02-12"
+    },
+    {
+      "personId": "P00858",
+      "url": "https://www.linkedin.com/in/maricel-panganiban-12e14f",
+      "firstName": "Maricel",
+      "lastName": "Panganiban",
+      "email": "mpanganiban@example.net",
+      "company": "PitchBook",
+      "position": "Brand Manager",
+      "connectedOnIso": "2024-02-07"
+    },
+    {
+      "personId": "P01674",
+      "url": "https://www.linkedin.com/in/feng-wu-0f9022",
+      "firstName": "Feng",
+      "lastName": "Wu",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2024-02-07"
+    },
+    {
+      "personId": "P01540",
+      "url": "https://www.linkedin.com/in/anjali-rahman-9b0f15c",
+      "firstName": "Anjali",
+      "lastName": "Rahman",
+      "email": "",
+      "company": "Apple",
+      "position": "Applied  Scientist",
+      "connectedOnIso": "2024-01-17"
+    },
+    {
+      "personId": "P01724",
+      "url": "https://www.linkedin.com/in/layla-khoury-a1957e",
+      "firstName": "Layla",
+      "lastName": "Khoury",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Analyst, Venture Capital",
+      "connectedOnIso": "2024-01-12"
+    },
+    {
+      "personId": "P01926",
+      "url": "https://www.linkedin.com/in/thao-mitchell-f9cd1218",
+      "firstName": "Thảo",
+      "lastName": "Mitchell",
+      "email": "",
+      "company": "Latham & Watkins",
+      "position": "Associate Attorney",
+      "connectedOnIso": "2024-01-09"
+    },
+    {
+      "personId": "P00218",
+      "url": "https://www.linkedin.com/in/ivan-svoboda-88bf1a7",
+      "firstName": "Ivan",
+      "lastName": "Svoboda",
+      "email": "",
+      "company": "Nintendo of America",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2023-12-30"
+    },
+    {
+      "personId": "P01296",
+      "url": "https://www.linkedin.com/in/anjali-banerjee-bbbfec2",
+      "firstName": "Anjali",
+      "lastName": "Banerjee",
+      "email": "",
+      "company": "Ripple",
+      "position": "Data Scientist",
+      "connectedOnIso": "2023-12-26"
+    },
+    {
+      "personId": "P00653",
+      "url": "https://www.linkedin.com/in/raj-agarwal-0a962fe",
+      "firstName": "Raj",
+      "lastName": "Agarwal",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "CSM",
+      "connectedOnIso": "2023-12-19"
+    },
+    {
+      "personId": "P01455",
+      "url": "https://www.linkedin.com/in/olivia-allen-f18f26f",
+      "firstName": "Olivia",
+      "lastName": "Allen",
+      "email": "",
+      "company": "Anthropic",
+      "position": "Principal Software Engineer",
+      "connectedOnIso": "2023-12-19"
+    },
+    {
+      "personId": "P00766",
+      "url": "https://www.linkedin.com/in/lei-sato-0fbbbf",
+      "firstName": "Lei",
+      "lastName": "Sato",
+      "email": "",
+      "company": "ArenaNet",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2023-12-06"
+    },
+    {
+      "personId": "P01171",
+      "url": "https://www.linkedin.com/in/joneslaura",
+      "firstName": "Laura",
+      "lastName": "Jones",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Chief Data Officer",
+      "connectedOnIso": "2023-12-01"
+    },
+    {
+      "personId": "P04074",
+      "url": "https://www.linkedin.com/in/maricel-umali-a655b2cb",
+      "firstName": "Maricel",
+      "lastName": "Umali",
+      "email": "",
+      "company": "NBCUniversal",
+      "position": "Sales Intern",
+      "connectedOnIso": "2023-11-29"
+    },
+    {
+      "personId": "P00540",
+      "url": "https://www.linkedin.com/in/karan-hussain-187176",
+      "firstName": "Karan",
+      "lastName": "Hussain",
+      "email": "",
+      "company": "Amazon",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2023-11-23"
+    },
+    {
+      "personId": "P01376",
+      "url": "https://www.linkedin.com/in/abigailwright",
+      "firstName": "Abigail",
+      "lastName": "Wright",
+      "email": "",
+      "company": "OpenAI",
+      "position": "Senior SWE",
+      "connectedOnIso": "2023-11-23"
+    },
+    {
+      "personId": "P01176",
+      "url": "https://www.linkedin.com/in/joanna-krawczyk-efa8465",
+      "firstName": "Joanna",
+      "lastName": "Krawczyk",
+      "email": "joanna_krawczyk@example.com",
+      "company": "Salesforce",
+      "position": "Principal Product Manager, \"Prioritization\"",
+      "connectedOnIso": "2023-11-19"
+    },
+    {
+      "personId": "P01312",
+      "url": "https://www.linkedin.com/in/douglas-mitchell-6a2fa0",
+      "firstName": "Douglas",
+      "lastName": "Mitchell",
+      "email": "douglas.mitchell@example.net",
+      "company": "Robinhood",
+      "position": "Finance Director",
+      "connectedOnIso": "2023-11-19"
+    },
+    {
+      "personId": "P00368",
+      "url": "https://www.linkedin.com/in/gregory-edwards-015dbf6e",
+      "firstName": "Gregory",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "PitchBook",
+      "position": "Regional Sales Lead",
+      "connectedOnIso": "2023-11-11"
+    },
+    {
+      "personId": "P00758",
+      "url": "https://www.linkedin.com/in/karl-vik-3afcec29",
+      "firstName": "Karl",
+      "lastName": "Vik",
+      "email": "karl.vik@example.net",
+      "company": "Amazon",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2023-11-11"
+    },
+    {
+      "personId": "P01173",
+      "url": "https://www.linkedin.com/in/ishaan-desai-30a5a6f5",
+      "firstName": "Ishaan",
+      "lastName": "Desai",
+      "email": "ishaan_desai@example.com",
+      "company": "Apple",
+      "position": "General Manager",
+      "connectedOnIso": "2023-11-06"
+    },
+    {
+      "personId": "P00612",
+      "url": "https://www.linkedin.com/in/jun-krawczyk-ff06ee",
+      "firstName": "Jun",
+      "lastName": "Krawczyk",
+      "email": "",
+      "company": "Rover.com",
+      "position": "Co-Founder, Revenue",
+      "connectedOnIso": "2023-10-21"
+    },
+    {
+      "personId": "P01263",
+      "url": "https://www.linkedin.com/in/peng-han-8146e1f4",
+      "firstName": "Peng",
+      "lastName": "Han",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Sr. PM",
+      "connectedOnIso": "2023-10-07"
+    },
+    {
+      "personId": "P01654",
+      "url": "https://www.linkedin.com/in/sameer-subramaniam-95d05f5b",
+      "firstName": "Sameer",
+      "lastName": "Subramaniam",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Senior Associate, Venture Capital",
+      "connectedOnIso": "2023-10-07"
+    },
+    {
+      "personId": "P04495",
+      "url": "https://www.linkedin.com/in/ren-kato-1760a1c1",
+      "firstName": "Ren",
+      "lastName": "Kato",
+      "email": "",
+      "company": "Meta",
+      "position": "Associate Director, FP&A",
+      "connectedOnIso": "2023-10-07"
+    },
+    {
+      "personId": "P01691",
+      "url": "https://www.linkedin.com/in/zofia-sy-34e905",
+      "firstName": "Zofia",
+      "lastName": "Sy",
+      "email": "",
+      "company": "DoorDash",
+      "position": "Product Management Intern",
+      "connectedOnIso": "2023-10-05"
+    },
+    {
+      "personId": "P02797",
+      "url": "https://www.linkedin.com/in/simran-gupta",
+      "firstName": "Simran",
+      "lastName": "Gupta",
+      "email": "",
+      "company": "Sainsbury's",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2023-09-28"
+    },
+    {
+      "personId": "P00924",
+      "url": "https://www.linkedin.com/in/daniel-roberts-a2a37f9",
+      "firstName": "Daniel",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "Nintendo America Inc.",
+      "position": "Software Engineer 🚀",
+      "connectedOnIso": "2023-09-22"
+    },
+    {
+      "personId": "P01560",
+      "url": "https://www.linkedin.com/in/sota-tanaka-51a4e0",
+      "firstName": "Sota",
+      "lastName": "Tanaka",
+      "email": "",
+      "company": "Anthropic",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2023-08-31"
+    },
+    {
+      "personId": "P00940",
+      "url": "https://www.linkedin.com/in/elena-lopez-872eecb5",
+      "firstName": "Elena",
+      "lastName": "López",
+      "email": "",
+      "company": "T-Mobile US",
+      "position": "Group Marketing Manager",
+      "connectedOnIso": "2023-08-30"
+    },
+    {
+      "personId": "P00911",
+      "url": "https://www.linkedin.com/in/hong-zhu-534a84",
+      "firstName": "Hong",
+      "lastName": "Zhu",
+      "email": "",
+      "company": "Amazon",
+      "position": "Customer Success Manager",
+      "connectedOnIso": "2023-08-24"
+    },
+    {
+      "personId": "P01995",
+      "url": "https://www.linkedin.com/in/noa-adler-865cf3d",
+      "firstName": "Noa",
+      "lastName": "Adler",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2023-08-12"
+    },
+    {
+      "personId": "P00632",
+      "url": "https://www.linkedin.com/in/jasmine-mendoza-d11254",
+      "firstName": "Jasmine",
+      "lastName": "Mendoza",
+      "email": "",
+      "company": "Rover.com",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2023-08-06"
+    },
+    {
+      "personId": "P01567",
+      "url": "https://www.linkedin.com/in/oleg-pavlov-c8d3c3ae",
+      "firstName": "Oleg",
+      "lastName": "Pavlov",
+      "email": "",
+      "company": "Affirm",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2023-08-05"
+    },
+    {
+      "personId": "P01619",
+      "url": "https://www.linkedin.com/in/xin-watanabe-e859499",
+      "firstName": "Xin",
+      "lastName": "Watanabe",
+      "email": "xin.watanabe@example.com",
+      "company": "SoFi",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2023-07-15"
+    },
+    {
+      "personId": "P01166",
+      "url": "https://www.linkedin.com/in/guillaume-han-52bcb39c",
+      "firstName": "Guillaume",
+      "lastName": "Han",
+      "email": "",
+      "company": "Affirm",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2023-07-11"
+    },
+    {
+      "personId": "P00457",
+      "url": "https://www.linkedin.com/in/rekha-ahmed-de1d0e",
+      "firstName": "Rekha",
+      "lastName": "Ahmed",
+      "email": "",
+      "company": "Boeing",
+      "position": "Senior Director, Strategy",
+      "connectedOnIso": "2023-07-10"
+    },
+    {
+      "personId": "P01223",
+      "url": "https://www.linkedin.com/in/samir-salameh-c23235e",
+      "firstName": "Samir",
+      "lastName": "Salameh",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Engineering Intern",
+      "connectedOnIso": "2023-07-05"
+    },
+    {
+      "personId": "P01862",
+      "url": "https://www.linkedin.com/in/olga-vasiliev-4081c8d",
+      "firstName": "Olga",
+      "lastName": "Vasiliev",
+      "email": "",
+      "company": "Goldman Sachs",
+      "position": "Executive Director, IBD (Contract)",
+      "connectedOnIso": "2023-07-04"
+    },
+    {
+      "personId": "P01224",
+      "url": "https://www.linkedin.com/in/valentina-ramos-a6c3c14",
+      "firstName": "Valentina",
+      "lastName": "Ramos",
+      "email": "",
+      "company": "Databricks",
+      "position": "",
+      "connectedOnIso": "2023-06-23"
+    },
+    {
+      "personId": "P01656",
+      "url": "https://www.linkedin.com/in/nathan-sanchez-2c24f53",
+      "firstName": "Nathan",
+      "lastName": "Sánchez",
+      "email": "",
+      "company": "Uber",
+      "position": "Director of Product",
+      "connectedOnIso": "2023-06-22"
+    },
+    {
+      "personId": "P01332",
+      "url": "https://www.linkedin.com/in/roman-sidorov-ac19fa",
+      "firstName": "Roman",
+      "lastName": "Sidorov",
+      "email": "roman.sidorov@example.com",
+      "company": "PayPal",
+      "position": "Senior Manager, Product Management",
+      "connectedOnIso": "2023-06-21"
+    },
+    {
+      "personId": "P02527",
+      "url": "https://www.linkedin.com/in/lauren-phillips-4c78d62d",
+      "firstName": "Lauren",
+      "lastName": "Phillips",
+      "email": "lauren_phillips@example.org",
+      "company": "EY",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2023-06-18"
+    },
+    {
+      "personId": "P01474",
+      "url": "https://www.linkedin.com/in/ynakamura",
+      "firstName": "Yuna",
+      "lastName": "Nakamura",
+      "email": "",
+      "company": "Instacart",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2023-06-14"
+    },
+    {
+      "personId": "P03889",
+      "url": "https://www.linkedin.com/in/xiang-zheng-3bd722",
+      "firstName": "Xiang",
+      "lastName": "Zheng",
+      "email": "",
+      "company": "",
+      "position": "Director of Engineering",
+      "connectedOnIso": "2023-06-14"
+    },
+    {
+      "personId": "P01182",
+      "url": "https://www.linkedin.com/in/sunita-yadav-69156f",
+      "firstName": "Sunita",
+      "lastName": "Yadav",
+      "email": "",
+      "company": "Instacart",
+      "position": "Data Scientist",
+      "connectedOnIso": "2023-06-04"
+    },
+    {
+      "personId": "P01407",
+      "url": "https://www.linkedin.com/in/chenling",
+      "firstName": "Ling",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Stripe",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2023-05-23"
+    },
+    {
+      "personId": "P01464",
+      "url": "https://www.linkedin.com/in/aaron-weiss-f48e2f8",
+      "firstName": "Aaron",
+      "lastName": "Weiss",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Executive Office Intern",
+      "connectedOnIso": "2023-05-18"
+    },
+    {
+      "personId": "P00015",
+      "url": "https://www.linkedin.com/in/rui-yang-d5d775ca",
+      "firstName": "Rui",
+      "lastName": "Yang",
+      "email": "ryang@example.com",
+      "company": "Redfin",
+      "position": "Senior Manager, Product Management",
+      "connectedOnIso": "2023-05-08"
+    },
+    {
+      "personId": "P00762",
+      "url": "https://www.linkedin.com/in/nayeon-nam-f435fb",
+      "firstName": "Nayeon",
+      "lastName": "Nam",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Director of Product",
+      "connectedOnIso": "2023-05-05"
+    },
+    {
+      "personId": "P01352",
+      "url": "https://www.linkedin.com/in/chiara-muller-a6cdce",
+      "firstName": "Chiara",
+      "lastName": "Müller",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Group Manager, Customer Success",
+      "connectedOnIso": "2023-05-02"
+    },
+    {
+      "personId": "P01202",
+      "url": "https://www.linkedin.com/in/jack-nelson-cb8a89c",
+      "firstName": "Jack",
+      "lastName": "Nelson",
+      "email": "",
+      "company": "Meta",
+      "position": "Head of Growth Marketing",
+      "connectedOnIso": "2023-04-22"
+    },
+    {
+      "personId": "P01364",
+      "url": "https://www.linkedin.com/in/nathan-turner-f4efda0",
+      "firstName": "Nathan",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Twilio",
+      "position": "Sales Manager",
+      "connectedOnIso": "2023-04-22"
+    },
+    {
+      "personId": "P01600",
+      "url": "https://www.linkedin.com/in/camila-garcia-bc43ba",
+      "firstName": "Camila",
+      "lastName": "García",
+      "email": "",
+      "company": "Stripe Inc.",
+      "position": "AE",
+      "connectedOnIso": "2023-04-16"
+    },
+    {
+      "personId": "P03068",
+      "url": "https://www.linkedin.com/in/nisha-mehta-69b91e",
+      "firstName": "Nisha",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Congressional Intern",
+      "connectedOnIso": "2023-04-14"
+    },
+    {
+      "personId": "P01463",
+      "url": "https://www.linkedin.com/in/pooja-iyer-803f140",
+      "firstName": "Pooja",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Anthropic",
+      "position": "Lead Software Engineer",
+      "connectedOnIso": "2023-04-10"
+    },
+    {
+      "personId": "P01419",
+      "url": "https://www.linkedin.com/in/kwangho-hwang-cb8ede6",
+      "firstName": "Kwangho",
+      "lastName": "Hwang",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Head of Customer Success",
+      "connectedOnIso": "2023-03-27"
+    },
+    {
+      "personId": "P02803",
+      "url": "https://www.linkedin.com/in/zara-singh-30230977",
+      "firstName": "Zara",
+      "lastName": "Singh",
+      "email": "",
+      "company": "Sainsbury's",
+      "position": "Buying Director",
+      "connectedOnIso": "2023-03-27"
+    },
+    {
+      "personId": "P01204",
+      "url": "https://www.linkedin.com/in/xinsong",
+      "firstName": "Xin",
+      "lastName": "Song",
+      "email": "",
+      "company": "Intuit",
+      "position": "AE",
+      "connectedOnIso": "2023-03-23"
+    },
+    {
+      "personId": "P04532",
+      "url": "https://www.linkedin.com/in/edward-belov-6d5de528",
+      "firstName": "Edward",
+      "lastName": "Belov",
+      "email": "",
+      "company": "Creative Artists Agency (CAA)",
+      "position": "Production Manager",
+      "connectedOnIso": "2023-03-22"
+    },
+    {
+      "personId": "P01331",
+      "url": "https://www.linkedin.com/in/jamal-bhatt-cf42c4",
+      "firstName": "Jamal",
+      "lastName": "Bhatt",
+      "email": "",
+      "company": "Plaid",
+      "position": "Data Scientist",
+      "connectedOnIso": "2023-03-15"
+    },
+    {
+      "personId": "P01485",
+      "url": "https://www.linkedin.com/in/meera-ahmed",
+      "firstName": "Meera",
+      "lastName": "Ahmed",
+      "email": "",
+      "company": "Salesforce",
+      "position": "Engineering Director",
+      "connectedOnIso": "2023-03-09"
+    },
+    {
+      "personId": "P00083",
+      "url": "https://www.linkedin.com/in/akhan",
+      "firstName": "Ayesha",
+      "lastName": "Khan",
+      "email": "",
+      "company": "Redfin Corporation",
+      "position": "SWE I 🚀",
+      "connectedOnIso": "2023-03-07"
+    },
+    {
+      "personId": "P01251",
+      "url": "https://www.linkedin.com/in/noa-shulman-fe31bd",
+      "firstName": "Noa",
+      "lastName": "Shulman",
+      "email": "noa.shulman@example.net",
+      "company": "Freelancer",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2023-03-06"
+    },
+    {
+      "personId": "P01321",
+      "url": "https://www.linkedin.com/in/amanda-williams-632cec93",
+      "firstName": "Amanda",
+      "lastName": "Williams",
+      "email": "",
+      "company": "Apple",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2023-02-14"
+    },
+    {
+      "personId": "P01425",
+      "url": "https://www.linkedin.com/in/jiho-park-1597019",
+      "firstName": "Jiho",
+      "lastName": "Park",
+      "email": "",
+      "company": "Apple",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2023-02-06"
+    },
+    {
+      "personId": "P01124",
+      "url": "https://www.linkedin.com/in/emil-bakke-bc23c0ec",
+      "firstName": "Emil",
+      "lastName": "Bakke",
+      "email": "",
+      "company": "Robinhood",
+      "position": "Principal Product Manager",
+      "connectedOnIso": "2023-01-28"
+    },
+    {
+      "personId": "P01389",
+      "url": "https://www.linkedin.com/in/pinggao",
+      "firstName": "Ping",
+      "lastName": "Gao",
+      "email": "",
+      "company": "Expedia Group",
+      "position": "Senior Manager, Product Management",
+      "connectedOnIso": "2023-01-28"
+    },
+    {
+      "personId": "P01538",
+      "url": "https://www.linkedin.com/in/timothy-thomas-83bf776",
+      "firstName": "Timothy",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Snap Inc.",
+      "position": "Manager, Data Science 🚀",
+      "connectedOnIso": "2023-01-28"
+    },
+    {
+      "personId": "P01344",
+      "url": "https://www.linkedin.com/in/rekha-malhotra-907dd7",
+      "firstName": "Rekha",
+      "lastName": "Malhotra",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2023-01-25"
+    },
+    {
+      "personId": "P01647",
+      "url": "https://www.linkedin.com/in/enrico-alvarez-7641665",
+      "firstName": "Enrico",
+      "lastName": "Alvarez",
+      "email": "",
+      "company": "Charles Schwab",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2022-12-30"
+    },
+    {
+      "personId": "P00295",
+      "url": "https://www.linkedin.com/in/lucia-reyes-6a92a2cc",
+      "firstName": "Lucía",
+      "lastName": "Reyes",
+      "email": "",
+      "company": "Google",
+      "position": "General Manager",
+      "connectedOnIso": "2022-12-14"
+    },
+    {
+      "personId": "P01380",
+      "url": "https://www.linkedin.com/in/arjun-gupta-dd00568f",
+      "firstName": "Arjun",
+      "lastName": "Gupta",
+      "email": "",
+      "company": "Amazon",
+      "position": "Customer Success Manager",
+      "connectedOnIso": "2022-12-12"
+    },
+    {
+      "personId": "P01541",
+      "url": "https://www.linkedin.com/in/ishaan-agarwal-9637b2d",
+      "firstName": "Ishaan",
+      "lastName": "Agarwal",
+      "email": "ishaan_agarwal@example.org",
+      "company": "Brex",
+      "position": "Senior Product Manager",
+      "connectedOnIso": "2022-12-09"
+    },
+    {
+      "personId": "P04419",
+      "url": "https://www.linkedin.com/in/thandiwe-girma-774276a0",
+      "firstName": "Thandiwe",
+      "lastName": "Girma",
+      "email": "",
+      "company": "Meta",
+      "position": "Account Executive",
+      "connectedOnIso": "2022-12-03"
+    },
+    {
+      "personId": "P00001",
+      "url": "https://www.linkedin.com/in/william-king-983cf174",
+      "firstName": "William",
+      "lastName": "King",
+      "email": "",
+      "company": "Costco Wholesale",
+      "position": "Operations Associate",
+      "connectedOnIso": "2022-11-29"
+    },
+    {
+      "personId": "P01701",
+      "url": "https://www.linkedin.com/in/linh-tran-7bbc9676",
+      "firstName": "Linh",
+      "lastName": "Trần",
+      "email": "",
+      "company": "Palantir Technologies",
+      "position": "Senior Marketing Manager",
+      "connectedOnIso": "2022-11-18"
+    },
+    {
+      "personId": "P02855",
+      "url": "https://www.linkedin.com/in/karan-chatterjee-5fc20d",
+      "firstName": "Karan",
+      "lastName": "Chatterjee",
+      "email": "",
+      "company": "Wise",
+      "position": "Senior Product Designer",
+      "connectedOnIso": "2022-11-15"
+    },
+    {
+      "personId": "P00731",
+      "url": "https://www.linkedin.com/in/tanya-adler-78e28ad",
+      "firstName": "Tanya",
+      "lastName": "Adler",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2022-10-26"
+    },
+    {
+      "personId": "P00939",
+      "url": "https://www.linkedin.com/in/fmensah",
+      "firstName": "Fatou",
+      "lastName": "Mensah",
+      "email": "",
+      "company": "F5",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2022-10-21"
+    },
+    {
+      "personId": "P01544",
+      "url": "https://www.linkedin.com/in/john-villanueva-ff4fcc6d",
+      "firstName": "John",
+      "lastName": "Villanueva",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Head of Growth Marketing",
+      "connectedOnIso": "2022-10-20"
+    },
+    {
+      "personId": "P00076",
+      "url": "https://www.linkedin.com/in/thanh-to-580e8f1",
+      "firstName": "Thành",
+      "lastName": "Tô",
+      "email": "",
+      "company": "DocuSign",
+      "position": "Design Manager",
+      "connectedOnIso": "2022-10-19"
+    },
+    {
+      "personId": "P01702",
+      "url": "https://www.linkedin.com/in/kunal-kumar",
+      "firstName": "Kunal",
+      "lastName": "Kumar",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Senior Manager, Product Management",
+      "connectedOnIso": "2022-10-09"
+    },
+    {
+      "personId": "P02023",
+      "url": "https://www.linkedin.com/in/yuri-belov-2e9c6f6",
+      "firstName": "Yuri",
+      "lastName": "Belov",
+      "email": "yuribelov39@example.com",
+      "company": "",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2022-09-25"
+    },
+    {
+      "personId": "P01568",
+      "url": "https://www.linkedin.com/in/brian-parker-98f8ba4",
+      "firstName": "Brian",
+      "lastName": "Parker",
+      "email": "",
+      "company": "SoFi",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2022-09-21"
+    },
+    {
+      "personId": "P01316",
+      "url": "https://www.linkedin.com/in/leah-goldberg-6de4af5",
+      "firstName": "Leah",
+      "lastName": "Goldberg",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "VC Associate",
+      "connectedOnIso": "2022-09-17"
+    },
+    {
+      "personId": "P03774",
+      "url": "https://www.linkedin.com/in/luzviminda-salazar-dd88c793",
+      "firstName": "Luzviminda",
+      "lastName": "Salazar",
+      "email": "",
+      "company": "ConocoPhillips",
+      "position": "Senior Reservoir Engineer",
+      "connectedOnIso": "2022-09-16"
+    },
+    {
+      "personId": "P00565",
+      "url": "https://www.linkedin.com/in/elena-fedorov-178a253",
+      "firstName": "Elena",
+      "lastName": "Fedorov",
+      "email": "",
+      "company": "Amazon Web Services (AWS)",
+      "position": "Operations Manager",
+      "connectedOnIso": "2022-08-31"
+    },
+    {
+      "personId": "P01589",
+      "url": "https://www.linkedin.com/in/krzysztof-novak-4b12861",
+      "firstName": "Krzysztof",
+      "lastName": "Novák",
+      "email": "",
+      "company": "Ripple",
+      "position": "Founder & CFO",
+      "connectedOnIso": "2022-08-29"
+    },
+    {
+      "personId": "P00857",
+      "url": "https://www.linkedin.com/in/john-parker-09a1df11",
+      "firstName": "John",
+      "lastName": "Parker",
+      "email": "john.parker@example.com",
+      "company": "Nintendo of America",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2022-08-24"
+    },
+    {
+      "personId": "P02154",
+      "url": "https://www.linkedin.com/in/javiergomez",
+      "firstName": "Javier",
+      "lastName": "Gómez",
+      "email": "",
+      "company": "Zebra Technologies",
+      "position": "Brand Manager",
+      "connectedOnIso": "2022-08-11"
+    },
+    {
+      "personId": "P01255",
+      "url": "https://www.linkedin.com/in/rachel-campbell-0ff672d",
+      "firstName": "Rachel",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "Airbnb Inc.",
+      "position": "Senior Customer Success Manager, Salesforce",
+      "connectedOnIso": "2022-07-30"
+    },
+    {
+      "personId": "P01123",
+      "url": "https://www.linkedin.com/in/giang-doan-121dd8e",
+      "firstName": "Giang",
+      "lastName": "Đoàn",
+      "email": "",
+      "company": "Salesforce",
+      "position": "Principal Software Engineer",
+      "connectedOnIso": "2022-07-27"
+    },
+    {
+      "personId": "P01615",
+      "url": "https://www.linkedin.com/in/huda-fares-6a1a803a",
+      "firstName": "Huda",
+      "lastName": "Fares",
+      "email": "",
+      "company": "DoorDash Inc.",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2022-07-18"
+    },
+    {
+      "personId": "P01431",
+      "url": "https://www.linkedin.com/in/neha-sharma-d42f122",
+      "firstName": "Neha",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Twilio",
+      "position": "Lead Product Manager",
+      "connectedOnIso": "2022-07-14"
+    },
+    {
+      "personId": "P01366",
+      "url": "https://www.linkedin.com/in/pranav-mehta-0c70e47",
+      "firstName": "Pranav",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Chime",
+      "position": "Sr. AE",
+      "connectedOnIso": "2022-07-13"
+    },
+    {
+      "personId": "P01294",
+      "url": "https://www.linkedin.com/in/alejandra-vazquez-a6eef00",
+      "firstName": "Alejandra",
+      "lastName": "Vázquez",
+      "email": "",
+      "company": "Freelance",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2022-07-09"
+    },
+    {
+      "personId": "P01481",
+      "url": "https://www.linkedin.com/in/ayesha-krishnan-380f27dc",
+      "firstName": "Ayesha",
+      "lastName": "Krishnan",
+      "email": "",
+      "company": "Ripple",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2022-06-27"
+    },
+    {
+      "personId": "P01684",
+      "url": "https://www.linkedin.com/in/ryan-harris-dcec9c",
+      "firstName": "Ryan",
+      "lastName": "Harris",
+      "email": "",
+      "company": "KKR",
+      "position": "VC Associate",
+      "connectedOnIso": "2022-06-17"
+    },
+    {
+      "personId": "P00681",
+      "url": "https://www.linkedin.com/in/satoling",
+      "firstName": "Ling",
+      "lastName": "Sato",
+      "email": "",
+      "company": "DocuSign",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2022-06-10"
+    },
+    {
+      "personId": "P04267",
+      "url": "https://www.linkedin.com/in/kwame-owusu-752dd334",
+      "firstName": "Kwame",
+      "lastName": "Owusu",
+      "email": "",
+      "company": "Hulu",
+      "position": "Senior Recruiter",
+      "connectedOnIso": "2022-05-21"
+    },
+    {
+      "personId": "P02226",
+      "url": "https://www.linkedin.com/in/huy-bui-0820c3",
+      "firstName": "Huy",
+      "lastName": "Bùi",
+      "email": "",
+      "company": "Moderna",
+      "position": "Operations Manager",
+      "connectedOnIso": "2022-05-06"
+    },
+    {
+      "personId": "P00558",
+      "url": "https://www.linkedin.com/in/phuong-blum-4d5840",
+      "firstName": "Phương",
+      "lastName": "Blum",
+      "email": "phuong.blum@example.com",
+      "company": "T-Mobile US",
+      "position": "Director, Software Engineering, \"Node.js\"",
+      "connectedOnIso": "2022-04-29"
+    },
+    {
+      "personId": "P01636",
+      "url": "https://www.linkedin.com/in/eunji-liang-20e0cc",
+      "firstName": "Eunji",
+      "lastName": "Liang",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Head of Product",
+      "connectedOnIso": "2022-04-28"
+    },
+    {
+      "personId": "P01515",
+      "url": "https://www.linkedin.com/in/denise-castillo-96f3eb5e",
+      "firstName": "Denise",
+      "lastName": "Castillo",
+      "email": "",
+      "company": "DoorDash",
+      "position": "Director of Engineering",
+      "connectedOnIso": "2022-04-19"
+    },
+    {
+      "personId": "P00313",
+      "url": "https://www.linkedin.com/in/ming-tang-fa13b2",
+      "firstName": "Ming",
+      "lastName": "Tang",
+      "email": "",
+      "company": "F5",
+      "position": "Associate Software Engineer",
+      "connectedOnIso": "2022-04-16"
+    },
+    {
+      "personId": "P01868",
+      "url": "https://www.linkedin.com/in/jack-parker-e1164b",
+      "firstName": "Jack",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Unilever",
+      "position": "Controller",
+      "connectedOnIso": "2022-04-13"
+    },
+    {
+      "personId": "P01363",
+      "url": "https://www.linkedin.com/in/anil-chowdhury-8f7963e",
+      "firstName": "Anil",
+      "lastName": "Chowdhury",
+      "email": "",
+      "company": "Databricks",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2022-04-10"
+    },
+    {
+      "personId": "P01416",
+      "url": "https://www.linkedin.com/in/mikhail-horvath-0b3e5146",
+      "firstName": "Mikhail",
+      "lastName": "Horváth",
+      "email": "mikhail_horvath@example.com",
+      "company": "Andreessen Horowitz",
+      "position": "Principal, Venture Capital",
+      "connectedOnIso": "2022-04-03"
+    },
+    {
+      "personId": "P00145",
+      "url": "https://www.linkedin.com/in/elizabethjones22",
+      "firstName": "Elizabeth",
+      "lastName": "Jones",
+      "email": "",
+      "company": "Redfin",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2022-04-02"
+    },
+    {
+      "personId": "P01375",
+      "url": "https://www.linkedin.com/in/antonio-hoffmann-d14f55f",
+      "firstName": "Antonio",
+      "lastName": "Hoffmann",
+      "email": "",
+      "company": "SoFi",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2022-04-01"
+    },
+    {
+      "personId": "P00960",
+      "url": "https://www.linkedin.com/in/julia-carter-e6f0628e",
+      "firstName": "Julia",
+      "lastName": "Carter",
+      "email": "",
+      "company": "Microsoft",
+      "position": "Data Science Manager",
+      "connectedOnIso": "2022-03-13"
+    },
+    {
+      "personId": "P01285",
+      "url": "https://www.linkedin.com/in/elizabeth-baker-39d3244",
+      "firstName": "Elizabeth",
+      "lastName": "Baker",
+      "email": "elizabeth_baker@example.net",
+      "company": "Stripe",
+      "position": "Account Manager",
+      "connectedOnIso": "2022-03-04"
+    },
+    {
+      "personId": "P00814",
+      "url": "https://www.linkedin.com/in/tuan-nguyen-a2f4d70",
+      "firstName": "Tuấn",
+      "lastName": "Nguyễn",
+      "email": "",
+      "company": "Intuit Inc.",
+      "position": "Manager, Sales",
+      "connectedOnIso": "2022-03-02"
+    },
+    {
+      "personId": "P01369",
+      "url": "https://www.linkedin.com/in/noam-horowitz-f89e024e",
+      "firstName": "Noam",
+      "lastName": "Horowitz",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2022-03-02"
+    },
+    {
+      "personId": "P03916",
+      "url": "https://www.linkedin.com/in/eduardo-garcia-f65a654",
+      "firstName": "Eduardo",
+      "lastName": "García",
+      "email": "egarcia@example.com",
+      "company": "Universal Music Group",
+      "position": "Production Manager",
+      "connectedOnIso": "2022-03-01"
+    },
+    {
+      "personId": "P01657",
+      "url": "https://www.linkedin.com/in/sophie-conti-12e493ee",
+      "firstName": "Sophie",
+      "lastName": "Conti",
+      "email": "",
+      "company": "Salesforce",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2022-02-13"
+    },
+    {
+      "personId": "P01397",
+      "url": "https://www.linkedin.com/in/yuna-deng-f2dc56d9",
+      "firstName": "Yuna",
+      "lastName": "Deng",
+      "email": "",
+      "company": "SoFi",
+      "position": "Associate Director, Marketing",
+      "connectedOnIso": "2022-02-09"
+    },
+    {
+      "personId": "P01547",
+      "url": "https://www.linkedin.com/in/roman-wojcik-792ea8b",
+      "firstName": "Roman",
+      "lastName": "Wójcik",
+      "email": "roman_wojcik@example.org",
+      "company": "Salesforce",
+      "position": "Senior Marketing Manager",
+      "connectedOnIso": "2022-01-30"
+    },
+    {
+      "personId": "P01325",
+      "url": "https://www.linkedin.com/in/yu-zhang-bc053b1",
+      "firstName": "Yu",
+      "lastName": "Zhang",
+      "email": "",
+      "company": "Twilio",
+      "position": "CSM",
+      "connectedOnIso": "2022-01-22"
+    },
+    {
+      "personId": "P02877",
+      "url": "https://www.linkedin.com/in/matthew-parker-c2b46c4",
+      "firstName": "Matthew",
+      "lastName": "Parker",
+      "email": "matthewparker53@example.org",
+      "company": "InterContinental Hotels Group",
+      "position": "Guest Services Manager",
+      "connectedOnIso": "2022-01-18"
+    },
+    {
+      "personId": "P01211",
+      "url": "https://www.linkedin.com/in/hien-lam-aeb3803f",
+      "firstName": "Hiền",
+      "lastName": "Lâm",
+      "email": "",
+      "company": "Apple",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2022-01-17"
+    },
+    {
+      "personId": "P01722",
+      "url": "https://www.linkedin.com/in/noor-youssef-88a23eb2",
+      "firstName": "Noor",
+      "lastName": "Youssef",
+      "email": "",
+      "company": "Lyft",
+      "position": "Director of Design",
+      "connectedOnIso": "2022-01-12"
+    },
+    {
+      "personId": "P00460",
+      "url": "https://www.linkedin.com/in/damilare-madu",
+      "firstName": "Damilare",
+      "lastName": "Madu",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Associate Director, Marketing",
+      "connectedOnIso": "2022-01-09"
+    },
+    {
+      "personId": "P01319",
+      "url": "https://www.linkedin.com/in/kristine-garcia-3855babd",
+      "firstName": "Kristine",
+      "lastName": "Garcia",
+      "email": "",
+      "company": "Tableau Software",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2021-12-24"
+    },
+    {
+      "personId": "P01353",
+      "url": "https://www.linkedin.com/in/emma-campbell-2ec549",
+      "firstName": "Emma",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Tech Lead",
+      "connectedOnIso": "2021-12-13"
+    },
+    {
+      "personId": "P01121",
+      "url": "https://www.linkedin.com/in/scott-jones-0cfd5bc",
+      "firstName": "Scott",
+      "lastName": "Jones",
+      "email": "",
+      "company": "Chime",
+      "position": "Associate Software Engineer",
+      "connectedOnIso": "2021-12-09"
+    },
+    {
+      "personId": "P04533",
+      "url": "https://www.linkedin.com/in/george-thomas-f5200b5",
+      "firstName": "George",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2021-12-01"
+    },
+    {
+      "personId": "P01301",
+      "url": "https://www.linkedin.com/in/hui-hakim-febba75",
+      "firstName": "Hui",
+      "lastName": "Hakim",
+      "email": "",
+      "company": "TikTok",
+      "position": "Account Manager",
+      "connectedOnIso": "2021-11-12"
+    },
+    {
+      "personId": "P01608",
+      "url": "https://www.linkedin.com/in/julia-olayinka-ca28d55",
+      "firstName": "Julia",
+      "lastName": "Olayinka",
+      "email": "",
+      "company": "Sony Pictures Entertainment",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2021-10-30"
+    },
+    {
+      "personId": "P00741",
+      "url": "https://www.linkedin.com/in/amina-sharma-4a293522",
+      "firstName": "Amina",
+      "lastName": "Sharma",
+      "email": "amina_sharma@example.net",
+      "company": "MSFT",
+      "position": "Principal Product Manager",
+      "connectedOnIso": "2021-10-24"
+    },
+    {
+      "personId": "P01531",
+      "url": "https://www.linkedin.com/in/mariana-hu-f4917d0b",
+      "firstName": "Mariana",
+      "lastName": "Hu",
+      "email": "mariana.hu@example.com",
+      "company": "Airbnb",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2021-10-18"
+    },
+    {
+      "personId": "P00400",
+      "url": "https://www.linkedin.com/in/njeri-kimani-7b6125",
+      "firstName": "Njeri",
+      "lastName": "Kimani",
+      "email": "njerikimani28@example.net",
+      "company": "Kleiner Perkins",
+      "position": "Brand Manager",
+      "connectedOnIso": "2021-10-16"
+    },
+    {
+      "personId": "P01399",
+      "url": "https://www.linkedin.com/in/signe-wu-d79866a2",
+      "firstName": "Signe",
+      "lastName": "Wu",
+      "email": "",
+      "company": "PayPal",
+      "position": "SENIOR ASSOCIATE PRODUCT MANAGER",
+      "connectedOnIso": "2021-10-15"
+    },
+    {
+      "personId": "P01309",
+      "url": "https://www.linkedin.com/in/natalie-baker-afbc5ae",
+      "firstName": "Natalie",
+      "lastName": "Baker",
+      "email": "natalie.baker@example.com",
+      "company": "Intuit",
+      "position": "Senior Data Scientist (Contract)",
+      "connectedOnIso": "2021-10-11"
+    },
+    {
+      "personId": "P00270",
+      "url": "https://www.linkedin.com/in/isabella-silva-d42729cd",
+      "firstName": "Isabella",
+      "lastName": "Silva",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2021-09-30"
+    },
+    {
+      "personId": "P00752",
+      "url": "https://www.linkedin.com/in/nga-le-d703266",
+      "firstName": "Nga",
+      "lastName": "Lê",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "UX Designer",
+      "connectedOnIso": "2021-09-29"
+    },
+    {
+      "personId": "P03522",
+      "url": "https://www.linkedin.com/in/patricia-medina-8b59348",
+      "firstName": "Patricia",
+      "lastName": "Medina",
+      "email": "",
+      "company": "Kinder Morgan",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2021-09-17"
+    },
+    {
+      "personId": "P01160",
+      "url": "https://www.linkedin.com/in/natalie-young-a85868",
+      "firstName": "Natalie",
+      "lastName": "Young",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Principal, Venture Capital",
+      "connectedOnIso": "2021-09-16"
+    },
+    {
+      "personId": "P02392",
+      "url": "https://www.linkedin.com/in/cruiz",
+      "firstName": "Carlos",
+      "lastName": "Ruiz",
+      "email": "",
+      "company": "Massachusetts Institute of Technology",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2021-09-14"
+    },
+    {
+      "personId": "P00952",
+      "url": "https://www.linkedin.com/in/somin-seo-c245830",
+      "firstName": "Somin",
+      "lastName": "Seo",
+      "email": "sseo@example.org",
+      "company": "Apple",
+      "position": "Engineering Director",
+      "connectedOnIso": "2021-08-16"
+    },
+    {
+      "personId": "P00043",
+      "url": "https://www.linkedin.com/in/mei-lin-d6e47432",
+      "firstName": "Mei",
+      "lastName": "Lin",
+      "email": "mei_lin@example.net",
+      "company": "Bungie Inc.",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2021-08-08"
+    },
+    {
+      "personId": "P00829",
+      "url": "https://www.linkedin.com/in/wrighthannah",
+      "firstName": "Hannah",
+      "lastName": "Wright",
+      "email": "",
+      "company": "Amazon.com",
+      "position": "Data Scientist",
+      "connectedOnIso": "2021-07-19"
+    },
+    {
+      "personId": "P00982",
+      "url": "https://www.linkedin.com/in/thibault-bauer-4d94254a",
+      "firstName": "Thibault",
+      "lastName": "Bauer",
+      "email": "thibault_bauer@example.org",
+      "company": "Wizards of the Coast",
+      "position": "Engineering Lead",
+      "connectedOnIso": "2021-07-09"
+    },
+    {
+      "personId": "P01996",
+      "url": "https://www.linkedin.com/in/katarzyna-krawczyk-f84d767b",
+      "firstName": "Katarzyna",
+      "lastName": "Krawczyk",
+      "email": "",
+      "company": "Skadden, Arps, Slate, Meagher & Flom",
+      "position": "Managing Counsel",
+      "connectedOnIso": "2021-07-05"
+    },
+    {
+      "personId": "P01530",
+      "url": "https://www.linkedin.com/in/yuna-wu-2c2effb",
+      "firstName": "Yuna",
+      "lastName": "Wu",
+      "email": "",
+      "company": "Wells Fargo",
+      "position": "CFO",
+      "connectedOnIso": "2021-06-29"
+    },
+    {
+      "personId": "P01257",
+      "url": "https://www.linkedin.com/in/fernando-silva-a2dc9f",
+      "firstName": "Fernando",
+      "lastName": "Silva",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "PRINCIPAL, VENTURE CAPITAL",
+      "connectedOnIso": "2021-06-02"
+    },
+    {
+      "personId": "P01522",
+      "url": "https://www.linkedin.com/in/victoria-wright-5974b821",
+      "firstName": "Victoria",
+      "lastName": "Wright",
+      "email": "",
+      "company": "Apple",
+      "position": "Data Science Manager",
+      "connectedOnIso": "2021-06-01"
+    },
+    {
+      "personId": "P01393",
+      "url": "https://www.linkedin.com/in/jasmine-gonzales-00fe8995",
+      "firstName": "Jasmine",
+      "lastName": "Gonzales",
+      "email": "",
+      "company": "Meta",
+      "position": "Principal Product Manager",
+      "connectedOnIso": "2021-05-29"
+    },
+    {
+      "personId": "P00501",
+      "url": "https://www.linkedin.com/in/fang-han-5beaa7b",
+      "firstName": "Fang",
+      "lastName": "Han",
+      "email": "",
+      "company": "Tableau Software",
+      "position": "Associate UX Designer",
+      "connectedOnIso": "2021-05-16"
+    },
+    {
+      "personId": "P01497",
+      "url": "https://www.linkedin.com/in/christopher-johnson-d11996ba",
+      "firstName": "Christopher",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "Outreach",
+      "position": "Customer Support Associate",
+      "connectedOnIso": "2021-05-15"
+    },
+    {
+      "personId": "P00263",
+      "url": "https://www.linkedin.com/in/jessica-moore-5f6db0",
+      "firstName": "Jessica",
+      "lastName": "Moore",
+      "email": "",
+      "company": "PitchBook",
+      "position": "Director, Product Management",
+      "connectedOnIso": "2021-05-14"
+    },
+    {
+      "personId": "P01890",
+      "url": "https://www.linkedin.com/in/thomas-brown-d5164ae2",
+      "firstName": "Thomas",
+      "lastName": "Brown",
+      "email": "",
+      "company": "Charles Schwab",
+      "position": "Director, Investment Banking",
+      "connectedOnIso": "2021-05-14"
+    },
+    {
+      "personId": "P00571",
+      "url": "https://www.linkedin.com/in/brian-roberts-b748ee2",
+      "firstName": "Brian",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Product Manager",
+      "connectedOnIso": "2021-05-05"
+    },
+    {
+      "personId": "P00872",
+      "url": "https://www.linkedin.com/in/feng-zheng-6272dc72",
+      "firstName": "Feng",
+      "lastName": "Zheng",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2021-04-24"
+    },
+    {
+      "personId": "P01221",
+      "url": "https://www.linkedin.com/in/naledi-bah-de80caf",
+      "firstName": "Naledi",
+      "lastName": "Bah",
+      "email": "",
+      "company": "Visa",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2021-04-21"
+    },
+    {
+      "personId": "P01639",
+      "url": "https://www.linkedin.com/in/ryan-collins-5506060f",
+      "firstName": "Ryan",
+      "lastName": "Collins",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Senior Software Engineer",
+      "connectedOnIso": "2021-04-20"
+    },
+    {
+      "personId": "P01218",
+      "url": "https://www.linkedin.com/in/mgarcia",
+      "firstName": "Mateo",
+      "lastName": "García",
+      "email": "",
+      "company": "Databricks",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2021-04-19"
+    },
+    {
+      "personId": "P01273",
+      "url": "https://www.linkedin.com/in/cuong-suzuki-5403b9",
+      "firstName": "Cường",
+      "lastName": "Suzuki",
+      "email": "",
+      "company": "iHeartMedia",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2021-03-31"
+    },
+    {
+      "personId": "P01477",
+      "url": "https://www.linkedin.com/in/laura-campbell-fd63878",
+      "firstName": "Laura",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "OpenAI",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2021-03-16"
+    },
+    {
+      "personId": "P00687",
+      "url": "https://www.linkedin.com/in/benjamin-johnson-37ccaf2",
+      "firstName": "Benjamin",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "Nintendo of America",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2021-03-04"
+    },
+    {
+      "personId": "P01428",
+      "url": "https://www.linkedin.com/in/miguel-herrera-c6050146",
+      "firstName": "Miguel",
+      "lastName": "Herrera",
+      "email": "",
+      "company": "OpenAI",
+      "position": "Product Marketing Manager",
+      "connectedOnIso": "2021-03-02"
+    },
+    {
+      "personId": "P01652",
+      "url": "https://www.linkedin.com/in/ezra-berkowitz-464110",
+      "firstName": "Ezra",
+      "lastName": "Berkowitz",
+      "email": "",
+      "company": "Affirm",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2021-02-10"
+    },
+    {
+      "personId": "P00090",
+      "url": "https://www.linkedin.com/in/tao-tu-fa0dfc07",
+      "firstName": "Tao",
+      "lastName": "Từ",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Vice  President, Engineering",
+      "connectedOnIso": "2021-02-05"
+    },
+    {
+      "personId": "P00541",
+      "url": "https://www.linkedin.com/in/paolo-uy-cf0f1c5",
+      "firstName": "Paolo",
+      "lastName": "Uy",
+      "email": "",
+      "company": "Uber",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2021-02-04"
+    },
+    {
+      "personId": "P01406",
+      "url": "https://www.linkedin.com/in/nadia-sokolowski-652e79",
+      "firstName": "Nadia",
+      "lastName": "Sokołowski",
+      "email": "nadia_sokolowski@example.net",
+      "company": "Block, Inc.",
+      "position": "UI/UX Designer",
+      "connectedOnIso": "2021-01-22"
+    },
+    {
+      "personId": "P01478",
+      "url": "https://www.linkedin.com/in/hong-li-725ef1db",
+      "firstName": "Hong",
+      "lastName": "Li",
+      "email": "",
+      "company": "Uber",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2021-01-18"
+    },
+    {
+      "personId": "P01134",
+      "url": "https://www.linkedin.com/in/kenji-zhang-abdd9c95",
+      "firstName": "Kenji",
+      "lastName": "Zhang",
+      "email": "",
+      "company": "PayPal",
+      "position": "Director  of Engineering",
+      "connectedOnIso": "2020-12-18"
+    },
+    {
+      "personId": "P01295",
+      "url": "https://www.linkedin.com/in/paula-gomez-819687b9",
+      "firstName": "Paula",
+      "lastName": "Gómez",
+      "email": "",
+      "company": "Chime Financial",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2020-12-12"
+    },
+    {
+      "personId": "P01664",
+      "url": "https://www.linkedin.com/in/sanjay-rahman-a1f3a0d1",
+      "firstName": "Sanjay",
+      "lastName": "Rahman",
+      "email": "",
+      "company": "Plaid",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2020-11-12"
+    },
+    {
+      "personId": "P02880",
+      "url": "https://www.linkedin.com/in/rachel-baek-d1218c4",
+      "firstName": "Rachel",
+      "lastName": "Baek",
+      "email": "",
+      "company": "InterContinental Hotels Group",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2020-11-04"
+    },
+    {
+      "personId": "P01291",
+      "url": "https://www.linkedin.com/in/baptiste-fontana-3e53294",
+      "firstName": "Baptiste",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2020-11-01"
+    },
+    {
+      "personId": "P01025",
+      "url": "https://www.linkedin.com/in/kevin-khan-4750591",
+      "firstName": "Kevin",
+      "lastName": "Khan",
+      "email": "",
+      "company": "Plaid",
+      "position": "Senior Manager, Customer Success",
+      "connectedOnIso": "2020-10-29"
+    },
+    {
+      "personId": "P00317",
+      "url": "https://www.linkedin.com/in/amanda-edwards-6b9533f",
+      "firstName": "Amanda",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Microsoft",
+      "position": "Principal Software Engineer",
+      "connectedOnIso": "2020-10-04"
+    },
+    {
+      "personId": "P01570",
+      "url": "https://www.linkedin.com/in/orly-rosen-23f24dd8",
+      "firstName": "Orly",
+      "lastName": "Rosen",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2020-09-28"
+    },
+    {
+      "personId": "P01508",
+      "url": "https://www.linkedin.com/in/hugo-schwarz-c9a56fb",
+      "firstName": "Hugo",
+      "lastName": "Schwarz",
+      "email": "",
+      "company": "Intuit",
+      "position": "Engineering Lead",
+      "connectedOnIso": "2020-09-27"
+    },
+    {
+      "personId": "P01488",
+      "url": "https://www.linkedin.com/in/fangluo",
+      "firstName": "Fang",
+      "lastName": "Luo",
+      "email": "",
+      "company": "a16z",
+      "position": "Senior Associate, Venture Capital",
+      "connectedOnIso": "2020-09-21"
+    },
+    {
+      "personId": "P01289",
+      "url": "https://www.linkedin.com/in/xia-takahashi-cfa",
+      "firstName": "Xia",
+      "lastName": "Takahashi",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2020-07-03"
+    },
+    {
+      "personId": "P04010",
+      "url": "https://www.linkedin.com/in/camille-schwarz-182798c",
+      "firstName": "Camille",
+      "lastName": "Schwarz",
+      "email": "",
+      "company": "Riot Games",
+      "position": "Sr. Designer",
+      "connectedOnIso": "2020-01-08"
+    },
+    {
+      "personId": "P00774",
+      "url": "https://www.linkedin.com/in/kamau-sow-c7acf05",
+      "firstName": "Kamau",
+      "lastName": "Sow",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Co-Founder, Revenue",
+      "connectedOnIso": "2019-11-05"
+    },
+    {
+      "personId": "P01513",
+      "url": "https://www.linkedin.com/in/XiaWatanabe",
+      "firstName": "Xia",
+      "lastName": "Watanabe",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Co-Founder & CEO",
+      "connectedOnIso": "2019-10-31"
+    },
+    {
+      "personId": "P01707",
+      "url": "https://www.linkedin.com/in/maria-nunez-0223d8",
+      "firstName": "María",
+      "lastName": "Núñez",
+      "email": "marianunez4@example.com",
+      "company": "Andreessen Horowitz",
+      "position": "Senior Associate, Venture Capital",
+      "connectedOnIso": "2019-10-12"
+    },
+    {
+      "personId": "P01127",
+      "url": "https://www.linkedin.com/in/ritu-bose-593ac08",
+      "firstName": "Ritu",
+      "lastName": "Bose",
+      "email": "",
+      "company": "Blackstone",
+      "position": "ANALYST, VENTURE CAPITAL",
+      "connectedOnIso": "2019-09-05"
+    },
+    {
+      "personId": "P01132",
+      "url": "https://www.linkedin.com/in/vivek-singh-a26fbc8",
+      "firstName": "Vivek",
+      "lastName": "Singh",
+      "email": "",
+      "company": "Twilio",
+      "position": "Director, Product Management",
+      "connectedOnIso": "2019-08-16"
+    },
+    {
+      "personId": "P01546",
+      "url": "https://www.linkedin.com/in/chaeyoung-kang-f4c1d3fe",
+      "firstName": "Chaeyoung",
+      "lastName": "Kang",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Investment Manager",
+      "connectedOnIso": "2019-08-01"
+    },
+    {
+      "personId": "P01642",
+      "url": "https://www.linkedin.com/in/sota-peng-d3ce3b",
+      "firstName": "Sota",
+      "lastName": "Peng",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Director, Software Engineering",
+      "connectedOnIso": "2019-07-26"
+    },
+    {
+      "personId": "P01669",
+      "url": "https://www.linkedin.com/in/aoi-he-b0e2c85e",
+      "firstName": "Aoi",
+      "lastName": "He",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2019-07-16"
+    },
+    {
+      "personId": "P01264",
+      "url": "https://www.linkedin.com/in/oluwafemi-okonkwo-4ffdac",
+      "firstName": "Oluwafemi",
+      "lastName": "Okonkwo",
+      "email": "ookonkwo@example.com",
+      "company": "PayPal",
+      "position": "VP of Engineering",
+      "connectedOnIso": "2019-04-15"
+    },
+    {
+      "personId": "P01147",
+      "url": "https://www.linkedin.com/in/ebele-amadi-9ad058b",
+      "firstName": "Ebele",
+      "lastName": "Amadi",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Senior  PM",
+      "connectedOnIso": "2019-04-12"
+    },
+    {
+      "personId": "P00893",
+      "url": "https://www.linkedin.com/in/isabelle-ong-4cec0617",
+      "firstName": "Isabelle",
+      "lastName": "Ông",
+      "email": "iong@example.org",
+      "company": "REI",
+      "position": "AE",
+      "connectedOnIso": "2019-03-16"
+    },
+    {
+      "personId": "P01119",
+      "url": "https://www.linkedin.com/in/uzoma-okonkwo-cf6651af",
+      "firstName": "Uzoma",
+      "lastName": "Okonkwo",
+      "email": "",
+      "company": "Meta",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2019-03-16"
+    },
+    {
+      "personId": "P01467",
+      "url": "https://www.linkedin.com/in/zara-shah-a05b91",
+      "firstName": "Zara",
+      "lastName": "Shah",
+      "email": "zarashah14@example.net",
+      "company": "Lyft",
+      "position": "Senior Product Manager",
+      "connectedOnIso": "2019-02-01"
+    },
+    {
+      "personId": "P00975",
+      "url": "https://www.linkedin.com/in/deepak-patel-0ec8c3",
+      "firstName": "Deepak",
+      "lastName": "Patel",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2019-01-11"
+    },
+    {
+      "personId": "P01265",
+      "url": "https://www.linkedin.com/in/pranav-sharma-ae95be4",
+      "firstName": "Pranav",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "McKinsey & Company",
+      "position": "VP Product Management",
+      "connectedOnIso": "2019-01-02"
+    },
+    {
+      "personId": "P03910",
+      "url": "https://www.linkedin.com/in/quang-jimenez",
+      "firstName": "Quang",
+      "lastName": "Jiménez",
+      "email": "",
+      "company": "Shell USA",
+      "position": "Senior Process Engineer",
+      "connectedOnIso": "2018-12-06"
+    },
+    {
+      "personId": "P01167",
+      "url": "https://www.linkedin.com/in/jaewoo-han-10fcd7e",
+      "firstName": "Jaewoo",
+      "lastName": "Han",
+      "email": "",
+      "company": "Outreach",
+      "position": "Sr. AE 🚀",
+      "connectedOnIso": "2018-11-26"
+    },
+    {
+      "personId": "P01137",
+      "url": "https://www.linkedin.com/in/yu-zhu-a89dc8",
+      "firstName": "Yu",
+      "lastName": "Zhu",
+      "email": "",
+      "company": "PayPal",
+      "position": "Senior Product Manager",
+      "connectedOnIso": "2018-08-16"
+    },
+    {
+      "personId": "P01129",
+      "url": "https://www.linkedin.com/in/doyooncha38",
+      "firstName": "Doyoon",
+      "lastName": "Cha",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Principal, Venture Capital",
+      "connectedOnIso": "2018-08-14"
+    },
+    {
+      "personId": "P00202",
+      "url": "https://www.linkedin.com/in/edward-martin-e728e5",
+      "firstName": "Edward",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Amazon",
+      "position": "Software Engineer II",
+      "connectedOnIso": "2018-08-11"
+    },
+    {
+      "personId": "P01465",
+      "url": "https://www.linkedin.com/in/ritu-ahmed-85080dae",
+      "firstName": "Ritu",
+      "lastName": "Ahmed",
+      "email": "rituahmed80@example.org",
+      "company": "Lyft",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2018-08-05"
+    },
+    {
+      "personId": "P00379",
+      "url": "https://www.linkedin.com/in/uyen-la-8bdd5c",
+      "firstName": "Uyên",
+      "lastName": "La",
+      "email": "",
+      "company": "F5",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2018-07-09"
+    },
+    {
+      "personId": "P01692",
+      "url": "https://www.linkedin.com/in/erik-karlsson-a8fe5e80",
+      "firstName": "Erik",
+      "lastName": "Karlsson",
+      "email": "",
+      "company": "Twilio",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2018-05-15"
+    },
+    {
+      "personId": "P04199",
+      "url": "https://www.linkedin.com/in/claudia-alvarez-df4751",
+      "firstName": "Claudia",
+      "lastName": "Álvarez",
+      "email": "calvarez@example.net",
+      "company": "Snap Inc.",
+      "position": "Sr. Designer",
+      "connectedOnIso": "2018-04-03"
+    },
+    {
+      "personId": "P01521",
+      "url": "https://www.linkedin.com/in/li-xu-b7e453",
+      "firstName": "Li",
+      "lastName": "Xu",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Associate, Venture Capital",
+      "connectedOnIso": "2018-03-18"
+    },
+    {
+      "personId": "P01557",
+      "url": "https://www.linkedin.com/in/elena-flores-76e1b0",
+      "firstName": "Elena",
+      "lastName": "Flores",
+      "email": "",
+      "company": "TikTok",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2017-11-21"
+    },
+    {
+      "personId": "P01205",
+      "url": "https://www.linkedin.com/in/gregorybrown",
+      "firstName": "Gregory",
+      "lastName": "Brown",
+      "email": "",
+      "company": "Databricks",
+      "position": "Senior UX Designer",
+      "connectedOnIso": "2017-11-17"
+    },
+    {
+      "personId": "P01887",
+      "url": "https://www.linkedin.com/in/kyungsoo-park-b651fe60",
+      "firstName": "Kyungsoo",
+      "lastName": "Park",
+      "email": "",
+      "company": "Bank of America",
+      "position": "Associate Director, FP&A",
+      "connectedOnIso": "2017-11-16"
+    },
+    {
+      "personId": "P04073",
+      "url": "https://www.linkedin.com/in/julien-meyer-94ab40",
+      "firstName": "Julien",
+      "lastName": "Meyer",
+      "email": "",
+      "company": "iHeartMedia",
+      "position": "Deputy Editor-in-Chief",
+      "connectedOnIso": "2017-10-21"
+    },
+    {
+      "personId": "P00626",
+      "url": "https://www.linkedin.com/in/corazon-rivera-7390f69e",
+      "firstName": "Corazon",
+      "lastName": "Rivera",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Co-Founder",
+      "connectedOnIso": "2017-09-23"
+    },
+    {
+      "personId": "P01329",
+      "url": "https://www.linkedin.com/in/salma-saleh-ddad3fed",
+      "firstName": "Salma",
+      "lastName": "Saleh",
+      "email": "",
+      "company": "Google",
+      "position": "Lead Software Engineer",
+      "connectedOnIso": "2017-09-06"
+    },
+    {
+      "personId": "P01518",
+      "url": "https://www.linkedin.com/in/viktor-johansson-5433f4a",
+      "firstName": "Viktor",
+      "lastName": "Johansson",
+      "email": "",
+      "company": "Snap Inc.",
+      "position": "",
+      "connectedOnIso": "2017-08-20"
+    },
+    {
+      "personId": "P01179",
+      "url": "https://www.linkedin.com/in/aakash-rahman-59902d",
+      "firstName": "Aakash",
+      "lastName": "Rahman",
+      "email": "",
+      "company": "Apple",
+      "position": "Senior Director, Strategy",
+      "connectedOnIso": "2017-08-13"
+    },
+    {
+      "personId": "P01359",
+      "url": "https://www.linkedin.com/in/edward-turner-c30a4f",
+      "firstName": "Edward",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Snowflake",
+      "position": "Sr. Designer",
+      "connectedOnIso": "2017-08-08"
+    },
+    {
+      "personId": "P01705",
+      "url": "https://www.linkedin.com/in/poojakumar53",
+      "firstName": "Pooja",
+      "lastName": "Kumar",
+      "email": "",
+      "company": "DoorDash",
+      "position": "Senior SWE",
+      "connectedOnIso": "2017-07-24"
+    },
+    {
+      "personId": "P01269",
+      "url": "https://www.linkedin.com/in/vikram-chaudhary-1222f67",
+      "firstName": "Vikram",
+      "lastName": "Chaudhary",
+      "email": "",
+      "company": "Fandom Inc.",
+      "position": "Data Science Lead",
+      "connectedOnIso": "2016-11-26"
+    },
+    {
+      "personId": "P01243",
+      "url": "https://www.linkedin.com/in/andres-morales-7ffa7e",
+      "firstName": "Andrés",
+      "lastName": "Morales",
+      "email": "",
+      "company": "PayPal",
+      "position": "Group Product Manager",
+      "connectedOnIso": "2016-11-01"
+    },
+    {
+      "personId": "P02437",
+      "url": "https://www.linkedin.com/in/bea-cruz-e609de9",
+      "firstName": "Bea",
+      "lastName": "Cruz",
+      "email": "",
+      "company": "Massachusetts General Hospital",
+      "position": "Senior Attending Physician, MD",
+      "connectedOnIso": "2016-10-25"
+    },
+    {
+      "personId": "P01423",
+      "url": "https://www.linkedin.com/in/joseph-wilson-1043511",
+      "firstName": "Joseph",
+      "lastName": "Wilson",
+      "email": "josephwilson85@example.com",
+      "company": "Andreessen Horowitz",
+      "position": "Principal, Venture Capital",
+      "connectedOnIso": "2016-09-30"
+    },
+    {
+      "personId": "P01494",
+      "url": "https://www.linkedin.com/in/long-la-86244d",
+      "firstName": "Long",
+      "lastName": "La",
+      "email": "",
+      "company": "Charles Schwab",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2016-08-31"
+    },
+    {
+      "personId": "P00549",
+      "url": "https://www.linkedin.com/in/denise-domingo-pe",
+      "firstName": "Denise",
+      "lastName": "Domingo",
+      "email": "",
+      "company": "Affirm",
+      "position": "Senior Customer Success Manager",
+      "connectedOnIso": "2016-07-27"
+    },
+    {
+      "personId": "P02328",
+      "url": "https://www.linkedin.com/in/feng-yamamoto-765f760",
+      "firstName": "Feng",
+      "lastName": "Yamamoto",
+      "email": "",
+      "company": "Beth Israel Deaconess Medical Center",
+      "position": "Lead Physician, MD",
+      "connectedOnIso": "2016-07-08"
+    },
+    {
+      "personId": "P04399",
+      "url": "https://www.linkedin.com/in/ren-xu-e19c45df",
+      "firstName": "Ren",
+      "lastName": "Xu",
+      "email": "",
+      "company": "Boeing",
+      "position": "Director of Legal Affairs",
+      "connectedOnIso": "2016-03-13"
+    },
+    {
+      "personId": "P00997",
+      "url": "https://www.linkedin.com/in/deepak-kapoor-ec7e794",
+      "firstName": "Deepak",
+      "lastName": "Kapoor",
+      "email": "deepak.kapoor@example.net",
+      "company": "F5",
+      "position": "Tech Lead",
+      "connectedOnIso": "2016-02-17"
+    },
+    {
+      "personId": "P01569",
+      "url": "https://www.linkedin.com/in/vikram-subramaniam-30d897b3",
+      "firstName": "Vikram",
+      "lastName": "Subramaniam",
+      "email": "vikram.subramaniam@example.com",
+      "company": "Block, Inc.",
+      "position": "Director, Client Services",
+      "connectedOnIso": "2016-02-14"
+    },
+    {
+      "personId": "P01685",
+      "url": "https://www.linkedin.com/in/henrymiller79",
+      "firstName": "Henry",
+      "lastName": "Miller",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2016-02-11"
+    },
+    {
+      "personId": "P00030",
+      "url": "https://www.linkedin.com/in/deepak-bhatia-caa945c",
+      "firstName": "Deepak",
+      "lastName": "Bhatia",
+      "email": "",
+      "company": "Meta",
+      "position": "Senior Product Manager",
+      "connectedOnIso": "2015-11-16"
+    },
+    {
+      "personId": "P00974",
+      "url": "https://www.linkedin.com/in/vy-ahmed-f0d0e02",
+      "firstName": "Vy",
+      "lastName": "Ahmed",
+      "email": "",
+      "company": "Nintendo of America",
+      "position": "VP, Client Services",
+      "connectedOnIso": "2015-05-20"
+    },
+    {
+      "personId": "P01290",
+      "url": "https://www.linkedin.com/in/brian-collins-e41e63e5",
+      "firstName": "Brian",
+      "lastName": "Collins",
+      "email": "",
+      "company": "Andreessen Horowitz",
+      "position": "Investment Manager",
+      "connectedOnIso": "2015-03-15"
+    }
+  ]
+}

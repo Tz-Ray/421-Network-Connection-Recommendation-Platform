@@ -1,0 +1,763 @@
+{
+  "id": "C08",
+  "file": "networks/classic/C08_megan-turner.csv",
+  "format": "classic-legacy",
+  "owner": {
+    "personId": "P03435",
+    "name": "Megan Turner",
+    "url": "https://www.linkedin.com/in/megan-turner-7c3ba277"
+  },
+  "exportDate": "2025-06-20",
+  "rows": [
+    {
+      "personId": "P01835",
+      "url": null,
+      "firstName": "Fang",
+      "lastName": "Nair",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Operations Lead",
+      "connectedOnIso": "2025-04-14"
+    },
+    {
+      "personId": "P03590",
+      "url": null,
+      "firstName": "Daniel",
+      "lastName": "Mitchell",
+      "email": "danielmitchell66@example.net",
+      "company": "Southwest Airlines",
+      "position": "Operations Lead",
+      "connectedOnIso": "2025-04-12"
+    },
+    {
+      "personId": "P02142",
+      "url": null,
+      "firstName": "Zipporah",
+      "lastName": "Adler",
+      "email": "zipporah.adler@example.org",
+      "company": "MetLife",
+      "position": "Finance Director",
+      "connectedOnIso": "2025-03-27"
+    },
+    {
+      "personId": "P01920",
+      "url": null,
+      "firstName": "Robert",
+      "lastName": "Lewis",
+      "email": "",
+      "company": "",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2025-03-18"
+    },
+    {
+      "personId": "P03439",
+      "url": null,
+      "firstName": "Robert \"Bobby\"",
+      "lastName": "McAllister, Jr.",
+      "email": "robertbobby_mcallisterjr@example.net",
+      "company": "U.S. Department of Justice",
+      "position": "Legislative Aide",
+      "connectedOnIso": "2025-02-26"
+    },
+    {
+      "personId": "P03561",
+      "url": null,
+      "firstName": "Isabella",
+      "lastName": "Medina",
+      "email": "",
+      "company": "American Airlines",
+      "position": "Operations Manager",
+      "connectedOnIso": "2025-02-16"
+    },
+    {
+      "personId": "P02374",
+      "url": null,
+      "firstName": "Miguel",
+      "lastName": "Ramos",
+      "email": "",
+      "company": "Dana-Farber",
+      "position": "Director of Marketing",
+      "connectedOnIso": "2025-02-11"
+    },
+    {
+      "personId": "P03446",
+      "url": null,
+      "firstName": "Marie",
+      "lastName": "Schröder",
+      "email": "marieschroder38@example.org",
+      "company": "International Monetary Fund",
+      "position": "Operations Intern",
+      "connectedOnIso": "2025-01-28"
+    },
+    {
+      "personId": "P03506",
+      "url": null,
+      "firstName": "Anja",
+      "lastName": "Bauer",
+      "email": "",
+      "company": "U.S. Department of Justice",
+      "position": "Development Associate",
+      "connectedOnIso": "2025-01-18"
+    },
+    {
+      "personId": "P03761",
+      "url": null,
+      "firstName": "Luis",
+      "lastName": "García",
+      "email": "",
+      "company": "Occidental Petroleum",
+      "position": "Finance Intern",
+      "connectedOnIso": "2024-11-09"
+    },
+    {
+      "personId": "P03438",
+      "url": null,
+      "firstName": "Khalid",
+      "lastName": "Saleh",
+      "email": "",
+      "company": "Conagra Brands",
+      "position": "HR Associate",
+      "connectedOnIso": "2024-10-12"
+    },
+    {
+      "personId": "P03443",
+      "url": null,
+      "firstName": "Emma",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "U.S. Department of Energy",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2024-06-15"
+    },
+    {
+      "personId": "P03449",
+      "url": null,
+      "firstName": "Corazon",
+      "lastName": "Castillo",
+      "email": "",
+      "company": "World Bank Group",
+      "position": "Senior Program Manager",
+      "connectedOnIso": "2024-06-15"
+    },
+    {
+      "personId": "P03492",
+      "url": null,
+      "firstName": "Patrick",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Center for Strategic and International Studies",
+      "position": "Branch Chief",
+      "connectedOnIso": "2024-06-09"
+    },
+    {
+      "personId": "P03470",
+      "url": null,
+      "firstName": "Natasha",
+      "lastName": "Horváth",
+      "email": "",
+      "company": "General Dynamics",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2024-04-16"
+    },
+    {
+      "personId": "P01970",
+      "url": null,
+      "firstName": "Sameer",
+      "lastName": "Trivedi",
+      "email": "",
+      "company": "Morgan Stanley",
+      "position": "Deal Team Lead",
+      "connectedOnIso": "2024-03-20"
+    },
+    {
+      "personId": "P03488",
+      "url": null,
+      "firstName": "Lukas",
+      "lastName": "Bianchi",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Executive Director",
+      "connectedOnIso": "2024-02-21"
+    },
+    {
+      "personId": "P03502",
+      "url": null,
+      "firstName": "Daniel",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "Georgetown University",
+      "position": "Director of Legal Affairs",
+      "connectedOnIso": "2023-12-07"
+    },
+    {
+      "personId": "P03478",
+      "url": null,
+      "firstName": "Damilare",
+      "lastName": "Woźniak",
+      "email": "damilare_wozniak@example.org",
+      "company": "Center for Strategic and International Studies",
+      "position": "Branch Chief",
+      "connectedOnIso": "2023-11-17"
+    },
+    {
+      "personId": "P03485",
+      "url": null,
+      "firstName": "Bruno",
+      "lastName": "Costa",
+      "email": "",
+      "company": "",
+      "position": "HR Associate",
+      "connectedOnIso": "2023-10-12"
+    },
+    {
+      "personId": "P02087",
+      "url": null,
+      "firstName": "Pranav",
+      "lastName": "Hussain",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Director of Legal Affairs",
+      "connectedOnIso": "2023-09-20"
+    },
+    {
+      "personId": "P03515",
+      "url": null,
+      "firstName": "Patrick",
+      "lastName": "Taylor",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2023-09-13"
+    },
+    {
+      "personId": "P01669",
+      "url": null,
+      "firstName": "Aoi",
+      "lastName": "He",
+      "email": "",
+      "company": "Airbnb",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2023-09-11"
+    },
+    {
+      "personId": "P03412",
+      "url": null,
+      "firstName": "Sarah",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Research Scientist",
+      "connectedOnIso": "2023-08-17"
+    },
+    {
+      "personId": "P03471",
+      "url": null,
+      "firstName": "Adriana",
+      "lastName": "Pérez",
+      "email": "",
+      "company": "The World Bank",
+      "position": "Policy Lead",
+      "connectedOnIso": "2023-08-16"
+    },
+    {
+      "personId": "P03479",
+      "url": null,
+      "firstName": "Aisha",
+      "lastName": "Hussain",
+      "email": "aisha.hussain@example.com",
+      "company": "International Monetary Fund",
+      "position": "Associate Attorney",
+      "connectedOnIso": "2023-05-21"
+    },
+    {
+      "personId": "P03512",
+      "url": null,
+      "firstName": "John",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Booz Allen Hamilton",
+      "position": "Senior Director, Strategy",
+      "connectedOnIso": "2023-03-14"
+    },
+    {
+      "personId": "P01958",
+      "url": null,
+      "firstName": "Aminata",
+      "lastName": "Adeyemi",
+      "email": "",
+      "company": "Moody's",
+      "position": "Director, Investment Banking",
+      "connectedOnIso": "2023-03-02"
+    },
+    {
+      "personId": "P03441",
+      "url": null,
+      "firstName": "Marie",
+      "lastName": "Schröder",
+      "email": "",
+      "company": "The House",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2023-02-24"
+    },
+    {
+      "personId": "P01946",
+      "url": null,
+      "firstName": "Emilio",
+      "lastName": "Ramírez",
+      "email": "",
+      "company": "Citadel",
+      "position": "Finance Lead",
+      "connectedOnIso": "2023-02-21"
+    },
+    {
+      "personId": "P03452",
+      "url": null,
+      "firstName": "Mariana",
+      "lastName": "Jiménez",
+      "email": "",
+      "company": "Smithsonian Institution",
+      "position": "Senior Program Manager",
+      "connectedOnIso": "2023-01-26"
+    },
+    {
+      "personId": "P03511",
+      "url": null,
+      "firstName": "Mekonnen",
+      "lastName": "Odhiambo",
+      "email": "",
+      "company": "U.S. Department of Justice",
+      "position": "Director of Policy",
+      "connectedOnIso": "2023-01-15"
+    },
+    {
+      "personId": "P03475",
+      "url": null,
+      "firstName": "Oleg",
+      "lastName": "Szymański",
+      "email": "",
+      "company": "Smithsonian Institution",
+      "position": "Senior Program Manager",
+      "connectedOnIso": "2022-11-28"
+    },
+    {
+      "personId": "P02307",
+      "url": null,
+      "firstName": "Ferdinand",
+      "lastName": "Mercado",
+      "email": "",
+      "company": "Massachusetts General Hospital",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2022-11-21"
+    },
+    {
+      "personId": "P03989",
+      "url": null,
+      "firstName": "Javier",
+      "lastName": "Flores",
+      "email": "jflores@example.com",
+      "company": "Chernin Entertainment",
+      "position": "Executive Director",
+      "connectedOnIso": "2022-10-15"
+    },
+    {
+      "personId": "P03473",
+      "url": null,
+      "firstName": "Piotr",
+      "lastName": "Dvořák",
+      "email": "",
+      "company": "",
+      "position": "Lead Consultant",
+      "connectedOnIso": "2022-09-15"
+    },
+    {
+      "personId": "P03644",
+      "url": null,
+      "firstName": "Timothy",
+      "lastName": "Adams",
+      "email": "",
+      "company": "Chevron",
+      "position": "Senior Manager, Accounting",
+      "connectedOnIso": "2022-06-16"
+    },
+    {
+      "personId": "P03497",
+      "url": null,
+      "firstName": "Oluwaseun",
+      "lastName": "Nwachukwu",
+      "email": "",
+      "company": "SAIC",
+      "position": "General Manager",
+      "connectedOnIso": "2022-05-28"
+    },
+    {
+      "personId": "P02006",
+      "url": null,
+      "firstName": "Dohyun",
+      "lastName": "Ahn",
+      "email": "",
+      "company": "NYT",
+      "position": "Head of Growth Marketing",
+      "connectedOnIso": "2022-05-17"
+    },
+    {
+      "personId": "P00576",
+      "url": null,
+      "firstName": "Fang",
+      "lastName": "Chen",
+      "email": "fang.chen@example.net",
+      "company": "Meta",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2022-01-27"
+    },
+    {
+      "personId": "P01974",
+      "url": null,
+      "firstName": "Dieter",
+      "lastName": "Rossi",
+      "email": "",
+      "company": "Bridgewater Associates",
+      "position": "Regional Sales Lead",
+      "connectedOnIso": "2021-11-25"
+    },
+    {
+      "personId": "P01877",
+      "url": null,
+      "firstName": "Feng",
+      "lastName": "Xu",
+      "email": "",
+      "company": "National Geographic Society",
+      "position": "Recruiting Coordinator",
+      "connectedOnIso": "2021-11-22"
+    },
+    {
+      "personId": "P03465",
+      "url": null,
+      "firstName": "Henry",
+      "lastName": "Thompson",
+      "email": "",
+      "company": "U.S. Senate",
+      "position": "Senior Policy Analyst",
+      "connectedOnIso": "2021-11-20"
+    },
+    {
+      "personId": "P02216",
+      "url": null,
+      "firstName": "Seoyeon",
+      "lastName": "Shin",
+      "email": "",
+      "company": "Harvard Medical School",
+      "position": "Associate Chair",
+      "connectedOnIso": "2021-11-16"
+    },
+    {
+      "personId": "P03456",
+      "url": null,
+      "firstName": "Jack",
+      "lastName": "Lewis",
+      "email": "",
+      "company": "U.S. Department of the Treasury",
+      "position": "Senior Counsel",
+      "connectedOnIso": "2021-10-25"
+    },
+    {
+      "personId": "P03469",
+      "url": null,
+      "firstName": "Kamau",
+      "lastName": "Traore",
+      "email": "",
+      "company": "U.S. Department of the Treasury",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2021-10-22"
+    },
+    {
+      "personId": "P03464",
+      "url": null,
+      "firstName": "Daniel",
+      "lastName": "Katz",
+      "email": "",
+      "company": "Center for Strategic and International Studies",
+      "position": "Correspondent",
+      "connectedOnIso": "2021-06-12"
+    },
+    {
+      "personId": "P01534",
+      "url": null,
+      "firstName": "Grace",
+      "lastName": "Rivera",
+      "email": "",
+      "company": "Spotify",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2021-05-19"
+    },
+    {
+      "personId": "P03500",
+      "url": null,
+      "firstName": "Nkechi",
+      "lastName": "Okeke",
+      "email": "",
+      "company": "Heritage Foundation",
+      "position": "Sr. Product Marketing Manager",
+      "connectedOnIso": "2021-04-12"
+    },
+    {
+      "personId": "P03447",
+      "url": null,
+      "firstName": "Antoine",
+      "lastName": "Braun",
+      "email": "antoinebraun68@example.net",
+      "company": "The House",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2021-03-13"
+    },
+    {
+      "personId": "P01963",
+      "url": null,
+      "firstName": "Gustav",
+      "lastName": "Larsson",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "",
+      "connectedOnIso": "2021-03-12"
+    },
+    {
+      "personId": "P03445",
+      "url": null,
+      "firstName": "Christopher",
+      "lastName": "Walker",
+      "email": "",
+      "company": "U.S. Department of the Treasury",
+      "position": "Program Officer",
+      "connectedOnIso": "2021-03-11"
+    },
+    {
+      "personId": "P03440",
+      "url": null,
+      "firstName": "Miguel",
+      "lastName": "Medina",
+      "email": "miguel_medina@example.net",
+      "company": "Smithsonian Institution",
+      "position": "Senior Program Manager",
+      "connectedOnIso": "2021-03-02"
+    },
+    {
+      "personId": "P02247",
+      "url": null,
+      "firstName": "Hao",
+      "lastName": "Xu",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Research Manager",
+      "connectedOnIso": "2020-12-26"
+    },
+    {
+      "personId": "P03482",
+      "url": null,
+      "firstName": "José",
+      "lastName": "García",
+      "email": "",
+      "company": "Deloitte",
+      "position": "Project Leader",
+      "connectedOnIso": "2020-12-16"
+    },
+    {
+      "personId": "P00274",
+      "url": null,
+      "firstName": "Vikram",
+      "lastName": "Nair",
+      "email": "",
+      "company": "Intuit",
+      "position": "Team Lead, Customer Success",
+      "connectedOnIso": "2020-07-31"
+    },
+    {
+      "personId": "P03459",
+      "url": null,
+      "firstName": "Emilio",
+      "lastName": "Jiménez",
+      "email": "",
+      "company": "U.S. Department of State",
+      "position": "Senior Program Manager, Policy",
+      "connectedOnIso": "2020-07-20"
+    },
+    {
+      "personId": "P02978",
+      "url": null,
+      "firstName": "Yulia",
+      "lastName": "Baranov",
+      "email": "",
+      "company": "Selfridges",
+      "position": "Supply Chain Lead",
+      "connectedOnIso": "2020-05-04"
+    },
+    {
+      "personId": "P01732",
+      "url": null,
+      "firstName": "Lauren",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Morgan Stanley",
+      "position": "Associate Director, FP&A",
+      "connectedOnIso": "2020-04-18"
+    },
+    {
+      "personId": "P03493",
+      "url": null,
+      "firstName": "Shira",
+      "lastName": "Abramson",
+      "email": "",
+      "company": "The World Bank",
+      "position": "Senior Policy Analyst",
+      "connectedOnIso": "2020-04-05"
+    },
+    {
+      "personId": "P03484",
+      "url": null,
+      "firstName": "Ali",
+      "lastName": "Khoury",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & CEO",
+      "connectedOnIso": "2020-03-07"
+    },
+    {
+      "personId": "P03805",
+      "url": null,
+      "firstName": "Alejandro",
+      "lastName": "Castillo",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & COO",
+      "connectedOnIso": "2020-02-13"
+    },
+    {
+      "personId": "P03148",
+      "url": null,
+      "firstName": "Ayomide",
+      "lastName": "Amadi",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2019-12-19"
+    },
+    {
+      "personId": "P03437",
+      "url": null,
+      "firstName": "Lauren",
+      "lastName": "Weiss",
+      "email": "",
+      "company": "U.S. House of Representatives",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2019-12-13"
+    },
+    {
+      "personId": "P03842",
+      "url": null,
+      "firstName": "Alejandro",
+      "lastName": "Delgado",
+      "email": "",
+      "company": "Shell USA",
+      "position": "Operations Lead",
+      "connectedOnIso": "2019-11-11"
+    },
+    {
+      "personId": "P03496",
+      "url": null,
+      "firstName": "Yusuf",
+      "lastName": "Fares",
+      "email": "",
+      "company": "U.S. Department of State",
+      "position": "Policy Lead",
+      "connectedOnIso": "2019-10-28"
+    },
+    {
+      "personId": "P03513",
+      "url": null,
+      "firstName": "Kamau",
+      "lastName": "Traore",
+      "email": "",
+      "company": "The World Bank",
+      "position": "Senior Program Manager, Policy",
+      "connectedOnIso": "2019-06-03"
+    },
+    {
+      "personId": "P03480",
+      "url": null,
+      "firstName": "Douglas",
+      "lastName": "Turner",
+      "email": "",
+      "company": "National Geographic Society",
+      "position": "Senior Program Manager",
+      "connectedOnIso": "2019-06-01"
+    },
+    {
+      "personId": "P03466",
+      "url": null,
+      "firstName": "Elena",
+      "lastName": "Ramos",
+      "email": "elena.ramos@example.net",
+      "company": "Red Cross",
+      "position": "Chief of Staff",
+      "connectedOnIso": "2019-02-13"
+    },
+    {
+      "personId": "P03455",
+      "url": null,
+      "firstName": "Owen",
+      "lastName": "Jackson",
+      "email": "",
+      "company": "General Dynamics",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2018-12-08"
+    },
+    {
+      "personId": "P01988",
+      "url": null,
+      "firstName": "Marina",
+      "lastName": "Novikov",
+      "email": "",
+      "company": "Citigroup",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2016-03-29"
+    },
+    {
+      "personId": "P01800",
+      "url": null,
+      "firstName": "Sameer",
+      "lastName": "Saxena",
+      "email": "",
+      "company": "Bridgewater Associates",
+      "position": "VP, Human Resources",
+      "connectedOnIso": "2016-03-04"
+    },
+    {
+      "personId": "P03442",
+      "url": null,
+      "firstName": "Nathan",
+      "lastName": "Morozov",
+      "email": "",
+      "company": "DOE",
+      "position": "Under Secretary",
+      "connectedOnIso": "2015-11-19"
+    },
+    {
+      "personId": "P03487",
+      "url": null,
+      "firstName": "Brian",
+      "lastName": "Ricci",
+      "email": "",
+      "company": "U.S. Senate",
+      "position": "Branch Chief",
+      "connectedOnIso": "2015-10-14"
+    },
+    {
+      "personId": "P02458",
+      "url": null,
+      "firstName": "Kyungsoo",
+      "lastName": "Jeon",
+      "email": "kyungsoo_jeon@example.org",
+      "company": "Pfizer",
+      "position": "Manager, R&D",
+      "connectedOnIso": "2015-02-19"
+    }
+  ]
+}

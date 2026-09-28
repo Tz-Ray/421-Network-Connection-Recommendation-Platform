@@ -1,0 +1,21 @@
+datasetId,personId,fullName,url,format,community,exportDate,file,connections
+N01,P01020,Kavita Raghavan,https://www.linkedin.com/in/kavita-raghavan-0c2c395,full,SEA_TECH,2026-09-28,networks/full/N01_kavita-raghavan.zip,1450
+N02,P01132,Vivek Singh,https://www.linkedin.com/in/vivek-singh-a26fbc8,full,SF_FINTECH,2026-08-14,networks/full/N02_vivek-singh.zip,820
+N03,P01958,Aminata Adeyemi,https://www.linkedin.com/in/aminata-adeyemi-5604cde,full,NYC_FINANCE,2026-03-02,networks/full/N03_aminata-adeyemi.zip,610
+N04,P02201,Kristine Chua,https://www.linkedin.com/in/kristine-chua-8ac3ca6,full,BOS_HEALTH,2025-11-19,networks/full/N04_kristine-chua.zip,390
+N05,P02576,Jaewoo Cho,https://www.linkedin.com/in/jaewoo-cho-c928102,full,CHI_CONSULT,2026-06-30,networks/full/N05_jaewoo-cho.zip,260
+N06,P02750,Larisa Fedorov,https://www.linkedin.com/in/larisa-fedorov-cef1631c,full,LDN_RETAIL,2025-09-08,networks/full/N06_larisa-fedorov.zip,540
+N07,P03285,Lars Desai,https://www.linkedin.com/in/lars-desai-4bad90c,full,TOR_ACADEMIA,2026-01-22,networks/full/N07_lars-desai.zip,175
+N08,P03447,Antoine Braun,https://www.linkedin.com/in/antoine-braun-84f6e32,full,DC_POLICY,2025-05-12,networks/full/N08_antoine-braun.zip,95
+N09,P03801,Christopher Turner,https://www.linkedin.com/in/christopher-turner-7794cefa,full,HOU_ENERGY,2026-04-17,networks/full/N09_christopher-turner.zip,330
+N10,P04300,Lorenzo Russo,https://www.linkedin.com/in/lorenzo-russo-49c353,full,LA_MEDIA,2025-07-25,networks/full/N10_lorenzo-russo.zip,1050
+C01,P00576,Fang Chen,https://www.linkedin.com/in/fang-chen-ca0ebc,classic,SEA_TECH,2026-05-05,networks/classic/C01_fang-chen.csv,900
+C02,P01617,Sota Wang,https://www.linkedin.com/in/sota-wang-pmp,classic,SF_FINTECH,2026-09-20,networks/classic/C02_sota-wang.csv,420
+C03,P01777,James Paquette,https://www.linkedin.com/in/james-paquette-d946e73,classic,NYC_FINANCE,2025-10-06,networks/classic/C03_james-paquette.csv,300
+C04,P02409,Sofía De La Cruz,https://www.linkedin.com/in/sofia-de-la-cruz-d4c008,classic,BOS_HEALTH,2026-07-11,networks/classic/C04_sofia-de-la-cruz.csv,210
+C05,P02669,Victoria Turner,https://www.linkedin.com/in/victoria-turner-df711a2,classic,CHI_CONSULT,2025-12-15,networks/classic/C05_victoria-turner.csv,150
+C06,P02939,Hannah Walker,https://www.linkedin.com/in/hannah-walker-714c91a,classic,LDN_RETAIL,2026-02-09,networks/classic/C06_hannah-walker.csv,120
+C07,P03354,Abigail Harris,https://www.linkedin.com/in/abigail-harris-c793b23,classic,TOR_ACADEMIA,2025-08-27,networks/classic/C07_abigail-harris.csv,640
+C08,P03435,Megan Turner,https://www.linkedin.com/in/megan-turner-7c3ba277,classic-legacy,DC_POLICY,2025-06-20,networks/classic/C08_megan-turner.csv,75
+C09,P03784,Rafael Medina,https://www.linkedin.com/in/rafael-medina-84a59e04,classic-legacy,HOU_ENERGY,2025-05-28,networks/classic/C09_rafael-medina.csv,480
+C10,P04532,Edward Belov,https://www.linkedin.com/in/edward-belov-6d5de528,classic,LA_MEDIA,2026-09-01,networks/classic/C10_edward-belov.csv,250

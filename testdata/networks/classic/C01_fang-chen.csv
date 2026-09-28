@@ -1,0 +1,904 @@
+Notes:
+"When exporting your connection data, you may notice that some of the email addresses are missing. You will only see email addresses for connections who have allowed their connections to see or download their email address using this setting https://www.linkedin.com/psettings/privacy/email. You can learn more here https://www.linkedin.com/help/linkedin/answer/261"
+
+First Name,Last Name,URL,Email Address,Company,Position,Connected On
+Ming,Huang,https://www.linkedin.com/in/mhuang,,Amazon Web Services (AWS),Head of Product,04 May 2026
+Analiza,Mendoza,https://www.linkedin.com/in/amendoza,amendoza@example.net,Amazon Web Services (AWS),Software Engineering Manager,04 May 2026
+Abigail,Moore,https://www.linkedin.com/in/abigail-moore-b7c142ab,,Amazon Web Services (AWS),Recruiting Intern,04 May 2026
+Lauren,Jackson,https://www.linkedin.com/in/lauren-jackson-2abd91,,Amazon Web Services (AWS),Senior Account Executive,04 May 2026
+George,Roberts,https://www.linkedin.com/in/george-roberts-aabfd8d,,Amazon Web Services (AWS),Engineering Manager,04 May 2026
+Lina,Karam,https://www.linkedin.com/in/lina-karam-f894fea4,,Amazon Web Services (AWS),Sr. Product Marketing Manager,04 May 2026
+Krzysztof,Volkov,https://www.linkedin.com/in/krzysztof-volkov-4fa7788,,Amazon Web Services (AWS),Machine Learning Engineer,04 May 2026
+Antoine,Wolf,https://www.linkedin.com/in/antoine-wolf-c4f7de38,,PayPal,Product Management Intern,03 May 2026
+Asher,Rosen,https://www.linkedin.com/in/asher-rosen-58a31eb,,Amazon Web Services (AWS),Talent Acquisition Partner,30 Apr 2026
+Junho,Nam,https://www.linkedin.com/in/junho-nam-b8cffbe1,,Riot Games,Staff Software Engineer,29 Apr 2026
+Ebele,Adebisi,https://www.linkedin.com/in/ebele-adebisi-197e72a,,Nintendo,Senior PM,27 Apr 2026
+Sameer,Rao,https://www.linkedin.com/in/sameer-rao-4145d3,,,,25 Apr 2026
+Maha,Watanabe,https://www.linkedin.com/in/maha-watanabe-f9fcdd81,,Outreach,"Co-Founder, Marketing",19 Apr 2026
+Otieno,Odhiambo,https://www.linkedin.com/in/otieno-odhiambo-a9e5d936,,Google,Head of Product,17 Apr 2026
+Michelle,Yap,https://www.linkedin.com/in/michelle-yap-056b13,,Amazon Web Services (AWS),Junior Customer Success Manager,16 Apr 2026
+Ariel,Gross,https://www.linkedin.com/in/grossariel,,Google,Data Analytics Intern,15 Apr 2026
+Joseph,Young,https://www.linkedin.com/in/joseph-young-c912db76,,Wizards of the Coast,Engineering Lead,14 Apr 2026
+Stefan,Schröder,https://www.linkedin.com/in/stefan-schroder-d56b6bc,,Snowflake,UI/UX Designer,13 Apr 2026
+Hao,Yamamoto,https://www.linkedin.com/in/hao-yamamoto-67ac18,haoyamamoto92@example.org,Microsoft,Customer Success Manager,12 Apr 2026
+Edward,White,https://www.linkedin.com/in/edward-white-20332a1f,,Tableau Software,Software Engineering Manager,09 Apr 2026
+Axel,Dahl,https://www.linkedin.com/in/axel-dahl-d15794,,Smartsheet,Machine Learning Engineer,05 Apr 2026
+Minh,Vương,https://www.linkedin.com/in/minh-vuong-8f5b60af,,Nintendo of America,Senior SWE,04 Apr 2026
+José,Cruz,https://www.linkedin.com/in/josecruz,,Amazon,"Manager, Data Science",31 Mar 2026
+Salma,Youssef,https://www.linkedin.com/in/salma-youssef-d7f58e3e,,Boeing,Operations Lead,31 Mar 2026
+Julia,Wang,https://www.linkedin.com/in/julia-wang-a82665,,Bank of Montreal,Senior Finance Manager,28 Mar 2026
+Ayesha,Nair,https://www.linkedin.com/in/ayesha-nair-cc22f02,,The Walt Disney Company,Executive Producer,28 Mar 2026
+Hana,Hu,https://www.linkedin.com/in/hana-hu-e6c5ffd5,,Self-employed,Senior Data Scientist,27 Mar 2026
+Anton,Dąbrowski,https://www.linkedin.com/in/anton-dabrowski-71468874,,KPMG,Lead Consultant,26 Mar 2026
+Daniel,Katz,https://www.linkedin.com/in/daniel-katz-00375b1,,Center for Strategic and International Studies,Senior Correspondent,24 Mar 2026
+Nikolai,Sokolov,https://www.linkedin.com/in/nikolai-sokolov-4ac97a51,,Amazon Web Services (AWS),Sales Intern,22 Mar 2026
+Anil,Kumar,https://www.linkedin.com/in/anilkumar16,,Tableau Software,"Manager, UX",22 Mar 2026
+Zara,Subramaniam,https://www.linkedin.com/in/zara-subramaniam-9c8228d,,Wizards of the Coast,"Director, Analytics",17 Mar 2026
+Khánh,Mai,https://www.linkedin.com/in/khanh-mai-c1ba54,,Amazon Web Services (AWS),Principal Software Engineer,15 Mar 2026
+Vera,Szymański,https://www.linkedin.com/in/veraszymanski45,,Amazon Web Services (AWS),"Senior Manager, Customer Success",12 Mar 2026
+Matteo,Schwarz,https://www.linkedin.com/in/matteo-schwarz-cpa,,Getty Images,Associate Marketing Manager,11 Mar 2026
+Nisha,Kapoor,https://www.linkedin.com/in/nisha-kapoor-cfa,,Google,"Team Lead, Customer Success",11 Mar 2026
+Beatrice,Ferrari,https://www.linkedin.com/in/beatrice-ferrari-d0ab11,,OICR,Co-Founder & CEO,10 Mar 2026
+Jocelyn,Bautista,https://www.linkedin.com/in/JocelynBautista,,Robinhood,"Associate Director, Marketing",10 Mar 2026
+Wei,Gao,https://www.linkedin.com/in/wei-gao-b55d86,,Valve Corporation,APM,06 Mar 2026
+Hana,Nakamura,https://www.linkedin.com/in/hana-nakamura-d6d86fa2,,Brex,Sr. Product Marketing Manager,05 Mar 2026
+Sarah,Martin,https://www.linkedin.com/in/sarahmartin,,Amazon Web Services (AWS),Data Science Lead,03 Mar 2026
+Mona,Sarkis,https://www.linkedin.com/in/mona-sarkis,,Meta,VP of Product,02 Mar 2026
+Brian,Parker,https://www.linkedin.com/in/brian-parker-98f8ba4,,SoFi,Senior Software Engineer,02 Mar 2026
+Arjun,Mehta,https://www.linkedin.com/in/arjun-mehta-7470bf,,Self-employed,Senior Product Manager,01 Mar 2026
+Sungmin,Kong,https://www.linkedin.com/in/sungmin-kong-04ea276,skong@example.com,T-Mobile US,Account Executive,01 Mar 2026
+Aisatou,Ochieng,https://www.linkedin.com/in/AisatouOchieng,,ConocoPhillips,Senior Process Engineer,01 Mar 2026
+Yuna,Zhang,https://www.linkedin.com/in/yuna-zhang-9ea3f37e,,Starbucks,--,26 Feb 2026
+Yan,Guo,https://www.linkedin.com/in/yanguo96,,PitchBook,"Manager, Data Science",12 Feb 2026
+Gabriel,García,https://www.linkedin.com/in/gabriel-garcia-8ac80a4c,,Legendary Entertainment,Post-Production Lead,07 Feb 2026
+Aaron,Weiss,https://www.linkedin.com/in/aaron-weiss-f48e2f8,,Airbnb,Executive Office Intern,06 Feb 2026
+Hải,Chu,https://www.linkedin.com/in/hai-chu-ccf8d4,,Getty Images,Talent Acquisition Manager,05 Feb 2026
+Feng,Sun,https://www.linkedin.com/in/feng-sun-90ca34d,,Meta,Enterprise Account Executive,05 Feb 2026
+Doyoon,Oh,https://www.linkedin.com/in/doyoon-oh-bdb0837,,Anthropic,"Senior Manager, Product Management, SQL",04 Feb 2026
+Analiza,Torres,https://www.linkedin.com/in/analiza-torres-cdf24308,analiza.torres@example.net,Self-employed,Executive Assistant,02 Feb 2026
+Lorenzo,Ghannam,https://www.linkedin.com/in/lorenzo-ghannam-56da47a0,,Bank of America,Corporate Counsel,28 Jan 2026
+Ngọc,Quách,https://www.linkedin.com/in/ngoc-quach-1c2f73,,Microsoft,Sr. Designer,26 Jan 2026
+Camille,Greco,https://www.linkedin.com/in/camille-greco-f5883916,,Morgan Stanley,DEAL TEAM LEAD,26 Jan 2026
+Ilan,Zimmerman,https://www.linkedin.com/in/ilan-zimmerman-4905166,,Universal Music Group,Post-Production Lead,26 Jan 2026
+Lars,Lund,https://www.linkedin.com/in/lars-lund-6ac6005,,Anthropic,"Director, Software Engineering",25 Jan 2026
+Sean,Clark,https://www.linkedin.com/in/sean-clark-d27563f,,Riot Games,AE,23 Jan 2026
+Diego,Díaz,https://www.linkedin.com/in/diego-diaz-4c6d65,,Meta,SWE I,22 Jan 2026
+Zara,Yadav,https://www.linkedin.com/in/zara-yadav-a83a618,,Weyerhaeuser,Senior Operations Manager,17 Jan 2026
+Karan,Chopra,https://www.linkedin.com/in/karan-chopra-cab227,,Avalara,Group Product Manager,16 Jan 2026
+Aisha,Menon,https://www.linkedin.com/in/aisha-menon-059a391,,T-Mobile US,Sr.  AE,13 Jan 2026
+Gregory,Green,https://www.linkedin.com/in/gregory-green-17d483a7,,,,13 Jan 2026
+Aditya,Banerjee,https://www.linkedin.com/in/aditya-banerjee-0c7301,,Amazon Web Services (AWS),CPO,07 Jan 2026
+Huda,Mansour,https://www.linkedin.com/in/huda-mansour,,Stealth Startup,"Co-Founder, Data",30 Dec 2025
+Sota,Liu,https://www.linkedin.com/in/sota-liu-f9f0d72d,,Zillow Group,Data Analytics Intern,27 Dec 2025
+Qiang,Chen,https://www.linkedin.com/in/qiang-chen-bc334ff,,,,26 Dec 2025
+Edward,Martin,https://www.linkedin.com/in/edward-martin-e728e5,,Amazon,Software Engineer II,25 Dec 2025
+Katherine,Harris,https://www.linkedin.com/in/katherine-harris-100482,,Boston Consulting Group,Engagement Manager,25 Dec 2025
+Anjali,Bhatt,https://www.linkedin.com/in/anjali-bhatt-e8106b0,,Meta,Senior Software Engineer,22 Dec 2025
+Michelle,Salazar,https://www.linkedin.com/in/michelle-salazar-566fe9,,Blackstone,Director of Finance,21 Dec 2025
+Vikram,Subramaniam,https://www.linkedin.com/in/vikram-subramaniam-30d897b3,vikram.subramaniam@example.com,"Block, Inc.","Director, Client Services",19 Dec 2025
+Nikhil,Hussain,https://www.linkedin.com/in/nikhilhussain95,nhussain@example.com,Avalara,Sales Manager,18 Dec 2025
+Emil,Hansen,https://www.linkedin.com/in/emil-hansen-ad0afe62,,Bungie,Backend Engineer,15 Dec 2025
+Ayelet,Gross,https://www.linkedin.com/in/ayelet-gross-4e33d1a,ayelet.gross@example.net,Wells Fargo,Director of Finance,14 Dec 2025
+Josée,Bergeron,https://www.linkedin.com/in/josee-bergeron-6bc2039c,,National Research Council Canada,Associate Professor,14 Dec 2025
+Vivek,Pillai,https://www.linkedin.com/in/vivek-pillai-56f0609f,,Microsoft,Sr. Designer,10 Dec 2025
+Layla,Aoun,https://www.linkedin.com/in/layla-aoun-4c0bbb,,Compass Group,"Senior Operations Manager, Hospitality",10 Dec 2025
+Yael,Lipman,https://www.linkedin.com/in/yael-lipman-99ef5ebc,,Smartsheet,"Senior Manager, Product Management",07 Dec 2025
+Thomas,Wilson,https://www.linkedin.com/in/thomas-wilson-d35684,,WMG,Operations Director,07 Dec 2025
+Joseph,Jackson,https://www.linkedin.com/in/joseph-jackson-9723a8e,,Alaska Airlines,"Group Manager, Customer Success",06 Dec 2025
+Caroline,Wilson,https://www.linkedin.com/in/caroline-wilson-4dcee02f,,Amazon Web Services,Senior SWE,05 Dec 2025
+Xia,Liang,https://www.linkedin.com/in/xia-liang-198fbcdf,,Microsoft,Senior Applied Scientist,05 Dec 2025
+Yuna,Cao,https://www.linkedin.com/in/yuna-cao-7c59719,,PayPal,AE,02 Dec 2025
+Tanya,Chaudhary,https://www.linkedin.com/in/tanyachaudhary27,,Boots UK,"Senior Director, Strategy",01 Dec 2025
+Antonio,Aguilar,https://www.linkedin.com/in/antonio-aguilar-33c3d7a,,Rover.com,"Manager, Data Science",29 Nov 2025
+Mathilde,Gallo,https://www.linkedin.com/in/mathilde-gallo-3a9cff,,Rover.com,Applied Scientist,25 Nov 2025
+Mariana,Jiménez,https://www.linkedin.com/in/mariana-jimenez-409c6802,,Smithsonian Institution,Senior Program Manager,19 Nov 2025
+Emily,Roberts,https://www.linkedin.com/in/robertsemily,,Live Nation Entertainment,Lead Counsel,19 Nov 2025
+Khánh,Kiều,https://www.linkedin.com/in/khanh-kieu-5784733,,Amazon,Sr. PM,17 Nov 2025
+Valentina,Núñez,https://www.linkedin.com/in/valentina-nunez-ae92f60,,McKinsey & Company,Sales Development Representative,12 Nov 2025
+Zahra,Saad,https://www.linkedin.com/in/saadzahra,zahrasaad31@example.org,Outreach,Engineering Lead - Remote,07 Nov 2025
+Yan,Cai,https://www.linkedin.com/in/yan-cai-pe,,Avalara,Frontend Engineer,06 Nov 2025
+Shreya,Malhotra,https://www.linkedin.com/in/shreya-malhotra-f5248593,,Bungie,Product Manager,06 Nov 2025
+Mei,Yamamoto,https://www.linkedin.com/in/mei-yamamoto-5a09da3f,,Canadian National Railway,Director of Finance,05 Nov 2025
+Daniel,Wexler,https://www.linkedin.com/in/wexlerdaniel,,"Block, Inc.",Engineering Intern,03 Nov 2025
+Priya,Rao,https://www.linkedin.com/in/priya-rao-1b4e667,priya_rao@example.com,Government of Canada,Senior Policy Advisor,02 Nov 2025
+Antoine,Müller,https://www.linkedin.com/in/antoine-muller-936975,,Sequoia Capital,VC Associate,31 Oct 2025
+George,Phillips,https://www.linkedin.com/in/george-phillips-37da97b,,DocuSign,Frontend Engineer,29 Oct 2025
+Adriana,Torres,https://www.linkedin.com/in/adriana-torres-0cff335,,Stealth Startup,"Co-Founder, Product",29 Oct 2025
+Manuel,Cruz,https://www.linkedin.com/in/manuel-cruz-e75de6c,,Smartsheet,SWE,22 Oct 2025
+Emily,Edwards,https://www.linkedin.com/in/emily-edwards-b5df4c,,Coinbase,Senior Applied Scientist,19 Oct 2025
+Đức,Lý,https://www.linkedin.com/in/duc-ly-632b6b,,Avalara,Senior Software Engineer,17 Oct 2025
+Zofia,Sy,https://www.linkedin.com/in/zofia-sy-34e905,,DoorDash,Product Management Intern,10 Oct 2025
+Kevin,White,https://www.linkedin.com/in/kevin-white-f8c9dcc,,Jacobs Engineering Group,Talent Acquisition Partner,09 Oct 2025
+Rohan,White,https://www.linkedin.com/in/rohan-white,,Valve Corporation,Customer Success Lead,07 Oct 2025
+Chukwudi,Rossi,https://www.linkedin.com/in/chukwudi-rossi-687a51d8,,Government of Ontario,"Senior Program Manager, Policy",06 Oct 2025
+Amanda,Allen,https://www.linkedin.com/in/amandaallen88,,Amazon,Senior Software Engineer,04 Oct 2025
+Imelda,Jones,https://www.linkedin.com/in/imelda-jones-be30e8c,,Microsoft,VP of People,03 Oct 2025
+Gabriel,Martínez,https://www.linkedin.com/in/gabriel-martinez-2491ea,,Microsoft,General Manager,01 Oct 2025
+Charles,Wilson,https://www.linkedin.com/in/charles-wilson-dcd5cf,,Stealth Startup,Founder,29 Sep 2025
+Alessandro,Bianchi,https://www.linkedin.com/in/alessandro-bianchi-abd5e73,alessandro_bianchi@example.com,,,27 Sep 2025
+Mei,Nakamura,https://www.linkedin.com/in/mei-nakamura-cfd58566,,REI Co-op,Senior Chief of Staff,25 Sep 2025
+Michal,Goldstein,https://www.linkedin.com/in/michal-goldstein,,Diageo,CPA,25 Sep 2025
+Ingrid,Koch,https://www.linkedin.com/in/ingrid-koch-ea6bd1,,T-Mobile,Engineering Manager,23 Sep 2025
+Robert,Williams,https://www.linkedin.com/in/robert-williams-06df8f,,Getty Images,Operations Director,20 Sep 2025
+Amanda,Edwards,https://www.linkedin.com/in/amanda-edwards-6b9533f,,Microsoft,Principal Software Engineer,12 Sep 2025
+Simran,Iyer,https://www.linkedin.com/in/simran-iyer-090bee9f,,F5,Sr. PM 🚀,07 Sep 2025
+Hiền,Đinh,https://www.linkedin.com/in/hien-dinh-6569344,,Google,Enterprise Account Executive,06 Sep 2025
+Anjali,Guo,https://www.linkedin.com/in/anjali-guo-22dcc33,,Government of Ontario,Senior Policy Advisor,06 Sep 2025
+Pooja,Verma,https://www.linkedin.com/in/pooja-verma-e05f66,,ArenaNet,Founder & Head of People,31 Aug 2025
+Ritu,Rao,https://www.linkedin.com/in/ritu-rao-e00c935a,,Instacart,Lead Software Engineer,31 Aug 2025
+Sara,Karam,https://www.linkedin.com/in/SaraKaram,,Bungie,Senior Vice President,30 Aug 2025
+Ritu,Bhatia,https://www.linkedin.com/in/ritu-bhatia-358e0b,,Redfin,Senior Account Executive,26 Aug 2025
+Megan,Anderson,https://www.linkedin.com/in/megan-anderson-dbac2818,,Baker Hughes,Lead Engineer - Remote,23 Aug 2025
+Hana,Baek,https://www.linkedin.com/in/hana-baek-a339c08,,Boeing,Business Unit Lead,22 Aug 2025
+Daniel,Roberts,https://www.linkedin.com/in/daniel-roberts-a2a37f9,,Nintendo America Inc.,Software Engineer 🚀,21 Aug 2025
+Giulia,Bauer,https://www.linkedin.com/in/giulia-bauer-22fde70,,Stealth Startup,"  Founder & CPO",19 Aug 2025
+Zhi,Song,https://www.linkedin.com/in/zhi-song-5ccd4c1,,Sequoia Capital,"Associate, Venture Capital",19 Aug 2025
+Yuna,Deng,https://www.linkedin.com/in/yuna-deng-f2dc56d9,,SoFi,"Associate Director, Marketing",14 Aug 2025
+Loan,Từ,https://www.linkedin.com/in/loan-tu-111acdc,,Costco,Sr. Product Marketing Manager,13 Aug 2025
+Riku,Yang,https://www.linkedin.com/in/riku-yang-6744c4,,Expedia Group,Data Scientist,13 Aug 2025
+Ayesha,Hussain,https://www.linkedin.com/in/ayesha-hussain-318b70,,Redfin,"Manager, UX",13 Aug 2025
+Boris,Sokolov,https://www.linkedin.com/in/boris-sokolov-4a01be08,,Zillow Group,Lead Data Scientist,12 Aug 2025
+Matthew,Harris,https://www.linkedin.com/in/matthew-harris-bb8b2927,matthew.harris@example.org,Self-employed,Senior SWE,07 Aug 2025
+Jihoon,Cha,https://www.linkedin.com/in/jihoon-cha-d25e9da2,,Amazon.com,"Manager, Data Science",05 Aug 2025
+Abigail,Carter,https://www.linkedin.com/in/abigail-carter-0a4355,abigail_carter@example.net,T-Mobile US,Group Marketing Manager,01 Aug 2025
+Ishaan,Mishra,https://www.linkedin.com/in/ishaan-mishra-e88421d,,Microsoft,Engineering Manager,29 Jul 2025
+Jack,Johnson,https://www.linkedin.com/in/jack-johnson-2ebd389,,Zillow Group,Senior Account Executive,29 Jul 2025
+Thu,Đỗ,https://www.linkedin.com/in/thu-do-ba2dc1a,,Meta,Data Science Lead,26 Jul 2025
+Matthew,Smith,https://www.linkedin.com/in/matthew-smith-32b2ab,,Outreach,Director of Customer Success,24 Jul 2025
+Amina,Mehta,https://www.linkedin.com/in/amehta,,Chime,Sr. Machine Learning Engineer,16 Jul 2025
+Layla,Khoury,https://www.linkedin.com/in/layla-khoury-a1957e,,Sequoia Capital,"Analyst, Venture Capital",10 Jul 2025
+Noor,Youssef,https://www.linkedin.com/in/noor-youssef-88a23eb2,,Lyft,Director of Design,08 Jul 2025
+Wojciech,Piotrowski,https://www.linkedin.com/in/wpiotrowski,wojciech.piotrowski@example.com,Beth Israel Deaconess Medical Center,Clinical Nurse Leader,07 Jul 2025
+Deepak,Verma,https://www.linkedin.com/in/deepak-verma-5cb33889,,Ontario Institute for Cancer Research,Professor,07 Jul 2025
+Ngozi,Adeyemi,https://www.linkedin.com/in/ngozi-adeyemi-phd,,F5,SWE Intern,02 Jul 2025
+Oluwafemi,Oyelakin,https://www.linkedin.com/in/oluwafemi-oyelakin-2ea59c,,Zillow Group,HR Associate,30 Jun 2025
+Caroline,Walker,https://www.linkedin.com/in/caroline-walker-7c9c1b77,cwalker@example.com,PitchBook,Senior Data Scientist,18 Jun 2025
+Feng,Manalo,https://www.linkedin.com/in/feng-manalo-6eafc6c,,PitchBook,"Vice President, Engineering",17 Jun 2025
+Sunita,Iyer,https://www.linkedin.com/in/sunita-iyer-aaae913e,,Smartsheet,Group Product Manager,16 Jun 2025
+John,Davis,https://www.linkedin.com/in/john-davis-d03c59,,Getty Images,Production Manager,15 Jun 2025
+Chinyere,Bankole,https://www.linkedin.com/in/chinyere-bankole-3525cc,,Outreach,"VP, Design",12 Jun 2025
+Kenji,Song,https://www.linkedin.com/in/kenji-song-6c295c,,Coinbase,Operations Lead,11 Jun 2025
+Lorenzo,Barbieri,https://www.linkedin.com/in/lorenzo-barbieri-pe,lorenzo.barbieri@example.net,Intuit,Lead Data Scientist,08 Jun 2025
+Mathilde,Gutiérrez,https://www.linkedin.com/in/mathilde-gutierrez-69789675,mgutierrez@example.org,Legendary Entertainment,Senior Finance Manager,07 Jun 2025
+Avi,Adler,https://www.linkedin.com/in/avi-adler-3c8e72ce,,Amazon Web Services (AWS),Senior Chief of Staff,05 Jun 2025
+Henry,Evans,https://www.linkedin.com/in/henry-evans-ec7d07c2,,Chime,Applied Scientist,02 Jun 2025
+Jie,Guerrero,https://www.linkedin.com/in/jie-guerrero-004499a,jguerrero@example.com,Freelance,Charge Nurse,27 May 2025
+Timothy,Lewis,https://www.linkedin.com/in/timothylewis67,tlewis@example.org,Amazon Web Services (AWS),"Senior Director, Strategy",26 May 2025
+Scott,Phillips,https://www.linkedin.com/in/scott-phillips-221664,,Freelance,Sr. Software Engineer,25 May 2025
+Deepak,Iyer,https://www.linkedin.com/in/deepak-iyer-1d57e4,,Tesco,Commercial Director,25 May 2025
+Shaira,Baker,https://www.linkedin.com/in/shaira-baker-68bca498,,Zillow Group,Director of Design,23 May 2025
+Claire,Jackson,https://www.linkedin.com/in/claire-jackson-737ad062,clairejackson88@example.org,Self-employed,Senior Operations Manager,18 May 2025
+Anil,Raghavan,https://www.linkedin.com/in/anil-raghavan-9e9eed,,Expedia Group,Data Scientist,15 May 2025
+Shira,Perlman,https://www.linkedin.com/in/shiraperlman42,,KPMG,Sales Team Lead,07 May 2025
+William,King,https://www.linkedin.com/in/william-king-983cf174,,Costco Wholesale,Operations Associate,06 May 2025
+Amanda,Davis,https://www.linkedin.com/in/amanda-davis-4ee1982a,,ConocoPhillips,Director of Accounting,30 Apr 2025
+Bo,Wang,https://www.linkedin.com/in/bo-wang-5f8d029c,,Lyft,"Manager, Software Engineering",29 Apr 2025
+Brian,Phillips,https://www.linkedin.com/in/brianphillips55,,Stealth Startup,Founder & General Manager,29 Apr 2025
+Gregory,Edwards,https://www.linkedin.com/in/gregory-edwards-015dbf6e,,PitchBook,Regional Sales Lead,24 Apr 2025
+Dũng,Collins,https://www.linkedin.com/in/dung-collins-6eee204,,Sainsbury's,Operations Intern,15 Apr 2025
+Rachel,Thomas,https://www.linkedin.com/in/rachel-thomas-96d364,,Wizards of the Coast,Senior UX Designer,12 Apr 2025
+Kristina,Andersen,https://www.linkedin.com/in/kristina-andersen-4c487a,,Amazon,Lead Data Scientist,10 Apr 2025
+Ana,Díaz,https://www.linkedin.com/in/ana-diaz-pe,,Tableau Software,VP Engineering,08 Apr 2025
+Patrick,Clark,https://www.linkedin.com/in/patrick-clark-3fdae4,,Fandom,Founder & Design Lead,06 Apr 2025
+Caroline,Jackson,https://www.linkedin.com/in/caroline-jackson-1d2de9a,,Lionsgate,Executive Producer,31 Mar 2025
+Brian,Miller,https://www.linkedin.com/in/brian-miller-5ebfd2,,Stealth Startup,"Co-Founder, Data",28 Mar 2025
+Sara,Kassem,https://www.linkedin.com/in/SaraKassem,,Valve Corporation,Senior  Product Manager,19 Mar 2025
+Joseph,Thompson,https://www.linkedin.com/in/joseph-thompson-62980a4,,Avalara,Sr. Machine Learning Engineer,18 Mar 2025
+Julia,Davis,https://www.linkedin.com/in/julia-davis-1fd2a3,,Wizards of the Coast,Software Engineer,16 Mar 2025
+Emil,Bakke,https://www.linkedin.com/in/emil-bakke-bc23c0ec,,Robinhood,Principal Product Manager,16 Mar 2025
+Yong,Xu,https://www.linkedin.com/in/yong-xu-a14473c,,Kleiner Perkins,Investment Manager,16 Mar 2025
+Emma,Anderson,https://www.linkedin.com/in/emma-anderson-c65e61,,Sequoia Capital,Investment Manager,15 Mar 2025
+Yasmin,Farooq,https://www.linkedin.com/in/yasmin-farooq-8327ac7,yasmin_farooq@example.net,F5 Networks,Engineering Director,14 Mar 2025
+Vikram,Nair,https://www.linkedin.com/in/vikramnair95,,Intuit,"Team Lead, Customer Success",08 Mar 2025
+Nathan,Wright,https://www.linkedin.com/in/nathan-wright-pmp,,Point72 Asset Management,Investment Banking Summer Analyst,08 Mar 2025
+Kavita,Chatterjee,https://www.linkedin.com/in/kavita-chatterjee-2d2fcb,kavitachatterjee53@example.net,Kleiner Perkins,"Analyst, Venture Capital",05 Mar 2025
+Rekha,Reddy,https://www.linkedin.com/in/rekha-reddy-01657cfa,,Sysco Corporation,Senior Supply Chain Manager,05 Mar 2025
+Joanna,Krawczyk,https://www.linkedin.com/in/joanna-krawczyk-efa8465,joanna_krawczyk@example.com,Salesforce,"Principal Product Manager, ""Prioritization""",02 Mar 2025
+Larisa,Nowak,https://www.linkedin.com/in/larisa-nowak-6c7d7f0,,Lionsgate,Senior Data Scientist,28 Feb 2025
+Rekha,Chopra,https://www.linkedin.com/in/rekha-chopra-d6d5ee,,Avalara,Design Director,28 Feb 2025
+Ming,Fares,https://www.linkedin.com/in/ming-fares-f5455f5,,Google,Design Intern,28 Feb 2025
+Khoa,Văn,https://www.linkedin.com/in/vankhoa,,Self-employed,Senior Data Scientist,24 Feb 2025
+Giulia,Mokoena,https://www.linkedin.com/in/giuliamokoena86,,DocuSign,Design Director,22 Feb 2025
+Chen,Xu,https://www.linkedin.com/in/chen-xu-cf770f9,,Fox Corporation,Line Producer,20 Feb 2025
+Haruto,Xu,https://www.linkedin.com/in/haruto-xu-5ce95d,,,,13 Feb 2025
+Lauren,Stewart,https://www.linkedin.com/in/lauren-stewart-91c27f,,Biogen,Senior Research Scientist,11 Feb 2025
+Hao,Watanabe,https://www.linkedin.com/in/watanabehao,,Nordstrom,Sales Executive,09 Feb 2025
+Amit,Chopra,https://www.linkedin.com/in/amit-chopra-1950ef89,,Avalara,Data Science Manager,08 Feb 2025
+Katherine,Thompson,https://www.linkedin.com/in/katherine-thompson-123fa88,,Intuit,Senior Software Engineer,08 Feb 2025
+Axel,Karlsson,https://www.linkedin.com/in/axel-karlsson-2913c58,,Smartsheet,Engineering Intern,05 Feb 2025
+Rekha,Trivedi,https://www.linkedin.com/in/rekha-trivedi-7fcf367,rekha_trivedi@example.com,Expedia Group,Senior Product Designer,02 Feb 2025
+Aleksandr,Sokołowski,https://www.linkedin.com/in/aleksandr-sokolowski-64d84d27,,Nordstrom,Senior HRBP,02 Feb 2025
+Salimata,Mensah,https://www.linkedin.com/in/salimata-mensah-29c1e76,,Tesco plc,Commercial Director,02 Feb 2025
+Nayeon,Gu,https://www.linkedin.com/in/nayeon-gu-0383cb5a,,DoorDash,PM,31 Jan 2025
+Aakash,Rao,https://www.linkedin.com/in/aakash-rao-4b5d8e9f,,F5,Product Marketing Manager,30 Jan 2025
+Sameer,Bélanger,https://www.linkedin.com/in/sameer-belanger-d2846ac,,PitchBook,Sr. Software Engineer,23 Jan 2025
+Olivia,Young,https://www.linkedin.com/in/oyoung,,Tableau Software,Data Science Intern,20 Jan 2025
+Hương,Zhu,https://www.linkedin.com/in/huong-zhu-936252c,,Meta,SWE,20 Jan 2025
+Noa,Shulman,https://www.linkedin.com/in/noa-shulman-fe31bd,noa.shulman@example.net,Freelancer,Enterprise Account Executive,16 Jan 2025
+Ling,Li,https://www.linkedin.com/in/ling-li-58f3911,,Valve Corporation,SWE I,14 Jan 2025
+Hala,Sabbagh,https://www.linkedin.com/in/hala-sabbagh-e6b47f,,Nordstrom,,13 Jan 2025
+John,Villanueva,https://www.linkedin.com/in/john-villanueva-ff4fcc6d,,Sequoia Capital,Head of Growth Marketing,12 Jan 2025
+Thomas,Mitchell,https://www.linkedin.com/in/thomas-mitchell-0e7205,,Getty Images,Staff Writer,12 Jan 2025
+Emily,Walker,https://www.linkedin.com/in/emily-walker-e5cb9ba,,Diageo,"Senior Manager, Supply Chain",10 Jan 2025
+Chidi,Njoroge,https://www.linkedin.com/in/chidi-njoroge-32c750,,Weyerhaeuser,Operations Intern,06 Jan 2025
+Nils,Ekström,https://www.linkedin.com/in/nils-ekstrom-1de0fa,,Outreach Corporation,APM Intern,27 Dec 2024
+Dũng,Lê,https://www.linkedin.com/in/dung-le-a336bbc,,Amazon Studios,Production Assistant,22 Dec 2024
+Brian,Wright,https://www.linkedin.com/in/brian-wright-34e9ee,bwright@example.org,Freelance,Frontend Engineer,21 Dec 2024
+Valentina,Ramos,https://www.linkedin.com/in/valentina-ramos-a6c3c14,,Databricks,,21 Dec 2024
+Rachel,Adams,https://www.linkedin.com/in/rachel-adams-64a49d6,,Stealth,"Co-Founder, Revenue",21 Dec 2024
+Ren,Luo,https://www.linkedin.com/in/renluo,,PayPal,CSM,18 Dec 2024
+Abigail,Clark,https://www.linkedin.com/in/abigail-clark-ac253c7,,National Research Council Canada,Professor,16 Dec 2024
+Yu,Ito,https://www.linkedin.com/in/yuito74,,Zillow,Lead Software Engineer,15 Dec 2024
+Patrick,Edwards,https://www.linkedin.com/in/patrickedwards76,pedwards@example.net,Avalara Inc.,Senior PM,15 Dec 2024
+Benjamin,Brown,https://www.linkedin.com/in/bbrown,bbrown@example.com,Valve Corporation,VP Engineering,11 Dec 2024
+Sarah,Thomas,https://www.linkedin.com/in/sarah-thomas-848308,,University Health Network,Research Scientist,11 Dec 2024
+Luis,Reyes,https://www.linkedin.com/in/luis-reyes-0227428,,Public Service of Canada,Senior Recruiter,06 Dec 2024
+Nicolas,Wagner,https://www.linkedin.com/in/nicolas-wagner-db499f27,,Nintendo of America,Associate UX Designer,01 Dec 2024
+Scott,White,https://www.linkedin.com/in/scott-white-b608e7,scott_white@example.com,Microsoft,Senior Applied Scientist,29 Nov 2024
+Rania,Siddiqui,https://www.linkedin.com/in/rania-siddiqui-06a8f9,rsiddiqui@example.net,Apple,Data Scientist,28 Nov 2024
+José,Medina,https://www.linkedin.com/in/jose-medina-2a2195,,F5,Senior Product Manager,23 Nov 2024
+Nathan,Harris,https://www.linkedin.com/in/nathan-harris-332602,,Nintendo of America,Engineering Manager,21 Nov 2024
+Kunal,Bhatt,https://www.linkedin.com/in/kunal-bhatt-0b733d2,kunalbhatt13@example.com,Tableau Software,Senior Applied Scientist,20 Nov 2024
+Huda,Iyer,https://www.linkedin.com/in/huda-iyer,huda.iyer@example.net,Halliburton,Senior Reservoir Engineer,19 Nov 2024
+Alessandro,Romano,https://www.linkedin.com/in/alessandro-romano-f33b560,,Chime,"Manager, Data Science",14 Nov 2024
+Meera,Ahmed,https://www.linkedin.com/in/meera-ahmed,,Salesforce,Engineering Director,09 Nov 2024
+Zipporah,Cohen,https://www.linkedin.com/in/cohenzipporah,,Getty Images Inc.,Production Manager,09 Nov 2024
+Yasmin,Shaheen,https://www.linkedin.com/in/yasmin-shaheen-dcd5b23,,Independent Consultant,Independent Consultant,30 Oct 2024
+Liwayway,Ito,https://www.linkedin.com/in/liwayway-ito-45d73b79,,Smartsheet,Staff Software Engineer,23 Oct 2024
+Meera,Trivedi,https://www.linkedin.com/in/meera-trivedi-79bba3f,,Chime,Sr. CSM,23 Oct 2024
+Rania,Basha,https://www.linkedin.com/in/rania-basha-83d1fa0,,Valve Corporation,"Engineering Lead, ""Java""",22 Oct 2024
+Yosef,Rothman,https://www.linkedin.com/in/yosef-rothman-ebbb8b,,Deloitte,Group Finance Manager,20 Oct 2024
+Lei,Li,https://www.linkedin.com/in/lei-li-3bf39f,,Valve Corporation,Product Management Intern,18 Oct 2024
+John,Owusu,https://www.linkedin.com/in/john-owusu-1386d315,,Microsoft,Backend Engineer,18 Oct 2024
+Aleksandr,Morozov,https://www.linkedin.com/in/aleksandr-morozov-f52b0b,,F5,SWE I,15 Oct 2024
+Dmitri,Vasiliev,https://www.linkedin.com/in/dmitri-vasiliev-4b9c6a5,,Freelance,"Senior Associate, Investment Banking",10 Oct 2024
+Otieno,Zimmermann,https://www.linkedin.com/in/otieno-zimmermann-b7e552b,,Zillow Group,,07 Oct 2024
+Lauren,Miller,https://www.linkedin.com/in/lauren-miller-734ac5,,Netflix,Finance Lead,06 Oct 2024
+Elizabeth,Parker,https://www.linkedin.com/in/elizabeth-parker-69a87e,,MSFT,Associate Software Engineer,05 Oct 2024
+Jie,Hu,https://www.linkedin.com/in/hujie,,Snap Inc.,UX Designer,02 Oct 2024
+Émile,Braun,https://www.linkedin.com/in/emile-braun-9d969c,,,,02 Oct 2024
+Naomi,Greenberg,https://www.linkedin.com/in/naomi-greenberg-432c0780,,Smartsheet,Senior Applied Scientist,01 Oct 2024
+Marco,Ricci,https://www.linkedin.com/in/marco-ricci-0c603581,,The Walt Disney Company,Senior Financial Analyst,01 Oct 2024
+María,Núñez,https://www.linkedin.com/in/maria-nunez-0223d8,marianunez4@example.com,Andreessen Horowitz,"Senior Associate, Venture Capital",27 Sep 2024
+Sunita,Ahmed,https://www.linkedin.com/in/sunita-ahmed-243763,,Amazon,Junior Data Scientist,23 Sep 2024
+Gregory,Davis,https://www.linkedin.com/in/gregory-davis-6a0f666c,,Kleiner Perkins,"Associate Director, FP&A",23 Sep 2024
+Karim,Hamdan,https://www.linkedin.com/in/karim-hamdan-5d91f95c,,Meta,Senior PM,22 Sep 2024
+Imelda,Yap,https://www.linkedin.com/in/imelda-yap-05c1cac3,,Canadian National Railway,,22 Sep 2024
+Camille,Go,https://www.linkedin.com/in/camille-go-1602719,,Dana-Farber Cancer Institute,Corporate Counsel,15 Sep 2024
+Karin,Lindqvist,https://www.linkedin.com/in/lindqvistkarin,,ArenaNet,Software Engineer,13 Sep 2024
+Rachel,Baker,https://www.linkedin.com/in/rachel-baker-8c2465bc,,Tableau Software,Software Engineer I,12 Sep 2024
+Ren,Tang,https://www.linkedin.com/in/ren-tang-5f0b0c,,Microsoft,Junior Product Manager,07 Sep 2024
+Mekonnen,Alemu,https://www.linkedin.com/in/mekonnen-alemu-70c553b,,NBCUniversal,Senior Operations Manager,07 Sep 2024
+Nga,Lê,https://www.linkedin.com/in/nga-le-d703266,,Wizards of the Coast,UX Designer,05 Sep 2024
+Quỳnh,Uông,https://www.linkedin.com/in/quong,,Smartsheet,Software Engineer I,05 Sep 2024
+Karan,Cohen,https://www.linkedin.com/in/karancohen,,Stealth Startup,Founder & Design Lead,04 Sep 2024
+Douglas,Harris,https://www.linkedin.com/in/douglas-harris-62953b8,,Bungie,Data Science Manager,30 Aug 2024
+Pavel,Kuznetsov,https://www.linkedin.com/in/pavel-kuznetsov-5b27853f,,DocuSign,SWE I,27 Aug 2024
+Vy,Võ,https://www.linkedin.com/in/vy-vo-cfa,,Weyerhaeuser,"VP, Human Resources",26 Aug 2024
+Ling,Zhou,https://www.linkedin.com/in/lzhou,,DocuSign,Senior Product Designer,25 Aug 2024
+Carlos,Gutiérrez,https://www.linkedin.com/in/carlos-gutierrez-0389f6d,,Andreessen Horowitz,"Director, Investments",25 Aug 2024
+Hugo,Schwarz,https://www.linkedin.com/in/hugo-schwarz-c9a56fb,,Intuit,Engineering Lead,19 Aug 2024
+Andrew,Nelson,https://www.linkedin.com/in/andrew-nelson-e4733863,,Creative Artists Agency (CAA),Sales Manager,13 Aug 2024
+Tunde,Dlamini,https://www.linkedin.com/in/tunde-dlamini-14bf8d9,,,Seeking new opportunities,10 Aug 2024
+Patrick,Campbell,https://www.linkedin.com/in/patrick-campbell-5affb24,,Andreessen Horowitz,Investment Manager,08 Aug 2024
+Feng,Wu,https://www.linkedin.com/in/feng-wu-0f9022,,Airbnb,Executive Assistant to CEO,05 Aug 2024
+Michelle,Panganiban,https://www.linkedin.com/in/michelle-panganiban-e2c558c,,Alphabet Inc.,Senior Chief of Staff,01 Aug 2024
+Jie,Song,https://www.linkedin.com/in/jie-song-801ac8c4,,Sequoia Capital,VC Associate,29 Jul 2024
+Dawit,Diallo,https://www.linkedin.com/in/dawit-diallo-35c88dca,,Microsoft,Marketing Lead,27 Jul 2024
+Yena,Kwon,https://www.linkedin.com/in/yena-kwon-afbdf0,,McGill University,Research Lead,26 Jul 2024
+Varun,Das,https://www.linkedin.com/in/varun-das-282bdabc,,Google LLC,Senior PM,25 Jul 2024
+Mai,Cao,https://www.linkedin.com/in/mai-cao-8e29630,,OpenAI,PM,23 Jul 2024
+Scott,Carter,https://www.linkedin.com/in/scott-carter-c65cbecb,,EY,Engagement Manager,23 Jul 2024
+Francesca,Conti,https://www.linkedin.com/in/francesca-conti-c56ea947,,S&P Global,"VP, Controller",18 Jul 2024
+Tanya,Chatterjee,https://www.linkedin.com/in/tanya-chatterjee-d831f834,,Meta,PM,12 Jul 2024
+Amalie,Joshi,https://www.linkedin.com/in/ajoshi,,Government of Ontario,Policy Lead,11 Jul 2024
+Samuel,Collins,https://www.linkedin.com/in/samuel-collins-b361da7,,T-Mobile US,Operations Lead,04 Jul 2024
+Thomas,Chen,https://www.linkedin.com/in/thomas-chen-8651e3,,Pfizer,Senior Research Scientist,04 Jul 2024
+Ling,Kato,https://www.linkedin.com/in/ling-kato-c7758c,,DocuSign,"Senior Manager, Product Management",23 Jun 2024
+Bora,Choi,https://www.linkedin.com/in/bora-choi,,Self-employed,"Co-Founder, Data",13 Jun 2024
+Jimin,Choi,https://www.linkedin.com/in/jimin-choi-78b8aba,,The Walt Disney Company,Senior Counsel,13 Jun 2024
+Mélanie,Solberg,https://www.linkedin.com/in/melanie-solberg-6aca8d0d,,Warner Bros. Discovery,Line Producer,12 Jun 2024
+Olivia,Adams,https://www.linkedin.com/in/olivia-adams-a279be,,Blizzard Entertainment,Design Lead,11 Jun 2024
+Joseph,Scott,https://www.linkedin.com/in/joseph-scott-4d4ef00a,,Snowflake,Head of Product,10 Jun 2024
+Wei,Xu,https://www.linkedin.com/in/WeiXu,,Sysco Corporation,Senior Operations Manager - Remote,06 Jun 2024
+Jiwoo,Park,https://www.linkedin.com/in/jiwoo-park-8f8d3fcb,,CN,Group Operations Manager,02 Jun 2024
+Elke,Greco,https://www.linkedin.com/in/elke-greco-2fe6ae5a,,Rover.com,Software Engineer I,27 May 2024
+Giulia,Weber,https://www.linkedin.com/in/giulia-weber-a6641c,,Lyft,Senior Applied Scientist,21 May 2024
+Elizabeth,Adams,https://www.linkedin.com/in/elizabeth-adams-4c9cba64,,Ontario Institute for Cancer Research,Professor,20 May 2024
+Sameer,Chaudhary,https://www.linkedin.com/in/sameer-chaudhary-f2226eaf,,Alaska Airlines,--,20 May 2024
+Hanna,Peng,https://www.linkedin.com/in/hanna-peng-35a1dea,,Sony Pictures Entertainment,Managing Editor,18 May 2024
+David,Lewis,https://www.linkedin.com/in/david-lewis-321368a3,,Meta,Data Scientist,09 May 2024
+Pablo,Rahal,https://www.linkedin.com/in/pablo-rahal-6509aa7,,Smartsheet,Staff Software Engineer,06 May 2024
+Matthew,Lewis,https://www.linkedin.com/in/matthew-lewis-b9e031,,Meta,SWE (Contract),26 Apr 2024
+Jun,Zhou,https://www.linkedin.com/in/junzhou,,Wells Fargo,FP&A Analyst,26 Apr 2024
+Jessica,Phillips,https://www.linkedin.com/in/phillipsjessica,jessica_phillips@example.org,Meta,Sr. Software Engineer,22 Apr 2024
+Chinwe,Haile,https://www.linkedin.com/in/chinwe-haile-db38d4,,Freelance,Senior SWE,21 Apr 2024
+Ming,Ma,https://www.linkedin.com/in/ming-ma-22aa3442,,PitchBook,Senior Associate Product Manager,18 Apr 2024
+Julia,Evans,https://www.linkedin.com/in/julia-evans-d1cba1,,BP plc,Engineering Manager,18 Apr 2024
+Rahul,Desai,https://www.linkedin.com/in/rahul-desai-435c836,,,,17 Apr 2024
+Thea,Tadesse,https://www.linkedin.com/in/thea-tadesse-da1158f4,,Airbnb,Senior PM,16 Apr 2024
+Emma,Solberg,https://www.linkedin.com/in/emma-solberg-e3002e2,,Anthropic,"Manager, Sales",15 Apr 2024
+Amit,Sharma,https://www.linkedin.com/in/amit-sharma-2ef1ff3,,Nintendo of America,Machine Learning Engineer,05 Apr 2024
+Nadia,Lee,https://www.linkedin.com/in/nadia-lee-be52e83,,Tableau Software,Frontend Engineer,05 Apr 2024
+Ping,Gao,https://www.linkedin.com/in/pinggao,,Expedia Group,"Senior Manager, Product Management",01 Apr 2024
+Owen,Campbell,https://www.linkedin.com/in/owen-campbell-fafb35,,Snowflake,Regional Sales Lead,01 Apr 2024
+Mei,Lin,https://www.linkedin.com/in/mei-lin-d6e47432,mei_lin@example.net,Bungie Inc.,Software Engineer II,28 Mar 2024
+Jing,Sato,https://www.linkedin.com/in/jing-sato-6248791d,,Expedia Group,Software Engineer,24 Mar 2024
+Haruto,Huang,https://www.linkedin.com/in/haruto-huang-33dbcf,,Amazon,SWE Intern,23 Mar 2024
+Wei,Sato,https://www.linkedin.com/in/wei-sato-8f4d3c9,,Weyerhaeuser,Group Operations Manager,22 Mar 2024
+Patrick,Nelson,https://www.linkedin.com/in/patrick-nelson-f26aea,,Sysco,Supply Chain Analyst,22 Mar 2024
+Uyên,La,https://www.linkedin.com/in/uyen-la-8bdd5c,,F5,Sr. Machine Learning Engineer,20 Mar 2024
+Tao,Zhang,https://www.linkedin.com/in/tao-zhang-d30b61,,Tableau Software,Product Designer,20 Mar 2024
+Grace,Collins,https://www.linkedin.com/in/grace-collins-ac103b,,AT&T Inc.,Financial Planning Lead,20 Mar 2024
+Faith,Uy,https://www.linkedin.com/in/uyfaith,,The Walt Disney Company,Enterprise Account Executive,20 Mar 2024
+Ayesha,Krishnan,https://www.linkedin.com/in/ayesha-krishnan-380f27dc,,Ripple,Enterprise Account Executive,19 Mar 2024
+James,Moore,https://www.linkedin.com/in/james-moore-3805d9,,Meta,Software Engineering Manager,15 Mar 2024
+Paolo,Müller,https://www.linkedin.com/in/paolo-muller-95ad3f71,,Universal Music Group,Senior UX Designer,14 Mar 2024
+Kamau,Zulu,https://www.linkedin.com/in/kamau-zulu-cfa,,Redfin Corporation,Sr. Designer,12 Mar 2024
+Mariana,Nelson,https://www.linkedin.com/in/mariana-nelson-562f32,,Bungie,Director of Engineering,12 Mar 2024
+Vikram,Bhatia,https://www.linkedin.com/in/vikrambhatia,,Sequoia Capital,"  Senior Associate, Venture Capital",10 Mar 2024
+Wei,Han,https://www.linkedin.com/in/wei-han-9d50e48,whan@example.net,Meta,APM,09 Mar 2024
+Lucía,Herzberg,https://www.linkedin.com/in/lucia-herzberg-0e03dda,luciaherzberg20@example.com,Bain & Company,Executive Office Intern,27 Feb 2024
+Miguel,Ramírez,https://www.linkedin.com/in/miguel-ramirez-c0d29ed,,Salesforce,Frontend Engineer,26 Feb 2024
+Zhi,Xu,https://www.linkedin.com/in/zhi-xu-fed448,,Self-employed,"Co-Founder, Revenue",22 Feb 2024
+Yan,Zheng,https://www.linkedin.com/in/yan-zheng-cf89fd3,,American Express,"Senior Associate, M&A",22 Feb 2024
+Kunal,Chowdhury,https://www.linkedin.com/in/kunal-chowdhury-267ea7b,kunal.chowdhury@example.org,,,19 Feb 2024
+Varun,Verma,https://www.linkedin.com/in/varun-verma-3931856f,,Microsoft,Data Analytics Intern,13 Feb 2024
+Ayesha,Vázquez,https://www.linkedin.com/in/ayesha-vazquez-4b8233,,Zillow Group,Senior Data Scientist,07 Feb 2024
+Valentina,Becker,https://www.linkedin.com/in/valentina-becker-0eadaa,,Queen's University,Research Lead,06 Feb 2024
+Rosario,Turner,https://www.linkedin.com/in/turnerrosario,,Microsoft,Sr. Machine Learning Engineer,30 Jan 2024
+Esti,Feldman,https://www.linkedin.com/in/esti-feldman-f659bc,efeldman@example.org,Live Nation Entertainment,"VP, Marketing",30 Jan 2024
+Tao,Li,https://www.linkedin.com/in/tao-li-a32d91b,,WotC,Senior SWE,26 Jan 2024
+Xia,Hu,https://www.linkedin.com/in/xia-hu-36282e,,Salesforce,Director of Product,25 Jan 2024
+Ryan,Collins,https://www.linkedin.com/in/ryan-collins-5506060f,,Airbnb,Senior Software Engineer,23 Jan 2024
+Simran,Singh,https://www.linkedin.com/in/simran-singh-b61fa1,,Starbucks Corporation,Product Marketing Manager,19 Jan 2024
+Priya,Patel,https://www.linkedin.com/in/priya-patel-943199b,,Meta,Senior SWE,18 Jan 2024
+Sota,Hu,https://www.linkedin.com/in/sota-hu-ae0def3,,Google,Senior Product Manager,18 Jan 2024
+Chana,Adler,https://www.linkedin.com/in/chana-adler-ccf2d90e,,JPMorgan Chase & Co.,IB Intern,10 Jan 2024
+Chen,Ma,https://www.linkedin.com/in/chen-ma-124891,,Redfin,Senior Product Manager,04 Jan 2024
+Isabella,Rodríguez,https://www.linkedin.com/in/isabellarodriguez63,,Costco Wholesale,Sr. Product Marketing Manager,02 Jan 2024
+Timothy,Stewart,https://www.linkedin.com/in/timothy-stewart-4a6bd889,tstewart@example.com,Robinhood,Marketing Lead,02 Jan 2024
+Maja,Mikkelsen,https://www.linkedin.com/in/maja-mikkelsen-b8c4f7b,,ArenaNet,"Co-Founder, Data",01 Jan 2024
+Carolina,Castro,https://www.linkedin.com/in/carolina-castro-902aa7,carolinacastro99@example.org,Boots UK,VP of Merchandising,31 Dec 2023
+Daniela,Jiménez,https://www.linkedin.com/in/daniela-jimenez-717f61,daniela_jimenez@example.org,Redfin,Engineering Intern,24 Dec 2023
+Phương,Blum,https://www.linkedin.com/in/phuong-blum-4d5840,phuong.blum@example.com,T-Mobile US,"Director, Software Engineering, ""Node.js""",22 Dec 2023
+Marie-Claude,Davis,https://www.linkedin.com/in/marie-claude-davis-1e75416e,,Getty Images,Producer,22 Dec 2023
+Mikhail,Morozov,https://www.linkedin.com/in/mikhail-morozov-ba00f6,,,,20 Dec 2023
+Fernando,Mendoza,https://www.linkedin.com/in/fernando-mendoza-ae4e3dd,,Meta Platforms,SWE I,16 Dec 2023
+Sarah,Harris,https://www.linkedin.com/in/sarah-harris-cc7c77,,Independent Consultant,Independent Consultant,15 Dec 2023
+Gideon,Kwak,https://www.linkedin.com/in/gideon-kwak-2962e32,,Meta,Senior Data Scientist,15 Dec 2023
+Jing,Zhao,https://www.linkedin.com/in/jing-zhao-d06b1b,,Self-employed,Senior Associate,10 Dec 2023
+Christopher,King,https://www.linkedin.com/in/christopher-king-b0e1987,,"Skadden, Arps, Slate, Meagher & Flom",Business Unit Lead,06 Dec 2023
+Priya,Trivedi,https://www.linkedin.com/in/priya-trivedi-e36beb0f,,Boeing,General Manager,30 Nov 2023
+Pranav,Desai,https://www.linkedin.com/in/pranav-desai-af44bb5d,,Blue Origin,Data  Analyst,30 Nov 2023
+Łukasz,Belov,https://www.linkedin.com/in/lukasz-belov-9131043f,,Boeing,Operations Intern,28 Nov 2023
+Hana,Cao,https://www.linkedin.com/in/hana-cao-18ad53,,Stealth Startup,"Co-Founder, Marketing",26 Nov 2023
+Kenji,He,https://www.linkedin.com/in/kenji-he-04774b,,T-Mobile US,Staff  Software Engineer,25 Nov 2023
+Obi,Radebe,https://www.linkedin.com/in/obi-radebe-2fb046,oradebe@example.net,NextEra Energy,,25 Nov 2023
+Thomas,King,https://www.linkedin.com/in/thomas-king-cec36aa,,Alaska Airlines,Customer Success Lead,24 Nov 2023
+Robert,Phillips,https://www.linkedin.com/in/robert-phillips-84ae795,,Activision Blizzard,"Associate Director, FP&A",20 Nov 2023
+Yến,Dương,https://www.linkedin.com/in/yen-duong-mba,,Salesforce,Senior Product Designer,19 Nov 2023
+Seungmin,White,https://www.linkedin.com/in/seungmin-white-dbc834,,Meta,Associate UX Designer,17 Nov 2023
+Nhung,Chu,https://www.linkedin.com/in/nhung-chu-f5672a2,,Starbucks,Recruiting Lead,16 Nov 2023
+Folake,Hakim,https://www.linkedin.com/in/folake-hakim-a8043dee,,Zillow Group,"Data Analyst, ""Natural Language Processing""",15 Nov 2023
+Sota,Pillai,https://www.linkedin.com/in/sota-pillai-1b374053,,Tableau Software,PRODUCT MANAGER,12 Nov 2023
+Zara,Verma,https://www.linkedin.com/in/zara-verma-26fb49f,,Affirm,Sales Executive,12 Nov 2023
+Katarzyna,Egorov,https://www.linkedin.com/in/katarzyna-egorov-908476,,Blue Origin,Business Unit Lead,04 Nov 2023
+Hana,Cai,https://www.linkedin.com/in/hana-cai-b7059fb,,,,02 Nov 2023
+Anita,Yadav,https://www.linkedin.com/in/ayadav,,Amazon,Marketing Intern | Influencer Marketing,01 Nov 2023
+Ilan,Rubin,https://www.linkedin.com/in/ilan-rubin-5a3c9e,,,,31 Oct 2023
+Manuel,González,https://www.linkedin.com/in/manuel-gonzalez-a3bc756,,Stealth Startup,"Founder & CMO, ""Event Marketing""",31 Oct 2023
+Thomas,Evans,https://www.linkedin.com/in/thomas-evans-37232453,,Microsoft,Staff Software Engineer,26 Oct 2023
+Elke,Richter,https://www.linkedin.com/in/elke-richter-3688835,,Monzo,Marketing Director,26 Oct 2023
+Ling,Zhu,https://www.linkedin.com/in/ling-zhu-68f23065,,Rover.com,Sales Director,23 Oct 2023
+Tomasz,Kowalski,https://www.linkedin.com/in/tomasz-kowalski-d22a57,,Microsoft,Principal Product Manager,21 Oct 2023
+Ingrid,Gallo,https://www.linkedin.com/in/ingrid-gallo-9b59c2,,Fox Corporation,Executive Producer,20 Oct 2023
+Ilan,Eisen,https://www.linkedin.com/in/ilan-eisen-a21d72,,Goldman Sachs,Sr. FP&A Manager,18 Oct 2023
+Angeline,Dizon,https://www.linkedin.com/in/angeline-dizon-bea44b3e,,MetLife,Controller,18 Oct 2023
+Dohyun,Kang,https://www.linkedin.com/in/dohyun-kang-ccad14,,Microsoft,Director of Product,17 Oct 2023
+Mingyu,Byun,https://www.linkedin.com/in/mingyu-byun-781717,,Hulu,Group Finance Manager,17 Oct 2023
+Thomas,Scott,https://www.linkedin.com/in/thomas-scott-64fb66f,,Valve Corporation,Senior Product Manager,13 Oct 2023
+Amina,Reddy,https://www.linkedin.com/in/aminareddy,,Sainsbury's,Buyer,13 Oct 2023
+Rachel,Martin,https://www.linkedin.com/in/rachel-martin-103c5c0,,Expedia Group,Senior UX Designer,12 Oct 2023
+Kavita,Chaudhary,https://www.linkedin.com/in/kavita-chaudhary-mba,,Live Nation Entertainment,Operations Intern,09 Oct 2023
+Laura,Turner,https://www.linkedin.com/in/laura-turner-265fe3b8,,Smartsheet,Frontend Engineer,07 Oct 2023
+Thành,Tô,https://www.linkedin.com/in/thanh-to-580e8f1,,DocuSign,Design Manager,03 Oct 2023
+Caroline,Baker,https://www.linkedin.com/in/caroline-baker-4865cd2,,Instacart,Senior Software Engineer,03 Oct 2023
+Sean,Johnson,https://www.linkedin.com/in/sean-johnson-4cf618e7,,Redfin,"Manager, Data Science",02 Oct 2023
+Zara,Raghavan,https://www.linkedin.com/in/zara-raghavan-a658fdd,,Meta,Principal Software Engineer,29 Sep 2023
+Dahyun,Jang,https://www.linkedin.com/in/DahyunJang,,Amazon.com,APM Intern,27 Sep 2023
+Li,Lefebvre,https://www.linkedin.com/in/li-lefebvre-c47db57d,,Rover.com,SWE,22 Sep 2023
+Lauren,Taylor,https://www.linkedin.com/in/lauren-taylor-c18918,,Microsoft,Senior Chief of Staff,21 Sep 2023
+Grace,White,https://www.linkedin.com/in/grace-white-5d5bc2d,,Expedia Group,"Director, Client Services",21 Sep 2023
+Hana,Ito,https://www.linkedin.com/in/hana-ito-638d4f,,Boeing,"Director, Software Engineering",20 Sep 2023
+Nga,Vũ,https://www.linkedin.com/in/nga-vu-bbdc3c,,Google,Sr. Software Engineer,16 Sep 2023
+Jihoon,Lim,https://www.linkedin.com/in/jihoon-lim-e1bb0d,,Avalara,Director of Product,12 Sep 2023
+Jing,Cao,https://www.linkedin.com/in/jing-cao-a3c54163,,F5,Senior Customer Success Manager,02 Sep 2023
+Fredrik,Kristiansen,https://www.linkedin.com/in/fredrik-kristiansen-43bed1,,F5,Data Analytics Intern,21 Aug 2023
+Oleg,Santos,https://www.linkedin.com/in/oleg-santos-9c8b90e,,Activision,Engineering Manager,20 Aug 2023
+Carlos,Vázquez,https://www.linkedin.com/in/carlos-vazquez-9a1c1b,,Amazon Studios,"Senior Manager, Business Operations",20 Aug 2023
+Hana,Liu,https://www.linkedin.com/in/hana-liu-9539cc3e,,Zillow Group,Marketing Coordinator,19 Aug 2023
+Xiang,Tanaka,https://www.linkedin.com/in/xiang-tanaka-1ebc03,,Smartsheet,"Manager, Data Science",16 Aug 2023
+Paula,Gómez,https://www.linkedin.com/in/paula-gomez-819687b9,,Chime Financial,Senior Chief of Staff,16 Aug 2023
+Rekha,Pillai,https://www.linkedin.com/in/rekha-pillai-1ab77d84,,Microsoft,CSM,08 Aug 2023
+Lei,Ito,https://www.linkedin.com/in/lei-ito-61c46dcb,lito@example.com,Expedia Group,SVP,06 Aug 2023
+Ariel,Goldstein,https://www.linkedin.com/in/ariel-goldstein-da2bb7,,Queen's University,Assistant Professor,06 Aug 2023
+Rekha,Malhotra,https://www.linkedin.com/in/rekha-malhotra-907dd7,,Wizards of the Coast,"Director, Software Engineering",01 Aug 2023
+Paolo,Uy,https://www.linkedin.com/in/paolo-uy-cf0f1c5,,Uber,Senior Applied Scientist,31 Jul 2023
+Sven,Pedersen,https://www.linkedin.com/in/sven-pedersen-16bcb0b8,,,Production Intern,31 Jul 2023
+Ren,Xu,https://www.linkedin.com/in/ren-xu-e19c45df,,Boeing,Director of Legal Affairs,29 Jul 2023
+Ping,Yang,https://www.linkedin.com/in/ping-yang-19b4c7b,ping.yang@example.com,Tableau Software,Machine Learning Engineer,28 Jul 2023
+Vivek,Reddy,https://www.linkedin.com/in/vivek-reddy-8e27a1d0,,T-Mobile US,Engineering Lead,28 Jul 2023
+Chen,Tanaka,https://www.linkedin.com/in/chen-tanaka-cpa,,,,24 Jul 2023
+Raj,Rao,https://www.linkedin.com/in/raj-rao-mba,,Meta,Data Analyst,23 Jul 2023
+Daniel,Taylor,https://www.linkedin.com/in/daniel-taylor-bfbdb67,,Sainsbury's,Senior Operations Manager,21 Jul 2023
+Aoi,Tang,https://www.linkedin.com/in/aoi-tang-42ae4dce,,Zillow Group,,19 Jul 2023
+Victoria,Carter,https://www.linkedin.com/in/victoria-carter-b9014c44,,Meta,Product Manager,12 Jul 2023
+Elizabeth,Mitchell,https://www.linkedin.com/in/elizabeth-mitchell-166d0a2,,"Block, Inc.",--,08 Jul 2023
+Haruto,Deng,https://www.linkedin.com/in/haruto-deng-70b317d,,Tufts Medical,Staff Physician,05 Jul 2023
+Nadia,Novák,https://www.linkedin.com/in/nadia-novak-8d2e5cca,,Amazon Web Services (AWS),BDR,04 Jul 2023
+Łukasz,Wiśniewski,https://www.linkedin.com/in/lukasz-wisniewski-e4919efe,,Open to work,Career break,02 Jul 2023
+Eduardo,Delgado,https://www.linkedin.com/in/eduardo-delgado-453486b,,Google,VP of Sales,30 Jun 2023
+Seokjin,Shim,https://www.linkedin.com/in/seokjin-shim-89e023,,REI,"Senior Manager, Business Operations",29 Jun 2023
+Douglas,Allen,https://www.linkedin.com/in/douglas-allen-pmp,,Chime,Applied Scientist,26 Jun 2023
+Giulia,Schmidt,https://www.linkedin.com/in/giulia-schmidt-d6a47e84,,Blue Origin,Software Engineer II,18 Jun 2023
+David,Thomas,https://www.linkedin.com/in/david-thomas-7a16845d,,,,16 Jun 2023
+Thandiwe,Owusu,https://www.linkedin.com/in/thandiwe-owusu-fee568d,,Endeavor,Production Assistant,15 Jun 2023
+Björn,Do,https://www.linkedin.com/in/bjorn-do-1957cf63,,F5,Product Manager,11 Jun 2023
+Ezra,Zimmerman,https://www.linkedin.com/in/ezra-zimmerman-23acbf,,WotC,Senior Product Manager,09 Jun 2023
+Samir,Sabbagh,https://www.linkedin.com/in/samir-sabbagh,,Tableau Software,Junior Software Engineer,08 Jun 2023
+Riku,Han,https://www.linkedin.com/in/riku-han-78d8d2,,"Block, Inc.",Sr. FP&A Manager,29 May 2023
+Joseph,Gao,https://www.linkedin.com/in/joseph-gao-870176,,,Financial Planning Lead,22 May 2023
+Caroline,Martin,https://www.linkedin.com/in/caroline-martin-2425a09,,University of Ottawa,Lecturer,22 May 2023
+Katarzyna,Novák,https://www.linkedin.com/in/katarzyna-novak-5cae8c,,Tableau Software,"VP, Data & Analytics",19 May 2023
+Quỳnh,Chu,https://www.linkedin.com/in/quynh-chu-b2c96a,,Google,Senior Product Designer,18 May 2023
+Anton,Fedorov,https://www.linkedin.com/in/anton-fedorov-f230b9eb,anton_fedorov@example.net,T-Mobile US,Senior Operations Manager,16 May 2023
+Ping,Cao,https://www.linkedin.com/in/ping-cao-phd,,University of Toronto,Research Assistant,14 May 2023
+Alejandra,Díaz,https://www.linkedin.com/in/alejandradiaz98,,University of Toronto,Associate Professor,11 May 2023
+Oleg,Horváth,https://www.linkedin.com/in/horvatholeg,,Meta,Lead Software Engineer,09 May 2023
+Pierre,Romano,https://www.linkedin.com/in/pierre-romano-2280d3,,Smartsheet,Senior Associate Product Manager,08 May 2023
+Elizabeth,Lewis,https://www.linkedin.com/in/elizabeth-lewis-7f3deba,,Harrods,Business Unit Lead,05 May 2023
+Eunji,Yoo,https://www.linkedin.com/in/eunji-yoo-2b79d0a,,Wizards of the Coast,Senior Chief of Staff,03 May 2023
+Patricia,Ortiz,https://www.linkedin.com/in/patricia-ortiz-8faac87,patriciaortiz37@example.org,Getty Images,"Associate Director, Marketing",02 May 2023
+Kristine,Garcia,https://www.linkedin.com/in/kristine-garcia-3855babd,,Tableau Software,Executive Assistant to CEO,01 May 2023
+Antonio,Hernández,https://www.linkedin.com/in/antonio-hernandez-46c2ab,,Legendary Entertainment,"Senior HRBP, ""Workforce Planning""",28 Apr 2023
+Jun,Zhang,https://www.linkedin.com/in/jun-zhang-07175dc,,REI,Director of Marketing,27 Apr 2023
+Xiang,Mercado,https://www.linkedin.com/in/xiang-mercado-aeaf061f,xiangmercado17@example.com,F5,VP of Data Science,26 Apr 2023
+Matthew,Carter,https://www.linkedin.com/in/matthew-carter-3c7cfc3,,TechnipFMC,Director of Engineering,26 Apr 2023
+Xia,Ma,https://www.linkedin.com/in/xia-ma-87125a,xia_ma@example.org,Avalara,Staff Software Engineer,25 Apr 2023
+Sylvie,Rousseau,https://www.linkedin.com/in/sylvie-rousseau-af43566b,,,Independent Consultant,24 Apr 2023
+Vladimir,Wiśniewski,https://www.linkedin.com/in/vladimir-wisniewski-4a00329,,Avalara,SWE Intern,23 Apr 2023
+Verónica,Silva,https://www.linkedin.com/in/veronica-silva-c9afdaa1,,,,23 Apr 2023
+Charles,Scott,https://www.linkedin.com/in/charles-scott-0c47ff,,Amazon,Sr. Machine Learning Engineer,20 Apr 2023
+Hui,Liang,https://www.linkedin.com/in/huiliang44,,Open to work,Open to Work,17 Apr 2023
+Andrés,Hernández,https://www.linkedin.com/in/andres-hernandez-3ec6cede,,Universal Music Group,Senior Producer,17 Apr 2023
+Rachel,Khoury,https://www.linkedin.com/in/rachel-khoury-129e3d5,,Netflix,"Associate Director, FP&A",02 Apr 2023
+Jing,Li,https://www.linkedin.com/in/jing-li-d3706c28,,F5 Inc.,Engineering Manager,01 Apr 2023
+Yasmin,Abboud,https://www.linkedin.com/in/yasmin-abboud-a078bd,,Amazon,Director of Data Science,28 Mar 2023
+Nathaniel,Anderson,https://www.linkedin.com/in/nathaniel-anderson-c108ddd2,,University of Waterloo,PhD Candidate,20 Mar 2023
+Yan,Peng,https://www.linkedin.com/in/yan-peng-c852a7b,,Getty Images Inc.,Production Manager,18 Mar 2023
+Megan,Thomas,https://www.linkedin.com/in/megan-thomas-893403fa,mthomas@example.org,The Boeing Company,"Senior Manager, Customer Success",13 Mar 2023
+Abigail,Marquez,https://www.linkedin.com/in/abigail-marquez-1ed9ef2,,Nintendo of America,Software Engineer I,06 Mar 2023
+Ming,Tang,https://www.linkedin.com/in/ming-tang-fa13b2,,F5,Associate Software Engineer,03 Mar 2023
+Katarzyna,Nowak,https://www.linkedin.com/in/katarzyna-nowak-7f40ae,,,Associate Software Engineer - Remote,01 Mar 2023
+Andrew,Campbell,https://www.linkedin.com/in/andrew-campbell-479269,acampbell@example.com,ArenaNet,"  Senior UX Designer",19 Feb 2023
+María,Ramos,https://www.linkedin.com/in/maria-ramos-72c83a,,Zillow Group,Senior Software Engineer,13 Feb 2023
+Faisal,Saleh,https://www.linkedin.com/in/faisal-saleh-d6086d,,TechnipFMC,Lead Engineer,09 Feb 2023
+Amanda,Parker,https://www.linkedin.com/in/amanda-parker-43311a09,,Open to work,Seeking new opportunities,08 Feb 2023
+Nisha,Agarwal,https://www.linkedin.com/in/nisha-agarwal-4bc6e7,,Tableau Software,"Manager, Software Engineering",07 Feb 2023
+Uzoma,Okonjo,https://www.linkedin.com/in/uzoma-okonjo-c6998a26,,Microsoft,PM,07 Feb 2023
+Yuna,Kato,https://www.linkedin.com/in/yuna-kato-340b73,,T-Mobile US,Senior SWE,01 Feb 2023
+Dahyun,Cho,https://www.linkedin.com/in/dahyun-cho,,Tufts Medical Center,Director of Nursing,01 Feb 2023
+Wonwoo,Lim,https://www.linkedin.com/in/wonwoo-lim-4564a92,,Nintendo of America,Director of Design - Remote,31 Jan 2023
+Nnamdi,Fashola,https://www.linkedin.com/in/nnamdi-fashola-a6a1bc8d,,Boeing,Engineering Manager,28 Jan 2023
+Meera,Kapoor,https://www.linkedin.com/in/meera-kapoor-12e69c4e,,Stripe,Sr. PM,25 Jan 2023
+Fang,Cao,https://www.linkedin.com/in/fang-cao-e457bb,,NRG Energy,Engineering Manager,25 Jan 2023
+David,Lewis,https://www.linkedin.com/in/david-lewis-24beda,,Costco Wholesale,Senior Operations Manager,23 Jan 2023
+Emmanuel,Abad,https://www.linkedin.com/in/emmanuel-abad-pe,,Amazon Web Services (AWS),Sr. Product Marketing Manager,21 Jan 2023
+Pierre,Müller,https://www.linkedin.com/in/pierremuller,,Stealth Startup,Founder & COO,21 Jan 2023
+Areum,Schwarz,https://www.linkedin.com/in/areum-schwarz-aa0cc4,,T-Mobile US,Associate Software Engineer,15 Jan 2023
+Qiang,Suzuki,https://www.linkedin.com/in/qiang-suzuki-021efc5,,Snap Inc.,Executive Assistant to CEO,08 Jan 2023
+Sunita,Yadav,https://www.linkedin.com/in/sunita-yadav-69156f,,Instacart,Data Scientist,08 Jan 2023
+Adriana,Cruz,https://www.linkedin.com/in/adriana-cruz-eb035399,,Google,Executive Assistant to CEO,07 Jan 2023
+Philippe,Cruz,https://www.linkedin.com/in/philippe-cruz-d9be2e,,Google,VP Product Management,03 Jan 2023
+Bo,Zheng,https://www.linkedin.com/in/bo-zheng-4c84035,,Sequoia Capital,"Senior Associate, Venture Capital",03 Jan 2023
+Abebe,Bah,https://www.linkedin.com/in/abebe-bah-87a58b8,,,,02 Jan 2023
+Timothy,Ha,https://www.linkedin.com/in/timothy-ha-92830c,,Avalara Inc.,Director of Engineering,01 Jan 2023
+Ricardo,López,https://www.linkedin.com/in/lopezricardo,,Valve,Staff Software Engineer,26 Dec 2022
+Kunal,Patel,https://www.linkedin.com/in/kunal-patel-f3cf67b,,Queen's University,Assistant Professor,25 Dec 2022
+Zhi,Peng,https://www.linkedin.com/in/zhi-peng-96537f,,Nordstrom Inc.,AE,23 Dec 2022
+Gregory,Hu,https://www.linkedin.com/in/gregory-hu,,Baker Hughes,Process Engineer,22 Dec 2022
+Kwame,Okoye,https://www.linkedin.com/in/kwame-okoye-22dcd1,,Dana-Farber Cancer Institute,Associate,20 Dec 2022
+Daniel,Sy,https://www.linkedin.com/in/daniel-sy-e5aa1f,,Weyerhaeuser,Director of Operations,17 Dec 2022
+Sigrid,Andersen,https://www.linkedin.com/in/sigrid-andersen,,Bungie,Sr. Software Engineer,16 Dec 2022
+Erika,Castillo,https://www.linkedin.com/in/erika-castillo-1f26f1,,Google,Engineering Manager,13 Dec 2022
+Charles,Edwards,https://www.linkedin.com/in/charlesedwards,,Ripple,Brand Manager,13 Dec 2022
+Denise,Corpuz,https://www.linkedin.com/in/denise-corpuz-61ac3f,,Spotify,General Manager,10 Dec 2022
+Ana,Ortega,https://www.linkedin.com/in/ana-ortega-529fb4,,Alaska Airlines,CSM,08 Dec 2022
+Bruno,Klein,https://www.linkedin.com/in/bruno-klein-b14693ac,,,Senior Chief of Staff,07 Dec 2022
+Nadia,Sun,https://www.linkedin.com/in/nadia-sun-fbf4cd,,CIFAR,Associate Professor,28 Nov 2022
+Hải,Kiều,https://www.linkedin.com/in/hai-kieu-2d1afe3,,Valve Corporation,Junior Software Engineer,26 Nov 2022
+Jessica,Moore,https://www.linkedin.com/in/jessica-moore-5f6db0,,PitchBook,"Director, Product Management",24 Nov 2022
+Lei,Sato,https://www.linkedin.com/in/lei-sato-0fbbbf,,ArenaNet,Senior Operations Manager,23 Nov 2022
+Thibault,Bauer,https://www.linkedin.com/in/thibault-bauer-4d94254a,thibault_bauer@example.org,Wizards of the Coast,Engineering Lead,23 Nov 2022
+Fang,Trịnh,https://www.linkedin.com/in/fang-trinh-e183067,,F5,Data Scientist,22 Nov 2022
+Seungmin,Baek,https://www.linkedin.com/in/seungmin-baek-0b0cccd,,Meta,Principal Data Scientist,13 Nov 2022
+Yong,Peng,https://www.linkedin.com/in/yong-peng-5a6426,,Avalara,Senior Associate Product Manager,13 Nov 2022
+Cecilie,Olsen,https://www.linkedin.com/in/cecilie-olsen-a8b0c8,,Salesforce (Tableau),,12 Nov 2022
+Talia,Goldstein,https://www.linkedin.com/in/tgoldstein,,Twilio,Product Manager,12 Nov 2022
+Ishaan,Bose,https://www.linkedin.com/in/ibose,,,,03 Nov 2022
+Xiang,Yang,https://www.linkedin.com/in/xiang-yang-8c4beab1,,Stealth Startup,Co-Founder,02 Nov 2022
+Yetunde,Olawale,https://www.linkedin.com/in/yetunde-olawale-b75b03,,F5,Frontend Engineer,31 Oct 2022
+Thảo,Cao,https://www.linkedin.com/in/tcao,,S&P Global,"Senior Associate, Investment Banking",31 Oct 2022
+Nisha,Bhatia,https://www.linkedin.com/in/nisha-bhatia-f1f881f,,Airbnb,Machine Learning Engineer,23 Oct 2022
+Samuel,Phillips,https://www.linkedin.com/in/samuel-phillips-6cc591,,PitchBook,Backend Engineer,20 Oct 2022
+Ren,Delgado,https://www.linkedin.com/in/rdelgado,,Robinhood,Engineering Manager,19 Oct 2022
+Mateo,Vázquez,https://www.linkedin.com/in/mateo-vazquez-5aff3b,,Figma,Software Engineer II,18 Oct 2022
+Camille,Fernandez,https://www.linkedin.com/in/fernandezcamille,,Enterprise Products,Engineering Manager,18 Oct 2022
+Denise,Domingo,https://www.linkedin.com/in/denise-domingo-pe,,Affirm,Senior Customer Success Manager,16 Oct 2022
+Obi,Mahlangu,https://www.linkedin.com/in/ObiMahlangu,,Boeing,Operations Director,14 Oct 2022
+Henry,Harris,https://www.linkedin.com/in/HenryHarris,henryharris24@example.net,Primark,Sales Manager,10 Oct 2022
+Christopher,Mitchell,https://www.linkedin.com/in/christophermitchell,,DocuSign,Staff Software Engineer,05 Oct 2022
+Noam,Horowitz,https://www.linkedin.com/in/noam-horowitz-f89e024e,,Airbnb,Backend Engineer,05 Oct 2022
+Thibault,Bruno,https://www.linkedin.com/in/thibault-bruno-c125433,,Freelance,Associate Data Scientist,29 Sep 2022
+Abigail,Harris,https://www.linkedin.com/in/abigail-harris-c793b23,,University of Toronto,Associate Professor,29 Sep 2022
+Edward,Parker,https://www.linkedin.com/in/edward-parker-51f942dc,,The Walt Disney Company,,28 Sep 2022
+Gabriela,Jiménez,https://www.linkedin.com/in/gabriela-jimenez-8a0762,,Activision Blizzard,"Manager, UX",28 Sep 2022
+Ritu,Agarwal,https://www.linkedin.com/in/ragarwal,ritu.agarwal@example.net,Zillow Group,"Director, Software Engineering",26 Sep 2022
+Gabriela,Núñez,https://www.linkedin.com/in/gabriela-nunez-f28350db,,Charles Schwab,Senior Finance Manager,26 Sep 2022
+Ryan,Harris,https://www.linkedin.com/in/ryan-harris-dcec9c,,KKR,VC Associate,24 Sep 2022
+Rosa,Díaz,https://www.linkedin.com/in/rosa-diaz-2ac38bf,,Stealth Startup,Founder,23 Sep 2022
+Rosa,Mendoza,https://www.linkedin.com/in/rosa-mendoza-8b1e19,,Nintendo of America,Director of Data Science,21 Sep 2022
+Neha,Mishra,https://www.linkedin.com/in/neha-mishra-fe15d2d3,,Microsoft,Lead Product Manager,19 Sep 2022
+Greta,Gallo,https://www.linkedin.com/in/greta-gallo-924c7625,,Meta,Lead Software Engineer,19 Sep 2022
+Larisa,Baranov,https://www.linkedin.com/in/larisa-baranov-2be977,,Wizards of the Coast,Senior SWE,13 Sep 2022
+Samir,Haddad,https://www.linkedin.com/in/samir-haddad-e0f9478d,,,Staff Software Engineer,07 Sep 2022
+Nnamdi,Adebisi,https://www.linkedin.com/in/nnamdi-adebisi-836dfa,,Compass Group,Sr. AE,06 Sep 2022
+Elke,Rossi,https://www.linkedin.com/in/elke-rossi-59c975d,,Expedia Group,UI/UX Designer,05 Sep 2022
+Matthew,Mitchell,https://www.linkedin.com/in/matthew-mitchell-a8a3c417,mmitchell@example.org,Meta,Director of Engineering,03 Sep 2022
+Chi,La,https://www.linkedin.com/in/chi-la-eef3cb15,chi_la@example.net,DocuSign,"VP, Data & Analytics",01 Sep 2022
+Hao,Zhu,https://www.linkedin.com/in/hao-zhu-53da3b19,,Stealth Startup,"Co-Founder, Product",31 Aug 2022
+Tanya,Agarwal,https://www.linkedin.com/in/tanya-agarwal-58e2bc,,Avalara,"Director, Software Engineering",28 Aug 2022
+Kevin,Allen,https://www.linkedin.com/in/kevin-allen-84131f40,,Halliburton,Reservoir Engineer,25 Aug 2022
+Divya,Gupta,https://www.linkedin.com/in/divya-gupta-51308a40,,Shell Oil Company,Group Operations Manager,24 Aug 2022
+George,Thomas,https://www.linkedin.com/in/george-thomas-f5200b5,,,,13 Aug 2022
+Jun,Luo,https://www.linkedin.com/in/jun-luo-611ad7,,Zillow.com,Staff Software Engineer,10 Aug 2022
+Grace,Phillips,https://www.linkedin.com/in/grace-phillips-711472a8,,Riot Games,Senior Product Designer,09 Aug 2022
+Grace,Carter,https://www.linkedin.com/in/grace-carter-65ec5a4,,The Walt Disney Company,Deputy Managing Editor,05 Aug 2022
+Ramon,Gonzales,https://www.linkedin.com/in/ramon-gonzales-27a07b3b,,Rover.com,Group Finance Manager,31 Jul 2022
+Liwayway,Salazar,https://www.linkedin.com/in/liwayway-salazar-f0ac91e,liwaywaysalazar3@example.com,Expedia Group,Engineering Manager,30 Jul 2022
+Caroline,Campbell,https://www.linkedin.com/in/caroline-campbell-ff59e702,,Expedia Group,Lead Software Engineer,30 Jul 2022
+Thomas,Wright,https://www.linkedin.com/in/thomas-wright,,Outreach,Principal Data Scientist,24 Jul 2022
+Jie,Tanaka,https://www.linkedin.com/in/jie-tanaka-2d0bfd,,TikTok,"Director, Product Management",23 Jul 2022
+Owen,Thompson,https://www.linkedin.com/in/owen-thompson-f382dad,,Instacart,Sales Director,21 Jul 2022
+Samuel,Walker,https://www.linkedin.com/in/samuel-walker-9964ce0,,Nordstrom,Regional Sales Lead,18 Jul 2022
+Mekonnen,Okoye,https://www.linkedin.com/in/mekonnen-okoye-d88adf,,Microsoft,Sr. Machine Learning Engineer,17 Jul 2022
+Anastasia,Svoboda,https://www.linkedin.com/in/anastasia-svoboda-b4e5e3d6,,Open to work,Seeking new opportunities,16 Jul 2022
+Yael,Adler,https://www.linkedin.com/in/adleryael,,Visa,Senior Finance Manager,04 Jul 2022
+Batya,Friedman,https://www.linkedin.com/in/batya-friedman-eb5a71,,Smartsheet,Senior SWE,03 Jul 2022
+Qiang,Watanabe,https://www.linkedin.com/in/qiang-watanabe-de70028,,Vertex Pharmaceuticals,Senior Counsel,02 Jul 2022
+Ritu,Scott,https://www.linkedin.com/in/ritu-scott-a983de5,,DocuSign,Product Manager,30 Jun 2022
+Philippe,Phillips,https://www.linkedin.com/in/philippe-phillips-ef5527fc,,NBCUniversal,Senior HRBP,30 Jun 2022
+Emily,Moore,https://www.linkedin.com/in/emoore,,Warner Bros. Discovery,HR Manager,25 Jun 2022
+Divya,Pillai,https://www.linkedin.com/in/divya-pillai-e1f8ac04,,Wizards of the Coast,Staff Software Engineer,23 Jun 2022
+Emily,Evans,https://www.linkedin.com/in/emily-evans-4fff20,,Visa,Senior Operations Manager,23 Jun 2022
+Antonio,Aguilar,https://www.linkedin.com/in/antonio-aguilar-0be5425,antonioaguilar68@example.com,F5,Customer Support Associate,08 Jun 2022
+Erika,Santos,https://www.linkedin.com/in/erika-santos-b38591,,Stealth Startup,"Co-Founder, Data",06 Jun 2022
+Doron,Shulman,https://www.linkedin.com/in/doron-shulman-4e12a5b4,,Kinder Morgan,Senior Process Engineer,01 Jun 2022
+Fang,Song,https://www.linkedin.com/in/fang-song-284fb84d,,Airbnb,General Manager,27 May 2022
+Sunita,Thompson,https://www.linkedin.com/in/sunita-thompson-61fcd346,,NBCUniversal,Product Marketing Manager,25 May 2022
+Xin,Watanabe,https://www.linkedin.com/in/xin-watanabe-e859499,xin.watanabe@example.com,SoFi,Backend Engineer,23 May 2022
+Baptiste,Weber,https://www.linkedin.com/in/baptiste-weber-70fb345,,Redfin,Backend Engineer,21 May 2022
+Chen,Wang,https://www.linkedin.com/in/chen-wang,chen.wang@example.com,Intuit,Data Science Lead,20 May 2022
+Waleed,Thomsen,https://www.linkedin.com/in/waleed-thomsen-9dd69f,,Expedia Group,General Manager,19 May 2022
+Hiền,Vương,https://www.linkedin.com/in/hien-vuong-95157e1,,Amazon,Principal Product Manager,15 May 2022
+Edward,Turner,https://www.linkedin.com/in/edward-turner-c30a4f,,Snowflake,Sr. Designer,14 May 2022
+Long,La,https://www.linkedin.com/in/long-la-86244d,,Charles Schwab,Business Unit Lead,09 May 2022
+Uzoma,Adebisi,https://www.linkedin.com/in/uzoma-adebisi-f6a87e,,University of Toronto,Associate Professor,05 May 2022
+Pablo,Silva,https://www.linkedin.com/in/pablo-silva-679c43,pablo.silva@example.com,DocuSign,Regional Sales Lead,30 Apr 2022
+Krzysztof,Pavlov,https://www.linkedin.com/in/krzysztof-pavlov-2d4cb7f3,,KPMG LLP,Project Leader,29 Apr 2022
+Samir,Oh,https://www.linkedin.com/in/samir-oh-cfa,,Zillow Group,Engineering Lead,27 Apr 2022
+Amir,Boutros,https://www.linkedin.com/in/amir-boutros-d1a859,amir_boutros@example.com,Getty Images,Line Producer,17 Apr 2022
+Liwayway,Ocampo,https://www.linkedin.com/in/liwayway-ocampo-6f1212d,,Harvard University,PhD Candidate,14 Apr 2022
+John,Phillips,https://www.linkedin.com/in/john-phillips-abb5d2bf,,Nordstrom,Chief of Staff,12 Apr 2022
+Thea,Sørensen,https://www.linkedin.com/in/thea-sorensen-cpa,,Google LLC,Group Marketing Manager,08 Apr 2022
+Chen,Liu,https://www.linkedin.com/in/chen-liu-b237d00,,Nintendo America Inc.,SWE,07 Apr 2022
+Shreya,Trivedi,https://www.linkedin.com/in/shreya-trivedi-d9f1808,,Harrods,Head of Buying,05 Apr 2022
+Aryan,Mukherjee,https://www.linkedin.com/in/aryan-mukherjee-138781ec,,,Operations Coordinator,04 Apr 2022
+Irina,Dąbrowski,https://www.linkedin.com/in/irina-dabrowski-9bc6baf,,Costco Wholesale,Sales Manager,04 Apr 2022
+Patrick,Johnson,https://www.linkedin.com/in/patrick-johnson-513a6b85,,Meta,Senior Applied Scientist,30 Mar 2022
+Chantal,Kato,https://www.linkedin.com/in/chantalkato26,chantal_kato@example.org,PayPal,SWE,21 Mar 2022
+Thandiwe,Kimani,https://www.linkedin.com/in/thandiwe-kimani-b6ad8658,,Meta,"Manager, Software Engineering",15 Mar 2022
+Ren,Nakamura,https://www.linkedin.com/in/ren-nakamura-55ef5555,ren.nakamura@example.net,Zillow Group,Sr. PM,12 Mar 2022
+Anita,Raghavan,https://www.linkedin.com/in/anita-raghavan-a4377a8a,,Zillow Group,Software Engineer II,11 Mar 2022
+Mathilde,Owusu,https://www.linkedin.com/in/mathilde-owusu-de58b3,,Wizards of the Coast,Software Engineer II,07 Mar 2022
+Céline,Schneider,https://www.linkedin.com/in/celine-schneider-d16f08,,DoorDash,Sr. Software Engineer,07 Mar 2022
+Wei,Wang,https://www.linkedin.com/in/wei-wang-7e6dc56,,Boeing,Senior SWE,05 Mar 2022
+Rafael,Villanueva,https://www.linkedin.com/in/rafael-villanueva-1404872,rvillanueva@example.net,Kleiner Perkins,Investment Manager,02 Mar 2022
+Rafael,Silva,https://www.linkedin.com/in/rafael-silva-8781e37,,Netflix,Director,02 Mar 2022
+Elizabeth,Thomas,https://www.linkedin.com/in/elizabeththomas14,,Sony Pictures Entertainment,Assistant Editor,25 Feb 2022
+Robert,Scott,https://www.linkedin.com/in/robert-scott-953e304e,,Redfin,Senior Data Scientist,24 Feb 2022
+Sameer,Reddy,https://www.linkedin.com/in/sameer-reddy-b4a8e92,sameer.reddy@example.org,Brex,"Associate Director, FP&A",21 Feb 2022
+Karan,Banerjee,https://www.linkedin.com/in/karan-banerjee-40e452,,Moderna,Senior Scientist,20 Feb 2022
+Imelda,Ocampo,https://www.linkedin.com/in/imelda-ocampo-17c15b31,,Starbucks,Head of Growth Marketing,16 Feb 2022
+Ndidi,Osayande,https://www.linkedin.com/in/ndidi-osayande-aae03ebe,,Meta,Design Director,15 Feb 2022
+Adriana,Castillo,https://www.linkedin.com/in/adriana-castillo-63ee5f0,,Warner Bros. Discovery,Brand Manager,13 Feb 2022
+Rafael,Uy,https://www.linkedin.com/in/rafael-uy-b2a0d31,,Valve Corporation,Senior SWE,11 Feb 2022
+Yong,Song,https://www.linkedin.com/in/yong-song-c548f49f,yongsong35@example.org,Wizards of the Coast,Head of Product,03 Feb 2022
+Deepak,Sharma,https://www.linkedin.com/in/DeepakSharma,,Bungie,Frontend Engineer,02 Feb 2022
+Megan,Turner,https://www.linkedin.com/in/megan-turner-7c3ba277,,Accenture,Project Leader,27 Jan 2022
+Sora,Lin,https://www.linkedin.com/in/sora-lin-b58f6aac,soralin41@example.net,Rover.com,"VP, Data & Analytics",21 Jan 2022
+Imelda,Torres,https://www.linkedin.com/in/imelda-torres-69369f46,,F5 Inc.,"Team Lead, Customer Success",15 Jan 2022
+Peng,Han,https://www.linkedin.com/in/peng-han-8146e1f4,,"Block, Inc.",Sr. PM,13 Jan 2022
+John,Brown,https://www.linkedin.com/in/john-brown-928812,,BlackRock,Talent Acquisition Manager,13 Jan 2022
+Sanjay,Mukherjee,https://www.linkedin.com/in/sanjay-mukherjee-ae13338,,Wizards of the Coast,Director of Engineering,11 Jan 2022
+Rui,Nakamura,https://www.linkedin.com/in/rui-nakamura-fd8a15,,TikTok,UI/UX Designer,22 Dec 2021
+Thibault,Wolf,https://www.linkedin.com/in/thibault-wolf-1c2dcd,,Williams Companies,VP of Engineering,17 Dec 2021
+Ping,Peng,https://www.linkedin.com/in/ping-peng-bb3558,,William Morris Endeavor (WME),"VP, Ops",15 Dec 2021
+Vikram,Bhatt,https://www.linkedin.com/in/vikram-bhatt-7c51695b,,Kleiner Perkins,"Senior Associate, Venture Capital",13 Dec 2021
+Bo,Yang,https://www.linkedin.com/in/bo-yang-17612392,,Tableau Software,Senior PM,09 Dec 2021
+Peng,Takahashi,https://www.linkedin.com/in/peng-takahashi-d6c3967,,Visa,Finance Lead,08 Dec 2021
+Fredrik,Christensen,https://www.linkedin.com/in/fredrik-christensen-b8a4a1,,Redfin,Sales Executive,27 Nov 2021
+Jack,Wilson,https://www.linkedin.com/in/jack-wilson-1f2f27,,Blue Origin,Software Engineer II,26 Nov 2021
+Wei,Chen,https://www.linkedin.com/in/wei-chen-9e702f69,,Avalara,Tech Lead,24 Nov 2021
+Nathan,Parker,https://www.linkedin.com/in/nathan-parker-818dae38,,Kleiner Perkins,Investment Manager,24 Nov 2021
+Rania,Fares,https://www.linkedin.com/in/rania-fares-c6fb464d,,Costco Wholesale,Managing Counsel,20 Nov 2021
+John,Parker,https://www.linkedin.com/in/john-parker-09a1df11,john.parker@example.com,Nintendo of America,Senior Software Engineer,19 Nov 2021
+Beatrice,Klein,https://www.linkedin.com/in/beatrice-klein-0e2465,,JPMorgan Chase & Co.,SDR,16 Nov 2021
+Joseph,Parker,https://www.linkedin.com/in/joseph-parker-6d1ab0cb,,Live Nation Entertainment,Senior Operations Manager,07 Nov 2021
+Owen,Walker,https://www.linkedin.com/in/owen-walker-3d1057,owalker@example.org,Spotify,PM,01 Nov 2021
+Camille,Santos,https://www.linkedin.com/in/camille-santos-cpa,camille_santos@example.org,Redfin,Software Engineer,30 Oct 2021
+Svetlana,Vasiliev,https://www.linkedin.com/in/svetlana-vasiliev-13d9bc9,,Amazon,APM,30 Oct 2021
+Neha,Hansen,https://www.linkedin.com/in/neha-hansen-8900625,,PwC,Recruiter,28 Oct 2021
+Aoi,Zhang,https://www.linkedin.com/in/aoi-zhang-30f27bb,,Expedia.com,SWE,27 Oct 2021
+Ishaan,Ojo,https://www.linkedin.com/in/ishaan-ojo-3dcf45,,McGill University,Lead Counsel,26 Oct 2021
+Njeri,Girma,https://www.linkedin.com/in/njeri-girma,,Sequoia Capital,Managing Partner,23 Oct 2021
+Caroline,Lewis,https://www.linkedin.com/in/caroline-lewis-946fb3e1,clewis@example.com,Zillow Group,Backend Engineer,17 Oct 2021
+Priya,Menon,https://www.linkedin.com/in/priya-menon-0f205798,,Sysco,Enterprise Account Executive,17 Oct 2021
+Samuel,Clark,https://www.linkedin.com/in/samuel-clark-b7441f,,Microsoft,VP of Engineering,15 Oct 2021
+Pranav,Sharma,https://www.linkedin.com/in/pranav-sharma-ae95be4,,McKinsey & Company,VP Product Management,04 Oct 2021
+Ivan,Svoboda,https://www.linkedin.com/in/ivan-svoboda-88bf1a7,,Nintendo of America,Staff Software Engineer,26 Sep 2021
+Xia,Tang,https://www.linkedin.com/in/xtang,,,,26 Sep 2021
+Teodoro,Uy,https://www.linkedin.com/in/teodoro-uy-013409,,Freelancer,Sr. PM,20 Sep 2021
+Wei,Cao,https://www.linkedin.com/in/wei-cao-2ba32e,,Riot Games,Product Designer,16 Sep 2021
+Antonio,Cohen,https://www.linkedin.com/in/antonio-cohen-6151c5b8,,Starbucks,Senior Operations Manager,15 Sep 2021
+Sunita,Raghavan,https://www.linkedin.com/in/sunita-raghavan-8dbb6a,,U.S. Department of State,Senior Policy Analyst,14 Sep 2021
+Kristine,Castillo,https://www.linkedin.com/in/kristine-castillo-b3d7efa4,,Meta,Senior Applied Scientist,11 Sep 2021
+Rui,Li,https://www.linkedin.com/in/rui-li-76e6fb,,CIFAR,Research Lead,10 Sep 2021
+Katarzyna,Kamiński,https://www.linkedin.com/in/katarzynakaminski,,Self-employed,PM,08 Sep 2021
+Elena,Hernández,https://www.linkedin.com/in/elena-hernandez-4b75c49,,National Research Council Canada,Associate Professor,05 Sep 2021
+Jie,Zheng,https://www.linkedin.com/in/jie-zheng-c77fe34e,,Amazon Web Services (AWS),"VP, Data & Analytics",04 Sep 2021
+Yuna,Osayande,https://www.linkedin.com/in/yuna-osayande-59152e3,,Meta,Senior Software Engineer 🚀,04 Sep 2021
+Paolo,Bianchi,https://www.linkedin.com/in/paolo-bianchi-d0a569ad,,Boots UK,VP of Merchandising,04 Sep 2021
+Laura,Walker,https://www.linkedin.com/in/laura-walker-efbdd7,,Ripple,"Manager, Sales",30 Aug 2021
+Giorgio,Esposito,https://www.linkedin.com/in/giorgio-esposito-3d2bb39a,,Airbnb,"Senior Manager, Product Management",30 Aug 2021
+Orly,Fine,https://www.linkedin.com/in/orly-fine-7ceaa7a2,orly_fine@example.net,Stealth Startup,Founder & CFO,26 Aug 2021
+Anita,Subramaniam,https://www.linkedin.com/in/anita-subramaniam-9763ea8,,Wondery,Production Manager,25 Aug 2021
+Chiara,Moretti,https://www.linkedin.com/in/chiara-moretti-4e32a6,,Starbucks,,24 Aug 2021
+Trang,Đoàn,https://www.linkedin.com/in/trang-doan-29eb099,,Amazon,Engineering Manager,18 Aug 2021
+Vikram,Sharma,https://www.linkedin.com/in/vikram-sharma,,Walgreens Boots Alliance,,18 Aug 2021
+James,Wright,https://www.linkedin.com/in/james-wright-7f1bbf8,,Boots UK,Logistics Coordinator,17 Aug 2021
+David,Verma,https://www.linkedin.com/in/david-verma-e7e60a,,Independent Consultant,Independent Consultant,15 Aug 2021
+Zola,King,https://www.linkedin.com/in/zolaking,,Google,Senior Marketing Manager,15 Aug 2021
+Thu,Âu,https://www.linkedin.com/in/thu-au-41e402c6,,Nordstrom,"Senior Manager, Business Operations",12 Aug 2021
+Samuel,Williams,https://www.linkedin.com/in/samuel-williams-aa1f089a,,AT&T,Chief of Staff,10 Aug 2021
+Lorenzo,Hoffmann,https://www.linkedin.com/in/lorenzo-hoffmann-e7c38e,,Salesforce,Principal Data Scientist,07 Aug 2021
+Grace,Edwards,https://www.linkedin.com/in/grace-edwards-4730583,,Ontario Institute for Cancer Research,Research Lead,07 Aug 2021
+Dante,Mukherjee,https://www.linkedin.com/in/dante-mukherjee-fac60f,,Lionsgate,Director of Marketing,06 Aug 2021
+Isabella,Ortega,https://www.linkedin.com/in/isabella-ortega-2bbd95e,,Convoy Inc.,Operations Lead,05 Aug 2021
+Vikram,Ahmed,https://www.linkedin.com/in/vikram-ahmed-9133987b,,Wizards of the Coast,Enterprise Account Executive,04 Aug 2021
+Noor,Levine,https://www.linkedin.com/in/noor-levine-941811,,T-Mobile US,Software Engineer II,01 Aug 2021
+Tatiana,Sokołowski,https://www.linkedin.com/in/tatiana-sokolowski-cpa,,Databricks,Director of Design,23 Jul 2021
+Claire,Miller,https://www.linkedin.com/in/claire-miller-9f8f1f,,PitchBook,Applied Scientist,22 Jul 2021
+Kevin,Ramos,https://www.linkedin.com/in/kramos,kevinramos19@example.org,JPMorgan Chase & Co.,Group Finance Manager,22 Jul 2021
+Sunita,Nair,https://www.linkedin.com/in/sunita-nair-0391f2e0,,Amazon,Lead Product Manager,20 Jul 2021
+Elizabeth,Jones,https://www.linkedin.com/in/elizabethjones22,,Redfin,"Manager, Software Engineering",18 Jul 2021
+Sofía,Castillo,https://www.linkedin.com/in/sofiacastillo75,,Kleiner Perkins,"Associate, Venture Capital",15 Jul 2021
+Mariama,Balogun,https://www.linkedin.com/in/mariama-balogun-99f7a905,,T-Mobile US,Senior SWE,13 Jul 2021
+Ariel,Cohen,https://www.linkedin.com/in/ariel-cohen-4744624,,Wizards of the Coast,Senior Product Designer,06 Jul 2021
+Oskar,Nielsen,https://www.linkedin.com/in/oskar-nielsen,,,Junior Data Scientist,05 Jul 2021
+Megan,Wilson,https://www.linkedin.com/in/megan-wilson-449ef53,,Palantir Technologies,"Machine Learning Engineer, Spark",02 Jul 2021
+Rohan,Bhatia,https://www.linkedin.com/in/rohan-bhatia-a40e5ac,,Avalara,Backend Engineer,30 Jun 2021
+Priya,Kapoor,https://www.linkedin.com/in/priya-kapoor-281aaa,,Weyerhaeuser,Senior Operations Manager,24 Jun 2021
+Patrick,Mitchell,https://www.linkedin.com/in/patrick-mitchell-b696b5,,Boeing,VP of Engineering,24 Jun 2021
+Tanya,Rao,https://www.linkedin.com/in/tanya-rao-6f5c955c,tanyarao47@example.net,Next plc,Marketing Associate (Contract),24 Jun 2021
+Andrés,Gómez,https://www.linkedin.com/in/andresgomez,,Alaska Airlines,Senior Operations Manager,17 Jun 2021
+Bình,Huỳnh,https://www.linkedin.com/in/binh-huynh-830cc03,binh.huynh@example.com,Starbucks,Talent Lead,11 Jun 2021
+Dmitri,Woźniak,https://www.linkedin.com/in/dmitri-wozniak-4920f80,,DocuSign,Senior Applied Scientist,10 Jun 2021
+Quang,Uông,https://www.linkedin.com/in/quang-uong-ade20b,,Boeing,"Senior Director, Strategy",02 Jun 2021
+Charles,Evans,https://www.linkedin.com/in/charles-evans-edc96c74,,iHeartMedia,Senior Correspondent,02 Jun 2021
+Christopher,Mwangi,https://www.linkedin.com/in/christopher-mwangi-cfa,christopher_mwangi@example.org,TikTok,General Manager,31 May 2021
+Victoria,Lewis,https://www.linkedin.com/in/victoria-lewis-92c43ef3,,Expedia Group,SWE,26 May 2021
+Tao,Sun,https://www.linkedin.com/in/tao-sun,,Self-employed,"Sr. Machine Learning Engineer, ""Machine Learning""",25 May 2021
+Claire,Walker,https://www.linkedin.com/in/claire-walker-363f8cef,,DoorDash,Sr. Machine Learning Engineer,24 May 2021
+Mariana,Dizon,https://www.linkedin.com/in/mariana-dizon-ff2d6b,,Redfin Corporation,Sr. Software Engineer,22 May 2021
+Cường,Phan,https://www.linkedin.com/in/cuong-phan-b31088,,Expedia Group,Director of Engineering,22 May 2021
+Nomvula,Khumalo,https://www.linkedin.com/in/nomvula-khumalo,,Goldman Sachs,Financial Analyst,21 May 2021
+Megan,Campbell,https://www.linkedin.com/in/megan-campbell-6b3dab93,,Netflix,Managing Editor,21 May 2021
+Mariana,Rivera,https://www.linkedin.com/in/mariana-rivera-415feef8,,Snowflake,Software Engineering Manager,15 May 2021
+Ping,Lin,https://www.linkedin.com/in/ping-lin-58af72f4,,Outreach,Software Engineer II,11 May 2021
+Lucía,Flores,https://www.linkedin.com/in/lucia-flores-eb65981f,,Microsoft,Senior Data Scientist,10 May 2021
+Giang,Tăng,https://www.linkedin.com/in/giang-tang-5333ba3,,Amazon,VP of Product,30 Apr 2021
+Hussein,Thomas,https://www.linkedin.com/in/hussein-thomas-80a8cc,,,Sr. Software Engineer,30 Apr 2021
+Aisha,Malhotra,https://www.linkedin.com/in/aisha-malhotra-cfa,aishamalhotra66@example.org,Getty Images,Assistant Editor,28 Apr 2021
+Emilio,García-López,https://www.linkedin.com/in/emilio-garcia-lopez-0562f1,,Meta,Software Engineer II | Java,19 Apr 2021
+Nadia,Kozlov,https://www.linkedin.com/in/nadia-kozlov-ecc1e6e,,Valve Corporation,Sr. Software Engineer,18 Apr 2021
+Xiang,Simard,https://www.linkedin.com/in/xiang-simard-ed052eb,,Valve Corporation,,16 Apr 2021
+Amal,Saleh,https://www.linkedin.com/in/amal-saleh-4067e5,,Chime,Senior Marketing Manager,16 Apr 2021
+Hao,Hu,https://www.linkedin.com/in/hao-hu-95aac37,,Stealth Startup,Co-Founder,13 Apr 2021
+Owen,Clark,https://www.linkedin.com/in/owen-clark-25fa701,oclark@example.org,Tableau Software,Sr. Machine Learning Engineer,06 Apr 2021
+Aakash,Reddy,https://www.linkedin.com/in/aakash-reddy-316bc13,,Boeing,Operations Coordinator,03 Apr 2021
+Corazon,Rivera,https://www.linkedin.com/in/corazon-rivera-7390f69e,,Stealth Startup,Co-Founder,02 Apr 2021
+Uzoma,Okonkwo,https://www.linkedin.com/in/uzoma-okonkwo-cf6651af,,Meta,Senior Data Scientist,24 Mar 2021
+Ming,Watanabe,https://www.linkedin.com/in/mingwatanabe,,Expedia,SWE,22 Mar 2021
+Beatrice,Costa,https://www.linkedin.com/in/beatrice-costa-e84a4e,,The Goldman Sachs Group,Accounting Supervisor,11 Mar 2021
+Thomas,Collins,https://www.linkedin.com/in/ThomasCollins,,Google,Principal Software Engineer,08 Mar 2021
+Fatou,Mensah,https://www.linkedin.com/in/fmensah,,F5,Sr. Machine Learning Engineer,22 Feb 2021
+Riku,Cao,https://www.linkedin.com/in/caoriku,,Mass General Brigham,"Senior Attending Physician, MD",13 Feb 2021
+Rosa,González,https://www.linkedin.com/in/rosa-gonzalez-b8ef383,,,,12 Feb 2021
+Yosef,Tannenbaum,https://www.linkedin.com/in/yosef-tannenbaum-a804b15b,,Zillow Group,Design Lead,04 Feb 2021
+Anwar,Aoun,https://www.linkedin.com/in/anwar-aoun-4a3cf04d,,Expedia Group,Executive Assistant to CEO,30 Jan 2021
+Emily,White,https://www.linkedin.com/in/emily-white-6510c9,,Redfin,Account Manager,29 Jan 2021
+Arjun,Gupta,https://www.linkedin.com/in/arjun-gupta-dd00568f,,Amazon,Customer Success Manager,28 Jan 2021
+Laura,Taylor,https://www.linkedin.com/in/laura-taylor-e3d13120,,Paramount Global,Editor,26 Jan 2021
+Charles,Campbell,https://www.linkedin.com/in/charles-campbell-8b7e18,,TikTok,Sr. FP&A Manager,26 Jan 2021
+Talia,Katz,https://www.linkedin.com/in/taliakatz,,Bungie,VP of Sales,23 Jan 2021
+Chen,Deng,https://www.linkedin.com/in/chen-deng-e6a3c4,,Meta,Data Scientist,22 Jan 2021
+Caroline,Đỗ,https://www.linkedin.com/in/caroline-do-e859ad7,,iHeartMedia,"Senior Manager, Business Operations",12 Jan 2021
+Pooja,Agarwal,https://www.linkedin.com/in/pooja-agarwal-e086dbf,,DocuSign,Engineering Director,19 Dec 2020
+Zara,Malhotra,https://www.linkedin.com/in/zara-malhotra-b2dad62,,Getty Images,Studio Head,16 Dec 2020
+Camille,Schwarz,https://www.linkedin.com/in/camille-schwarz-182798c,,Riot Games,Sr. Designer,09 Dec 2020
+Soomin,Kwon,https://www.linkedin.com/in/soomin-kwon-2baea2,,Nintendo of America,Design Manager,02 Dec 2020
+Owen,Harris,https://www.linkedin.com/in/owen-harris-e8495b,,Goldman Sachs,"Associate, Investment Banking",16 Nov 2020
+Hannah,Edwards,https://www.linkedin.com/in/hannah-edwards-607e1d1,,Boston Children's Hospital,Physician Assistant,16 Nov 2020
+Lukas,Bruno,https://www.linkedin.com/in/lukas-bruno-e25ea9,,University of Toronto,Associate Professor,09 Nov 2020
+Gabriela,Morales,https://www.linkedin.com/in/gabriela-morales-5c34a60,,T-Mobile US,TECH LEAD,08 Nov 2020
+David,Thompson,https://www.linkedin.com/in/david-thompson-fe04b6,,Sony Pictures Entertainment,General Manager,27 Oct 2020
+Aurélie,Meyer,https://www.linkedin.com/in/aurelie-meyer-f3addf16,,Activision Blizzard,Financial Planning Lead,23 Oct 2020
+Shreya,Nair,https://www.linkedin.com/in/shreya-nair-3ad23b0,,Zillow Group,Design Director,22 Oct 2020
+Ayesha,Raghavan,https://www.linkedin.com/in/ayesha-raghavan-e1aba31,,Smartsheet,Senior SWE,18 Oct 2020
+Vikram,Trivedi,https://www.linkedin.com/in/vikram-trivedi-a90fc98c,,Blue Origin,Senior Chief of Staff,08 Oct 2020
+Orly,Rosen,https://www.linkedin.com/in/orly-rosen-23f24dd8,,,,04 Oct 2020
+Vivek,Verma,https://www.linkedin.com/in/vivek-verma-d92c37,,State Street Corporation,"Senior Manager, Accounting",02 Oct 2020
+Taeyang,Ryu,https://www.linkedin.com/in/taeyang-ryu-adae9c8,,Expedia Group,Operations Director,01 Oct 2020
+Aleksandr,Egorov,https://www.linkedin.com/in/aleksandr-egorov-cfa,,Meta,"Co-Founder, Data",26 Sep 2020
+Neha,Shah,https://www.linkedin.com/in/neha-shah-78e60f74,,Tableau,Senior Associate Product Manager,21 Sep 2020
+Kavita,Nair,https://www.linkedin.com/in/kavita-nair-a43568e,,Uber,"Director, Analytics | Causal Inference",11 Sep 2020
+Enrico,Ma,https://www.linkedin.com/in/enrico-ma-b65be5,,Zillow Group,"Senior Manager, Product Management",10 Sep 2020
+Hui,Hakim,https://www.linkedin.com/in/hui-hakim-febba75,,TikTok,Account Manager,09 Sep 2020
+Sean,Evans,https://www.linkedin.com/in/sevans,,Goldman Sachs,"Associate, Investment Banking",28 Aug 2020
+Emma,Chen,https://www.linkedin.com/in/emma-chen-7ccf617,,Queen's University,Director of Graduate Studies,27 Aug 2020
+Viktor,Wójcik,https://www.linkedin.com/in/viktor-wojcik-e46239,,Avalara,Engineering Lead,26 Aug 2020
+Nadia,Aziz,https://www.linkedin.com/in/nadia-aziz-214f5c7b,,Amazon,Backend Engineer,24 Aug 2020
+Sori,Nam,https://www.linkedin.com/in/sori-nam-2e29258,,Amazon.com,Senior Associate Product Manager,16 Aug 2020
+Edward,Wright,https://www.linkedin.com/in/edward-wright-e208bc,,ConocoPhillips,Sales Manager,14 Aug 2020
+George,Wilson,https://www.linkedin.com/in/george-wilson-39c044,george_wilson@example.org,Activision Blizzard,Design Manager,12 Aug 2020
+Hao,Luo,https://www.linkedin.com/in/hao-luo-d120711b,,Freelance,HR Associate 🚀,09 Aug 2020
+Claudia,González,https://www.linkedin.com/in/claudia-gonzalez-6d925e,,Netflix,"VP, Marketing",07 Aug 2020
+Luzviminda,Yap,https://www.linkedin.com/in/luzviminda-yap-13e5ac,,PitchBook,Director of Engineering,03 Aug 2020
+Elizabeth,Carter,https://www.linkedin.com/in/elizabeth-carter-7dbb4c2,elizabeth_carter@example.net,Rover.com,Founder & Head of People,01 Aug 2020
+Chana,Levine,https://www.linkedin.com/in/chana-levine-a2006db,,Chime,Sr. AE,01 Aug 2020
+Abigail,Roberts,https://www.linkedin.com/in/abigail-roberts-6c36c437,,,,31 Jul 2020
+Nathan,Roberts,https://www.linkedin.com/in/nathan-roberts-4a646e9,,Stealth Startup,Founder & Head of Sales,30 Jul 2020
+Khánh,Võ,https://www.linkedin.com/in/khanh-vo-de1a13,,Google,Sales Manager,28 Jul 2020
+Peng,Kato,https://www.linkedin.com/in/peng-kato-acdbe0,,Google,Chief Technology Officer,09 Jul 2020
+Kavita,Raghavan,https://www.linkedin.com/in/kavita-raghavan-0c2c395,,Redfin,Group Product Manager,05 Jul 2020
+Timothy,Miller,https://www.linkedin.com/in/timothy-miller-0ceb0c,,F5,Software Engineering Manager,28 Jun 2020
+Grace,Thompson,https://www.linkedin.com/in/grace-thompson-32799a,,Creative Artists Agency (CAA),Associate Marketing Manager,13 Jun 2020
+Ricardo,Jiménez,https://www.linkedin.com/in/ricardo-jimenez-7d7ff477,,Sysco,Operations Manager,05 Jun 2020
+Seojun,Noh,https://www.linkedin.com/in/seojunnoh25,,Warner Bros. Discovery,"Associate Director, FP&A",28 May 2020
+Marilou,Navarro,https://www.linkedin.com/in/marilou-navarro-e5ab12,,Google,Design Director,26 May 2020
+Benjamin,Phillips,https://www.linkedin.com/in/bphillips,,Independent Consultant,Independent Consultant,25 May 2020
+Yuri,Volkov,https://www.linkedin.com/in/yuri-volkov-599fcee,yvolkov@example.net,Google,Senior Data Scientist,20 May 2020
+Claudia,Castillo,https://www.linkedin.com/in/claudia-castillo-6f950a16,,PitchBook,VP of Product,19 May 2020
+Kavita,Reddy,https://www.linkedin.com/in/kavita-reddy-354989,,Valve Corporation,Sr. Designer,03 May 2020
+Rachel,Evans,https://www.linkedin.com/in/rachel-evans-e901f354,,Meta,Account Manager,03 May 2020
+Na,Zhou,https://www.linkedin.com/in/na-zhou-b085c90,,Weyerhaeuser,--,15 Mar 2020
+Tanya,Hussain,https://www.linkedin.com/in/tanya-hussain-56393c64,,Microsoft,"Director, Analytics",15 Mar 2020
+Robert,Davis,https://www.linkedin.com/in/robert-davis-c6fda10e,,PayPal Holdings,Senior SWE,11 Mar 2020
+Andrei,Nikitin,https://www.linkedin.com/in/andrei-nikitin-b4f06a,,Bungie,Director of Customer Success,06 Mar 2020
+Rafael,Domingo,https://www.linkedin.com/in/rafael-domingo-189c236,,Starbucks,,24 Feb 2020
+Lauren,Pavlov,https://www.linkedin.com/in/lauren-pavlov-1e6a4fc6,,REI,Senior Chief of Staff,20 Feb 2020
+Paolo,Becker,https://www.linkedin.com/in/paolobecker,,Meta,,18 Feb 2020
+Tao,Yang,https://www.linkedin.com/in/tao-yang-be0e1c,,Tableau Software,Applied Scientist,11 Feb 2020
+Marie,Wolf,https://www.linkedin.com/in/marie-wolf-43fd500,,Expedia Group,Software Engineer,28 Jan 2020
+Elizabeth,Martin,https://www.linkedin.com/in/elizabeth-martin-bf1023,,William Morris Endeavor (WME),Head of Growth Marketing,05 Jan 2020
+Sunita,Kapoor,https://www.linkedin.com/in/sunita-kapoor-03afb8,,Bungie,Software Engineer,23 Dec 2019
+Shreya,Rahman,https://www.linkedin.com/in/shreya-rahman-09608cf0,,Sequoia Capital,"Analyst, Venture Capital",14 Dec 2019
+Łukasz,Pavlov,https://www.linkedin.com/in/lukasz-pavlov-066f81,,F5,Chief Operating Officer,08 Dec 2019
+Scott,Clark,https://www.linkedin.com/in/scott-clark-3ee68d6,,ArenaNet,Sales Executive,06 Dec 2019
+Giang,Phan,https://www.linkedin.com/in/giang-phan-980387,,Smartsheet,Data Scientist,31 Oct 2019
+Tamar,Rosenberg,https://www.linkedin.com/in/trosenberg,,Meta,Staff Software Engineer,09 Oct 2019
+Caroline,Thomas,https://www.linkedin.com/in/caroline-thomas-3fc3fc6c,,F5,Sr. Software Engineer,29 Sep 2019
+Yu,Takahashi,https://www.linkedin.com/in/yu-takahashi-d387aa,,Tableau Software,Customer Success Manager,26 Sep 2019
+Isabella,Silva,https://www.linkedin.com/in/isabella-silva-d42729cd,,,,16 Sep 2019
+Giulia,Barbieri,https://www.linkedin.com/in/giulia-barbieri-6af5a0e9,,Self-employed,"Co-Founder, Engineering",16 Sep 2019
+Laura,White,https://www.linkedin.com/in/laura-white-7f4258,,Smartsheet,Software Engineering Manager,14 Sep 2019
+Somin,Seo,https://www.linkedin.com/in/somin-seo-c245830,sseo@example.org,Apple,"  Engineering Director",29 Aug 2019
+José,Castillo,https://www.linkedin.com/in/jose-castillo-c214c3ef,,Zillow Group,Chief Technology Officer,12 Aug 2019
+Rachel,Campbell,https://www.linkedin.com/in/rachel-campbell-0ff672d,,Airbnb Inc.,"Senior Customer Success Manager, Salesforce",04 Aug 2019
+Patricia,Pérez,https://www.linkedin.com/in/PatriciaPerez,,F5,Senior Customer Success Manager,29 Jul 2019
+Emma,Stewart,https://www.linkedin.com/in/emma-stewart-8f2692,,National Research Council Canada,Research Manager,29 Jul 2019
+Shoshana,Friedman,https://www.linkedin.com/in/shoshana-friedman-4b6c01,,Smartsheet,Senior Applied Scientist,27 Jul 2019
+Elena,López,https://www.linkedin.com/in/elena-lopez-872eecb5,,T-Mobile US,Group Marketing Manager,09 Jul 2019
+Mei,Zhu,https://www.linkedin.com/in/mei-zhu-dada33,meizhu99@example.org,Freelance,Staff Software Engineer - Remote,26 Jun 2019
+Marie,Moretti,https://www.linkedin.com/in/mmoretti,,Meta,Director of Design,21 Jun 2019
+Greta,Bùi,https://www.linkedin.com/in/greta-bui-31a165,,Zillow.com,"Director, Software Engineering",21 Jun 2019
+Xiang,Yamamoto,https://www.linkedin.com/in/xiang-yamamoto-ce6d22a,,Meta,Sr. Product Marketing Manager,18 Jun 2019
+Henry,Smith,https://www.linkedin.com/in/henry-smith-9c4f10,,Bungie,"Vice President, Engineering",12 Jun 2019
+Tao,Zheng,https://www.linkedin.com/in/tao-zheng-798d4c,,Weyerhaeuser,Operations Director,31 May 2019
+Ren,Yamamoto,https://www.linkedin.com/in/yamamotoren,,Amazon,Engineering Manager,30 May 2019
+Fernando,Álvarez,https://www.linkedin.com/in/fernando-alvarez-04f98862,,Expedia Group,Lead Product Designer,25 May 2019
+Thảo,Vũ,https://www.linkedin.com/in/thao-vu-b3685b,,Tableau Software,Tech Lead,18 May 2019
+George,Stewart,https://www.linkedin.com/in/george-stewart-4808bc,,Meta,Sales Manager,24 Apr 2019
+Tunde,Khumalo,https://www.linkedin.com/in/tunde-khumalo-08633970,tkhumalo@example.com,DocuSign,Group Product Manager,08 Apr 2019
+Aleksandr,Fedorov,https://www.linkedin.com/in/aleksandr-fedorov-528f07f0,,Blue Origin,SWE,29 Mar 2019
+Arjun,Desai,https://www.linkedin.com/in/desaiarjun,arjundesai15@example.net,Valve Corporation,Software Engineering Manager,19 Mar 2019
+Robert,Thomas,https://www.linkedin.com/in/rthomas,,F5,Applied Scientist,02 Mar 2019
+Ricardo,Álvarez,https://www.linkedin.com/in/RicardoAlvarez,,Outreach,Director of Engineering,14 Feb 2019
+Caroline,Williams,https://www.linkedin.com/in/caroline-williams-23e1ce07,,Meta,Sales Manager,09 Feb 2019
+Amalie,Svensson,https://www.linkedin.com/in/amaliesvensson41,,DocuSign,Senior Software Engineer,07 Feb 2019
+Bilal,Ghannam,https://www.linkedin.com/in/bilal-ghannam-10784c,,Texas Instruments,Director of Sales,06 Feb 2019
+Lan,Ricci,https://www.linkedin.com/in/lan-ricci-3617cbfa,,Expedia Group,Software Engineering Manager,26 Jan 2019
+Laura,Campbell,https://www.linkedin.com/in/laura-campbell-fd63878,,OpenAI,Software Engineering Manager,15 Jan 2019
+Edward,King,https://www.linkedin.com/in/edward-king-f1ff82,,Smartsheet,Sr. Designer,12 Jan 2019
+Ying,Zhao,https://www.linkedin.com/in/ying-zhao-bfc55ef,,Sony Pictures Entertainment,Product Manager,09 Jan 2019
+Amina,Desai,https://www.linkedin.com/in/amina-desai-066e39,,Google,Software Engineering Manager,26 Dec 2018
+Mona,Sabbagh,https://www.linkedin.com/in/sabbaghmona,,Google LLC,"Senior Manager, Product Management",20 Dec 2018
+Li,Ma,https://www.linkedin.com/in/li-ma-8a285e,,Snap Inc.,Staff Software Engineer,06 Dec 2018
+Xiang,Zhang,https://www.linkedin.com/in/xiang-zhang-ce894c,,Intuit,Director of Engineering,03 Dec 2018
+Svetlana,Král,https://www.linkedin.com/in/kralsvetlana,,Nintendo of America,Senior Associate Product Manager,13 Nov 2018
+Hiền,Đinh,https://www.linkedin.com/in/hien-dinh-320908c,,Expedia Group,Senior Operations Manager,24 Oct 2018
+Daniela,Cruz,https://www.linkedin.com/in/daniela-cruz-40e4cb2,,Queen's University,Sr. FP&A Manager,13 Oct 2018
+Pooja,Bhatt,https://www.linkedin.com/in/pooja-bhatt-5b5b822,,Zillow Group,Backend Engineer,12 Oct 2018
+Aryan,Kumar,https://www.linkedin.com/in/aryankumar75,,,Engineering Manager,01 Oct 2018
+Deepak,Mukherjee,https://www.linkedin.com/in/deepak-mukherjee-ce52f654,,Activision Blizzard,Senior Chief of Staff,09 Sep 2018
+Katherine,Campbell,https://www.linkedin.com/in/katherine-campbell-24812c82,,,,14 Aug 2018
+Tanya,Patel,https://www.linkedin.com/in/tanya-patel-baa0397,,Google,Engineering Lead,30 Jul 2018
+Wanjiru,Alemu,https://www.linkedin.com/in/wanjiru-alemu-cf6515,,DocuSign,Senior SWE,25 Jul 2018
+Lerato,Dlamini,https://www.linkedin.com/in/lerato-dlamini-75189f3f,,AIG,Sr. AE,05 Jul 2018
+Hong,Sato,https://www.linkedin.com/in/hong-sato-395bc9b,,Independent Consultant,Independent Consultant,16 Jun 2018
+Aakash,Cruz,https://www.linkedin.com/in/aakash-cruz-39600a33,,Chevron,Director of Engineering,28 May 2018
+Shaira,Mendoza,https://www.linkedin.com/in/shaira-mendoza-b15cb3ea,,PitchBook,Senior Marketing Manager,25 May 2018
+Laura,Edwards,https://www.linkedin.com/in/laura-edwards-ec760a,,Zillow Group,Principal Product Manager,10 Apr 2018
+Bekele,Kimani,https://www.linkedin.com/in/bekele-kimani-8b1e7243,,Robinhood,"Manager, UX",01 Apr 2018
+Kristina,Lie,https://www.linkedin.com/in/kristina-lie-f8ea7495,,Brex,Customer Success Manager,21 Mar 2018
+Mikhail,Horváth,https://www.linkedin.com/in/mikhail-horvath-0b3e5146,mikhail_horvath@example.com,Andreessen Horowitz,"Principal, Venture Capital",06 Mar 2018
+Hans,Ricci,https://www.linkedin.com/in/hans-ricci-cde49c40,,Expedia Group,Software Engineer II,02 Mar 2018
+Li,Xu,https://www.linkedin.com/in/li-xu-b7e453,,Sequoia Capital,"Associate, Venture Capital",20 Feb 2018
+Bruno,Bruno,https://www.linkedin.com/in/bruno-bruno-5584fcc,,Stealth,Co-Founder,07 Feb 2018
+Alessandro,Gallo,https://www.linkedin.com/in/alessandro-gallo-dd10f5,,Redfin,"Director, Software Engineering",19 Jan 2018
+Divya,Patel,https://www.linkedin.com/in/divya-patel-72ebd2,,F5,Director of Engineering,15 Jan 2018
+Eunji,Liang,https://www.linkedin.com/in/eunji-liang-20e0cc,,"Block, Inc.",Head of Product,14 Jan 2018
+Tao,Từ,https://www.linkedin.com/in/tao-tu-fa0dfc07,,Wizards of the Coast,"Vice  President, Engineering",06 Jan 2018
+Qiang,Wang,https://www.linkedin.com/in/qiangwang49,,Figma,"Manager, Sales",03 Jan 2018
+Deepak,Bhatia,https://www.linkedin.com/in/deepak-bhatia-caa945c,,Meta,Senior Product Manager,27 Dec 2017
+Morenike,Sowore,https://www.linkedin.com/in/morenike-sowore-a2bd8ac,,,,23 Dec 2017
+Diego,Sánchez,https://www.linkedin.com/in/diego-sanchez-fc7ed13,,Rover.com,Engineering Lead,18 Dec 2017
+Alejandra,Torres,https://www.linkedin.com/in/alejandra-torres-b059877,,Google,Engineering  Director,17 Dec 2017
+Matthew,Campbell,https://www.linkedin.com/in/matthew-campbell-20dbe41,,Bungie,Engineering Lead,17 Dec 2017
+Gabriela,De La Cruz,https://www.linkedin.com/in/gabriela-de-la-cruz-bdb844,,Costco Wholesale,"Manager, Sales",09 Dec 2017
+Ivan,Kowalski,https://www.linkedin.com/in/ivan-kowalski-b24c62,ikowalski@example.org,Bungie,Design Director,11 Nov 2017
+Eduardo,García,https://www.linkedin.com/in/eduardo-garcia-f65a654,egarcia@example.com,Universal Music Group,Production Manager,18 Oct 2017
+Arjun,Agarwal,https://www.linkedin.com/in/arjun-agarwal-340d9c,,Avalara,VP Product Management,03 Oct 2017
+Aurélie,Costa,https://www.linkedin.com/in/aurelie-costa-70d0aa,,Avalara,VP of Design,16 Sep 2017
+Sophie,Müller,https://www.linkedin.com/in/sophie-muller-2f4967,,Williams Companies,Engineering Manager,13 Sep 2017
+Lina,Hakim,https://www.linkedin.com/in/lina-hakim-48a106,,Expedia Group,"Director, Product Management",11 Sep 2017
+Shreya,Patel,https://www.linkedin.com/in/shreya-patel-04e9a31,,Microsoft,Sr. Designer,08 Aug 2017
+Neha,Sharma,https://www.linkedin.com/in/neha-sharma-d42f122,,Twilio,Lead Product Manager,15 Jul 2017
+Chiara,Barbieri,https://www.linkedin.com/in/chiarabarbieri84,,Lionsgate,Senior Producer,03 Jun 2017
+Faith,Cruz,https://www.linkedin.com/in/faith-cruz-062fa293,,Redfin,Staff Software Engineer,05 May 2017
+Sungmin,Lee,https://www.linkedin.com/in/sungmin-lee-8a10b05,,Smartsheet,--,29 Mar 2017
+Deepak,Kapoor,https://www.linkedin.com/in/deepak-kapoor-ec7e794,deepak.kapoor@example.net,F5,Tech Lead,13 Mar 2017
+Thomas,Jackson,https://www.linkedin.com/in/thomas-jackson-269651cc,,,,06 Mar 2017
+Michelle,Abad,https://www.linkedin.com/in/michelleabad39,michelle_abad@example.com,T-Mobile US,Operations Manager,13 Dec 2016
+Paolo,Reyes,https://www.linkedin.com/in/paolo-reyes-6a59e4d6,,Tableau Software,Senior Applied Scientist,12 Dec 2016
+Feng,Hu,https://www.linkedin.com/in/feng-hu-1b47ad,,Palantir Technologies,Senior Data Scientist,23 Nov 2016
+Sean,Wright,https://www.linkedin.com/in/sean-wright-b8b1ee,seanwright98@example.org,PitchBook Data Inc.,Lead Software Engineer,30 Oct 2016
+Dante,Cruz,https://www.linkedin.com/in/dante-cruz-873a58,,Bungie,"Manager, Software Engineering",21 Oct 2016
+Brian,Johnson,https://www.linkedin.com/in/brian-johnson-17a62c,,,Merchandising Manager,31 Aug 2016
+Junho,Yoon,https://www.linkedin.com/in/junhoyoon78,,Boeing,Data Science Manager,29 Jun 2016
+Leah,Goldberg,https://www.linkedin.com/in/leah-goldberg-6de4af5,,Sequoia Capital,VC Associate,17 Jun 2016
+Samuel,Stewart,https://www.linkedin.com/in/samuel-stewart-257064,,T-Mobile US,General Manager,07 Apr 2016
+Fang,Sato,https://www.linkedin.com/in/fsato,fang.sato@example.com,Nordstrom,"Senior Manager, Business Operations",19 Feb 2016
+Gerardo,Alvarez,https://www.linkedin.com/in/gerardo-alvarez-23dbb165,,PitchBook,"Team Lead, Customer Success",08 Jan 2016

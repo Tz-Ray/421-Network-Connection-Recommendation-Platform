@@ -1,0 +1,293 @@
+companyId,name,industryId,industryName,size,communities,generic
+microsoft,Microsoft,software_development,Software Development,large,SEA_TECH,false
+amazon,Amazon,software_development,Software Development,large,SEA_TECH,false
+aws,Amazon Web Services (AWS),software_development,Software Development,large,SEA_TECH,false
+expedia,Expedia Group,software_development,Software Development,large,SEA_TECH,false
+tmobile,T-Mobile US,telecom_ind,Telecommunications,large,SEA_TECH,false
+boeing,Boeing,aerospace,Aviation and Aerospace Component Manufacturing,large,SEA_TECH;CHI_CONSULT,false
+nordstrom,Nordstrom,retail_ind,Retail,large,SEA_TECH,false
+costco,Costco Wholesale,retail_ind,Retail,large,SEA_TECH,false
+zillow,Zillow Group,software_development,Software Development,mid,SEA_TECH,false
+redfin,Redfin,software_development,Software Development,mid,SEA_TECH,false
+tableau,Tableau Software,software_development,Software Development,mid,SEA_TECH,false
+smartsheet,Smartsheet,software_development,Software Development,mid,SEA_TECH,false
+valve,Valve Corporation,software_development,Software Development,mid,SEA_TECH,false
+nintendo_america,Nintendo of America,software_development,Software Development,large,SEA_TECH,false
+bungie,Bungie,software_development,Software Development,mid,SEA_TECH,false
+f5,F5,software_development,Software Development,mid,SEA_TECH,false
+blue_origin,Blue Origin,aerospace,Aviation and Aerospace Component Manufacturing,mid,SEA_TECH,false
+docusign,DocuSign,software_development,Software Development,mid,SEA_TECH,false
+getty_images,Getty Images,entertainment,Entertainment Providers,mid,SEA_TECH,false
+convoy,Convoy,logistics_ind,"Transportation, Logistics, Supply Chain and Storage",small,SEA_TECH,false
+rover,Rover.com,internet,"Technology, Information and Internet",small,SEA_TECH,false
+outreach,Outreach,internet,"Technology, Information and Internet",small,SEA_TECH,false
+wizards_coast,Wizards of the Coast,software_development,Software Development,mid,SEA_TECH,false
+arenanet,ArenaNet,software_development,Software Development,small,SEA_TECH,false
+weyerhaeuser,Weyerhaeuser,consumer_goods,Consumer Goods,large,SEA_TECH,false
+alaska_air,Alaska Airlines,airlines,Airlines and Aviation,large,SEA_TECH,false
+starbucks,Starbucks,food_beverage_ind,Food and Beverage Services,large,SEA_TECH,false
+rei,REI,retail_ind,Retail,mid,SEA_TECH,false
+avalara,Avalara,software_development,Software Development,mid,SEA_TECH,false
+pitchbook,PitchBook,internet,"Technology, Information and Internet",mid,SEA_TECH,false
+google,Google,software_development,Software Development,large,SEA_TECH;SF_FINTECH,false
+meta,Meta,software_development,Software Development,large,SEA_TECH;SF_FINTECH;LA_MEDIA,false
+stripe,Stripe,internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+block,"Block, Inc.",internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+paypal,PayPal,software_development,Software Development,large,SF_FINTECH,false
+plaid,Plaid,internet,"Technology, Information and Internet",small,SF_FINTECH,false
+chime,Chime,internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+robinhood,Robinhood,internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+coinbase,Coinbase,internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+ripple,Ripple,internet,"Technology, Information and Internet",small,SF_FINTECH,false
+affirm,Affirm,internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+brex,Brex,internet,"Technology, Information and Internet",small,SF_FINTECH,false
+sofi,SoFi,internet,"Technology, Information and Internet",mid,SF_FINTECH,false
+airbnb,Airbnb,software_development,Software Development,large,SF_FINTECH,false
+uber,Uber,software_development,Software Development,large,SF_FINTECH,false
+lyft,Lyft,software_development,Software Development,mid,SF_FINTECH,false
+doordash,DoorDash,software_development,Software Development,mid,SF_FINTECH,false
+instacart,Instacart,software_development,Software Development,mid,SF_FINTECH,false
+salesforce,Salesforce,software_development,Software Development,large,SF_FINTECH,false
+apple,Apple,software_development,Software Development,large,SF_FINTECH,false
+openai,OpenAI,software_development,Software Development,mid,SF_FINTECH,false
+anthropic,Anthropic,software_development,Software Development,mid,SF_FINTECH,false
+sequoia,Sequoia Capital,venture_capital_ind,Venture Capital and Private Equity Principals,small,SF_FINTECH,false
+a16z,Andreessen Horowitz,venture_capital_ind,Venture Capital and Private Equity Principals,small,SF_FINTECH,false
+kleiner_perkins,Kleiner Perkins,venture_capital_ind,Venture Capital and Private Equity Principals,small,SF_FINTECH,false
+visa,Visa,financial_services,Financial Services,large,SF_FINTECH,false
+wells_fargo,Wells Fargo,banking,Banking,large,SF_FINTECH,false
+schwab,Charles Schwab,financial_services,Financial Services,large,SF_FINTECH,false
+intuit,Intuit,software_development,Software Development,large,SF_FINTECH,false
+twilio,Twilio,software_development,Software Development,mid,SF_FINTECH,false
+databricks,Databricks,software_development,Software Development,mid,SF_FINTECH,false
+snowflake,Snowflake,software_development,Software Development,mid,SF_FINTECH,false
+palantir,Palantir Technologies,software_development,Software Development,mid,SF_FINTECH,false
+figma,Figma,software_development,Software Development,mid,SF_FINTECH,false
+goldman_sachs,Goldman Sachs,banking,Banking,large,NYC_FINANCE,false
+jpmorgan,JPMorgan Chase & Co.,banking,Banking,large,NYC_FINANCE,false
+morgan_stanley,Morgan Stanley,banking,Banking,large,NYC_FINANCE,false
+citigroup,Citigroup,banking,Banking,large,NYC_FINANCE,false
+bofa,Bank of America,banking,Banking,large,NYC_FINANCE,false
+blackrock,BlackRock,financial_services,Financial Services,large,NYC_FINANCE,false
+bridgewater,Bridgewater Associates,financial_services,Financial Services,mid,NYC_FINANCE,false
+citadel,Citadel,financial_services,Financial Services,mid,NYC_FINANCE,false
+point72,Point72 Asset Management,financial_services,Financial Services,mid,NYC_FINANCE,false
+two_sigma,Two Sigma,financial_services,Financial Services,mid,NYC_FINANCE,false
+blackstone,Blackstone,venture_capital_ind,Venture Capital and Private Equity Principals,large,NYC_FINANCE,false
+kkr,KKR,venture_capital_ind,Venture Capital and Private Equity Principals,large,NYC_FINANCE,false
+apollo,Apollo Global Management,venture_capital_ind,Venture Capital and Private Equity Principals,large,NYC_FINANCE,false
+moodys,Moody's,financial_services,Financial Services,mid,NYC_FINANCE,false
+spglobal,S&P Global,financial_services,Financial Services,large,NYC_FINANCE,false
+amex,American Express,banking,Banking,large,NYC_FINANCE,false
+metlife,MetLife,insurance,Insurance,large,NYC_FINANCE,false
+aig,AIG,insurance,Insurance,large,NYC_FINANCE,false
+deloitte,Deloitte,management_consulting,Business Consulting and Services,large,NYC_FINANCE;CHI_CONSULT;DC_POLICY,false
+pwc,PwC,management_consulting,Business Consulting and Services,large,NYC_FINANCE;CHI_CONSULT,false
+ey,EY,management_consulting,Business Consulting and Services,large,NYC_FINANCE;CHI_CONSULT,false
+kpmg,KPMG,management_consulting,Business Consulting and Services,large,NYC_FINANCE;CHI_CONSULT,false
+mckinsey,McKinsey & Company,management_consulting,Business Consulting and Services,large,NYC_FINANCE;CHI_CONSULT,false
+bloomberg,Bloomberg L.P.,entertainment,Entertainment Providers,large,NYC_FINANCE,false
+nytimes,The New York Times Company,publishing,Newspaper Publishing,large,NYC_FINANCE,false
+conde_nast,Condé Nast,publishing,Newspaper Publishing,mid,NYC_FINANCE,false
+skadden,"Skadden, Arps, Slate, Meagher & Flom",law_practice,Law Practice,large,NYC_FINANCE,false
+sullcrom,Sullivan & Cromwell,law_practice,Law Practice,mid,NYC_FINANCE,false
+latham,Latham & Watkins,law_practice,Law Practice,large,NYC_FINANCE,false
+verizon,Verizon,telecom_ind,Telecommunications,large,NYC_FINANCE,false
+nbcuniversal,NBCUniversal,entertainment,Entertainment Providers,large,NYC_FINANCE;LA_MEDIA,false
+mass_general_brigham,Mass General Brigham,hospitals_health,Hospitals and Health Care,large,BOS_HEALTH,false
+mgh,Massachusetts General Hospital,hospitals_health,Hospitals and Health Care,large,BOS_HEALTH,false
+brigham_womens,Brigham and Women's Hospital,hospitals_health,Hospitals and Health Care,large,BOS_HEALTH,false
+boston_childrens,Boston Children's Hospital,hospitals_health,Hospitals and Health Care,large,BOS_HEALTH,false
+dana_farber,Dana-Farber Cancer Institute,hospitals_health,Hospitals and Health Care,mid,BOS_HEALTH,false
+beth_israel,Beth Israel Deaconess Medical Center,hospitals_health,Hospitals and Health Care,large,BOS_HEALTH,false
+biogen,Biogen,biotechnology,Biotechnology Research,large,BOS_HEALTH,false
+moderna,Moderna,biotechnology,Biotechnology Research,large,BOS_HEALTH,false
+vertex_pharma,Vertex Pharmaceuticals,pharmaceuticals,Pharmaceutical Manufacturing,large,BOS_HEALTH,false
+takeda,Takeda,pharmaceuticals,Pharmaceutical Manufacturing,large,BOS_HEALTH,false
+sanofi,Sanofi,pharmaceuticals,Pharmaceutical Manufacturing,large,BOS_HEALTH,false
+novartis,Novartis,pharmaceuticals,Pharmaceutical Manufacturing,large,BOS_HEALTH,false
+pfizer,Pfizer,pharmaceuticals,Pharmaceutical Manufacturing,large,BOS_HEALTH,false
+genzyme,Genzyme,biotechnology,Biotechnology Research,mid,BOS_HEALTH,false
+akamai,Akamai Technologies,software_development,Software Development,mid,BOS_HEALTH,false
+athenahealth,athenahealth,software_development,Software Development,mid,BOS_HEALTH,false
+wayfair,Wayfair,retail_ind,Retail,large,BOS_HEALTH,false
+hubspot,HubSpot,software_development,Software Development,mid,BOS_HEALTH,false
+harvard_u,Harvard University,higher_education,Higher Education,large,BOS_HEALTH,false
+harvard_med,Harvard Medical School,higher_education,Higher Education,mid,BOS_HEALTH,false
+mit,Massachusetts Institute of Technology,higher_education,Higher Education,large,BOS_HEALTH,false
+boston_u_co,Boston University,higher_education,Higher Education,large,BOS_HEALTH,false
+tufts_medical,Tufts Medical Center,hospitals_health,Hospitals and Health Care,mid,BOS_HEALTH,false
+charles_river_labs,Charles River Laboratories,biotechnology,Biotechnology Research,mid,BOS_HEALTH,false
+bcbs_ma,Blue Cross Blue Shield of Massachusetts,insurance,Insurance,large,BOS_HEALTH,false
+liberty_mutual,Liberty Mutual Insurance,insurance,Insurance,large,BOS_HEALTH,false
+state_street,State Street Corporation,financial_services,Financial Services,large,BOS_HEALTH,false
+fidelity,Fidelity Investments,financial_services,Financial Services,large,BOS_HEALTH,false
+iron_mountain,Iron Mountain,logistics_ind,"Transportation, Logistics, Supply Chain and Storage",mid,BOS_HEALTH,false
+bcg,Boston Consulting Group,management_consulting,Business Consulting and Services,large,CHI_CONSULT,false
+bain,Bain & Company,management_consulting,Business Consulting and Services,large,CHI_CONSULT,false
+accenture,Accenture,management_consulting,Business Consulting and Services,large,CHI_CONSULT;DC_POLICY,false
+atkearney,A.T. Kearney,management_consulting,Business Consulting and Services,mid,CHI_CONSULT,false
+westmonroe,West Monroe,management_consulting,Business Consulting and Services,mid,CHI_CONSULT,false
+kraft_heinz,Kraft Heinz,consumer_goods,Consumer Goods,large,CHI_CONSULT,false
+mondelez,Mondelez International,consumer_goods,Consumer Goods,large,CHI_CONSULT,false
+mcdonalds,McDonald's,food_beverage_ind,Food and Beverage Services,large,CHI_CONSULT,false
+walgreens,Walgreens Boots Alliance,retail_ind,Retail,large,CHI_CONSULT,false
+allstate,Allstate,insurance,Insurance,large,CHI_CONSULT,false
+united_airlines,United Airlines,airlines,Airlines and Aviation,large,CHI_CONSULT,false
+exelon,Exelon,utilities_ind,Utilities,large,CHI_CONSULT,false
+abbott,Abbott,pharmaceuticals,Pharmaceutical Manufacturing,large,CHI_CONSULT,false
+abbvie,AbbVie,pharmaceuticals,Pharmaceutical Manufacturing,large,CHI_CONSULT,false
+baxter,Baxter International,pharmaceuticals,Pharmaceutical Manufacturing,mid,CHI_CONSULT,false
+conagra,Conagra Brands,consumer_goods,Consumer Goods,large,CHI_CONSULT,false
+grubhub,Grubhub,software_development,Software Development,mid,CHI_CONSULT,false
+groupon,Groupon,software_development,Software Development,mid,CHI_CONSULT,false
+adm,Archer Daniels Midland,consumer_goods,Consumer Goods,large,CHI_CONSULT,false
+cme_group,CME Group,financial_services,Financial Services,large,CHI_CONSULT,false
+northern_trust,Northern Trust,financial_services,Financial Services,large,CHI_CONSULT,false
+aon,Aon,insurance,Insurance,large,CHI_CONSULT,false
+zebra_tech,Zebra Technologies,software_development,Software Development,mid,CHI_CONSULT,false
+discover,Discover Financial Services,banking,Banking,large,CHI_CONSULT,false
+tesco,Tesco,retail_ind,Retail,large,LDN_RETAIL,false
+sainsburys,Sainsbury's,retail_ind,Retail,large,LDN_RETAIL,false
+marks_spencer,Marks & Spencer,retail_ind,Retail,large,LDN_RETAIL,false
+asos,ASOS,retail_ind,Retail,mid,LDN_RETAIL,false
+next_plc,Next plc,retail_ind,Retail,large,LDN_RETAIL,false
+john_lewis,John Lewis Partnership,retail_ind,Retail,large,LDN_RETAIL,false
+burberry,Burberry,apparel,Apparel and Fashion,large,LDN_RETAIL,false
+primark,Primark,retail_ind,Retail,large,LDN_RETAIL,false
+boots_uk,Boots UK,retail_ind,Retail,large,LDN_RETAIL,false
+unilever,Unilever,consumer_goods,Consumer Goods,large,LDN_RETAIL,false
+diageo,Diageo,consumer_goods,Consumer Goods,large,LDN_RETAIL,false
+compass_group,Compass Group,hospitality_ind,Hospitality,large,LDN_RETAIL,false
+whitbread,Whitbread,hospitality_ind,Hospitality,large,LDN_RETAIL,false
+ihg,InterContinental Hotels Group,hospitality_ind,Hospitality,large,LDN_RETAIL,false
+easyjet,easyJet,airlines,Airlines and Aviation,large,LDN_RETAIL,false
+british_airways,British Airways,airlines,Airlines and Aviation,large,LDN_RETAIL,false
+deliveroo,Deliveroo,internet,"Technology, Information and Internet",mid,LDN_RETAIL,false
+ocado,Ocado,retail_ind,Retail,mid,LDN_RETAIL,false
+ted_baker,Ted Baker,apparel,Apparel and Fashion,small,LDN_RETAIL,false
+selfridges,Selfridges,retail_ind,Retail,mid,LDN_RETAIL,false
+harrods,Harrods,retail_ind,Retail,mid,LDN_RETAIL,false
+ryanair,Ryanair,airlines,Airlines and Aviation,large,LDN_RETAIL,false
+hm,H&M,apparel,Apparel and Fashion,large,LDN_RETAIL,false
+zalando,Zalando,retail_ind,Retail,mid,LDN_RETAIL,false
+hellofresh,HelloFresh,internet,"Technology, Information and Internet",mid,LDN_RETAIL,false
+adyen,Adyen,internet,"Technology, Information and Internet",mid,LDN_RETAIL,false
+booking_com,Booking.com,software_development,Software Development,large,LDN_RETAIL,false
+revolut,Revolut,internet,"Technology, Information and Internet",mid,LDN_RETAIL,false
+monzo,Monzo,internet,"Technology, Information and Internet",mid,LDN_RETAIL,false
+wise,Wise,internet,"Technology, Information and Internet",mid,LDN_RETAIL,false
+u_toronto_co,University of Toronto,higher_education,Higher Education,large,TOR_ACADEMIA,false
+u_waterloo_co,University of Waterloo,higher_education,Higher Education,large,TOR_ACADEMIA,false
+mcgill_co,McGill University,higher_education,Higher Education,large,TOR_ACADEMIA,false
+queens_u_co,Queen's University,higher_education,Higher Education,mid,TOR_ACADEMIA,false
+mcmaster_co,McMaster University,higher_education,Higher Education,large,TOR_ACADEMIA,false
+u_ottawa_co,University of Ottawa,higher_education,Higher Education,mid,TOR_ACADEMIA,false
+rbc,Royal Bank of Canada,banking,Banking,large,TOR_ACADEMIA,false
+td_bank,Toronto-Dominion Bank,banking,Banking,large,TOR_ACADEMIA,false
+bmo,Bank of Montreal,banking,Banking,large,TOR_ACADEMIA,false
+scotiabank,Scotiabank,banking,Banking,large,TOR_ACADEMIA,false
+cibc,CIBC,banking,Banking,large,TOR_ACADEMIA,false
+shopify,Shopify,software_development,Software Development,large,TOR_ACADEMIA,false
+bombardier,Bombardier,aerospace,Aviation and Aerospace Component Manufacturing,large,TOR_ACADEMIA,false
+cn_rail,Canadian National Railway,logistics_ind,"Transportation, Logistics, Supply Chain and Storage",large,TOR_ACADEMIA,false
+sunlife,Sun Life Financial,insurance,Insurance,large,TOR_ACADEMIA,false
+manulife,Manulife,insurance,Insurance,large,TOR_ACADEMIA,false
+gov_ontario,Government of Ontario,government_admin,Government Administration,large,TOR_ACADEMIA,false
+gov_canada,Government of Canada,government_admin,Government Administration,large,TOR_ACADEMIA,false
+vector_institute,Vector Institute,research_services,Research Services,small,TOR_ACADEMIA,false
+oicr,Ontario Institute for Cancer Research,research_services,Research Services,small,TOR_ACADEMIA,false
+uhn,University Health Network,hospitals_health,Hospitals and Health Care,large,TOR_ACADEMIA,false
+sickkids,SickKids,hospitals_health,Hospitals and Health Care,large,TOR_ACADEMIA,false
+cifar,CIFAR,research_services,Research Services,small,TOR_ACADEMIA,false
+loblaw,Loblaw Companies,retail_ind,Retail,large,TOR_ACADEMIA,false
+nrc_canada,National Research Council Canada,research_services,Research Services,mid,TOR_ACADEMIA,false
+opentext,OpenText,software_development,Software Development,mid,TOR_ACADEMIA,false
+blackberry,BlackBerry,software_development,Software Development,mid,TOR_ACADEMIA,false
+kinaxis,Kinaxis,software_development,Software Development,small,TOR_ACADEMIA,false
+us_state_dept,U.S. Department of State,government_admin,Government Administration,large,DC_POLICY,false
+us_dod,U.S. Department of Defense,government_admin,Government Administration,large,DC_POLICY,false
+us_doe,U.S. Department of Energy,government_admin,Government Administration,large,DC_POLICY,false
+us_doj,U.S. Department of Justice,government_admin,Government Administration,large,DC_POLICY,false
+us_treasury,U.S. Department of the Treasury,government_admin,Government Administration,large,DC_POLICY,false
+world_bank,The World Bank,government_admin,Government Administration,large,DC_POLICY,false
+imf,International Monetary Fund,government_admin,Government Administration,large,DC_POLICY,false
+brookings,Brookings Institution,think_tanks,Think Tanks,small,DC_POLICY,false
+rand_corp,RAND Corporation,think_tanks,Think Tanks,mid,DC_POLICY,false
+csis,Center for Strategic and International Studies,think_tanks,Think Tanks,small,DC_POLICY,false
+heritage_foundation,Heritage Foundation,think_tanks,Think Tanks,small,DC_POLICY,false
+aei,American Enterprise Institute,think_tanks,Think Tanks,small,DC_POLICY,false
+booz_allen,Booz Allen Hamilton,defense,Defense and Space Manufacturing,large,DC_POLICY,false
+lockheed_martin,Lockheed Martin,defense,Defense and Space Manufacturing,large,DC_POLICY,false
+northrop_grumman,Northrop Grumman,defense,Defense and Space Manufacturing,large,DC_POLICY,false
+raytheon,Raytheon Technologies (RTX),defense,Defense and Space Manufacturing,large,DC_POLICY,false
+general_dynamics,General Dynamics,defense,Defense and Space Manufacturing,large,DC_POLICY,false
+leidos,Leidos,defense,Defense and Space Manufacturing,large,DC_POLICY,false
+saic,SAIC,defense,Defense and Space Manufacturing,mid,DC_POLICY,false
+usaid,USAID,government_admin,Government Administration,large,DC_POLICY,false
+red_cross,American Red Cross,nonprofit_ind,Non-profit Organizations,large,DC_POLICY,false
+natgeo_society,National Geographic Society,nonprofit_ind,Non-profit Organizations,mid,DC_POLICY,false
+smithsonian,Smithsonian Institution,nonprofit_ind,Non-profit Organizations,large,DC_POLICY,false
+georgetown_co,Georgetown University,higher_education,Higher Education,large,DC_POLICY,false
+gwu_co,George Washington University,higher_education,Higher Education,large,DC_POLICY,false
+us_house,U.S. House of Representatives,government_admin,Government Administration,large,DC_POLICY,false
+us_senate,U.S. Senate,government_admin,Government Administration,large,DC_POLICY,false
+exxonmobil,ExxonMobil,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+chevron,Chevron,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+conocophillips,ConocoPhillips,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+shell_usa,Shell USA,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+bp_america,BP America,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+halliburton,Halliburton,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+baker_hughes,Baker Hughes,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+schlumberger,Schlumberger (SLB),oil_gas,Oil and Gas,large,HOU_ENERGY,false
+phillips66,Phillips 66,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+marathon_petroleum,Marathon Petroleum,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+occidental,Occidental Petroleum,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+nrg_energy,NRG Energy,utilities_ind,Utilities,large,HOU_ENERGY,false
+centerpoint,CenterPoint Energy,utilities_ind,Utilities,mid,HOU_ENERGY,false
+kinder_morgan,Kinder Morgan,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+enterprise_products,Enterprise Products Partners,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+sysco,Sysco,logistics_ind,"Transportation, Logistics, Supply Chain and Storage",large,HOU_ENERGY,false
+american_airlines,American Airlines,airlines,Airlines and Aviation,large,HOU_ENERGY,false
+southwest_airlines,Southwest Airlines,airlines,Airlines and Aviation,large,HOU_ENERGY,false
+att,AT&T,telecom_ind,Telecommunications,large,HOU_ENERGY,false
+texas_instruments,Texas Instruments,computer_hardware,Computer Hardware,large,HOU_ENERGY,false
+dell,Dell Technologies,computer_hardware,Computer Hardware,large,HOU_ENERGY,false
+nextera,NextEra Energy,utilities_ind,Utilities,large,HOU_ENERGY,false
+vestas,Vestas,renewables_ind,Renewables & Environment,mid,HOU_ENERGY,false
+technipfmc,TechnipFMC,oil_gas,Oil and Gas,mid,HOU_ENERGY,false
+fluor,Fluor Corporation,defense,Defense and Space Manufacturing,large,HOU_ENERGY,false
+jacobs_eng,Jacobs Engineering Group,defense,Defense and Space Manufacturing,large,HOU_ENERGY,false
+bechtel,Bechtel,defense,Defense and Space Manufacturing,large,HOU_ENERGY,false
+williams_companies,Williams Companies,oil_gas,Oil and Gas,large,HOU_ENERGY,false
+disney,The Walt Disney Company,entertainment,Entertainment Providers,large,LA_MEDIA,false
+warner_bros_discovery,Warner Bros. Discovery,entertainment,Entertainment Providers,large,LA_MEDIA,false
+netflix,Netflix,entertainment,Entertainment Providers,large,LA_MEDIA,false
+paramount,Paramount Global,entertainment,Entertainment Providers,large,LA_MEDIA,false
+sony_pictures,Sony Pictures Entertainment,entertainment,Entertainment Providers,large,LA_MEDIA,false
+universal_music,Universal Music Group,music_ind,Musicians,large,LA_MEDIA,false
+warner_music,Warner Music Group,music_ind,Musicians,large,LA_MEDIA,false
+live_nation,Live Nation Entertainment,music_ind,Musicians,large,LA_MEDIA,false
+wme,William Morris Endeavor (WME),marketing_advertising,Advertising Services,mid,LA_MEDIA,false
+caa,Creative Artists Agency (CAA),marketing_advertising,Advertising Services,mid,LA_MEDIA,false
+spotify,Spotify,software_development,Software Development,large,LA_MEDIA,false
+snap_inc,Snap Inc.,software_development,Software Development,mid,LA_MEDIA,false
+tiktok,TikTok,software_development,Software Development,large,LA_MEDIA,false
+riot_games,Riot Games,software_development,Software Development,mid,LA_MEDIA,false
+activision_blizzard,Activision Blizzard,software_development,Software Development,large,LA_MEDIA,false
+legendary,Legendary Entertainment,entertainment,Entertainment Providers,mid,LA_MEDIA,false
+a24,A24,entertainment,Entertainment Providers,small,LA_MEDIA,false
+lionsgate,Lionsgate,entertainment,Entertainment Providers,mid,LA_MEDIA,false
+fox_corp,Fox Corporation,entertainment,Entertainment Providers,large,LA_MEDIA,false
+iheartmedia,iHeartMedia,publishing,Newspaper Publishing,large,LA_MEDIA,false
+amazon_studios,Amazon Studios,entertainment,Entertainment Providers,mid,LA_MEDIA,false
+hulu,Hulu,entertainment,Entertainment Providers,mid,LA_MEDIA,false
+fandom,Fandom,software_development,Software Development,small,LA_MEDIA,false
+wondery,Wondery,entertainment,Entertainment Providers,small,LA_MEDIA,false
+chernin_entertainment,Chernin Entertainment,entertainment,Entertainment Providers,small,LA_MEDIA,false
+self_employed,Self-employed,,,small,SEA_TECH;SF_FINTECH;NYC_FINANCE;BOS_HEALTH;CHI_CONSULT;LDN_RETAIL;TOR_ACADEMIA;DC_POLICY;HOU_ENERGY;LA_MEDIA,true
+freelance,Freelance,,,small,SEA_TECH;SF_FINTECH;NYC_FINANCE;BOS_HEALTH;CHI_CONSULT;LDN_RETAIL;TOR_ACADEMIA;DC_POLICY;HOU_ENERGY;LA_MEDIA,true
+stealth_startup,Stealth Startup,,,small,SEA_TECH;SF_FINTECH;NYC_FINANCE;BOS_HEALTH;CHI_CONSULT;LDN_RETAIL;TOR_ACADEMIA;DC_POLICY;HOU_ENERGY;LA_MEDIA,true
+retired,Retired,,,small,SEA_TECH;SF_FINTECH;NYC_FINANCE;BOS_HEALTH;CHI_CONSULT;LDN_RETAIL;TOR_ACADEMIA;DC_POLICY;HOU_ENERGY;LA_MEDIA,true
+independent_consultant,Independent Consultant,,,small,SEA_TECH;SF_FINTECH;NYC_FINANCE;BOS_HEALTH;CHI_CONSULT;LDN_RETAIL;TOR_ACADEMIA;DC_POLICY;HOU_ENERGY;LA_MEDIA,true
+open_to_work,Open to work,,,small,SEA_TECH;SF_FINTECH;NYC_FINANCE;BOS_HEALTH;CHI_CONSULT;LDN_RETAIL;TOR_ACADEMIA;DC_POLICY;HOU_ENERGY;LA_MEDIA,true

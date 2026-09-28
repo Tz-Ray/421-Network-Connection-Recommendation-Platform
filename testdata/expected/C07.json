@@ -1,0 +1,6413 @@
+{
+  "id": "C07",
+  "file": "networks/classic/C07_abigail-harris.csv",
+  "format": "classic",
+  "owner": {
+    "personId": "P03354",
+    "name": "Abigail Harris",
+    "url": "https://www.linkedin.com/in/abigail-harris-c793b23"
+  },
+  "exportDate": "2025-08-27",
+  "rows": [
+    {
+      "personId": "P03207",
+      "url": "https://www.linkedin.com/in/sigrid-skov-4696ee5",
+      "firstName": "Sigrid",
+      "lastName": "Skov",
+      "email": "",
+      "company": "Ontario Public Service",
+      "position": "Branch Chief",
+      "connectedOnIso": "2025-08-21"
+    },
+    {
+      "personId": "P02742",
+      "url": "https://www.linkedin.com/in/lauren-edwards-94b0f0",
+      "firstName": "Lauren",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Boots UK",
+      "position": "Buying Director",
+      "connectedOnIso": "2025-08-17"
+    },
+    {
+      "personId": "P03282",
+      "url": "https://www.linkedin.com/in/ingrid-marino-2ab4d0",
+      "firstName": "Ingrid",
+      "lastName": "Marino",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "FP&A Analyst",
+      "connectedOnIso": "2025-08-13"
+    },
+    {
+      "personId": "P01549",
+      "url": "https://www.linkedin.com/in/emmanuel-tolentino-0211e71",
+      "firstName": "Emmanuel",
+      "lastName": "Tolentino",
+      "email": "",
+      "company": "Twilio",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2025-08-05"
+    },
+    {
+      "personId": "P03315",
+      "url": "https://www.linkedin.com/in/julia-thomas-5333ad",
+      "firstName": "Julia",
+      "lastName": "Thomas",
+      "email": "julia.thomas@example.org",
+      "company": "Government of Ontario",
+      "position": "Policy Lead",
+      "connectedOnIso": "2025-08-05"
+    },
+    {
+      "personId": "P02211",
+      "url": "https://www.linkedin.com/in/ling-deng-f8bba7d",
+      "firstName": "Ling",
+      "lastName": "Deng",
+      "email": "",
+      "company": "Pfizer Inc.",
+      "position": "Clinical Operations Manager",
+      "connectedOnIso": "2025-08-03"
+    },
+    {
+      "personId": "P02410",
+      "url": "https://www.linkedin.com/in/wolfgang-becker-63e5511",
+      "firstName": "Wolfgang",
+      "lastName": "Becker",
+      "email": "",
+      "company": "Liberty Mutual Insurance",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2025-07-30"
+    },
+    {
+      "personId": "P02380",
+      "url": "https://www.linkedin.com/in/svetlana-fedorov-54bdab6",
+      "firstName": "Svetlana",
+      "lastName": "Fedorov",
+      "email": "",
+      "company": "Boston Children's Hospital",
+      "position": "Executive Assistant",
+      "connectedOnIso": "2025-07-29"
+    },
+    {
+      "personId": "P02475",
+      "url": "https://www.linkedin.com/in/qiang-luo-74f4e367",
+      "firstName": "Qiang",
+      "lastName": "Luo",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Senior  Attending Physician, MD",
+      "connectedOnIso": "2025-07-21"
+    },
+    {
+      "personId": "P01983",
+      "url": "https://www.linkedin.com/in/orly-eisen-mba",
+      "firstName": "Orly",
+      "lastName": "Eisen",
+      "email": "orlyeisen81@example.org",
+      "company": "Bloomberg L.P.",
+      "position": "HR Associate",
+      "connectedOnIso": "2025-07-18"
+    },
+    {
+      "personId": "P03265",
+      "url": "https://www.linkedin.com/in/seojun-yoo",
+      "firstName": "Seojun",
+      "lastName": "Yoo",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2025-07-18"
+    },
+    {
+      "personId": "P03106",
+      "url": "https://www.linkedin.com/in/emilio-morales-53b6cfb9",
+      "firstName": "Emilio",
+      "lastName": "Morales",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Research Assistant",
+      "connectedOnIso": "2025-07-05"
+    },
+    {
+      "personId": "P03090",
+      "url": "https://www.linkedin.com/in/olamide-kumar-e46558a",
+      "firstName": "Olamide",
+      "lastName": "Kumar",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "SWE I",
+      "connectedOnIso": "2025-07-04"
+    },
+    {
+      "personId": "P03309",
+      "url": "https://www.linkedin.com/in/aryan-das-f24c1c",
+      "firstName": "Aryan",
+      "lastName": "Das",
+      "email": "",
+      "company": "CIFAR",
+      "position": "Executive Office Intern",
+      "connectedOnIso": "2025-07-04"
+    },
+    {
+      "personId": "P02468",
+      "url": "https://www.linkedin.com/in/noam-rubin-05a05976",
+      "firstName": "Noam",
+      "lastName": "Rubin",
+      "email": "",
+      "company": "Liberty Mutual Insurance",
+      "position": "Executive Office Intern",
+      "connectedOnIso": "2025-07-01"
+    },
+    {
+      "personId": "P02129",
+      "url": "https://www.linkedin.com/in/aoixie42",
+      "firstName": "Aoi",
+      "lastName": "Xie",
+      "email": "",
+      "company": "Bank of America",
+      "position": "Senior Associate, M&A",
+      "connectedOnIso": "2025-06-29"
+    },
+    {
+      "personId": "P02190",
+      "url": "https://www.linkedin.com/in/hana-yang-7694ed",
+      "firstName": "Hana",
+      "lastName": "Yang",
+      "email": "hana.yang@example.com",
+      "company": "ModernaTX",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2025-06-27"
+    },
+    {
+      "personId": "P03048",
+      "url": "https://www.linkedin.com/in/melanie-levesque-55582b",
+      "firstName": "Mélanie",
+      "lastName": "Lévesque",
+      "email": "",
+      "company": "RBC",
+      "position": "Senior Associate",
+      "connectedOnIso": "2025-06-27"
+    },
+    {
+      "personId": "P03211",
+      "url": "https://www.linkedin.com/in/maricel-torres-c98508",
+      "firstName": "Maricel",
+      "lastName": "Torres",
+      "email": "",
+      "company": "RBC",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2025-06-27"
+    },
+    {
+      "personId": "P03102",
+      "url": "https://www.linkedin.com/in/roman-lacson-2f39f7",
+      "firstName": "Roman",
+      "lastName": "Lacson",
+      "email": "",
+      "company": "CIBC",
+      "position": "Finance Manager",
+      "connectedOnIso": "2025-06-25"
+    },
+    {
+      "personId": "P03240",
+      "url": "https://www.linkedin.com/in/yuna-ito-7d52cb",
+      "firstName": "Yuna",
+      "lastName": "Ito",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "Financial Analyst",
+      "connectedOnIso": "2025-06-24"
+    },
+    {
+      "personId": "P03391",
+      "url": "https://www.linkedin.com/in/yulia-wojcik-79ed9d31",
+      "firstName": "Yulia",
+      "lastName": "Wójcik",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2025-06-21"
+    },
+    {
+      "personId": "P03127",
+      "url": "https://www.linkedin.com/in/cherry-abad-0d7ca65",
+      "firstName": "Cherry",
+      "lastName": "Abad",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Legislative Aide",
+      "connectedOnIso": "2025-06-20"
+    },
+    {
+      "personId": "P03308",
+      "url": "https://www.linkedin.com/in/sameer-chaudhary-f2226eaf",
+      "firstName": "Sameer",
+      "lastName": "Chaudhary",
+      "email": "",
+      "company": "Alaska Airlines",
+      "position": "--",
+      "connectedOnIso": "2025-06-20"
+    },
+    {
+      "personId": "P03394",
+      "url": "https://www.linkedin.com/in/lucie-caron-7165691",
+      "firstName": "Lucie",
+      "lastName": "Caron",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Senior SWE",
+      "connectedOnIso": "2025-06-18"
+    },
+    {
+      "personId": "P03344",
+      "url": "https://www.linkedin.com/in/thomas-lewis-098dc122",
+      "firstName": "Thomas",
+      "lastName": "Lewis",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Operations Coordinator",
+      "connectedOnIso": "2025-06-15"
+    },
+    {
+      "personId": "P03350",
+      "url": "https://www.linkedin.com/in/manon-rousseau-002428c",
+      "firstName": "Manon",
+      "lastName": "Rousseau",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2025-06-15"
+    },
+    {
+      "personId": "P03349",
+      "url": "https://www.linkedin.com/in/benjamin-white-7d92722e",
+      "firstName": "Benjamin",
+      "lastName": "White",
+      "email": "",
+      "company": "Scotiabank",
+      "position": "FP&A Analyst",
+      "connectedOnIso": "2025-06-13"
+    },
+    {
+      "personId": "P03404",
+      "url": "https://www.linkedin.com/in/amit-joshi-6094501b",
+      "firstName": "Amit",
+      "lastName": "Joshi",
+      "email": "",
+      "company": "McGill University",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2025-06-10"
+    },
+    {
+      "personId": "P03432",
+      "url": "https://www.linkedin.com/in/damilare-trivedi-eb9413",
+      "firstName": "Damilare",
+      "lastName": "Trivedi",
+      "email": "",
+      "company": "McGill University",
+      "position": "Professor",
+      "connectedOnIso": "2025-06-09"
+    },
+    {
+      "personId": "P01824",
+      "url": "https://www.linkedin.com/in/rivka-lipman-2e0d050d",
+      "firstName": "Rivka",
+      "lastName": "Lipman",
+      "email": "",
+      "company": "Fidelity Investments",
+      "position": "Senior Account Executive",
+      "connectedOnIso": "2025-06-03"
+    },
+    {
+      "personId": "P03068",
+      "url": "https://www.linkedin.com/in/nisha-mehta-69b91e",
+      "firstName": "Nisha",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Congressional Intern",
+      "connectedOnIso": "2025-05-30"
+    },
+    {
+      "personId": "P03270",
+      "url": "https://www.linkedin.com/in/gregory-collins-37d19682",
+      "firstName": "Gregory",
+      "lastName": "Collins",
+      "email": "",
+      "company": "Shopify",
+      "position": "HR Intern",
+      "connectedOnIso": "2025-05-29"
+    },
+    {
+      "personId": "P03217",
+      "url": "https://www.linkedin.com/in/amir-kassem-7363281",
+      "firstName": "Amir",
+      "lastName": "Kassem",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2025-05-28"
+    },
+    {
+      "personId": "P03232",
+      "url": "https://www.linkedin.com/in/william-white-5df8674b",
+      "firstName": "William",
+      "lastName": "White",
+      "email": "",
+      "company": "SickKids",
+      "position": "Research Associate",
+      "connectedOnIso": "2025-05-27"
+    },
+    {
+      "personId": "P01822",
+      "url": "https://www.linkedin.com/in/lauren-lewis-ea01832a",
+      "firstName": "Lauren",
+      "lastName": "Lewis",
+      "email": "",
+      "company": "Morgan Stanley",
+      "position": "CPA",
+      "connectedOnIso": "2025-05-26"
+    },
+    {
+      "personId": "P03879",
+      "url": "https://www.linkedin.com/in/vedwards",
+      "firstName": "Victoria",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "West Monroe",
+      "position": "Principal",
+      "connectedOnIso": "2025-05-26"
+    },
+    {
+      "personId": "P02339",
+      "url": "https://www.linkedin.com/in/yan-zhu-714165",
+      "firstName": "Yan",
+      "lastName": "Zhu",
+      "email": "",
+      "company": "Liberty Mutual Insurance",
+      "position": "Operations Lead",
+      "connectedOnIso": "2025-05-25"
+    },
+    {
+      "personId": "P03015",
+      "url": "https://www.linkedin.com/in/leandro-marquez-c8915a6",
+      "firstName": "Leandro",
+      "lastName": "Marquez",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2025-05-24"
+    },
+    {
+      "personId": "P03390",
+      "url": "https://www.linkedin.com/in/samuel-parker-e3f2e41",
+      "firstName": "Samuel",
+      "lastName": "Parker",
+      "email": "",
+      "company": "OICR",
+      "position": "Senior Vice President",
+      "connectedOnIso": "2025-05-22"
+    },
+    {
+      "personId": "P03418",
+      "url": "https://www.linkedin.com/in/brian-walker-5f1dbbcd",
+      "firstName": "Brian",
+      "lastName": "Walker",
+      "email": "",
+      "company": "Public Service of Canada",
+      "position": "Branch Chief",
+      "connectedOnIso": "2025-05-22"
+    },
+    {
+      "personId": "P03112",
+      "url": "https://www.linkedin.com/in/sylvie-beaulieu-c10ad72",
+      "firstName": "Sylvie",
+      "lastName": "Beaulieu",
+      "email": "",
+      "company": "McGill University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2025-05-21"
+    },
+    {
+      "personId": "P00408",
+      "url": "https://www.linkedin.com/in/li-lefebvre-c47db57d",
+      "firstName": "Li",
+      "lastName": "Lefebvre",
+      "email": "",
+      "company": "Rover.com",
+      "position": "SWE",
+      "connectedOnIso": "2025-05-20"
+    },
+    {
+      "personId": "P03377",
+      "url": "https://www.linkedin.com/in/botakahashi70",
+      "firstName": "Bo",
+      "lastName": "Takahashi",
+      "email": "",
+      "company": "OpenText",
+      "position": "Engineering Lead",
+      "connectedOnIso": "2025-05-18"
+    },
+    {
+      "personId": "P02315",
+      "url": "https://www.linkedin.com/in/adel-haidar-300229b",
+      "firstName": "Adel",
+      "lastName": "Haidar",
+      "email": "",
+      "company": "Biogen",
+      "position": "Lab Intern",
+      "connectedOnIso": "2025-05-15"
+    },
+    {
+      "personId": "P03335",
+      "url": "https://www.linkedin.com/in/folake-nwachukwu-982927",
+      "firstName": "Folake",
+      "lastName": "Nwachukwu",
+      "email": "",
+      "company": "Liberty Mutual Insurance",
+      "position": "VP, Ops",
+      "connectedOnIso": "2025-05-13"
+    },
+    {
+      "personId": "P03118",
+      "url": "https://www.linkedin.com/in/khoa-phan-92866783",
+      "firstName": "Khoa",
+      "lastName": "Phan",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Professor",
+      "connectedOnIso": "2025-05-11"
+    },
+    {
+      "personId": "P03338",
+      "url": "https://www.linkedin.com/in/robert-jones-e40b97",
+      "firstName": "Robert",
+      "lastName": "Jones",
+      "email": "",
+      "company": "SickKids",
+      "position": "Senior Associate",
+      "connectedOnIso": "2025-05-08"
+    },
+    {
+      "personId": "P03104",
+      "url": "https://www.linkedin.com/in/hans-hoffmann-be23b78",
+      "firstName": "Hans",
+      "lastName": "Hoffmann",
+      "email": "",
+      "company": "SickKids",
+      "position": "Senior Associate",
+      "connectedOnIso": "2025-05-03"
+    },
+    {
+      "personId": "P03365",
+      "url": "https://www.linkedin.com/in/hanna-kristiansen-b7f46f4d",
+      "firstName": "Hanna",
+      "lastName": "Kristiansen",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2025-05-01"
+    },
+    {
+      "personId": "P01856",
+      "url": "https://www.linkedin.com/in/uche-okonkwo-2d90643",
+      "firstName": "Uche",
+      "lastName": "Okonkwo",
+      "email": "uokonkwo@example.com",
+      "company": "Stealth Startup",
+      "position": "Founder & CEO",
+      "connectedOnIso": "2025-04-27"
+    },
+    {
+      "personId": "P03138",
+      "url": "https://www.linkedin.com/in/nadine-paquette-2683f3",
+      "firstName": "Nadine",
+      "lastName": "Paquette",
+      "email": "",
+      "company": "CIBC",
+      "position": "Finance  Manager",
+      "connectedOnIso": "2025-04-24"
+    },
+    {
+      "personId": "P03020",
+      "url": "https://www.linkedin.com/in/andrew-scott-cc2903b",
+      "firstName": "Andrew",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "VP of Operations",
+      "connectedOnIso": "2025-04-19"
+    },
+    {
+      "personId": "P03131",
+      "url": "https://www.linkedin.com/in/ZolaBoateng",
+      "firstName": "Zola",
+      "lastName": "Boateng",
+      "email": "",
+      "company": "University Health Network",
+      "position": "HR Intern",
+      "connectedOnIso": "2025-04-18"
+    },
+    {
+      "personId": "P03387",
+      "url": "https://www.linkedin.com/in/george-campbell-4a62c81a",
+      "firstName": "George",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "",
+      "position": "Senior Data Scientist",
+      "connectedOnIso": "2025-04-16"
+    },
+    {
+      "personId": "P02030",
+      "url": "https://www.linkedin.com/in/na-xie-cpa",
+      "firstName": "Na",
+      "lastName": "Xie",
+      "email": "",
+      "company": "Deloitte",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2025-04-15"
+    },
+    {
+      "personId": "P03082",
+      "url": "https://www.linkedin.com/in/emmabrown",
+      "firstName": "Emma",
+      "lastName": "Brown",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Deputy Assistant Secretary, Budget Analysis",
+      "connectedOnIso": "2025-04-07"
+    },
+    {
+      "personId": "P00719",
+      "url": "https://www.linkedin.com/in/ritu-patel-866d063c",
+      "firstName": "Ritu",
+      "lastName": "Patel",
+      "email": "",
+      "company": "Redfin",
+      "position": "Data Analytics Intern",
+      "connectedOnIso": "2025-04-06"
+    },
+    {
+      "personId": "P04047",
+      "url": "https://www.linkedin.com/in/fang-xu-7df5c6f5",
+      "firstName": "Fang",
+      "lastName": "Xu",
+      "email": "",
+      "company": "Paramount Global",
+      "position": "Post-Production Lead",
+      "connectedOnIso": "2025-04-06"
+    },
+    {
+      "personId": "P03224",
+      "url": "https://www.linkedin.com/in/angeline-ong-cc9e4121",
+      "firstName": "Angeline",
+      "lastName": "Ong",
+      "email": "",
+      "company": "SickKids",
+      "position": "Recruiter",
+      "connectedOnIso": "2025-04-05"
+    },
+    {
+      "personId": "P03023",
+      "url": "https://www.linkedin.com/in/ekaterina-wozniak-9a22d1d",
+      "firstName": "Ekaterina",
+      "lastName": "Woźniak",
+      "email": "ekaterina_wozniak@example.net",
+      "company": "SickKids",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2025-04-04"
+    },
+    {
+      "personId": "P02465",
+      "url": "https://www.linkedin.com/in/karan-banerjee-40e452",
+      "firstName": "Karan",
+      "lastName": "Banerjee",
+      "email": "",
+      "company": "Moderna",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2025-04-03"
+    },
+    {
+      "personId": "P01125",
+      "url": "https://www.linkedin.com/in/kavita-sharma-f361cc0a",
+      "firstName": "Kavita",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Instacart",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2025-04-01"
+    },
+    {
+      "personId": "P02424",
+      "url": "https://www.linkedin.com/in/luis-gagnon-97ef21",
+      "firstName": "Luis",
+      "lastName": "Gagnon",
+      "email": "",
+      "company": "Pfizer",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2025-03-31"
+    },
+    {
+      "personId": "P02449",
+      "url": "https://www.linkedin.com/in/reem-akel-cfa",
+      "firstName": "Reem",
+      "lastName": "Akel",
+      "email": "",
+      "company": "Biogen",
+      "position": "Research Associate",
+      "connectedOnIso": "2025-03-25"
+    },
+    {
+      "personId": "P03368",
+      "url": "https://www.linkedin.com/in/matthew-green-248f98b",
+      "firstName": "Matthew",
+      "lastName": "Green",
+      "email": "matthewgreen38@example.org",
+      "company": "Manulife",
+      "position": "Senior Manager, Business Operations",
+      "connectedOnIso": "2025-03-21"
+    },
+    {
+      "personId": "P03332",
+      "url": "https://www.linkedin.com/in/hans-bianchi-075455",
+      "firstName": "Hans",
+      "lastName": "Bianchi",
+      "email": "hansbianchi79@example.net",
+      "company": "CIFAR",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2025-03-20"
+    },
+    {
+      "personId": "P03313",
+      "url": "https://www.linkedin.com/in/william-brown-da6913b",
+      "firstName": "William",
+      "lastName": "Brown",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "HR Business Partner",
+      "connectedOnIso": "2025-03-10"
+    },
+    {
+      "personId": "P02318",
+      "url": "https://www.linkedin.com/in/varun-kumar-67df494",
+      "firstName": "Varun",
+      "lastName": "Kumar",
+      "email": "",
+      "company": "State Street Corporation",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2025-03-06"
+    },
+    {
+      "personId": "P01911",
+      "url": "https://www.linkedin.com/in/yosef-klein-10cd1ad",
+      "firstName": "Yosef",
+      "lastName": "Klein",
+      "email": "",
+      "company": "Akamai Technologies",
+      "position": "Corporate Counsel",
+      "connectedOnIso": "2025-03-05"
+    },
+    {
+      "personId": "P02692",
+      "url": "https://www.linkedin.com/in/baptiste-schmidt-199ca2",
+      "firstName": "Baptiste",
+      "lastName": "Schmidt",
+      "email": "",
+      "company": "ASOS",
+      "position": "Operations Intern",
+      "connectedOnIso": "2025-03-02"
+    },
+    {
+      "personId": "P02270",
+      "url": "https://www.linkedin.com/in/sipho-toure-f9ebdef5",
+      "firstName": "Sipho",
+      "lastName": "Toure",
+      "email": "",
+      "company": "Moderna",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2025-02-27"
+    },
+    {
+      "personId": "P03376",
+      "url": "https://www.linkedin.com/in/sarah-collins-a29e6a",
+      "firstName": "Sarah",
+      "lastName": "Collins",
+      "email": "",
+      "company": "Convoy",
+      "position": "Talent Lead",
+      "connectedOnIso": "2025-02-24"
+    },
+    {
+      "personId": "P03381",
+      "url": "https://www.linkedin.com/in/emma-chen-7ccf617",
+      "firstName": "Emma",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2025-02-14"
+    },
+    {
+      "personId": "P03342",
+      "url": "https://www.linkedin.com/in/emily-scott-1896ae7a",
+      "firstName": "Emily",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Booking.com",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2025-02-09"
+    },
+    {
+      "personId": "P03422",
+      "url": "https://www.linkedin.com/in/yan-li-fc0c6eec",
+      "firstName": "Yan",
+      "lastName": "Li",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Lab Technician",
+      "connectedOnIso": "2025-02-04"
+    },
+    {
+      "personId": "P02192",
+      "url": "https://www.linkedin.com/in/patrick-baker-pmp",
+      "firstName": "Patrick",
+      "lastName": "Baker",
+      "email": "",
+      "company": "Fidelity Investments",
+      "position": "Sales Intern",
+      "connectedOnIso": "2025-02-01"
+    },
+    {
+      "personId": "P03219",
+      "url": "https://www.linkedin.com/in/elias-kristiansen-e108446d",
+      "firstName": "Elias",
+      "lastName": "Kristiansen",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Associate General Counsel",
+      "connectedOnIso": "2025-01-31"
+    },
+    {
+      "personId": "P00413",
+      "url": "https://www.linkedin.com/in/ndidi-osayande-aae03ebe",
+      "firstName": "Ndidi",
+      "lastName": "Osayande",
+      "email": "",
+      "company": "Meta",
+      "position": "Design Director",
+      "connectedOnIso": "2025-01-24"
+    },
+    {
+      "personId": "P03070",
+      "url": "https://www.linkedin.com/in/maxime-lachance-4800690d",
+      "firstName": "Maxime",
+      "lastName": "Lachance",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Talent Acquisition Partner",
+      "connectedOnIso": "2025-01-22"
+    },
+    {
+      "personId": "P03149",
+      "url": "https://www.linkedin.com/in/sylvie-rousseau-af43566b",
+      "firstName": "Sylvie",
+      "lastName": "Rousseau",
+      "email": "",
+      "company": "",
+      "position": "Independent Consultant",
+      "connectedOnIso": "2025-01-20"
+    },
+    {
+      "personId": "P02363",
+      "url": "https://www.linkedin.com/in/anja-braun-458ffe1",
+      "firstName": "Anja",
+      "lastName": "Braun",
+      "email": "",
+      "company": "Novartis",
+      "position": "Manager, Sales",
+      "connectedOnIso": "2025-01-18"
+    },
+    {
+      "personId": "P03136",
+      "url": "https://www.linkedin.com/in/ivan-dvorak-34d79c01",
+      "firstName": "Ivan",
+      "lastName": "Dvořák",
+      "email": "idvorak@example.com",
+      "company": "Government of Canada",
+      "position": "Executive Office Intern",
+      "connectedOnIso": "2025-01-15"
+    },
+    {
+      "personId": "P03234",
+      "url": "https://www.linkedin.com/in/ChristopherThomas",
+      "firstName": "Christopher",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Shopify",
+      "position": "Frontend Engineer",
+      "connectedOnIso": "2025-01-13"
+    },
+    {
+      "personId": "P02094",
+      "url": "https://www.linkedin.com/in/stefan-rossi-8c5622",
+      "firstName": "Stefan",
+      "lastName": "Rossi",
+      "email": "srossi@example.net",
+      "company": "Scotiabank",
+      "position": "Senior Counsel",
+      "connectedOnIso": "2025-01-08"
+    },
+    {
+      "personId": "P03079",
+      "url": "https://www.linkedin.com/in/nikhil-kapoor-5bd595b",
+      "firstName": "Nikhil",
+      "lastName": "Kapoor",
+      "email": "",
+      "company": "Shopify",
+      "position": "Associate Software Engineer",
+      "connectedOnIso": "2025-01-07"
+    },
+    {
+      "personId": "P03343",
+      "url": "https://www.linkedin.com/in/lucia-silva-cf9059ef",
+      "firstName": "Lucía",
+      "lastName": "Silva",
+      "email": "lsilva@example.com",
+      "company": "Stealth Startup",
+      "position": "Founder & Chief Scientific Officer",
+      "connectedOnIso": "2025-01-07"
+    },
+    {
+      "personId": "P03105",
+      "url": "https://www.linkedin.com/in/boris-prochazka-3308ff",
+      "firstName": "Boris",
+      "lastName": "Procházka",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Research Lead",
+      "connectedOnIso": "2025-01-06"
+    },
+    {
+      "personId": "P02204",
+      "url": "https://www.linkedin.com/in/viktor-gallo-c97f80a",
+      "firstName": "Viktor",
+      "lastName": "Gallo",
+      "email": "",
+      "company": "Massachusetts Institute of Technology",
+      "position": "Vice Provost",
+      "connectedOnIso": "2025-01-04"
+    },
+    {
+      "personId": "P02819",
+      "url": "https://www.linkedin.com/in/charles-martin-b31f38",
+      "firstName": "Charles",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Ocado",
+      "position": "VP of Merchandising",
+      "connectedOnIso": "2025-01-02"
+    },
+    {
+      "personId": "P02856",
+      "url": "https://www.linkedin.com/in/christopher-scott-092a8e25",
+      "firstName": "Christopher",
+      "lastName": "Scott",
+      "email": "",
+      "company": "InterContinental Hotels Group",
+      "position": "Director of Operations, Hospitality",
+      "connectedOnIso": "2024-12-30"
+    },
+    {
+      "personId": "P03254",
+      "url": "https://www.linkedin.com/in/khanh-diep-1a0b3cb",
+      "firstName": "Khánh",
+      "lastName": "Diệp",
+      "email": "",
+      "company": "Freelance",
+      "position": "",
+      "connectedOnIso": "2024-12-25"
+    },
+    {
+      "personId": "P00117",
+      "url": "https://www.linkedin.com/in/camille-santos-cpa",
+      "firstName": "Camille",
+      "lastName": "Santos",
+      "email": "camille_santos@example.org",
+      "company": "Redfin",
+      "position": "Software Engineer",
+      "connectedOnIso": "2024-12-09"
+    },
+    {
+      "personId": "P03115",
+      "url": "https://www.linkedin.com/in/magdalena-andreev-4dd48c7",
+      "firstName": "Magdalena",
+      "lastName": "Andreev",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "HR Intern",
+      "connectedOnIso": "2024-12-09"
+    },
+    {
+      "personId": "P03043",
+      "url": "https://www.linkedin.com/in/deepak-verma-5cb33889",
+      "firstName": "Deepak",
+      "lastName": "Verma",
+      "email": "",
+      "company": "Ontario Institute for Cancer Research",
+      "position": "Professor",
+      "connectedOnIso": "2024-12-07"
+    },
+    {
+      "personId": "P03237",
+      "url": "https://www.linkedin.com/in/aisha-mukherjee-9d56a86d",
+      "firstName": "Aisha",
+      "lastName": "Mukherjee",
+      "email": "",
+      "company": "OpenText",
+      "position": "",
+      "connectedOnIso": "2024-11-30"
+    },
+    {
+      "personId": "P01861",
+      "url": "https://www.linkedin.com/in/simran-zielinski-896dde5",
+      "firstName": "Simran",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Goldman Sachs",
+      "position": "Chief Human Resources Officer",
+      "connectedOnIso": "2024-11-27"
+    },
+    {
+      "personId": "P02441",
+      "url": "https://www.linkedin.com/in/natalia-alvarez-a64d3fcc",
+      "firstName": "Natalia",
+      "lastName": "Álvarez",
+      "email": "",
+      "company": "Harvard University",
+      "position": "",
+      "connectedOnIso": "2024-11-27"
+    },
+    {
+      "personId": "P03195",
+      "url": "https://www.linkedin.com/in/denise-cruz-a51e20",
+      "firstName": "Denise",
+      "lastName": "Cruz",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Policy Analyst",
+      "connectedOnIso": "2024-11-27"
+    },
+    {
+      "personId": "P03284",
+      "url": "https://www.linkedin.com/in/grace-allen-2fac85",
+      "firstName": "Grace",
+      "lastName": "Allen",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Associate Professor",
+      "connectedOnIso": "2024-11-27"
+    },
+    {
+      "personId": "P03101",
+      "url": "https://www.linkedin.com/in/gabriel-lachance-0fbc5b",
+      "firstName": "Gabriel",
+      "lastName": "Lachance",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Research Assistant",
+      "connectedOnIso": "2024-11-26"
+    },
+    {
+      "personId": "P02431",
+      "url": "https://www.linkedin.com/in/trang-tu-9a3d77a",
+      "firstName": "Trang",
+      "lastName": "Từ",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Nurse Manager",
+      "connectedOnIso": "2024-11-25"
+    },
+    {
+      "personId": "P02789",
+      "url": "https://www.linkedin.com/in/grace-walker-95e06b",
+      "firstName": "Grace",
+      "lastName": "Walker",
+      "email": "",
+      "company": "Ted Baker",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2024-11-21"
+    },
+    {
+      "personId": "P03089",
+      "url": "https://www.linkedin.com/in/sunita-saxena-5070cf",
+      "firstName": "Sunita",
+      "lastName": "Saxena",
+      "email": "",
+      "company": "Shopify",
+      "position": "Data Scientist",
+      "connectedOnIso": "2024-11-13"
+    },
+    {
+      "personId": "P02419",
+      "url": "https://www.linkedin.com/in/owen-king-10027d5c",
+      "firstName": "Owen",
+      "lastName": "King",
+      "email": "",
+      "company": "Charles River Laboratories",
+      "position": "Lab Lead",
+      "connectedOnIso": "2024-11-12"
+    },
+    {
+      "personId": "P02358",
+      "url": "https://www.linkedin.com/in/andrew-lewis-b3adbfcb",
+      "firstName": "Andrew",
+      "lastName": "Lewis",
+      "email": "",
+      "company": "Moderna",
+      "position": "",
+      "connectedOnIso": "2024-11-07"
+    },
+    {
+      "personId": "P03085",
+      "url": "https://www.linkedin.com/in/yu-xie-d97d38",
+      "firstName": "Yu",
+      "lastName": "Xie",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Policy Intern",
+      "connectedOnIso": "2024-11-04"
+    },
+    {
+      "personId": "P02245",
+      "url": "https://www.linkedin.com/in/hannah-edwards-607e1d1",
+      "firstName": "Hannah",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Boston Children's Hospital",
+      "position": "Physician Assistant",
+      "connectedOnIso": "2024-10-24"
+    },
+    {
+      "personId": "P02478",
+      "url": "https://www.linkedin.com/in/alejandra-aguilar-e49c43",
+      "firstName": "Alejandra",
+      "lastName": "Aguilar",
+      "email": "",
+      "company": "Charles River Laboratories",
+      "position": "Research Intern",
+      "connectedOnIso": "2024-10-24"
+    },
+    {
+      "personId": "P02306",
+      "url": "https://www.linkedin.com/in/aryan-gupta-111895a",
+      "firstName": "Aryan",
+      "lastName": "Gupta",
+      "email": "",
+      "company": "Brigham and Women's Hospital",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2024-10-22"
+    },
+    {
+      "personId": "P02519",
+      "url": "https://www.linkedin.com/in/grace-collins-ac103b",
+      "firstName": "Grace",
+      "lastName": "Collins",
+      "email": "",
+      "company": "AT&T Inc.",
+      "position": "Financial Planning Lead",
+      "connectedOnIso": "2024-10-16"
+    },
+    {
+      "personId": "P03028",
+      "url": "https://www.linkedin.com/in/karl-christensen-270ae59",
+      "firstName": "Karl",
+      "lastName": "Christensen",
+      "email": "",
+      "company": "Booking.com",
+      "position": "Backend Engineer",
+      "connectedOnIso": "2024-10-10"
+    },
+    {
+      "personId": "P02751",
+      "url": "https://www.linkedin.com/in/dmitri-zielinski-ecb9311",
+      "firstName": "Dmitri",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Burberry",
+      "position": "Senior UX Designer",
+      "connectedOnIso": "2024-09-30"
+    },
+    {
+      "personId": "P02901",
+      "url": "https://www.linkedin.com/in/sanjay-malhotra-88dee89",
+      "firstName": "Sanjay",
+      "lastName": "Malhotra",
+      "email": "",
+      "company": "Tesco",
+      "position": "Sr. Product Marketing Manager",
+      "connectedOnIso": "2024-09-29"
+    },
+    {
+      "personId": "P03312",
+      "url": "https://www.linkedin.com/in/matthewmiller",
+      "firstName": "Matthew",
+      "lastName": "Miller",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founding Director",
+      "connectedOnIso": "2024-09-25"
+    },
+    {
+      "personId": "P03383",
+      "url": "https://www.linkedin.com/in/julia-smith-0bf8ca7d",
+      "firstName": "Julia",
+      "lastName": "Smith",
+      "email": "",
+      "company": "Meta Platforms",
+      "position": "Associate Software Engineer",
+      "connectedOnIso": "2024-09-23"
+    },
+    {
+      "personId": "P03621",
+      "url": "https://www.linkedin.com/in/brian-campbell-e9e5f637",
+      "firstName": "Brian",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "AT&T",
+      "position": "General Manager",
+      "connectedOnIso": "2024-09-18"
+    },
+    {
+      "personId": "P03057",
+      "url": "https://www.linkedin.com/in/roman-orlov-6c343f1",
+      "firstName": "Roman",
+      "lastName": "Orlov",
+      "email": "",
+      "company": "OpenText",
+      "position": "SWE",
+      "connectedOnIso": "2024-09-16"
+    },
+    {
+      "personId": "P03120",
+      "url": "https://www.linkedin.com/in/olamide-subramaniam-3ac806",
+      "firstName": "Olamide",
+      "lastName": "Subramaniam",
+      "email": "olamide.subramaniam@example.org",
+      "company": "Government of Canada",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2024-09-12"
+    },
+    {
+      "personId": "P03300",
+      "url": "https://www.linkedin.com/in/matteo-romano-678f6d9",
+      "firstName": "Matteo",
+      "lastName": "Romano",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2024-09-11"
+    },
+    {
+      "personId": "P03351",
+      "url": "https://www.linkedin.com/in/emile-greco-aa58a8",
+      "firstName": "Émile",
+      "lastName": "Greco",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Senior Program Manager, Policy",
+      "connectedOnIso": "2024-09-05"
+    },
+    {
+      "personId": "P01260",
+      "url": "https://www.linkedin.com/in/amit-anderson-e5eb2263",
+      "firstName": "Amit",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "OpenAI",
+      "position": "Lead Software Engineer",
+      "connectedOnIso": "2024-08-30"
+    },
+    {
+      "personId": "P03077",
+      "url": "https://www.linkedin.com/in/jaewoo-kim-3d7cf8c0",
+      "firstName": "Jaewoo",
+      "lastName": "Kim",
+      "email": "",
+      "company": "McMaster University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2024-08-28"
+    },
+    {
+      "personId": "P01928",
+      "url": "https://www.linkedin.com/in/ayelet-rosenberg-b56a380a",
+      "firstName": "Ayelet",
+      "lastName": "Rosenberg",
+      "email": "",
+      "company": "S&P Global",
+      "position": "Manager, Sales",
+      "connectedOnIso": "2024-08-27"
+    },
+    {
+      "personId": "P03056",
+      "url": "https://www.linkedin.com/in/melanie-gauthier-bb73a441",
+      "firstName": "Mélanie",
+      "lastName": "Gauthier",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Research Manager",
+      "connectedOnIso": "2024-08-26"
+    },
+    {
+      "personId": "P02263",
+      "url": "https://www.linkedin.com/in/thanh-tang-28670c11",
+      "firstName": "Thành",
+      "lastName": "Tăng",
+      "email": "",
+      "company": "Boston Children's Hospital",
+      "position": "Clinical Nurse Leader",
+      "connectedOnIso": "2024-08-20"
+    },
+    {
+      "personId": "P03200",
+      "url": "https://www.linkedin.com/in/ajoshi",
+      "firstName": "Amalie",
+      "lastName": "Joshi",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Policy Lead",
+      "connectedOnIso": "2024-08-14"
+    },
+    {
+      "personId": "P02403",
+      "url": "https://www.linkedin.com/in/collinskevin",
+      "firstName": "Kevin",
+      "lastName": "Collins",
+      "email": "",
+      "company": "HubSpot",
+      "position": "Operations Manager",
+      "connectedOnIso": "2024-08-12"
+    },
+    {
+      "personId": "P02277",
+      "url": "https://www.linkedin.com/in/sora-kobayashi-5af392c2",
+      "firstName": "Sora",
+      "lastName": "Kobayashi",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Manager, R&D",
+      "connectedOnIso": "2024-08-08"
+    },
+    {
+      "personId": "P03215",
+      "url": "https://www.linkedin.com/in/yena-kwon-afbdf0",
+      "firstName": "Yena",
+      "lastName": "Kwon",
+      "email": "",
+      "company": "McGill University",
+      "position": "Research Lead",
+      "connectedOnIso": "2024-08-04"
+    },
+    {
+      "personId": "P02292",
+      "url": "https://www.linkedin.com/in/nomvula-keita-3b6f5a",
+      "firstName": "Nomvula",
+      "lastName": "Keita",
+      "email": "nkeita@example.com",
+      "company": "Vertex Pharmaceuticals",
+      "position": "Clinical Nurse Leader",
+      "connectedOnIso": "2024-07-22"
+    },
+    {
+      "personId": "P02267",
+      "url": "https://www.linkedin.com/in/jie-guerrero-004499a",
+      "firstName": "Jie",
+      "lastName": "Guerrero",
+      "email": "jguerrero@example.com",
+      "company": "Freelance",
+      "position": "Charge Nurse",
+      "connectedOnIso": "2024-07-20"
+    },
+    {
+      "personId": "P02293",
+      "url": "https://www.linkedin.com/in/CelineHoffmann",
+      "firstName": "Céline",
+      "lastName": "Hoffmann",
+      "email": "",
+      "company": "Stealth",
+      "position": "Founder & Chief Scientific Officer",
+      "connectedOnIso": "2024-07-20"
+    },
+    {
+      "personId": "P01281",
+      "url": "https://www.linkedin.com/in/na-zheng-30c216",
+      "firstName": "Na",
+      "lastName": "Zheng",
+      "email": "",
+      "company": "Intuit",
+      "position": "VP of Sales",
+      "connectedOnIso": "2024-07-06"
+    },
+    {
+      "personId": "P02888",
+      "url": "https://www.linkedin.com/in/salimata-mensah-29c1e76",
+      "firstName": "Salimata",
+      "lastName": "Mensah",
+      "email": "",
+      "company": "Tesco plc",
+      "position": "Commercial Director",
+      "connectedOnIso": "2024-07-05"
+    },
+    {
+      "personId": "P03173",
+      "url": "https://www.linkedin.com/in/natasha-kozlov",
+      "firstName": "Natasha",
+      "lastName": "Kozlov",
+      "email": "",
+      "company": "CIBC",
+      "position": "Associate Attorney",
+      "connectedOnIso": "2024-07-02"
+    },
+    {
+      "personId": "P03148",
+      "url": "https://www.linkedin.com/in/aamadi",
+      "firstName": "Ayomide",
+      "lastName": "Amadi",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2024-06-30"
+    },
+    {
+      "personId": "P03267",
+      "url": "https://www.linkedin.com/in/ferrariingrid",
+      "firstName": "Ingrid",
+      "lastName": "Ferrari",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2024-06-30"
+    },
+    {
+      "personId": "P03209",
+      "url": "https://www.linkedin.com/in/chukwudi-rossi-687a51d8",
+      "firstName": "Chukwudi",
+      "lastName": "Rossi",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Senior Program Manager, Policy",
+      "connectedOnIso": "2024-06-22"
+    },
+    {
+      "personId": "P03388",
+      "url": "https://www.linkedin.com/in/megan-parker-31bd2c9e",
+      "firstName": "Megan",
+      "lastName": "Parker",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2024-06-21"
+    },
+    {
+      "personId": "P01409",
+      "url": "https://www.linkedin.com/in/krzysztof-volkov-4fa7788",
+      "firstName": "Krzysztof",
+      "lastName": "Volkov",
+      "email": "",
+      "company": "Amazon Web Services (AWS)",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2024-06-19"
+    },
+    {
+      "personId": "P03220",
+      "url": "https://www.linkedin.com/in/varun-joshi-ba2ec9a",
+      "firstName": "Varun",
+      "lastName": "Joshi",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Research Assistant",
+      "connectedOnIso": "2024-06-19"
+    },
+    {
+      "personId": "P04466",
+      "url": "https://www.linkedin.com/in/elizabeththomas14",
+      "firstName": "Elizabeth",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Sony Pictures Entertainment",
+      "position": "Assistant Editor",
+      "connectedOnIso": "2024-06-18"
+    },
+    {
+      "personId": "P02087",
+      "url": "https://www.linkedin.com/in/pranav-hussain-1be2bc5",
+      "firstName": "Pranav",
+      "lastName": "Hussain",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Director of Legal Affairs",
+      "connectedOnIso": "2024-06-17"
+    },
+    {
+      "personId": "P03406",
+      "url": "https://www.linkedin.com/in/yuna-tang-75369fa9",
+      "firstName": "Yuna",
+      "lastName": "Tang",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Talent Lead",
+      "connectedOnIso": "2024-06-16"
+    },
+    {
+      "personId": "P02474",
+      "url": "https://www.linkedin.com/in/matthew-jeon-6e85dd",
+      "firstName": "Matthew",
+      "lastName": "Jeon",
+      "email": "",
+      "company": "Pfizer",
+      "position": "Nurse Manager",
+      "connectedOnIso": "2024-06-15"
+    },
+    {
+      "personId": "P03305",
+      "url": "https://www.linkedin.com/in/njeri-zulu-ad92a5c",
+      "firstName": "Njeri",
+      "lastName": "Zulu",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Lecturer",
+      "connectedOnIso": "2024-06-13"
+    },
+    {
+      "personId": "P01867",
+      "url": "https://www.linkedin.com/in/noa-weinstein-f30f2a88",
+      "firstName": "Noa",
+      "lastName": "Weinstein",
+      "email": "",
+      "company": "BlackRock",
+      "position": "Accounting Lead",
+      "connectedOnIso": "2024-06-10"
+    },
+    {
+      "personId": "P03360",
+      "url": "https://www.linkedin.com/in/ling-huang-af96b53",
+      "firstName": "Ling",
+      "lastName": "Huang",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Senior Counsel",
+      "connectedOnIso": "2024-05-31"
+    },
+    {
+      "personId": "P01108",
+      "url": "https://www.linkedin.com/in/ayesha-iyer-03232d0",
+      "firstName": "Ayesha",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Amazon Web Services",
+      "position": "Software Engineering Intern",
+      "connectedOnIso": "2024-05-30"
+    },
+    {
+      "personId": "P03428",
+      "url": "https://www.linkedin.com/in/eduardo-reyes-692791e",
+      "firstName": "Eduardo",
+      "lastName": "Reyes",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Senior Recruiter 🚀",
+      "connectedOnIso": "2024-05-27"
+    },
+    {
+      "personId": "P02225",
+      "url": "https://www.linkedin.com/in/tanya-bhatia-f51cd1",
+      "firstName": "Tanya",
+      "lastName": "Bhatia",
+      "email": "",
+      "company": "Boston Children's Hospital",
+      "position": "VP of Clinical Operations",
+      "connectedOnIso": "2024-05-19"
+    },
+    {
+      "personId": "P03016",
+      "url": "https://www.linkedin.com/in/elizabeth-smith-dfc1a14b",
+      "firstName": "Elizabeth",
+      "lastName": "Smith",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Associate Professor",
+      "connectedOnIso": "2024-05-18"
+    },
+    {
+      "personId": "P03038",
+      "url": "https://www.linkedin.com/in/amit-raghavan-cd3ad2f0",
+      "firstName": "Amit",
+      "lastName": "Raghavan",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Finance Intern",
+      "connectedOnIso": "2024-05-16"
+    },
+    {
+      "personId": "P03955",
+      "url": "https://www.linkedin.com/in/samuel-jones-2c93dcd",
+      "firstName": "Samuel",
+      "lastName": "Jones",
+      "email": "",
+      "company": "The Walt Disney Company",
+      "position": "Production Intern",
+      "connectedOnIso": "2024-05-16"
+    },
+    {
+      "personId": "P03322",
+      "url": "https://www.linkedin.com/in/ping-kato-2028996c",
+      "firstName": "Ping",
+      "lastName": "Kato",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Research Associate",
+      "connectedOnIso": "2024-05-14"
+    },
+    {
+      "personId": "P03221",
+      "url": "https://www.linkedin.com/in/tao-zhou-b556a21",
+      "firstName": "Tao",
+      "lastName": "Zhou",
+      "email": "",
+      "company": "Shopify",
+      "position": "Sr. Machine Learning Engineer",
+      "connectedOnIso": "2024-05-12"
+    },
+    {
+      "personId": "P02274",
+      "url": "https://www.linkedin.com/in/LaurenRoberts",
+      "firstName": "Lauren",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "Vertex Pharmaceuticals",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2024-05-11"
+    },
+    {
+      "personId": "P00199",
+      "url": "https://www.linkedin.com/in/feng-sun-90ca34d",
+      "firstName": "Feng",
+      "lastName": "Sun",
+      "email": "",
+      "company": "Meta",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2024-05-09"
+    },
+    {
+      "personId": "P02323",
+      "url": "https://www.linkedin.com/in/remy-neumann-2d422c7",
+      "firstName": "Rémy",
+      "lastName": "Neumann",
+      "email": "",
+      "company": "Pfizer",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2024-05-08"
+    },
+    {
+      "personId": "P03157",
+      "url": "https://www.linkedin.com/in/tamar-rubin-6ebfeec",
+      "firstName": "Tamar",
+      "lastName": "Rubin",
+      "email": "",
+      "company": "Ontario Institute for Cancer Research",
+      "position": "Research Lead",
+      "connectedOnIso": "2024-05-06"
+    },
+    {
+      "personId": "P02161",
+      "url": "https://www.linkedin.com/in/zahra-goldstein-f758ebc8",
+      "firstName": "Zahra",
+      "lastName": "Goldstein",
+      "email": "",
+      "company": "Bloomberg",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2024-05-02"
+    },
+    {
+      "personId": "P02356",
+      "url": "https://www.linkedin.com/in/adaeze-khumalo-e147296a",
+      "firstName": "Adaeze",
+      "lastName": "Khumalo",
+      "email": "",
+      "company": "State Street Corporation",
+      "position": "Sr. Product Marketing Manager",
+      "connectedOnIso": "2024-04-28"
+    },
+    {
+      "personId": "P03109",
+      "url": "https://www.linkedin.com/in/vivek-das-844709",
+      "firstName": "Vivek",
+      "lastName": "Das",
+      "email": "",
+      "company": "McGill University",
+      "position": "Associate Attorney",
+      "connectedOnIso": "2024-04-28"
+    },
+    {
+      "personId": "P03125",
+      "url": "https://www.linkedin.com/in/roman-petrov-83b617",
+      "firstName": "Roman",
+      "lastName": "Petrov",
+      "email": "",
+      "company": "Independent Contractor",
+      "position": "Independent Consultant",
+      "connectedOnIso": "2024-04-25"
+    },
+    {
+      "personId": "P00255",
+      "url": "https://www.linkedin.com/in/quynh-chu-b2c96a",
+      "firstName": "Quỳnh",
+      "lastName": "Chu",
+      "email": "",
+      "company": "Google",
+      "position": "Senior Product Designer",
+      "connectedOnIso": "2024-04-23"
+    },
+    {
+      "personId": "P03258",
+      "url": "https://www.linkedin.com/in/tanya-verma-19b221",
+      "firstName": "Tanya",
+      "lastName": "Verma",
+      "email": "",
+      "company": "McMaster",
+      "position": "Associate Professor",
+      "connectedOnIso": "2024-04-21"
+    },
+    {
+      "personId": "P02309",
+      "url": "https://www.linkedin.com/in/marco-schroder-98b4331",
+      "firstName": "Marco",
+      "lastName": "Schröder",
+      "email": "",
+      "company": "Charles River Laboratories",
+      "position": "Lab Technician",
+      "connectedOnIso": "2024-04-06"
+    },
+    {
+      "personId": "P02205",
+      "url": "https://www.linkedin.com/in/gbruno",
+      "firstName": "Giulia",
+      "lastName": "Bruno",
+      "email": "",
+      "company": "Boston University",
+      "position": "Associate Dean",
+      "connectedOnIso": "2024-04-05"
+    },
+    {
+      "personId": "P01135",
+      "url": "https://www.linkedin.com/in/matthew-williams-7607206",
+      "firstName": "Matthew",
+      "lastName": "Williams",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "Customer Success Manager",
+      "connectedOnIso": "2024-03-29"
+    },
+    {
+      "personId": "P02402",
+      "url": "https://www.linkedin.com/in/robert-collins-5a489f2",
+      "firstName": "Robert",
+      "lastName": "Collins",
+      "email": "rcollins@example.org",
+      "company": "Brigham and Women's Hospital",
+      "position": "Registered Nurse",
+      "connectedOnIso": "2024-03-27"
+    },
+    {
+      "personId": "P03310",
+      "url": "https://www.linkedin.com/in/olivia-eisen-7f5b7ed",
+      "firstName": "Olivia",
+      "lastName": "Eisen",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Principal Data Scientist",
+      "connectedOnIso": "2024-03-26"
+    },
+    {
+      "personId": "P03153",
+      "url": "https://www.linkedin.com/in/josee-pelletier-e175651",
+      "firstName": "Josée",
+      "lastName": "Pelletier",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Lead",
+      "connectedOnIso": "2024-03-24"
+    },
+    {
+      "personId": "P03261",
+      "url": "https://www.linkedin.com/in/elena-hernandez-4b75c49",
+      "firstName": "Elena",
+      "lastName": "Hernández",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Associate Professor",
+      "connectedOnIso": "2024-03-23"
+    },
+    {
+      "personId": "P01534",
+      "url": "https://www.linkedin.com/in/grace-rivera-5edd5f8",
+      "firstName": "Grace",
+      "lastName": "Rivera",
+      "email": "",
+      "company": "Spotify",
+      "position": "Business Unit Lead",
+      "connectedOnIso": "2024-03-22"
+    },
+    {
+      "personId": "P02337",
+      "url": "https://www.linkedin.com/in/tao-huang-47f884f3",
+      "firstName": "Tao",
+      "lastName": "Huang",
+      "email": "",
+      "company": "HubSpot Inc.",
+      "position": "Corporate Counsel",
+      "connectedOnIso": "2024-03-16"
+    },
+    {
+      "personId": "P03434",
+      "url": "https://www.linkedin.com/in/ngozi-owusu-f1cbc91",
+      "firstName": "Ngozi",
+      "lastName": "Owusu",
+      "email": "",
+      "company": "Ontario Public Service",
+      "position": "Congressional Intern",
+      "connectedOnIso": "2024-03-12"
+    },
+    {
+      "personId": "P04561",
+      "url": "https://www.linkedin.com/in/vikram-sy-cfc3951",
+      "firstName": "Vikram",
+      "lastName": "Sy",
+      "email": "",
+      "company": "William Morris Endeavor (WME)",
+      "position": "Production Manager",
+      "connectedOnIso": "2024-03-10"
+    },
+    {
+      "personId": "P03121",
+      "url": "https://www.linkedin.com/in/rafael-ogunleye-f47cce",
+      "firstName": "Rafael",
+      "lastName": "Ogunleye",
+      "email": "",
+      "company": "OpenText",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2024-03-09"
+    },
+    {
+      "personId": "P03230",
+      "url": "https://www.linkedin.com/in/jiwoo-park-8f8d3fcb",
+      "firstName": "Jiwoo",
+      "lastName": "Park",
+      "email": "",
+      "company": "CN",
+      "position": "Group Operations Manager",
+      "connectedOnIso": "2024-02-27"
+    },
+    {
+      "personId": "P01621",
+      "url": "https://www.linkedin.com/in/edward-baker-11835a75",
+      "firstName": "Edward",
+      "lastName": "Baker",
+      "email": "",
+      "company": "Bloomberg",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2024-02-24"
+    },
+    {
+      "personId": "P03250",
+      "url": "https://www.linkedin.com/in/imelda-yap-05c1cac3",
+      "firstName": "Imelda",
+      "lastName": "Yap",
+      "email": "",
+      "company": "Bungie",
+      "position": "",
+      "connectedOnIso": "2024-02-16"
+    },
+    {
+      "personId": "P02620",
+      "url": "https://www.linkedin.com/in/rekha-verma-90e75c",
+      "firstName": "Rekha",
+      "lastName": "Verma",
+      "email": "",
+      "company": "KPMG",
+      "position": "Consulting Intern",
+      "connectedOnIso": "2024-02-05"
+    },
+    {
+      "personId": "P02632",
+      "url": "https://www.linkedin.com/in/emile-romano-e245e2",
+      "firstName": "Émile",
+      "lastName": "Romano",
+      "email": "",
+      "company": "Discover Financial Services",
+      "position": "Business Operations Analyst",
+      "connectedOnIso": "2024-02-02"
+    },
+    {
+      "personId": "P03225",
+      "url": "https://www.linkedin.com/in/kelechi-kumar-68d6c2a",
+      "firstName": "Kelechi",
+      "lastName": "Kumar",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & CEO",
+      "connectedOnIso": "2024-02-02"
+    },
+    {
+      "personId": "P03353",
+      "url": "https://www.linkedin.com/in/anjali-guo-22dcc33",
+      "firstName": "Anjali",
+      "lastName": "Guo",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2024-01-29"
+    },
+    {
+      "personId": "P03364",
+      "url": "https://www.linkedin.com/in/andrei-zielinski-7853672",
+      "firstName": "Andrei",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Senior Counsel | Legal Research",
+      "connectedOnIso": "2024-01-24"
+    },
+    {
+      "personId": "P03405",
+      "url": "https://www.linkedin.com/in/katherine-martin-6ed7c6c",
+      "firstName": "Katherine",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Kinaxis",
+      "position": "SWE",
+      "connectedOnIso": "2024-01-23"
+    },
+    {
+      "personId": "P03216",
+      "url": "https://www.linkedin.com/in/hien-vu-9fdaddd",
+      "firstName": "Hiền",
+      "lastName": "Vũ",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2024-01-21"
+    },
+    {
+      "personId": "P03041",
+      "url": "https://www.linkedin.com/in/haruto-luo-7b8c3966",
+      "firstName": "Haruto",
+      "lastName": "Luo",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Associate Professor",
+      "connectedOnIso": "2024-01-20"
+    },
+    {
+      "personId": "P03273",
+      "url": "https://www.linkedin.com/in/uyen-dinh-3242681",
+      "firstName": "Uyên",
+      "lastName": "Đinh",
+      "email": "",
+      "company": "T-Mobile US",
+      "position": "Finance Manager",
+      "connectedOnIso": "2024-01-19"
+    },
+    {
+      "personId": "P03033",
+      "url": "https://www.linkedin.com/in/olegsidorov",
+      "firstName": "Oleg",
+      "lastName": "Sidorov",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Policy Analyst",
+      "connectedOnIso": "2024-01-12"
+    },
+    {
+      "personId": "P03421",
+      "url": "https://www.linkedin.com/in/yan-lacson-c12b9804",
+      "firstName": "Yan",
+      "lastName": "Lacson",
+      "email": "",
+      "company": "Waterloo",
+      "position": "Postdoctoral Fellow",
+      "connectedOnIso": "2024-01-11"
+    },
+    {
+      "personId": "P03145",
+      "url": "https://www.linkedin.com/in/abigail-jackson-5f3b8d",
+      "firstName": "Abigail",
+      "lastName": "Jackson",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Research Lead",
+      "connectedOnIso": "2024-01-01"
+    },
+    {
+      "personId": "P01776",
+      "url": "https://www.linkedin.com/in/shmuel-rubin-400cbb",
+      "firstName": "Shmuel",
+      "lastName": "Rubin",
+      "email": "shmuelrubin41@example.net",
+      "company": "JPMorgan Chase & Co.",
+      "position": "MD",
+      "connectedOnIso": "2023-12-30"
+    },
+    {
+      "personId": "P03213",
+      "url": "https://www.linkedin.com/in/dante-peng-6caf09f",
+      "firstName": "Dante",
+      "lastName": "Peng",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Associate Dean",
+      "connectedOnIso": "2023-12-26"
+    },
+    {
+      "personId": "P03275",
+      "url": "https://www.linkedin.com/in/ping-cao-phd",
+      "firstName": "Ping",
+      "lastName": "Cao",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Research Assistant",
+      "connectedOnIso": "2023-12-25"
+    },
+    {
+      "personId": "P02498",
+      "url": "https://www.linkedin.com/in/arjun-saxena-b834c6",
+      "firstName": "Arjun",
+      "lastName": "Saxena",
+      "email": "",
+      "company": "Exelon",
+      "position": "Chief Customer Officer",
+      "connectedOnIso": "2023-12-23"
+    },
+    {
+      "personId": "P03196",
+      "url": "https://www.linkedin.com/in/zhi-lin-c46fd1",
+      "firstName": "Zhi",
+      "lastName": "Lin",
+      "email": "",
+      "company": "McGill University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2023-12-21"
+    },
+    {
+      "personId": "P03222",
+      "url": "https://www.linkedin.com/in/nils-johansson-14d4a8d1",
+      "firstName": "Nils",
+      "lastName": "Johansson",
+      "email": "nils_johansson@example.org",
+      "company": "Boston University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2023-12-19"
+    },
+    {
+      "personId": "P03252",
+      "url": "https://www.linkedin.com/in/jocelyn-del-rosario-82a2ed2a",
+      "firstName": "Jocelyn",
+      "lastName": "Del Rosario",
+      "email": "jocelyn_delrosario@example.org",
+      "company": "Government of Canada",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2023-12-18"
+    },
+    {
+      "personId": "P03024",
+      "url": "https://www.linkedin.com/in/kristine-uy-7bf8206",
+      "firstName": "Kristine",
+      "lastName": "Uy",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Associate Chair",
+      "connectedOnIso": "2023-12-15"
+    },
+    {
+      "personId": "P02247",
+      "url": "https://www.linkedin.com/in/hao-xu-e17a38",
+      "firstName": "Hao",
+      "lastName": "Xu",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Research Manager",
+      "connectedOnIso": "2023-12-12"
+    },
+    {
+      "personId": "P02686",
+      "url": "https://www.linkedin.com/in/hala-novikov-445f77",
+      "firstName": "Hala",
+      "lastName": "Novikov",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Buyer",
+      "connectedOnIso": "2023-12-12"
+    },
+    {
+      "personId": "P03185",
+      "url": "https://www.linkedin.com/in/valentina-fontana",
+      "firstName": "Valentina",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "McGill University",
+      "position": "Executive Director",
+      "connectedOnIso": "2023-12-03"
+    },
+    {
+      "personId": "P03242",
+      "url": "https://www.linkedin.com/in/khoa-tang-0c77db32",
+      "firstName": "Khoa",
+      "lastName": "Tăng",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Recruiter",
+      "connectedOnIso": "2023-12-03"
+    },
+    {
+      "personId": "P03257",
+      "url": "https://www.linkedin.com/in/sora-zheng-b7c59e",
+      "firstName": "Sora",
+      "lastName": "Zheng",
+      "email": "",
+      "company": "Bombardier",
+      "position": "SWE I",
+      "connectedOnIso": "2023-12-03"
+    },
+    {
+      "personId": "P02892",
+      "url": "https://www.linkedin.com/in/benjamin-parker-0a7bc1a",
+      "firstName": "Benjamin",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Compass Group",
+      "position": "Senior Operations Manager, Hospitality",
+      "connectedOnIso": "2023-12-01"
+    },
+    {
+      "personId": "P03142",
+      "url": "https://www.linkedin.com/in/george-allen-4a30a11",
+      "firstName": "George",
+      "lastName": "Allen",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "Finance Director",
+      "connectedOnIso": "2023-11-29"
+    },
+    {
+      "personId": "P03151",
+      "url": "https://www.linkedin.com/in/elizabeth-scott-57146590",
+      "firstName": "Elizabeth",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2023-11-18"
+    },
+    {
+      "personId": "P03341",
+      "url": "https://www.linkedin.com/in/olivia-scott-d2c8dc",
+      "firstName": "Olivia",
+      "lastName": "Scott",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Manager, Data Science",
+      "connectedOnIso": "2023-11-17"
+    },
+    {
+      "personId": "P03202",
+      "url": "https://www.linkedin.com/in/samuel-anderson-475abc2e",
+      "firstName": "Samuel",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Talent Acquisition Partner",
+      "connectedOnIso": "2023-11-12"
+    },
+    {
+      "personId": "P02414",
+      "url": "https://www.linkedin.com/in/yuki-takahashi-e63bb2",
+      "firstName": "Yuki",
+      "lastName": "Takahashi",
+      "email": "",
+      "company": "Moderna",
+      "position": "Research Scientist",
+      "connectedOnIso": "2023-11-02"
+    },
+    {
+      "personId": "P02460",
+      "url": "https://www.linkedin.com/in/eunji-ryu-930ea1ee",
+      "firstName": "Eunji",
+      "lastName": "Ryu",
+      "email": "",
+      "company": "Genzyme",
+      "position": "Group Operations Manager",
+      "connectedOnIso": "2023-10-30"
+    },
+    {
+      "personId": "P03411",
+      "url": "https://www.linkedin.com/in/jean-francois-paquette-6b78f08",
+      "firstName": "Jean-François",
+      "lastName": "Paquette",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Professor",
+      "connectedOnIso": "2023-10-29"
+    },
+    {
+      "personId": "P02407",
+      "url": "https://www.linkedin.com/in/jessica-walker-5f1f3268",
+      "firstName": "Jessica",
+      "lastName": "Walker",
+      "email": "",
+      "company": "Blue Cross Blue Shield of Massachusetts",
+      "position": "Senior Corporate Counsel",
+      "connectedOnIso": "2023-10-21"
+    },
+    {
+      "personId": "P02172",
+      "url": "https://www.linkedin.com/in/greta-bruno-594013",
+      "firstName": "Greta",
+      "lastName": "Bruno",
+      "email": "greta_bruno@example.net",
+      "company": "MetLife",
+      "position": "Accounting Supervisor",
+      "connectedOnIso": "2023-10-18"
+    },
+    {
+      "personId": "P03280",
+      "url": "https://www.linkedin.com/in/remy-schmidt-aab718d",
+      "firstName": "Rémy",
+      "lastName": "Schmidt",
+      "email": "",
+      "company": "Freelancer",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2023-10-18"
+    },
+    {
+      "personId": "P01807",
+      "url": "https://www.linkedin.com/in/damilare-obiora-42ff118",
+      "firstName": "Damilare",
+      "lastName": "Obiora",
+      "email": "",
+      "company": "Independent Consultant",
+      "position": "Independent Consultant",
+      "connectedOnIso": "2023-10-09"
+    },
+    {
+      "personId": "P03430",
+      "url": "https://www.linkedin.com/in/simon-boucher-8fae5e4f",
+      "firstName": "Simon",
+      "lastName": "Boucher",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2023-10-08"
+    },
+    {
+      "personId": "P01332",
+      "url": "https://www.linkedin.com/in/roman-sidorov-ac19fa",
+      "firstName": "Roman",
+      "lastName": "Sidorov",
+      "email": "roman.sidorov@example.com",
+      "company": "PayPal",
+      "position": "Senior Manager, Product Management",
+      "connectedOnIso": "2023-10-04"
+    },
+    {
+      "personId": "P03229",
+      "url": "https://www.linkedin.com/in/andrew-harris-3ee03c",
+      "firstName": "Andrew",
+      "lastName": "Harris",
+      "email": "",
+      "company": "McGill University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2023-10-01"
+    },
+    {
+      "personId": "P03326",
+      "url": "https://www.linkedin.com/in/caroline-martin-2425a09",
+      "firstName": "Caroline",
+      "lastName": "Martin",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Lecturer",
+      "connectedOnIso": "2023-10-01"
+    },
+    {
+      "personId": "P03187",
+      "url": "https://www.linkedin.com/in/timothy-scott-cf1393",
+      "firstName": "Timothy",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2023-09-20"
+    },
+    {
+      "personId": "P03289",
+      "url": "https://www.linkedin.com/in/feyisayo-fashola-57fee30",
+      "firstName": "Feyisayo",
+      "lastName": "Fashola",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2023-09-19"
+    },
+    {
+      "personId": "P03781",
+      "url": "https://www.linkedin.com/in/rafael-gonzalez-pe",
+      "firstName": "Rafael",
+      "lastName": "González",
+      "email": "",
+      "company": "TechnipFMC",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2023-09-15"
+    },
+    {
+      "personId": "P03031",
+      "url": "https://www.linkedin.com/in/maricel-manalo-3596310a",
+      "firstName": "Maricel",
+      "lastName": "Manalo",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founding Director",
+      "connectedOnIso": "2023-09-11"
+    },
+    {
+      "personId": "P03199",
+      "url": "https://www.linkedin.com/in/jackthomas90",
+      "firstName": "Jack",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Shopify",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2023-09-10"
+    },
+    {
+      "personId": "P01070",
+      "url": "https://www.linkedin.com/in/emma-green-36d30e",
+      "firstName": "Emma",
+      "lastName": "Green",
+      "email": "",
+      "company": "PitchBook",
+      "position": "Senior SWE",
+      "connectedOnIso": "2023-09-08"
+    },
+    {
+      "personId": "P03029",
+      "url": "https://www.linkedin.com/in/sarah-white-41d8141",
+      "firstName": "Sarah",
+      "lastName": "White",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Legal Intern",
+      "connectedOnIso": "2023-09-02"
+    },
+    {
+      "personId": "P04335",
+      "url": "https://www.linkedin.com/in/batya-mitchell-0a36bc",
+      "firstName": "Batya",
+      "lastName": "Mitchell",
+      "email": "",
+      "company": "Legendary Entertainment",
+      "position": "Senior Correspondent",
+      "connectedOnIso": "2023-08-28"
+    },
+    {
+      "personId": "P02383",
+      "url": "https://www.linkedin.com/in/joseph-white-cc5ec4e5",
+      "firstName": "Joseph",
+      "lastName": "White",
+      "email": "",
+      "company": "Harvard Medical School",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2023-08-27"
+    },
+    {
+      "personId": "P03298",
+      "url": "https://www.linkedin.com/in/ayesha-chowdhury-4d01c3",
+      "firstName": "Ayesha",
+      "lastName": "Chowdhury",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Operations Intern",
+      "connectedOnIso": "2023-08-23"
+    },
+    {
+      "personId": "P02454",
+      "url": "https://www.linkedin.com/in/teodoro-ong-1f86a4",
+      "firstName": "Teodoro",
+      "lastName": "Ong",
+      "email": "",
+      "company": "Boston University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2023-08-18"
+    },
+    {
+      "personId": "P02376",
+      "url": "https://www.linkedin.com/in/ren-liang-cpa",
+      "firstName": "Ren",
+      "lastName": "Liang",
+      "email": "",
+      "company": "Novartis",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2023-08-17"
+    },
+    {
+      "personId": "P04394",
+      "url": "https://www.linkedin.com/in/sunita-krishnan-fe3e4a23",
+      "firstName": "Sunita",
+      "lastName": "Krishnan",
+      "email": "",
+      "company": "NBC Universal",
+      "position": "Production Intern",
+      "connectedOnIso": "2023-08-17"
+    },
+    {
+      "personId": "P02959",
+      "url": "https://www.linkedin.com/in/zahra-mikhail-7d8348f",
+      "firstName": "Zahra",
+      "lastName": "Mikhail",
+      "email": "zahra.mikhail@example.net",
+      "company": "ASOS",
+      "position": "Director, Procurement",
+      "connectedOnIso": "2023-08-16"
+    },
+    {
+      "personId": "P03193",
+      "url": "https://www.linkedin.com/in/antoine-weber-58e87f",
+      "firstName": "Antoine",
+      "lastName": "Weber",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2023-08-15"
+    },
+    {
+      "personId": "P01748",
+      "url": "https://www.linkedin.com/in/rekha-mehta-d70c51",
+      "firstName": "Rekha",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Goldman Sachs",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2023-08-14"
+    },
+    {
+      "personId": "P02283",
+      "url": "https://www.linkedin.com/in/akato",
+      "firstName": "Arjun",
+      "lastName": "Kato",
+      "email": "",
+      "company": "Moderna Inc.",
+      "position": "Lab Lead",
+      "connectedOnIso": "2023-08-13"
+    },
+    {
+      "personId": "P00174",
+      "url": "https://www.linkedin.com/in/haruto-huang-33dbcf",
+      "firstName": "Haruto",
+      "lastName": "Huang",
+      "email": "",
+      "company": "Amazon",
+      "position": "SWE Intern",
+      "connectedOnIso": "2023-08-12"
+    },
+    {
+      "personId": "P03050",
+      "url": "https://www.linkedin.com/in/neha-ahmed-2201944a",
+      "firstName": "Neha",
+      "lastName": "Ahmed",
+      "email": "neha.ahmed@example.com",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2023-08-12"
+    },
+    {
+      "personId": "P01067",
+      "url": "https://www.linkedin.com/in/abigail-carter-0a4355",
+      "firstName": "Abigail",
+      "lastName": "Carter",
+      "email": "abigail_carter@example.net",
+      "company": "T-Mobile US",
+      "position": "Group Marketing Manager",
+      "connectedOnIso": "2023-08-07"
+    },
+    {
+      "personId": "P02470",
+      "url": "https://www.linkedin.com/in/hadassah-greenberg-3aecb4",
+      "firstName": "Hadassah",
+      "lastName": "Greenberg",
+      "email": "",
+      "company": "Novartis",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2023-08-06"
+    },
+    {
+      "personId": "P02463",
+      "url": "https://www.linkedin.com/in/wei-kato-0412c2a3",
+      "firstName": "Wei",
+      "lastName": "Kato",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Chief Scientific Officer",
+      "connectedOnIso": "2023-08-04"
+    },
+    {
+      "personId": "P02260",
+      "url": "https://www.linkedin.com/in/lerato-okafor-b74ffa7f",
+      "firstName": "Lerato",
+      "lastName": "Okafor",
+      "email": "lerato.okafor@example.net",
+      "company": "Wayfair",
+      "position": "Associate Director, Marketing",
+      "connectedOnIso": "2023-08-03"
+    },
+    {
+      "personId": "P03331",
+      "url": "https://www.linkedin.com/in/nestor-mercado-76c83a7",
+      "firstName": "Nestor",
+      "lastName": "Mercado",
+      "email": "",
+      "company": "Canadian Institute for Advanced Research",
+      "position": "Research Manager",
+      "connectedOnIso": "2023-07-31"
+    },
+    {
+      "personId": "P03340",
+      "url": "https://www.linkedin.com/in/william-thomas-dd827d9",
+      "firstName": "William",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Tech Lead",
+      "connectedOnIso": "2023-07-31"
+    },
+    {
+      "personId": "P03358",
+      "url": "https://www.linkedin.com/in/ping-cai-6c3c509",
+      "firstName": "Ping",
+      "lastName": "Cai",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Associate Chair",
+      "connectedOnIso": "2023-07-26"
+    },
+    {
+      "personId": "P03060",
+      "url": "https://www.linkedin.com/in/vstewart",
+      "firstName": "Victoria",
+      "lastName": "Stewart",
+      "email": "",
+      "company": "Ontario Institute for Cancer Research",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2023-07-22"
+    },
+    {
+      "personId": "P02408",
+      "url": "https://www.linkedin.com/in/jking",
+      "firstName": "Julia",
+      "lastName": "King",
+      "email": "",
+      "company": "MIT",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2023-07-19"
+    },
+    {
+      "personId": "P03277",
+      "url": "https://www.linkedin.com/in/ryan-mitchell-5c6640",
+      "firstName": "Ryan",
+      "lastName": "Mitchell",
+      "email": "",
+      "company": "CIFAR",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2023-07-09"
+    },
+    {
+      "personId": "P02643",
+      "url": "https://www.linkedin.com/in/salimata-diallo-c741f426",
+      "firstName": "Salimata",
+      "lastName": "Diallo",
+      "email": "",
+      "company": "CME Group",
+      "position": "",
+      "connectedOnIso": "2023-06-22"
+    },
+    {
+      "personId": "P03093",
+      "url": "https://www.linkedin.com/in/hanazhang",
+      "firstName": "Hana",
+      "lastName": "Zhang",
+      "email": "",
+      "company": "Kinaxis",
+      "position": "Lead Software Engineer",
+      "connectedOnIso": "2023-06-22"
+    },
+    {
+      "personId": "P02456",
+      "url": "https://www.linkedin.com/in/henrik-mikkelsen-e849c9",
+      "firstName": "Henrik",
+      "lastName": "Mikkelsen",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Head of Sales",
+      "connectedOnIso": "2023-06-21"
+    },
+    {
+      "personId": "P03116",
+      "url": "https://www.linkedin.com/in/priya-rao-1b4e667",
+      "firstName": "Priya",
+      "lastName": "Rao",
+      "email": "priya_rao@example.com",
+      "company": "Government of Canada",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2023-06-14"
+    },
+    {
+      "personId": "P02327",
+      "url": "https://www.linkedin.com/in/musa-marquez-42fa341",
+      "firstName": "Musa",
+      "lastName": "Marquez",
+      "email": "",
+      "company": "Genzyme",
+      "position": "Clinical Nurse Leader",
+      "connectedOnIso": "2023-06-08"
+    },
+    {
+      "personId": "P03097",
+      "url": "https://www.linkedin.com/in/anita-kapoor-eb958ae",
+      "firstName": "Anita",
+      "lastName": "Kapoor",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Assistant",
+      "connectedOnIso": "2023-06-04"
+    },
+    {
+      "personId": "P03035",
+      "url": "https://www.linkedin.com/in/ryan-phillips-b8fe12",
+      "firstName": "Ryan",
+      "lastName": "Phillips",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Professor",
+      "connectedOnIso": "2023-06-03"
+    },
+    {
+      "personId": "P02226",
+      "url": "https://www.linkedin.com/in/huy-bui-0820c3",
+      "firstName": "Huy",
+      "lastName": "Bùi",
+      "email": "",
+      "company": "Moderna",
+      "position": "Operations Manager",
+      "connectedOnIso": "2023-06-01"
+    },
+    {
+      "personId": "P02821",
+      "url": "https://www.linkedin.com/in/epersson",
+      "firstName": "Elias",
+      "lastName": "Persson",
+      "email": "",
+      "company": "Revolut",
+      "position": "Principal Designer",
+      "connectedOnIso": "2023-05-27"
+    },
+    {
+      "personId": "P03287",
+      "url": "https://www.linkedin.com/in/mei-hu-9849e0",
+      "firstName": "Mei",
+      "lastName": "Hu",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2023-05-27"
+    },
+    {
+      "personId": "P02328",
+      "url": "https://www.linkedin.com/in/feng-yamamoto-765f760",
+      "firstName": "Feng",
+      "lastName": "Yamamoto",
+      "email": "",
+      "company": "Beth Israel Deaconess Medical Center",
+      "position": "Lead Physician, MD",
+      "connectedOnIso": "2023-05-19"
+    },
+    {
+      "personId": "P04585",
+      "url": "https://www.linkedin.com/in/tobiloba-adewale-7289952e",
+      "firstName": "Tobiloba",
+      "lastName": "Adewale",
+      "email": "",
+      "company": "Netflix",
+      "position": "Financial Analyst",
+      "connectedOnIso": "2023-05-13"
+    },
+    {
+      "personId": "P02717",
+      "url": "https://www.linkedin.com/in/deepak-iyer-1d57e4",
+      "firstName": "Deepak",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Tesco",
+      "position": "Commercial Director",
+      "connectedOnIso": "2023-05-03"
+    },
+    {
+      "personId": "P03165",
+      "url": "https://www.linkedin.com/in/soomin-kwak-aa33ba",
+      "firstName": "Soomin",
+      "lastName": "Kwak",
+      "email": "soomin_kwak@example.org",
+      "company": "University of Ottawa",
+      "position": "Research Lead",
+      "connectedOnIso": "2023-05-03"
+    },
+    {
+      "personId": "P02343",
+      "url": "https://www.linkedin.com/in/agnieszka-novikov-612098",
+      "firstName": "Agnieszka",
+      "lastName": "Novikov",
+      "email": "",
+      "company": "Takeda",
+      "position": "Lab Lead",
+      "connectedOnIso": "2023-05-02"
+    },
+    {
+      "personId": "P03357",
+      "url": "https://www.linkedin.com/in/ryan-onwuka-7dfdbf",
+      "firstName": "Ryan",
+      "lastName": "Onwuka",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Director of Research",
+      "connectedOnIso": "2023-04-23"
+    },
+    {
+      "personId": "P02256",
+      "url": "https://www.linkedin.com/in/cherry-fernandez-858296",
+      "firstName": "Cherry",
+      "lastName": "Fernandez",
+      "email": "cherry.fernandez@example.net",
+      "company": "SickKids",
+      "position": "Nurse Manager",
+      "connectedOnIso": "2023-04-18"
+    },
+    {
+      "personId": "P03123",
+      "url": "https://www.linkedin.com/in/nathan-scott-c3a11c",
+      "firstName": "Nathan",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Director of Operations",
+      "connectedOnIso": "2023-04-16"
+    },
+    {
+      "personId": "P02334",
+      "url": "https://www.linkedin.com/in/riku-zhao-130ee0",
+      "firstName": "Riku",
+      "lastName": "Zhao",
+      "email": "",
+      "company": "Pfizer",
+      "position": "Associate",
+      "connectedOnIso": "2023-04-08"
+    },
+    {
+      "personId": "P02336",
+      "url": "https://www.linkedin.com/in/divya-rashid-b3353bb",
+      "firstName": "Divya",
+      "lastName": "Rashid",
+      "email": "",
+      "company": "Stealth",
+      "position": "Founder & Chief Scientific Officer",
+      "connectedOnIso": "2023-04-04"
+    },
+    {
+      "personId": "P03384",
+      "url": "https://www.linkedin.com/in/ludmila-orlov-0027a033",
+      "firstName": "Ludmila",
+      "lastName": "Orlov",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Sr. FP&A Manager",
+      "connectedOnIso": "2023-03-27"
+    },
+    {
+      "personId": "P03290",
+      "url": "https://www.linkedin.com/in/sarah-jones",
+      "firstName": "Sarah",
+      "lastName": "Jones",
+      "email": "",
+      "company": "CIFAR",
+      "position": "Associate Professor 🚀",
+      "connectedOnIso": "2023-03-24"
+    },
+    {
+      "personId": "P03593",
+      "url": "https://www.linkedin.com/in/bayani-tolentino-bf2124",
+      "firstName": "Bayani",
+      "lastName": "Tolentino",
+      "email": "bayani.tolentino@example.org",
+      "company": "TechnipFMC",
+      "position": "Field Engineer",
+      "connectedOnIso": "2023-03-20"
+    },
+    {
+      "personId": "P01740",
+      "url": "https://www.linkedin.com/in/grace-smith-59e63e3",
+      "firstName": "Grace",
+      "lastName": "Smith",
+      "email": "",
+      "company": "Sanofi",
+      "position": "Managing Counsel",
+      "connectedOnIso": "2023-03-11"
+    },
+    {
+      "personId": "P02304",
+      "url": "https://www.linkedin.com/in/thomas-chen-8651e3",
+      "firstName": "Thomas",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Pfizer",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2023-03-09"
+    },
+    {
+      "personId": "P02194",
+      "url": "https://www.linkedin.com/in/ana-reyes-ba2bac",
+      "firstName": "Ana",
+      "lastName": "Reyes",
+      "email": "",
+      "company": "Brigham and Women's Hospital",
+      "position": "Director of Nursing",
+      "connectedOnIso": "2023-03-07"
+    },
+    {
+      "personId": "P03150",
+      "url": "https://www.linkedin.com/in/lefebvresamuel",
+      "firstName": "Samuel",
+      "lastName": "Lefebvre",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Sr. FP&A Manager",
+      "connectedOnIso": "2023-03-01"
+    },
+    {
+      "personId": "P00038",
+      "url": "https://www.linkedin.com/in/matthew-smith-32b2ab",
+      "firstName": "Matthew",
+      "lastName": "Smith",
+      "email": "",
+      "company": "Outreach",
+      "position": "Group Manager, Customer Success",
+      "connectedOnIso": "2023-02-27"
+    },
+    {
+      "personId": "P01907",
+      "url": "https://www.linkedin.com/in/xin-tang-1c032557",
+      "firstName": "Xin",
+      "lastName": "Tang",
+      "email": "",
+      "company": "American Express",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2023-02-24"
+    },
+    {
+      "personId": "P02313",
+      "url": "https://www.linkedin.com/in/douglas-davis-2fd57d5c",
+      "firstName": "Douglas",
+      "lastName": "Davis",
+      "email": "",
+      "company": "Pfizer",
+      "position": "General Manager",
+      "connectedOnIso": "2023-02-24"
+    },
+    {
+      "personId": "P02448",
+      "url": "https://www.linkedin.com/in/yong-sun-a5193c",
+      "firstName": "Yong",
+      "lastName": "Sun",
+      "email": "",
+      "company": "Genzyme",
+      "position": "Principal Scientist",
+      "connectedOnIso": "2023-02-23"
+    },
+    {
+      "personId": "P03108",
+      "url": "https://www.linkedin.com/in/julia-wang-a82665",
+      "firstName": "Julia",
+      "lastName": "Wang",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2023-02-23"
+    },
+    {
+      "personId": "P02422",
+      "url": "https://www.linkedin.com/in/lorenzo-esposito-8a93ed34",
+      "firstName": "Lorenzo",
+      "lastName": "Esposito",
+      "email": "",
+      "company": "Pfizer",
+      "position": "VP of Research",
+      "connectedOnIso": "2023-02-20"
+    },
+    {
+      "personId": "P03018",
+      "url": "https://www.linkedin.com/in/rsuzuki",
+      "firstName": "Riku",
+      "lastName": "Suzuki",
+      "email": "rsuzuki@example.org",
+      "company": "Bank of Montreal",
+      "position": "Financial Analyst",
+      "connectedOnIso": "2023-02-20"
+    },
+    {
+      "personId": "P03166",
+      "url": "https://www.linkedin.com/in/danteocampo92",
+      "firstName": "Dante",
+      "lastName": "Ocampo",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "ASSISTANT PROFESSOR",
+      "connectedOnIso": "2023-02-20"
+    },
+    {
+      "personId": "P03114",
+      "url": "https://www.linkedin.com/in/adaeze-traore-d9bfa65",
+      "firstName": "Adaeze",
+      "lastName": "Traore",
+      "email": "",
+      "company": "Redfin",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2023-02-11"
+    },
+    {
+      "personId": "P03329",
+      "url": "https://www.linkedin.com/in/francesca-fontana-12ecf09",
+      "firstName": "Francesca",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "Blue Origin",
+      "position": "Deputy Director",
+      "connectedOnIso": "2023-02-08"
+    },
+    {
+      "personId": "P03036",
+      "url": "https://www.linkedin.com/in/aakash-banerjee-a7a46b",
+      "firstName": "Aakash",
+      "lastName": "Banerjee",
+      "email": "",
+      "company": "McGill University",
+      "position": "Professor",
+      "connectedOnIso": "2023-02-06"
+    },
+    {
+      "personId": "P03017",
+      "url": "https://www.linkedin.com/in/scott-green-9fc85af",
+      "firstName": "Scott",
+      "lastName": "Green",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Associate Professor",
+      "connectedOnIso": "2023-02-02"
+    },
+    {
+      "personId": "P03319",
+      "url": "https://www.linkedin.com/in/vivek-saxena-a7acf0",
+      "firstName": "Vivek",
+      "lastName": "Saxena",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Director of Policy",
+      "connectedOnIso": "2023-02-01"
+    },
+    {
+      "personId": "P03087",
+      "url": "https://www.linkedin.com/in/aryan-kapoor-7be69ee2",
+      "firstName": "Aryan",
+      "lastName": "Kapoor",
+      "email": "",
+      "company": "Shopify",
+      "position": "Director of Data Science",
+      "connectedOnIso": "2023-01-30"
+    },
+    {
+      "personId": "P03369",
+      "url": "https://www.linkedin.com/in/ming-nakamura-8a746a",
+      "firstName": "Ming",
+      "lastName": "Nakamura",
+      "email": "ming_nakamura@example.net",
+      "company": "Toronto-Dominion Bank",
+      "position": "Principal Data Scientist",
+      "connectedOnIso": "2023-01-23"
+    },
+    {
+      "personId": "P02457",
+      "url": "https://www.linkedin.com/in/linneanielsen",
+      "firstName": "Linnea",
+      "lastName": "Nielsen",
+      "email": "",
+      "company": "Moderna",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2023-01-21"
+    },
+    {
+      "personId": "P02436",
+      "url": "https://www.linkedin.com/in/deepak-raghavan-11328120",
+      "firstName": "Deepak",
+      "lastName": "Raghavan",
+      "email": "",
+      "company": "Biogen",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2023-01-18"
+    },
+    {
+      "personId": "P02163",
+      "url": "https://www.linkedin.com/in/nneka-oyelakin-22f3f69",
+      "firstName": "Nneka",
+      "lastName": "Oyelakin",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Operations Lead",
+      "connectedOnIso": "2023-01-17"
+    },
+    {
+      "personId": "P02952",
+      "url": "https://www.linkedin.com/in/chensota",
+      "firstName": "Sota",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Freelance",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2023-01-07"
+    },
+    {
+      "personId": "P01976",
+      "url": "https://www.linkedin.com/in/kleinnathaniel",
+      "firstName": "Nathaniel",
+      "lastName": "Klein",
+      "email": "",
+      "company": "McKinsey & Company",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2022-12-29"
+    },
+    {
+      "personId": "P03161",
+      "url": "https://www.linkedin.com/in/hassan-aoun-37d3b3",
+      "firstName": "Hassan",
+      "lastName": "Aoun",
+      "email": "",
+      "company": "Shopify",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2022-12-21"
+    },
+    {
+      "personId": "P03355",
+      "url": "https://www.linkedin.com/in/henry-nunez-a46960d4",
+      "firstName": "Henry",
+      "lastName": "Núñez",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2022-12-19"
+    },
+    {
+      "personId": "P03311",
+      "url": "https://www.linkedin.com/in/matteo-russo-70a6cf",
+      "firstName": "Matteo",
+      "lastName": "Russo",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2022-12-17"
+    },
+    {
+      "personId": "P03069",
+      "url": "https://www.linkedin.com/in/jing-tang-4a886942",
+      "firstName": "Jing",
+      "lastName": "Tang",
+      "email": "jing_tang@example.org",
+      "company": "OpenText",
+      "position": "DATA SCIENCE LEAD",
+      "connectedOnIso": "2022-12-15"
+    },
+    {
+      "personId": "P03392",
+      "url": "https://www.linkedin.com/in/chen-li-57c52a4",
+      "firstName": "Chen",
+      "lastName": "Li",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2022-12-10"
+    },
+    {
+      "personId": "P00617",
+      "url": "https://www.linkedin.com/in/james-edwards-cca313f9",
+      "firstName": "James",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "Redfin",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2022-12-02"
+    },
+    {
+      "personId": "P01664",
+      "url": "https://www.linkedin.com/in/sanjay-rahman-a1f3a0d1",
+      "firstName": "Sanjay",
+      "lastName": "Rahman",
+      "email": "",
+      "company": "Plaid",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2022-11-30"
+    },
+    {
+      "personId": "P02335",
+      "url": "https://www.linkedin.com/in/dieter-bianchi-710ea562",
+      "firstName": "Dieter",
+      "lastName": "Bianchi",
+      "email": "",
+      "company": "Massachusetts General Hospital",
+      "position": "Technical Recruiter",
+      "connectedOnIso": "2022-11-24"
+    },
+    {
+      "personId": "P03076",
+      "url": "https://www.linkedin.com/in/douglas-green-7f1e41",
+      "firstName": "Douglas",
+      "lastName": "Green",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2022-11-08"
+    },
+    {
+      "personId": "P03128",
+      "url": "https://www.linkedin.com/in/josefina-domingo-70af61f",
+      "firstName": "Josefina",
+      "lastName": "Domingo",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Lab Technician",
+      "connectedOnIso": "2022-11-08"
+    },
+    {
+      "personId": "P02970",
+      "url": "https://www.linkedin.com/in/abiodun-sowore-05ccda",
+      "firstName": "Abiodun",
+      "lastName": "Sowore",
+      "email": "",
+      "company": "British Airways",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2022-11-07"
+    },
+    {
+      "personId": "P02271",
+      "url": "https://www.linkedin.com/in/henry-parker-04c41b",
+      "firstName": "Henry",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Genzyme",
+      "position": "Director of Operations",
+      "connectedOnIso": "2022-11-05"
+    },
+    {
+      "personId": "P03399",
+      "url": "https://www.linkedin.com/in/pranav-bose-37d875",
+      "firstName": "Pranav",
+      "lastName": "Bose",
+      "email": "",
+      "company": "NRC Canada",
+      "position": "Chief of Staff",
+      "connectedOnIso": "2022-11-03"
+    },
+    {
+      "personId": "P03320",
+      "url": "https://www.linkedin.com/in/uzoma-adebisi-f6a87e",
+      "firstName": "Uzoma",
+      "lastName": "Adebisi",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Associate Professor",
+      "connectedOnIso": "2022-10-25"
+    },
+    {
+      "personId": "P02297",
+      "url": "https://www.linkedin.com/in/marie-mancini-d7152dc8",
+      "firstName": "Marie",
+      "lastName": "Mancini",
+      "email": "",
+      "company": "Boston Children's Hospital",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2022-10-20"
+    },
+    {
+      "personId": "P03172",
+      "url": "https://www.linkedin.com/in/chiamaka-fagbenle-6f1cab28",
+      "firstName": "Chiamaka",
+      "lastName": "Fagbenle",
+      "email": "",
+      "company": "McGill",
+      "position": "Research Lead",
+      "connectedOnIso": "2022-10-15"
+    },
+    {
+      "personId": "P03124",
+      "url": "https://www.linkedin.com/in/timothy-anderson-fdcab6f",
+      "firstName": "Timothy",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "Shopify",
+      "position": "Director of Engineering",
+      "connectedOnIso": "2022-10-14"
+    },
+    {
+      "personId": "P03504",
+      "url": "https://www.linkedin.com/in/rami-bhatia",
+      "firstName": "Rami",
+      "lastName": "Bhatia",
+      "email": "",
+      "company": "Accenture",
+      "position": "Finance Lead",
+      "connectedOnIso": "2022-10-08"
+    },
+    {
+      "personId": "P00576",
+      "url": "https://www.linkedin.com/in/fang-chen-ca0ebc",
+      "firstName": "Fang",
+      "lastName": "Chen",
+      "email": "fang.chen@example.net",
+      "company": "Meta",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2022-09-29"
+    },
+    {
+      "personId": "P03030",
+      "url": "https://www.linkedin.com/in/luis-reyes-0227428",
+      "firstName": "Luis",
+      "lastName": "Reyes",
+      "email": "",
+      "company": "Public Service of Canada",
+      "position": "Senior Recruiter",
+      "connectedOnIso": "2022-09-25"
+    },
+    {
+      "personId": "P03407",
+      "url": "https://www.linkedin.com/in/wojciech-baranov-958f6b8e",
+      "firstName": "Wojciech",
+      "lastName": "Baranov",
+      "email": "",
+      "company": "Freelancer",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2022-09-24"
+    },
+    {
+      "personId": "P03324",
+      "url": "https://www.linkedin.com/in/olivia-turner-e6c4de",
+      "firstName": "Olivia",
+      "lastName": "Turner",
+      "email": "oliviaturner83@example.com",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2022-09-23"
+    },
+    {
+      "personId": "P03356",
+      "url": "https://www.linkedin.com/in/kunal-joshi-4db256",
+      "firstName": "Kunal",
+      "lastName": "Joshi",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Director",
+      "connectedOnIso": "2022-09-18"
+    },
+    {
+      "personId": "P03401",
+      "url": "https://www.linkedin.com/in/daniel-brown-82c013",
+      "firstName": "Daniel",
+      "lastName": "Brown",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Deputy Assistant Secretary",
+      "connectedOnIso": "2022-09-17"
+    },
+    {
+      "personId": "P02077",
+      "url": "https://www.linkedin.com/in/mei-ma-d077094d",
+      "firstName": "Mei",
+      "lastName": "Ma",
+      "email": "",
+      "company": "KPMG",
+      "position": "Project Leader",
+      "connectedOnIso": "2022-09-15"
+    },
+    {
+      "personId": "P03176",
+      "url": "https://www.linkedin.com/in/ishaan-ojo-3dcf45",
+      "firstName": "Ishaan",
+      "lastName": "Ojo",
+      "email": "",
+      "company": "McGill University",
+      "position": "Lead Counsel",
+      "connectedOnIso": "2022-09-10"
+    },
+    {
+      "personId": "P03345",
+      "url": "https://www.linkedin.com/in/kyungsoo-kwon-f355cee7",
+      "firstName": "Kyungsoo",
+      "lastName": "Kwon",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Financial Analyst",
+      "connectedOnIso": "2022-09-08"
+    },
+    {
+      "personId": "P02296",
+      "url": "https://www.linkedin.com/in/sora-ma-128cf934",
+      "firstName": "Sora",
+      "lastName": "Ma",
+      "email": "sora.ma@example.net",
+      "company": "Boston University",
+      "position": "Research Director",
+      "connectedOnIso": "2022-09-05"
+    },
+    {
+      "personId": "P03291",
+      "url": "https://www.linkedin.com/in/diego-torres-ac0b760",
+      "firstName": "Diego",
+      "lastName": "Torres",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Founding Director",
+      "connectedOnIso": "2022-09-03"
+    },
+    {
+      "personId": "P03262",
+      "url": "https://www.linkedin.com/in/ariel-goldstein-da2bb7",
+      "firstName": "Ariel",
+      "lastName": "Goldstein",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2022-08-29"
+    },
+    {
+      "personId": "P02344",
+      "url": "https://www.linkedin.com/in/camille-gao-f1de802",
+      "firstName": "Camille",
+      "lastName": "Gao",
+      "email": "",
+      "company": "Moderna",
+      "position": "Lab Technician",
+      "connectedOnIso": "2022-08-28"
+    },
+    {
+      "personId": "P03034",
+      "url": "https://www.linkedin.com/in/elena-castillo-0a80abd",
+      "firstName": "Elena",
+      "lastName": "Castillo",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Research Lead",
+      "connectedOnIso": "2022-08-24"
+    },
+    {
+      "personId": "P02221",
+      "url": "https://www.linkedin.com/in/francesca-bianchi-95687a1",
+      "firstName": "Francesca",
+      "lastName": "Bianchi",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Clinical Nurse Leader",
+      "connectedOnIso": "2022-08-23"
+    },
+    {
+      "personId": "P03615",
+      "url": "https://www.linkedin.com/in/laura-young-81a66f",
+      "firstName": "Laura",
+      "lastName": "Young",
+      "email": "",
+      "company": "Vestas",
+      "position": "Logistics Coordinator",
+      "connectedOnIso": "2022-08-22"
+    },
+    {
+      "personId": "P03288",
+      "url": "https://www.linkedin.com/in/SeoyeonYang",
+      "firstName": "Seoyeon",
+      "lastName": "Yang",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Technical Recruiter",
+      "connectedOnIso": "2022-08-18"
+    },
+    {
+      "personId": "P02415",
+      "url": "https://www.linkedin.com/in/lucia-gutierrez-21b48b",
+      "firstName": "Lucía",
+      "lastName": "Gutiérrez",
+      "email": "luciagutierrez40@example.com",
+      "company": "Dana-Farber Cancer Institute",
+      "position": "Charge Nurse",
+      "connectedOnIso": "2022-08-17"
+    },
+    {
+      "personId": "P02195",
+      "url": "https://www.linkedin.com/in/jasmine-panganiban-64ae5fee",
+      "firstName": "Jasmine",
+      "lastName": "Panganiban",
+      "email": "",
+      "company": "Charles River Labs",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2022-08-02"
+    },
+    {
+      "personId": "P03330",
+      "url": "https://www.linkedin.com/in/peng-zhang-cd401872",
+      "firstName": "Peng",
+      "lastName": "Zhang",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Engineering Director",
+      "connectedOnIso": "2022-07-26"
+    },
+    {
+      "personId": "P02362",
+      "url": "https://www.linkedin.com/in/delucamarie",
+      "firstName": "Marie",
+      "lastName": "De Luca",
+      "email": "",
+      "company": "Novartis",
+      "position": "Operations Director",
+      "connectedOnIso": "2022-07-24"
+    },
+    {
+      "personId": "P02940",
+      "url": "https://www.linkedin.com/in/miguel-parker-1d885c",
+      "firstName": "Miguel",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Senior Buyer 🚀",
+      "connectedOnIso": "2022-07-18"
+    },
+    {
+      "personId": "P03095",
+      "url": "https://www.linkedin.com/in/linh-le-8a0046f1",
+      "firstName": "Linh",
+      "lastName": "Lê",
+      "email": "",
+      "company": "OICR",
+      "position": "Machine Learning Engineer",
+      "connectedOnIso": "2022-07-17"
+    },
+    {
+      "personId": "P03465",
+      "url": "https://www.linkedin.com/in/henry-thompson-bf2f463a",
+      "firstName": "Henry",
+      "lastName": "Thompson",
+      "email": "",
+      "company": "U.S. Senate",
+      "position": "Senior Policy Analyst",
+      "connectedOnIso": "2022-07-14"
+    },
+    {
+      "personId": "P01977",
+      "url": "https://www.linkedin.com/in/seanmoore",
+      "firstName": "Sean",
+      "lastName": "Moore",
+      "email": "",
+      "company": "EY",
+      "position": "Principal",
+      "connectedOnIso": "2022-07-11"
+    },
+    {
+      "personId": "P03424",
+      "url": "https://www.linkedin.com/in/laura-johnson-09803827",
+      "firstName": "Laura",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "NRC Canada",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2022-07-05"
+    },
+    {
+      "personId": "P03239",
+      "url": "https://www.linkedin.com/in/sanjay-shah-a5ad1a",
+      "firstName": "Sanjay",
+      "lastName": "Shah",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2022-07-02"
+    },
+    {
+      "personId": "P01150",
+      "url": "https://www.linkedin.com/in/giang-cao-1ecf009",
+      "firstName": "Giang",
+      "lastName": "Cao",
+      "email": "",
+      "company": "a16z",
+      "position": "Finance Director",
+      "connectedOnIso": "2022-06-30"
+    },
+    {
+      "personId": "P02265",
+      "url": "https://www.linkedin.com/in/miguelsilva47",
+      "firstName": "Miguel",
+      "lastName": "Silva",
+      "email": "",
+      "company": "Beth Israel Deaconess Medical Center",
+      "position": "Lead Physician, MD",
+      "connectedOnIso": "2022-06-26"
+    },
+    {
+      "personId": "P03019",
+      "url": "https://www.linkedin.com/in/jie-nakamura-dd15fd34",
+      "firstName": "Jie",
+      "lastName": "Nakamura",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2022-06-25"
+    },
+    {
+      "personId": "P03415",
+      "url": "https://www.linkedin.com/in/andrei-prochazka-cd777c9",
+      "firstName": "Andrei",
+      "lastName": "Procházka",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Senior Chief of Staff",
+      "connectedOnIso": "2022-06-17"
+    },
+    {
+      "personId": "P02741",
+      "url": "https://www.linkedin.com/in/marinofrancesca",
+      "firstName": "Francesca",
+      "lastName": "Marino",
+      "email": "",
+      "company": "J Sainsbury plc",
+      "position": "Chief Marketing Officer",
+      "connectedOnIso": "2022-06-09"
+    },
+    {
+      "personId": "P03152",
+      "url": "https://www.linkedin.com/in/mcarter",
+      "firstName": "Michael",
+      "lastName": "Carter",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2022-06-08"
+    },
+    {
+      "personId": "P03303",
+      "url": "https://www.linkedin.com/in/beatrice-ferrari-d0ab11",
+      "firstName": "Beatrice",
+      "lastName": "Ferrari",
+      "email": "",
+      "company": "OICR",
+      "position": "Co-Founder & CEO",
+      "connectedOnIso": "2022-05-26"
+    },
+    {
+      "personId": "P03174",
+      "url": "https://www.linkedin.com/in/alessandro-esposito-d6663b66",
+      "firstName": "Alessandro",
+      "lastName": "Esposito",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Operations Director",
+      "connectedOnIso": "2022-05-16"
+    },
+    {
+      "personId": "P03385",
+      "url": "https://www.linkedin.com/in/meera-krishnan-38f909",
+      "firstName": "Meera",
+      "lastName": "Krishnan",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2022-05-11"
+    },
+    {
+      "personId": "P03403",
+      "url": "https://www.linkedin.com/in/faisal-saad-2ee424",
+      "firstName": "Faisal",
+      "lastName": "Saad",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Founding Partner",
+      "connectedOnIso": "2022-05-05"
+    },
+    {
+      "personId": "P02387",
+      "url": "https://www.linkedin.com/in/anja-hoffmann-03f2e9",
+      "firstName": "Anja",
+      "lastName": "Hoffmann",
+      "email": "",
+      "company": "Sanofi Genzyme",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2022-04-29"
+    },
+    {
+      "personId": "P02370",
+      "url": "https://www.linkedin.com/in/turneremma",
+      "firstName": "Emma",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Moderna",
+      "position": "Executive Director",
+      "connectedOnIso": "2022-04-27"
+    },
+    {
+      "personId": "P04434",
+      "url": "https://www.linkedin.com/in/fernando-ramirez-a5853f3b",
+      "firstName": "Fernando",
+      "lastName": "Ramírez",
+      "email": "",
+      "company": "Paramount Global",
+      "position": "Sales Executive",
+      "connectedOnIso": "2022-04-24"
+    },
+    {
+      "personId": "P03159",
+      "url": "https://www.linkedin.com/in/agnieszka-prochazka-f0a776",
+      "firstName": "Agnieszka",
+      "lastName": "Procházka",
+      "email": "",
+      "company": "SickKids",
+      "position": "Associate Attorney",
+      "connectedOnIso": "2022-04-20"
+    },
+    {
+      "personId": "P02215",
+      "url": "https://www.linkedin.com/in/riku-liang-996487",
+      "firstName": "Riku",
+      "lastName": "Liang",
+      "email": "",
+      "company": "Biogen",
+      "position": "Research Manager",
+      "connectedOnIso": "2022-04-11"
+    },
+    {
+      "personId": "P03409",
+      "url": "https://www.linkedin.com/in/wanjiru-owusu-51bff7",
+      "firstName": "Wanjiru",
+      "lastName": "Owusu",
+      "email": "",
+      "company": "Freelance",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2022-04-11"
+    },
+    {
+      "personId": "P02547",
+      "url": "https://www.linkedin.com/in/ren-zhang-65c1592",
+      "firstName": "Ren",
+      "lastName": "Zhang",
+      "email": "",
+      "company": "EY",
+      "position": "Senior Consultant",
+      "connectedOnIso": "2022-04-10"
+    },
+    {
+      "personId": "P02373",
+      "url": "https://www.linkedin.com/in/camille-braun-8ee938c6",
+      "firstName": "Camille",
+      "lastName": "Braun",
+      "email": "",
+      "company": "Massachusetts General Hospital",
+      "position": "Talent Lead",
+      "connectedOnIso": "2022-04-07"
+    },
+    {
+      "personId": "P00917",
+      "url": "https://www.linkedin.com/in/sarah-turner-afd1d71",
+      "firstName": "Sarah",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Wizards of the Coast",
+      "position": "Sr. Software Engineer, Python",
+      "connectedOnIso": "2022-04-05"
+    },
+    {
+      "personId": "P02198",
+      "url": "https://www.linkedin.com/in/wojciech-zielinski-8cbd371",
+      "firstName": "Wojciech",
+      "lastName": "Zieliński",
+      "email": "wojciechzielinski95@example.com",
+      "company": "Charles River Laboratories",
+      "position": "Manager, R&D",
+      "connectedOnIso": "2022-04-05"
+    },
+    {
+      "personId": "P03293",
+      "url": "https://www.linkedin.com/in/pooja-chopra-588973",
+      "firstName": "Pooja",
+      "lastName": "Chopra",
+      "email": "",
+      "company": "Sun Life",
+      "position": "Operations Coordinator",
+      "connectedOnIso": "2022-04-04"
+    },
+    {
+      "personId": "P03073",
+      "url": "https://www.linkedin.com/in/emeka-sithole-dfb9baca",
+      "firstName": "Emeka",
+      "lastName": "Sithole",
+      "email": "",
+      "company": "SickKids",
+      "position": "Finance Lead",
+      "connectedOnIso": "2022-04-03"
+    },
+    {
+      "personId": "P03189",
+      "url": "https://www.linkedin.com/in/kunal-iyer",
+      "firstName": "Kunal",
+      "lastName": "Iyer",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2022-04-02"
+    },
+    {
+      "personId": "P03333",
+      "url": "https://www.linkedin.com/in/veronique-bouchard-8806fab",
+      "firstName": "Véronique",
+      "lastName": "Bouchard",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Senior Associate",
+      "connectedOnIso": "2022-04-02"
+    },
+    {
+      "personId": "P03363",
+      "url": "https://www.linkedin.com/in/minjun-choi-f8465941",
+      "firstName": "Minjun",
+      "lastName": "Choi",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2022-03-31"
+    },
+    {
+      "personId": "P03025",
+      "url": "https://www.linkedin.com/in/lukas-bruno-e25ea9",
+      "firstName": "Lukas",
+      "lastName": "Bruno",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2022-03-18"
+    },
+    {
+      "personId": "P03361",
+      "url": "https://www.linkedin.com/in/vincentdesrosiers",
+      "firstName": "Vincent",
+      "lastName": "Desrosiers",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Operations Lead",
+      "connectedOnIso": "2022-03-17"
+    },
+    {
+      "personId": "P03283",
+      "url": "https://www.linkedin.com/in/miguel-gomez-f187b1f8",
+      "firstName": "Miguel",
+      "lastName": "Gómez",
+      "email": "",
+      "company": "CIFAR",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2022-03-15"
+    },
+    {
+      "personId": "P03412",
+      "url": "https://www.linkedin.com/in/sarah-thomas-848308",
+      "firstName": "Sarah",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Research Scientist",
+      "connectedOnIso": "2022-03-14"
+    },
+    {
+      "personId": "P02374",
+      "url": "https://www.linkedin.com/in/miguel-ramos-b4309c",
+      "firstName": "Miguel",
+      "lastName": "Ramos",
+      "email": "",
+      "company": "Dana-Farber",
+      "position": "Director of Marketing",
+      "connectedOnIso": "2022-03-13"
+    },
+    {
+      "personId": "P03072",
+      "url": "https://www.linkedin.com/in/wojciech-andreev-147c41",
+      "firstName": "Wojciech",
+      "lastName": "Andreev",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2022-03-06"
+    },
+    {
+      "personId": "P03334",
+      "url": "https://www.linkedin.com/in/anita-malhotra-5c5ea67",
+      "firstName": "Anita",
+      "lastName": "Malhotra",
+      "email": "",
+      "company": "Manulife",
+      "position": "Financial Analyst",
+      "connectedOnIso": "2022-03-06"
+    },
+    {
+      "personId": "P03691",
+      "url": "https://www.linkedin.com/in/agauvin",
+      "firstName": "Andrew",
+      "lastName": "Gauvin",
+      "email": "",
+      "company": "ConocoPhillips",
+      "position": "Director, Procurement",
+      "connectedOnIso": "2022-03-05"
+    },
+    {
+      "personId": "P03091",
+      "url": "https://www.linkedin.com/in/michal-rubin-a7a9410",
+      "firstName": "Michal",
+      "lastName": "Rubin",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founding Director",
+      "connectedOnIso": "2022-02-19"
+    },
+    {
+      "personId": "P02369",
+      "url": "https://www.linkedin.com/in/emma-stewart-8f2692",
+      "firstName": "Emma",
+      "lastName": "Stewart",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Research Manager",
+      "connectedOnIso": "2022-02-17"
+    },
+    {
+      "personId": "P03039",
+      "url": "https://www.linkedin.com/in/viktor-walker-faa116",
+      "firstName": "Viktor",
+      "lastName": "Walker",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Research Manager",
+      "connectedOnIso": "2022-02-09"
+    },
+    {
+      "personId": "P02290",
+      "url": "https://www.linkedin.com/in/leandro-ignacio-05fb87f",
+      "firstName": "Leandro",
+      "lastName": "Ignacio",
+      "email": "",
+      "company": "Fidelity Investments",
+      "position": "Executive  Director",
+      "connectedOnIso": "2022-02-07"
+    },
+    {
+      "personId": "P02320",
+      "url": "https://www.linkedin.com/in/rafael-jimenez-b54e5d32",
+      "firstName": "Rafael",
+      "lastName": "Jiménez",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2022-02-04"
+    },
+    {
+      "personId": "P04531",
+      "url": "https://www.linkedin.com/in/shira-wexler-c132b7",
+      "firstName": "Shira",
+      "lastName": "Wexler",
+      "email": "",
+      "company": "Activision Blizzard",
+      "position": "Senior Product Designer",
+      "connectedOnIso": "2022-02-02"
+    },
+    {
+      "personId": "P03318",
+      "url": "https://www.linkedin.com/in/giorgiogallo59",
+      "firstName": "Giorgio",
+      "lastName": "Gallo",
+      "email": "",
+      "company": "Shopify",
+      "position": "Associate Data Scientist",
+      "connectedOnIso": "2022-01-31"
+    },
+    {
+      "personId": "P02404",
+      "url": "https://www.linkedin.com/in/lei-kobayashi-eea212a",
+      "firstName": "Lei",
+      "lastName": "Kobayashi",
+      "email": "",
+      "company": "Freelance",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2022-01-30"
+    },
+    {
+      "personId": "P01683",
+      "url": "https://www.linkedin.com/in/anita-turner-a1c0307",
+      "firstName": "Anita",
+      "lastName": "Turner",
+      "email": "",
+      "company": "Block, Inc.",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2022-01-22"
+    },
+    {
+      "personId": "P02341",
+      "url": "https://www.linkedin.com/in/liwayway-ocampo-6f1212d",
+      "firstName": "Liwayway",
+      "lastName": "Ocampo",
+      "email": "",
+      "company": "Harvard University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2022-01-11"
+    },
+    {
+      "personId": "P03295",
+      "url": "https://www.linkedin.com/in/emmastrand84",
+      "firstName": "Emma",
+      "lastName": "Strand",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Policy Analyst",
+      "connectedOnIso": "2022-01-10"
+    },
+    {
+      "personId": "P02301",
+      "url": "https://www.linkedin.com/in/riku-zhu-9be2f11",
+      "firstName": "Riku",
+      "lastName": "Zhu",
+      "email": "",
+      "company": "Massachusetts Institute of Technology",
+      "position": "Senior Vice President",
+      "connectedOnIso": "2022-01-04"
+    },
+    {
+      "personId": "P01446",
+      "url": "https://www.linkedin.com/in/yan-liang-b8e6ddf",
+      "firstName": "Yan",
+      "lastName": "Liang",
+      "email": "",
+      "company": "Palantir Technologies",
+      "position": "Vice President, Engineering",
+      "connectedOnIso": "2022-01-03"
+    },
+    {
+      "personId": "P03374",
+      "url": "https://www.linkedin.com/in/fang-yamamoto-437ddc4b",
+      "firstName": "Fang",
+      "lastName": "Yamamoto",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Co-Founder",
+      "connectedOnIso": "2022-01-03"
+    },
+    {
+      "personId": "P03083",
+      "url": "https://www.linkedin.com/in/joseph-evans-a5bba14c",
+      "firstName": "Joseph",
+      "lastName": "Evans",
+      "email": "",
+      "company": "McGill University",
+      "position": "Operations Manager",
+      "connectedOnIso": "2021-12-31"
+    },
+    {
+      "personId": "P03190",
+      "url": "https://www.linkedin.com/in/piotr-andreev-321ffb1",
+      "firstName": "Piotr",
+      "lastName": "Andreev",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-12-29"
+    },
+    {
+      "personId": "P00481",
+      "url": "https://www.linkedin.com/in/caroline-smith-01b1955",
+      "firstName": "Caroline",
+      "lastName": "Smith",
+      "email": "",
+      "company": "F5",
+      "position": "PM",
+      "connectedOnIso": "2021-12-26"
+    },
+    {
+      "personId": "P03371",
+      "url": "https://www.linkedin.com/in/andrew-harris-12c9eda",
+      "firstName": "Andrew",
+      "lastName": "Harris",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Senior Manager, Business Operations",
+      "connectedOnIso": "2021-12-24"
+    },
+    {
+      "personId": "P02861",
+      "url": "https://www.linkedin.com/in/otieno-zulu-e2af328a",
+      "firstName": "Otieno",
+      "lastName": "Zulu",
+      "email": "",
+      "company": "ASOS",
+      "position": "Merchandising Manager, Assortment Planning",
+      "connectedOnIso": "2021-12-07"
+    },
+    {
+      "personId": "P01335",
+      "url": "https://www.linkedin.com/in/chana-levine-a2006db",
+      "firstName": "Chana",
+      "lastName": "Levine",
+      "email": "",
+      "company": "Chime",
+      "position": "Sr. AE",
+      "connectedOnIso": "2021-12-05"
+    },
+    {
+      "personId": "P02760",
+      "url": "https://www.linkedin.com/in/mei-wang-5e693f48",
+      "firstName": "Mei",
+      "lastName": "Wang",
+      "email": "",
+      "company": "Diageo",
+      "position": "Finance Manager",
+      "connectedOnIso": "2021-11-29"
+    },
+    {
+      "personId": "P03218",
+      "url": "https://www.linkedin.com/in/ryan-nelson-6e0de17",
+      "firstName": "Ryan",
+      "lastName": "Nelson",
+      "email": "ryan_nelson@example.org",
+      "company": "Shopify",
+      "position": "Principal Software Engineer",
+      "connectedOnIso": "2021-11-28"
+    },
+    {
+      "personId": "P03373",
+      "url": "https://www.linkedin.com/in/selam-wanjiku-fc7bd9a",
+      "firstName": "Selam",
+      "lastName": "Wanjiku",
+      "email": "",
+      "company": "Waterloo",
+      "position": "Postdoctoral Fellow",
+      "connectedOnIso": "2021-11-27"
+    },
+    {
+      "personId": "P04179",
+      "url": "https://www.linkedin.com/in/gabriel-flores-37ba340",
+      "firstName": "Gabriel",
+      "lastName": "Flores",
+      "email": "",
+      "company": "The Walt Disney Company",
+      "position": "Lead Counsel",
+      "connectedOnIso": "2021-11-15"
+    },
+    {
+      "personId": "P04462",
+      "url": "https://www.linkedin.com/in/isabelle-koch-7d68568",
+      "firstName": "Isabelle",
+      "lastName": "Koch",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2021-11-13"
+    },
+    {
+      "personId": "P03170",
+      "url": "https://www.linkedin.com/in/thomas-parker-40fc6ed5",
+      "firstName": "Thomas",
+      "lastName": "Parker",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-11-06"
+    },
+    {
+      "personId": "P03064",
+      "url": "https://www.linkedin.com/in/CarolineRoberts",
+      "firstName": "Caroline",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Lecturer",
+      "connectedOnIso": "2021-10-29"
+    },
+    {
+      "personId": "P03235",
+      "url": "https://www.linkedin.com/in/gregory-wright-89d47a5c",
+      "firstName": "Gregory",
+      "lastName": "Wright",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-10-25"
+    },
+    {
+      "personId": "P03395",
+      "url": "https://www.linkedin.com/in/adaezegoldstein79",
+      "firstName": "Adaeze",
+      "lastName": "Goldstein",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Senior Policy Analyst",
+      "connectedOnIso": "2021-10-24"
+    },
+    {
+      "personId": "P02571",
+      "url": "https://www.linkedin.com/in/obioma-pedersen-290baa8",
+      "firstName": "Obioma",
+      "lastName": "Pedersen",
+      "email": "",
+      "company": "CME Group",
+      "position": "Senior Account Executive",
+      "connectedOnIso": "2021-10-18"
+    },
+    {
+      "personId": "P03119",
+      "url": "https://www.linkedin.com/in/vincent-bergeron-8ab2089c",
+      "firstName": "Vincent",
+      "lastName": "Bergeron",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Talent Lead",
+      "connectedOnIso": "2021-10-14"
+    },
+    {
+      "personId": "P03419",
+      "url": "https://www.linkedin.com/in/liwayway-ignacio-fb34b2d",
+      "firstName": "Liwayway",
+      "lastName": "Ignacio",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Lecturer",
+      "connectedOnIso": "2021-09-30"
+    },
+    {
+      "personId": "P02365",
+      "url": "https://www.linkedin.com/in/caoriku",
+      "firstName": "Riku",
+      "lastName": "Cao",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Senior Attending Physician, MD",
+      "connectedOnIso": "2021-09-25"
+    },
+    {
+      "personId": "P03375",
+      "url": "https://www.linkedin.com/in/marina-petrov-a2d8e9f",
+      "firstName": "Marina",
+      "lastName": "Petrov",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Principal Scientist",
+      "connectedOnIso": "2021-09-25"
+    },
+    {
+      "personId": "P03203",
+      "url": "https://www.linkedin.com/in/kofi-mokoena-727f9229",
+      "firstName": "Kofi",
+      "lastName": "Mokoena",
+      "email": "",
+      "company": "easyJet",
+      "position": "Senior Associate",
+      "connectedOnIso": "2021-09-15"
+    },
+    {
+      "personId": "P02316",
+      "url": "https://www.linkedin.com/in/remy-fontana-phd",
+      "firstName": "Rémy",
+      "lastName": "Fontana",
+      "email": "",
+      "company": "Sanofi",
+      "position": "Nurse Manager",
+      "connectedOnIso": "2021-09-09"
+    },
+    {
+      "personId": "P03032",
+      "url": "https://www.linkedin.com/in/laura-scott",
+      "firstName": "Laura",
+      "lastName": "Scott",
+      "email": "",
+      "company": "Bank of Montreal",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2021-09-06"
+    },
+    {
+      "personId": "P01820",
+      "url": "https://www.linkedin.com/in/raphael-herzberg-d91fc40",
+      "firstName": "Raphael",
+      "lastName": "Herzberg",
+      "email": "",
+      "company": "State Street Corporation",
+      "position": "CPA",
+      "connectedOnIso": "2021-08-23"
+    },
+    {
+      "personId": "P03117",
+      "url": "https://www.linkedin.com/in/daniel-anderson-83e7afe",
+      "firstName": "Daniel",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Business Operations Analyst",
+      "connectedOnIso": "2021-07-24"
+    },
+    {
+      "personId": "P03429",
+      "url": "https://www.linkedin.com/in/brunoconti75",
+      "firstName": "Bruno",
+      "lastName": "Conti",
+      "email": "",
+      "company": "F5 Networks",
+      "position": "Data Science Lead",
+      "connectedOnIso": "2021-07-24"
+    },
+    {
+      "personId": "P02187",
+      "url": "https://www.linkedin.com/in/ronaldo-umali-36d50863",
+      "firstName": "Ronaldo",
+      "lastName": "Umali",
+      "email": "",
+      "company": "Sullivan & Cromwell",
+      "position": "Senior Vice President",
+      "connectedOnIso": "2021-07-20"
+    },
+    {
+      "personId": "P03236",
+      "url": "https://www.linkedin.com/in/henry-nunez-dd8a4b9a",
+      "firstName": "Henry",
+      "lastName": "Núñez",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-07-16"
+    },
+    {
+      "personId": "P02471",
+      "url": "https://www.linkedin.com/in/hao-cai-37ede94",
+      "firstName": "Hao",
+      "lastName": "Cai",
+      "email": "",
+      "company": "Tufts Medical Center",
+      "position": "Senior Attending Physician, MD",
+      "connectedOnIso": "2021-07-13"
+    },
+    {
+      "personId": "P03054",
+      "url": "https://www.linkedin.com/in/jie-peng-d00980a",
+      "firstName": "Jie",
+      "lastName": "Peng",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Operations Manager",
+      "connectedOnIso": "2021-07-04"
+    },
+    {
+      "personId": "P03241",
+      "url": "https://www.linkedin.com/in/katherine-allen-7009d1",
+      "firstName": "Katherine",
+      "lastName": "Allen",
+      "email": "katherineallen94@example.com",
+      "company": "CIBC",
+      "position": "Director of Finance",
+      "connectedOnIso": "2021-07-01"
+    },
+    {
+      "personId": "P03425",
+      "url": "https://www.linkedin.com/in/riku-chen-4988cdd8",
+      "firstName": "Riku",
+      "lastName": "Chen",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2021-06-29"
+    },
+    {
+      "personId": "P02417",
+      "url": "https://www.linkedin.com/in/miriam-stern-1ae3cd58",
+      "firstName": "Miriam",
+      "lastName": "Stern",
+      "email": "",
+      "company": "Moderna",
+      "position": "Business Operations Analyst",
+      "connectedOnIso": "2021-06-23"
+    },
+    {
+      "personId": "P03306",
+      "url": "https://www.linkedin.com/in/oleg-sokolov-8fce1d",
+      "firstName": "Oleg",
+      "lastName": "Sokolov",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-06-22"
+    },
+    {
+      "personId": "P03325",
+      "url": "https://www.linkedin.com/in/douglasyoung53",
+      "firstName": "Douglas",
+      "lastName": "Young",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Paralegal",
+      "connectedOnIso": "2021-06-21"
+    },
+    {
+      "personId": "P03223",
+      "url": "https://www.linkedin.com/in/camille-bruno-7d24230",
+      "firstName": "Camille",
+      "lastName": "Bruno",
+      "email": "",
+      "company": "Manulife",
+      "position": "Chief of Staff",
+      "connectedOnIso": "2021-06-12"
+    },
+    {
+      "personId": "P02793",
+      "url": "https://www.linkedin.com/in/gustav-mikkelsen-5088bf",
+      "firstName": "Gustav",
+      "lastName": "Mikkelsen",
+      "email": "gustav.mikkelsen@example.net",
+      "company": "Compass Group",
+      "position": "Hospitality Lead",
+      "connectedOnIso": "2021-06-10"
+    },
+    {
+      "personId": "P03227",
+      "url": "https://www.linkedin.com/in/claire-jackson-737ad062",
+      "firstName": "Claire",
+      "lastName": "Jackson",
+      "email": "clairejackson88@example.org",
+      "company": "Self-employed",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2021-06-07"
+    },
+    {
+      "personId": "P03292",
+      "url": "https://www.linkedin.com/in/roman-svoboda-f81c3fd3",
+      "firstName": "Roman",
+      "lastName": "Svoboda",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Senior Policy Analyst",
+      "connectedOnIso": "2021-06-05"
+    },
+    {
+      "personId": "P02411",
+      "url": "https://www.linkedin.com/in/wanjiru-mwangi-31ed71",
+      "firstName": "Wanjiru",
+      "lastName": "Mwangi",
+      "email": "",
+      "company": "Dana-Farber Cancer Institute",
+      "position": "Senior Attending Physician, MD",
+      "connectedOnIso": "2021-06-04"
+    },
+    {
+      "personId": "P02009",
+      "url": "https://www.linkedin.com/in/alejandro-martinez-569245",
+      "firstName": "Alejandro",
+      "lastName": "Martínez",
+      "email": "",
+      "company": "MetLife",
+      "position": "Senior Counsel",
+      "connectedOnIso": "2021-06-01"
+    },
+    {
+      "personId": "P03379",
+      "url": "https://www.linkedin.com/in/sean-song-5a6da65",
+      "firstName": "Sean",
+      "lastName": "Song",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Professor",
+      "connectedOnIso": "2021-05-24"
+    },
+    {
+      "personId": "P03141",
+      "url": "https://www.linkedin.com/in/wanjiru-girma-4b1c01",
+      "firstName": "Wanjiru",
+      "lastName": "Girma",
+      "email": "",
+      "company": "Manulife",
+      "position": "Senior Financial Analyst",
+      "connectedOnIso": "2021-05-12"
+    },
+    {
+      "personId": "P00247",
+      "url": "https://www.linkedin.com/in/yong-zhu-21a23b",
+      "firstName": "Yong",
+      "lastName": "Zhu",
+      "email": "",
+      "company": "T-Mobile US",
+      "position": "Customer Success Manager",
+      "connectedOnIso": "2021-05-09"
+    },
+    {
+      "personId": "P03084",
+      "url": "https://www.linkedin.com/in/rafael-bautista-af2eab",
+      "firstName": "Rafael",
+      "lastName": "Bautista",
+      "email": "rafaelbautista84@example.com",
+      "company": "CIBC",
+      "position": "Financial Planning Lead",
+      "connectedOnIso": "2021-05-01"
+    },
+    {
+      "personId": "P04533",
+      "url": "https://www.linkedin.com/in/george-thomas-f5200b5",
+      "firstName": "George",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2021-04-24"
+    },
+    {
+      "personId": "P03408",
+      "url": "https://www.linkedin.com/in/chiara-richter-edf9c8",
+      "firstName": "Chiara",
+      "lastName": "Richter",
+      "email": "",
+      "company": "Sun Life Financial",
+      "position": "Executive Assistant to CEO",
+      "connectedOnIso": "2021-04-19"
+    },
+    {
+      "personId": "P03294",
+      "url": "https://www.linkedin.com/in/nathaniel-anderson-c108ddd2",
+      "firstName": "Nathaniel",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2021-04-10"
+    },
+    {
+      "personId": "P03103",
+      "url": "https://www.linkedin.com/in/brian-nelson-8f004b",
+      "firstName": "Brian",
+      "lastName": "Nelson",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Postdoctoral Fellow",
+      "connectedOnIso": "2021-04-07"
+    },
+    {
+      "personId": "P03180",
+      "url": "https://www.linkedin.com/in/stephanie-caron-aa2516",
+      "firstName": "Stéphanie",
+      "lastName": "Caron",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Financial Analyst",
+      "connectedOnIso": "2021-03-31"
+    },
+    {
+      "personId": "P02412",
+      "url": "https://www.linkedin.com/in/owen-turner-645861",
+      "firstName": "Owen",
+      "lastName": "Turner",
+      "email": "owenturner83@example.net",
+      "company": "Wayfair",
+      "position": "Head of Growth Marketing",
+      "connectedOnIso": "2021-03-29"
+    },
+    {
+      "personId": "P03212",
+      "url": "https://www.linkedin.com/in/victoria-martin-5f0182c",
+      "firstName": "Victoria",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Tesco",
+      "position": "HR Manager",
+      "connectedOnIso": "2021-03-28"
+    },
+    {
+      "personId": "P01210",
+      "url": "https://www.linkedin.com/in/emma-anderson-c65e61",
+      "firstName": "Emma",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "Sequoia Capital",
+      "position": "Investment Manager",
+      "connectedOnIso": "2021-03-27"
+    },
+    {
+      "personId": "P02921",
+      "url": "https://www.linkedin.com/in/fatima-sharma-ba9349",
+      "firstName": "Fatima",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Ted Baker",
+      "position": "Buyer",
+      "connectedOnIso": "2021-03-22"
+    },
+    {
+      "personId": "P03100",
+      "url": "https://www.linkedin.com/in/sean-thomas-c94015",
+      "firstName": "Sean",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Deputy Director",
+      "connectedOnIso": "2021-03-22"
+    },
+    {
+      "personId": "P03194",
+      "url": "https://www.linkedin.com/in/rthomas",
+      "firstName": "Robert",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "F5",
+      "position": "Applied Scientist",
+      "connectedOnIso": "2021-03-11"
+    },
+    {
+      "personId": "P03135",
+      "url": "https://www.linkedin.com/in/elizabeth-collins-5e81894",
+      "firstName": "Elizabeth",
+      "lastName": "Collins",
+      "email": "",
+      "company": "McGill University",
+      "position": "Research Lead",
+      "connectedOnIso": "2021-03-01"
+    },
+    {
+      "personId": "P04554",
+      "url": "https://www.linkedin.com/in/claudia-karam",
+      "firstName": "Claudia",
+      "lastName": "Karam",
+      "email": "",
+      "company": "Creative Artists Agency (CAA)",
+      "position": "Production Manager",
+      "connectedOnIso": "2021-03-01"
+    },
+    {
+      "personId": "P03027",
+      "url": "https://www.linkedin.com/in/elizabeth-wright-e2b9a24",
+      "firstName": "Elizabeth",
+      "lastName": "Wright",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Founding Director",
+      "connectedOnIso": "2021-02-27"
+    },
+    {
+      "personId": "P03304",
+      "url": "https://www.linkedin.com/in/enrico-walker-03ffe6",
+      "firstName": "Enrico",
+      "lastName": "Walker",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Junior Financial Analyst",
+      "connectedOnIso": "2021-02-27"
+    },
+    {
+      "personId": "P01032",
+      "url": "https://www.linkedin.com/in/timothy-miller-0ceb0c",
+      "firstName": "Timothy",
+      "lastName": "Miller",
+      "email": "",
+      "company": "F5",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2021-02-18"
+    },
+    {
+      "personId": "P02430",
+      "url": "https://www.linkedin.com/in/pooja-krishnan-6e3a4b",
+      "firstName": "Pooja",
+      "lastName": "Krishnan",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Chief Scientific Officer",
+      "connectedOnIso": "2021-02-18"
+    },
+    {
+      "personId": "P02351",
+      "url": "https://www.linkedin.com/in/david-martin-6fc7ccf0",
+      "firstName": "David",
+      "lastName": "Martin",
+      "email": "",
+      "company": "Independent Consultant",
+      "position": "Independent Consultant",
+      "connectedOnIso": "2021-02-14"
+    },
+    {
+      "personId": "P03397",
+      "url": "https://www.linkedin.com/in/joanna-sokolov-b309b50a",
+      "firstName": "Joanna",
+      "lastName": "Sokolov",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Associate Professor",
+      "connectedOnIso": "2021-02-07"
+    },
+    {
+      "personId": "P03860",
+      "url": "https://www.linkedin.com/in/mathilde-hoffmann-0110fd",
+      "firstName": "Mathilde",
+      "lastName": "Hoffmann",
+      "email": "",
+      "company": "Kinder Morgan",
+      "position": "Supply Chain Manager",
+      "connectedOnIso": "2021-02-06"
+    },
+    {
+      "personId": "P01063",
+      "url": "https://www.linkedin.com/in/oluwafemi-oyelakin-2ea59c",
+      "firstName": "Oluwafemi",
+      "lastName": "Oyelakin",
+      "email": "",
+      "company": "Zillow Group",
+      "position": "HR Associate",
+      "connectedOnIso": "2021-02-01"
+    },
+    {
+      "personId": "P02044",
+      "url": "https://www.linkedin.com/in/danielrosen",
+      "firstName": "Daniel",
+      "lastName": "Rosen",
+      "email": "drosen@example.org",
+      "company": "University of Toronto",
+      "position": "Senior Recruiter",
+      "connectedOnIso": "2021-01-30"
+    },
+    {
+      "personId": "P03944",
+      "url": "https://www.linkedin.com/in/qiang-yang-6c3cb01",
+      "firstName": "Qiang",
+      "lastName": "Yang",
+      "email": "",
+      "company": "Snap Inc.",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2021-01-23"
+    },
+    {
+      "personId": "P03074",
+      "url": "https://www.linkedin.com/in/vivekkapoor20",
+      "firstName": "Vivek",
+      "lastName": "Kapoor",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Recruiting Coordinator",
+      "connectedOnIso": "2021-01-12"
+    },
+    {
+      "personId": "P03307",
+      "url": "https://www.linkedin.com/in/ryan-stewart-a404ba0",
+      "firstName": "Ryan",
+      "lastName": "Stewart",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Deputy Director",
+      "connectedOnIso": "2021-01-10"
+    },
+    {
+      "personId": "P02294",
+      "url": "https://www.linkedin.com/in/tomasz-dvorak-5d9d90",
+      "firstName": "Tomasz",
+      "lastName": "Dvořák",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & CEO",
+      "connectedOnIso": "2021-01-08"
+    },
+    {
+      "personId": "P03164",
+      "url": "https://www.linkedin.com/in/jocelyn-chua-c8e44875",
+      "firstName": "Jocelyn",
+      "lastName": "Chua",
+      "email": "",
+      "company": "McGill University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2021-01-07"
+    },
+    {
+      "personId": "P02927",
+      "url": "https://www.linkedin.com/in/greta-bauer-822038",
+      "firstName": "Greta",
+      "lastName": "Bauer",
+      "email": "",
+      "company": "John Lewis Partnership",
+      "position": "Senior Buyer",
+      "connectedOnIso": "2021-01-01"
+    },
+    {
+      "personId": "P01930",
+      "url": "https://www.linkedin.com/in/ezra-tannenbaum-67de9c",
+      "firstName": "Ezra",
+      "lastName": "Tannenbaum",
+      "email": "",
+      "company": "Fidelity Investments",
+      "position": "Account Executive",
+      "connectedOnIso": "2020-12-25"
+    },
+    {
+      "personId": "P03183",
+      "url": "https://www.linkedin.com/in/pavel-kaminski-b23c16",
+      "firstName": "Pavel",
+      "lastName": "Kamiński",
+      "email": "pavel.kaminski@example.com",
+      "company": "Government of Ontario",
+      "position": "Senior HRBP",
+      "connectedOnIso": "2020-12-19"
+    },
+    {
+      "personId": "P03204",
+      "url": "https://www.linkedin.com/in/thibault-ouellet-efa9de7",
+      "firstName": "Thibault",
+      "lastName": "Ouellet",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Manager, R&D",
+      "connectedOnIso": "2020-12-16"
+    },
+    {
+      "personId": "P03162",
+      "url": "https://www.linkedin.com/in/sota-cai-a1d6e9a",
+      "firstName": "Sota",
+      "lastName": "Cai",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Lead",
+      "connectedOnIso": "2020-12-04"
+    },
+    {
+      "personId": "P02068",
+      "url": "https://www.linkedin.com/in/xin-peng-f2fb90",
+      "firstName": "Xin",
+      "lastName": "Peng",
+      "email": "",
+      "company": "Shopify",
+      "position": "Group Marketing Manager",
+      "connectedOnIso": "2020-12-02"
+    },
+    {
+      "personId": "P03055",
+      "url": "https://www.linkedin.com/in/claudia-lopez",
+      "firstName": "Claudia",
+      "lastName": "López",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Lab Technician",
+      "connectedOnIso": "2020-11-29"
+    },
+    {
+      "personId": "P03347",
+      "url": "https://www.linkedin.com/in/klaus-wolf-16efcd",
+      "firstName": "Klaus",
+      "lastName": "Wolf",
+      "email": "",
+      "company": "Shopify Inc.",
+      "position": "Engineering Manager",
+      "connectedOnIso": "2020-11-25"
+    },
+    {
+      "personId": "P00765",
+      "url": "https://www.linkedin.com/in/cuong-doan-2e794c",
+      "firstName": "Cường",
+      "lastName": "Đoàn",
+      "email": "",
+      "company": "Avalara",
+      "position": "Engineering Lead",
+      "connectedOnIso": "2020-10-31"
+    },
+    {
+      "personId": "P03144",
+      "url": "https://www.linkedin.com/in/jamal-fakhoury-24dd45",
+      "firstName": "Jamal",
+      "lastName": "Fakhoury",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2020-10-28"
+    },
+    {
+      "personId": "P03192",
+      "url": "https://www.linkedin.com/in/elizabeth-davis-570d44e",
+      "firstName": "Elizabeth",
+      "lastName": "Davis",
+      "email": "",
+      "company": "Unilever",
+      "position": "Sr. FP&A Manager",
+      "connectedOnIso": "2020-10-28"
+    },
+    {
+      "personId": "P02452",
+      "url": "https://www.linkedin.com/in/camille-zimmermann-b3df47",
+      "firstName": "Camille",
+      "lastName": "Zimmermann",
+      "email": "",
+      "company": "Vertex Pharmaceuticals",
+      "position": "Lead Physician, MD",
+      "connectedOnIso": "2020-10-27"
+    },
+    {
+      "personId": "P01826",
+      "url": "https://www.linkedin.com/in/seokjin-han-5c5690",
+      "firstName": "Seokjin",
+      "lastName": "Han",
+      "email": "",
+      "company": "JPMorgan Chase & Co.",
+      "position": "Senior Associate, M&A",
+      "connectedOnIso": "2020-10-25"
+    },
+    {
+      "personId": "P02248",
+      "url": "https://www.linkedin.com/in/ritu-berg-db8380",
+      "firstName": "Ritu",
+      "lastName": "Berg",
+      "email": "",
+      "company": "Harvard University",
+      "position": "Associate Chair",
+      "connectedOnIso": "2020-10-19"
+    },
+    {
+      "personId": "P01062",
+      "url": "https://www.linkedin.com/in/sora-lin-b58f6aac",
+      "firstName": "Sora",
+      "lastName": "Lin",
+      "email": "soralin41@example.net",
+      "company": "Rover.com",
+      "position": "VP, Data & Analytics",
+      "connectedOnIso": "2020-10-10"
+    },
+    {
+      "personId": "P03045",
+      "url": "https://www.linkedin.com/in/rohan-fagbenle-8e6e009c",
+      "firstName": "Rohan",
+      "lastName": "Fagbenle",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Senior SWE",
+      "connectedOnIso": "2020-10-05"
+    },
+    {
+      "personId": "P03065",
+      "url": "https://www.linkedin.com/in/elena-delgado-075ef8",
+      "firstName": "Elena",
+      "lastName": "Delgado",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Research Manager",
+      "connectedOnIso": "2020-09-22"
+    },
+    {
+      "personId": "P03210",
+      "url": "https://www.linkedin.com/in/lina-fakhoury-ac17c7",
+      "firstName": "Lina",
+      "lastName": "Fakhoury",
+      "email": "",
+      "company": "McGill University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2020-09-20"
+    },
+    {
+      "personId": "P03372",
+      "url": "https://www.linkedin.com/in/samir-saad-eb9d25a1",
+      "firstName": "Samir",
+      "lastName": "Saad",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founding Director",
+      "connectedOnIso": "2020-09-19"
+    },
+    {
+      "personId": "P03160",
+      "url": "https://www.linkedin.com/in/charles-green-ba033a59",
+      "firstName": "Charles",
+      "lastName": "Green",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Research Manager",
+      "connectedOnIso": "2020-09-11"
+    },
+    {
+      "personId": "P03188",
+      "url": "https://www.linkedin.com/in/ziad-keita-23b594",
+      "firstName": "Ziad",
+      "lastName": "Keita",
+      "email": "",
+      "company": "Freelance",
+      "position": "Associate Professor",
+      "connectedOnIso": "2020-09-02"
+    },
+    {
+      "personId": "P03327",
+      "url": "https://www.linkedin.com/in/zhaorui",
+      "firstName": "Rui",
+      "lastName": "Zhao",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Frontend Engineer - Remote",
+      "connectedOnIso": "2020-08-29"
+    },
+    {
+      "personId": "P02310",
+      "url": "https://www.linkedin.com/in/tatiana-vasiliev-282cc9",
+      "firstName": "Tatiana",
+      "lastName": "Vasiliev",
+      "email": "",
+      "company": "Boston University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2020-08-26"
+    },
+    {
+      "personId": "P02063",
+      "url": "https://www.linkedin.com/in/mateo-torres-2feaa0f",
+      "firstName": "Mateo",
+      "lastName": "Torres",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2020-08-25"
+    },
+    {
+      "personId": "P03167",
+      "url": "https://www.linkedin.com/in/jose-mikkelsen-91311dd",
+      "firstName": "José",
+      "lastName": "Mikkelsen",
+      "email": "",
+      "company": "McGill University",
+      "position": "RESEARCH ASSOCIATE",
+      "connectedOnIso": "2020-08-11"
+    },
+    {
+      "personId": "P02421",
+      "url": "https://www.linkedin.com/in/olga-wozniak-1ecdc99",
+      "firstName": "Olga",
+      "lastName": "Woźniak",
+      "email": "",
+      "company": "McKinsey & Company",
+      "position": "Marketing Lead",
+      "connectedOnIso": "2020-07-30"
+    },
+    {
+      "personId": "P03271",
+      "url": "https://www.linkedin.com/in/OwenEvans",
+      "firstName": "Owen",
+      "lastName": "Evans",
+      "email": "",
+      "company": "McMaster University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2020-07-28"
+    },
+    {
+      "personId": "P02446",
+      "url": "https://www.linkedin.com/in/william-stewart-6fb5dfb",
+      "firstName": "William",
+      "lastName": "Stewart",
+      "email": "",
+      "company": "Akamai",
+      "position": "Group Marketing Manager",
+      "connectedOnIso": "2020-07-07"
+    },
+    {
+      "personId": "P03367",
+      "url": "https://www.linkedin.com/in/ekaterina-allen-e7582136",
+      "firstName": "Ekaterina",
+      "lastName": "Allen",
+      "email": "",
+      "company": "McMaster University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2020-07-05"
+    },
+    {
+      "personId": "P03092",
+      "url": "https://www.linkedin.com/in/valentina-johnson-f991384",
+      "firstName": "Valentina",
+      "lastName": "Johnson",
+      "email": "valentina_johnson@example.org",
+      "company": "UHN",
+      "position": "Senior Manager, Business Operations",
+      "connectedOnIso": "2020-07-03"
+    },
+    {
+      "personId": "P03336",
+      "url": "https://www.linkedin.com/in/li-tanaka-1f3ab8ba",
+      "firstName": "Li",
+      "lastName": "Tanaka",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Founding Partner",
+      "connectedOnIso": "2020-07-03"
+    },
+    {
+      "personId": "P03348",
+      "url": "https://www.linkedin.com/in/ori-perlman-c21900b2",
+      "firstName": "Ori",
+      "lastName": "Perlman",
+      "email": "oriperlman75@example.net",
+      "company": "National Research Council Canada",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2020-07-03"
+    },
+    {
+      "personId": "P03168",
+      "url": "https://www.linkedin.com/in/christopher-parker-3afd673",
+      "firstName": "Christopher",
+      "lastName": "Parker",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Associate Professor",
+      "connectedOnIso": "2020-06-28"
+    },
+    {
+      "personId": "P03266",
+      "url": "https://www.linkedin.com/in/george-williams-f2a4e0",
+      "firstName": "George",
+      "lastName": "Williams",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Manager, R&D",
+      "connectedOnIso": "2020-06-27"
+    },
+    {
+      "personId": "P03323",
+      "url": "https://www.linkedin.com/in/abigail-clark-ac253c7",
+      "firstName": "Abigail",
+      "lastName": "Clark",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Professor",
+      "connectedOnIso": "2020-06-25"
+    },
+    {
+      "personId": "P03272",
+      "url": "https://www.linkedin.com/in/naomi-tannenbaum-8bd5df24",
+      "firstName": "Naomi",
+      "lastName": "Tannenbaum",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "HR Manager",
+      "connectedOnIso": "2020-06-22"
+    },
+    {
+      "personId": "P03366",
+      "url": "https://www.linkedin.com/in/michael-king-46c7ee",
+      "firstName": "Michael",
+      "lastName": "King",
+      "email": "",
+      "company": "McMaster University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2020-06-09"
+    },
+    {
+      "personId": "P03181",
+      "url": "https://www.linkedin.com/in/vivek-das-578af90",
+      "firstName": "Vivek",
+      "lastName": "Das",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2020-06-07"
+    },
+    {
+      "personId": "P02759",
+      "url": "https://www.linkedin.com/in/sarahwalker14",
+      "firstName": "Sarah",
+      "lastName": "Walker",
+      "email": "",
+      "company": "Harrods",
+      "position": "Senior Manager, Logistics",
+      "connectedOnIso": "2020-06-02"
+    },
+    {
+      "personId": "P03285",
+      "url": "https://www.linkedin.com/in/lars-desai-4bad90c",
+      "firstName": "Lars",
+      "lastName": "Desai",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Finance Lead",
+      "connectedOnIso": "2020-06-01"
+    },
+    {
+      "personId": "P03137",
+      "url": "https://www.linkedin.com/in/ekaterina-sokolowski-a15d60d0",
+      "firstName": "Ekaterina",
+      "lastName": "Sokołowski",
+      "email": "esokolowski@example.net",
+      "company": "OpenText",
+      "position": "Data Science Manager",
+      "connectedOnIso": "2020-05-25"
+    },
+    {
+      "personId": "P03402",
+      "url": "https://www.linkedin.com/in/shreya-chatterjee-4aa540",
+      "firstName": "Shreya",
+      "lastName": "Chatterjee",
+      "email": "",
+      "company": "Shopify",
+      "position": "Data Science Manager (Contract)",
+      "connectedOnIso": "2020-05-16"
+    },
+    {
+      "personId": "P02473",
+      "url": "https://www.linkedin.com/in/gabriela-castro-074fd4",
+      "firstName": "Gabriela",
+      "lastName": "Castro",
+      "email": "",
+      "company": "Fidelity Investments",
+      "position": "Sales Team Lead",
+      "connectedOnIso": "2020-05-11"
+    },
+    {
+      "personId": "P02279",
+      "url": "https://www.linkedin.com/in/caroline-nelson-6a4f4b1",
+      "firstName": "Caroline",
+      "lastName": "Nelson",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & COO",
+      "connectedOnIso": "2020-05-06"
+    },
+    {
+      "personId": "P03132",
+      "url": "https://www.linkedin.com/in/benoit-caron-4c5fca",
+      "firstName": "Benoît",
+      "lastName": "Caron",
+      "email": "",
+      "company": "CIFAR",
+      "position": "Associate Chair",
+      "connectedOnIso": "2020-05-04"
+    },
+    {
+      "personId": "P01752",
+      "url": "https://www.linkedin.com/in/ackermanyael",
+      "firstName": "Yael",
+      "lastName": "Ackerman",
+      "email": "",
+      "company": "EY",
+      "position": "Consultant",
+      "connectedOnIso": "2020-05-03"
+    },
+    {
+      "personId": "P00025",
+      "url": "https://www.linkedin.com/in/jun-luo-611ad7",
+      "firstName": "Jun",
+      "lastName": "Luo",
+      "email": "",
+      "company": "Zillow.com",
+      "position": "Staff Software Engineer",
+      "connectedOnIso": "2020-05-02"
+    },
+    {
+      "personId": "P02719",
+      "url": "https://www.linkedin.com/in/enunez",
+      "firstName": "Emilio",
+      "lastName": "Núñez",
+      "email": "emilionunez43@example.com",
+      "company": "Toronto-Dominion Bank",
+      "position": "Sr. AE",
+      "connectedOnIso": "2020-04-18"
+    },
+    {
+      "personId": "P03393",
+      "url": "https://www.linkedin.com/in/sameer-malhotra-c446b43",
+      "firstName": "Sameer",
+      "lastName": "Malhotra",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Assistant  Professor",
+      "connectedOnIso": "2020-04-16"
+    },
+    {
+      "personId": "P04119",
+      "url": "https://www.linkedin.com/in/hong-luo-97e21216",
+      "firstName": "Hong",
+      "lastName": "Luo",
+      "email": "hong.luo@example.net",
+      "company": "Lionsgate",
+      "position": "Chief of Staff Associate",
+      "connectedOnIso": "2020-04-08"
+    },
+    {
+      "personId": "P00531",
+      "url": "https://www.linkedin.com/in/emilio-garcia-lopez-0562f1",
+      "firstName": "Emilio",
+      "lastName": "García-López",
+      "email": "",
+      "company": "Meta",
+      "position": "Software Engineer II | Java",
+      "connectedOnIso": "2020-04-03"
+    },
+    {
+      "personId": "P03246",
+      "url": "https://www.linkedin.com/in/daniel-thomas-b71ce3d",
+      "firstName": "Daniel",
+      "lastName": "Thomas",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Associate",
+      "connectedOnIso": "2020-03-22"
+    },
+    {
+      "personId": "P03154",
+      "url": "https://www.linkedin.com/in/benjamin-roberts-45616e",
+      "firstName": "Benjamin",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Associate Chair",
+      "connectedOnIso": "2020-03-21"
+    },
+    {
+      "personId": "P01795",
+      "url": "https://www.linkedin.com/in/denise-aquino-5d1fe1",
+      "firstName": "Denise",
+      "lastName": "Aquino",
+      "email": "",
+      "company": "Moody's",
+      "position": "Senior Associate, Investment Banking",
+      "connectedOnIso": "2020-03-20"
+    },
+    {
+      "personId": "P02230",
+      "url": "https://www.linkedin.com/in/divyabose63",
+      "firstName": "Divya",
+      "lastName": "Bose",
+      "email": "divya.bose@example.com",
+      "company": "Harvard University",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2020-03-08"
+    },
+    {
+      "personId": "P03317",
+      "url": "https://www.linkedin.com/in/faisal-shaheen-224cb432",
+      "firstName": "Faisal",
+      "lastName": "Shaheen",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Lead",
+      "connectedOnIso": "2020-03-01"
+    },
+    {
+      "personId": "P02434",
+      "url": "https://www.linkedin.com/in/alejandro-gutierrez-cd18402",
+      "firstName": "Alejandro",
+      "lastName": "Gutiérrez",
+      "email": "",
+      "company": "Wayfair",
+      "position": "Chief Marketing Officer",
+      "connectedOnIso": "2020-02-24"
+    },
+    {
+      "personId": "P03099",
+      "url": "https://www.linkedin.com/in/emma-miller-9066482",
+      "firstName": "Emma",
+      "lastName": "Miller",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Senior Manager, Business Operations",
+      "connectedOnIso": "2020-02-06"
+    },
+    {
+      "personId": "P01823",
+      "url": "https://www.linkedin.com/in/sergio-vazquez-cdf4d4",
+      "firstName": "Sergio",
+      "lastName": "Vázquez",
+      "email": "",
+      "company": "EY",
+      "position": "Engagement Manager",
+      "connectedOnIso": "2020-02-05"
+    },
+    {
+      "personId": "P03214",
+      "url": "https://www.linkedin.com/in/lauren-baker-559cd238",
+      "firstName": "Lauren",
+      "lastName": "Baker",
+      "email": "",
+      "company": "SickKids",
+      "position": "VP, Finance",
+      "connectedOnIso": "2020-02-04"
+    },
+    {
+      "personId": "P03178",
+      "url": "https://www.linkedin.com/in/paolo-ricci-463eda1",
+      "firstName": "Paolo",
+      "lastName": "Ricci",
+      "email": "",
+      "company": "Toronto-Dominion Bank",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2020-01-29"
+    },
+    {
+      "personId": "P01715",
+      "url": "https://www.linkedin.com/in/amehta",
+      "firstName": "Amina",
+      "lastName": "Mehta",
+      "email": "",
+      "company": "Plaid",
+      "position": "Senior Applied Scientist",
+      "connectedOnIso": "2020-01-26"
+    },
+    {
+      "personId": "P03046",
+      "url": "https://www.linkedin.com/in/mei-yamamoto-5a09da3f",
+      "firstName": "Mei",
+      "lastName": "Yamamoto",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Director of Finance",
+      "connectedOnIso": "2020-01-25"
+    },
+    {
+      "personId": "P02730",
+      "url": "https://www.linkedin.com/in/jasmine-mercado-725c750",
+      "firstName": "Jasmine",
+      "lastName": "Mercado",
+      "email": "",
+      "company": "Manulife",
+      "position": "Director of Supply Chain",
+      "connectedOnIso": "2020-01-24"
+    },
+    {
+      "personId": "P03248",
+      "url": "https://www.linkedin.com/in/somin-choi-2f3907",
+      "firstName": "Somin",
+      "lastName": "Choi",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Program Officer",
+      "connectedOnIso": "2020-01-24"
+    },
+    {
+      "personId": "P00577",
+      "url": "https://www.linkedin.com/in/bilal-qureshi-d440b6",
+      "firstName": "Bilal",
+      "lastName": "Qureshi",
+      "email": "",
+      "company": "Alaska Airlines",
+      "position": "Director, Client Services, Churn Reduction",
+      "connectedOnIso": "2020-01-23"
+    },
+    {
+      "personId": "P03251",
+      "url": "https://www.linkedin.com/in/tram-cao-a6beebbf",
+      "firstName": "Trâm",
+      "lastName": "Cao",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Recruiting Lead",
+      "connectedOnIso": "2020-01-20"
+    },
+    {
+      "personId": "P02397",
+      "url": "https://www.linkedin.com/in/phuong-to-43cf04",
+      "firstName": "Phương",
+      "lastName": "Tô",
+      "email": "",
+      "company": "Massachusetts Institute of Technology",
+      "position": "Corporate Counsel",
+      "connectedOnIso": "2020-01-15"
+    },
+    {
+      "personId": "P01909",
+      "url": "https://www.linkedin.com/in/riku-he-9380a4c",
+      "firstName": "Riku",
+      "lastName": "He",
+      "email": "",
+      "company": "Sullivan & Cromwell",
+      "position": "Senior Counsel",
+      "connectedOnIso": "2020-01-13"
+    },
+    {
+      "personId": "P02289",
+      "url": "https://www.linkedin.com/in/kagiso-phillips-a9c0381",
+      "firstName": "Kagiso",
+      "lastName": "Phillips",
+      "email": "",
+      "company": "Takeda",
+      "position": "VP of Research",
+      "connectedOnIso": "2020-01-06"
+    },
+    {
+      "personId": "P04481",
+      "url": "https://www.linkedin.com/in/jocelyn-castillo-e22bcf15",
+      "firstName": "Jocelyn",
+      "lastName": "Castillo",
+      "email": "",
+      "company": "Chernin Entertainment",
+      "position": "Line Producer",
+      "connectedOnIso": "2019-12-31"
+    },
+    {
+      "personId": "P03389",
+      "url": "https://www.linkedin.com/in/pingnakamura",
+      "firstName": "Ping",
+      "lastName": "Nakamura",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "VP of Finance",
+      "connectedOnIso": "2019-12-19"
+    },
+    {
+      "personId": "P03206",
+      "url": "https://www.linkedin.com/in/joanna-wojcik-4add1a3",
+      "firstName": "Joanna",
+      "lastName": "Wójcik",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Policy Lead",
+      "connectedOnIso": "2019-12-11"
+    },
+    {
+      "personId": "P01171",
+      "url": "https://www.linkedin.com/in/joneslaura",
+      "firstName": "Laura",
+      "lastName": "Jones",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Founder & Chief Data Officer",
+      "connectedOnIso": "2019-12-06"
+    },
+    {
+      "personId": "P03096",
+      "url": "https://www.linkedin.com/in/hana-he-29efc9e",
+      "firstName": "Hana",
+      "lastName": "He",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Senior Policy Advisor",
+      "connectedOnIso": "2019-12-02"
+    },
+    {
+      "personId": "P03417",
+      "url": "https://www.linkedin.com/in/adaeze-eze-804400b",
+      "firstName": "Adaeze",
+      "lastName": "Eze",
+      "email": "",
+      "company": "University Health Network",
+      "position": "Director of Operations",
+      "connectedOnIso": "2019-11-30"
+    },
+    {
+      "personId": "P02384",
+      "url": "https://www.linkedin.com/in/claire-stewart-ee3c3c",
+      "firstName": "Claire",
+      "lastName": "Stewart",
+      "email": "claire_stewart@example.com",
+      "company": "Beth Israel Deaconess Medical Center",
+      "position": "RN",
+      "connectedOnIso": "2019-11-24"
+    },
+    {
+      "personId": "P03423",
+      "url": "https://www.linkedin.com/in/seojun-oh-349b0f",
+      "firstName": "Seojun",
+      "lastName": "Oh",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Research Director",
+      "connectedOnIso": "2019-11-22"
+    },
+    {
+      "personId": "P03253",
+      "url": "https://www.linkedin.com/in/josee-bergeron-6bc2039c",
+      "firstName": "Josée",
+      "lastName": "Bergeron",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-11-21"
+    },
+    {
+      "personId": "P03075",
+      "url": "https://www.linkedin.com/in/alejandradiaz98",
+      "firstName": "Alejandra",
+      "lastName": "Díaz",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-11-16"
+    },
+    {
+      "personId": "P03410",
+      "url": "https://www.linkedin.com/in/magdalena-kovacs-52dbf7",
+      "firstName": "Magdalena",
+      "lastName": "Kovács",
+      "email": "",
+      "company": "Bombardier",
+      "position": "Operations Manager",
+      "connectedOnIso": "2019-11-16"
+    },
+    {
+      "personId": "P03359",
+      "url": "https://www.linkedin.com/in/renee-lheureux-631a926b",
+      "firstName": "Renée",
+      "lastName": "L'Heureux",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Operations Lead",
+      "connectedOnIso": "2019-11-15"
+    },
+    {
+      "personId": "P02232",
+      "url": "https://www.linkedin.com/in/matteo-schroder-41df2d3",
+      "firstName": "Matteo",
+      "lastName": "Schröder",
+      "email": "",
+      "company": "Charles River Laboratories",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2019-11-10"
+    },
+    {
+      "personId": "P01719",
+      "url": "https://www.linkedin.com/in/gideon-zimmerman-adc5dfa9",
+      "firstName": "Gideon",
+      "lastName": "Zimmerman",
+      "email": "",
+      "company": "PitchBook",
+      "position": "Finance Manager",
+      "connectedOnIso": "2019-11-09"
+    },
+    {
+      "personId": "P03281",
+      "url": "https://www.linkedin.com/in/grace-edwards-4730583",
+      "firstName": "Grace",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Research Lead",
+      "connectedOnIso": "2019-11-07"
+    },
+    {
+      "personId": "P03140",
+      "url": "https://www.linkedin.com/in/olivier-huynh-cpa",
+      "firstName": "Olivier",
+      "lastName": "Huỳnh",
+      "email": "olivierhuynh48@example.com",
+      "company": "University of Toronto",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2019-11-03"
+    },
+    {
+      "personId": "P03255",
+      "url": "https://www.linkedin.com/in/david-roberts-6ce4a7a7",
+      "firstName": "David",
+      "lastName": "Roberts",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2019-10-30"
+    },
+    {
+      "personId": "P03182",
+      "url": "https://www.linkedin.com/in/kevin-martin-c05d8f",
+      "firstName": "Kevin",
+      "lastName": "Martin",
+      "email": "",
+      "company": "National Research Council Canada",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2019-10-21"
+    },
+    {
+      "personId": "P03346",
+      "url": "https://www.linkedin.com/in/naledi-hailu-cb0aca7c",
+      "firstName": "Naledi",
+      "lastName": "Hailu",
+      "email": "",
+      "company": "McGill University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-10-21"
+    },
+    {
+      "personId": "P03278",
+      "url": "https://www.linkedin.com/in/inwakanma",
+      "firstName": "Ikechukwu",
+      "lastName": "Nwakanma",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-10-19"
+    },
+    {
+      "personId": "P03316",
+      "url": "https://www.linkedin.com/in/salimata-stewart-54e8d4",
+      "firstName": "Salimata",
+      "lastName": "Stewart",
+      "email": "",
+      "company": "",
+      "position": "Research Lead",
+      "connectedOnIso": "2019-10-16"
+    },
+    {
+      "personId": "P04160",
+      "url": "https://www.linkedin.com/in/aanderson",
+      "firstName": "Abigail",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Sr. Designer - Remote",
+      "connectedOnIso": "2019-10-15"
+    },
+    {
+      "personId": "P03022",
+      "url": "https://www.linkedin.com/in/alexandre-bilodeau-45f17ff",
+      "firstName": "Alexandre",
+      "lastName": "Bilodeau",
+      "email": "",
+      "company": "",
+      "position": "Vice Provost",
+      "connectedOnIso": "2019-10-14"
+    },
+    {
+      "personId": "P03380",
+      "url": "https://www.linkedin.com/in/edward-brown-624c43c1",
+      "firstName": "Edward",
+      "lastName": "Brown",
+      "email": "",
+      "company": "University of Toronto",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-10-12"
+    },
+    {
+      "personId": "P02409",
+      "url": "https://www.linkedin.com/in/sofia-de-la-cruz-d4c008",
+      "firstName": "Sofía",
+      "lastName": "De La Cruz",
+      "email": "",
+      "company": "Sanofi Genzyme",
+      "position": "Talent Acquisition Manager",
+      "connectedOnIso": "2019-10-08"
+    },
+    {
+      "personId": "P02722",
+      "url": "https://www.linkedin.com/in/kevin-mitchell-65d45f1",
+      "firstName": "Kevin",
+      "lastName": "Mitchell",
+      "email": "",
+      "company": "M&S",
+      "position": "Head of Buying",
+      "connectedOnIso": "2019-10-08"
+    },
+    {
+      "personId": "P03130",
+      "url": "https://www.linkedin.com/in/phuc-ong-75ea60",
+      "firstName": "Phúc",
+      "lastName": "Ông",
+      "email": "",
+      "company": "Canadian National Railway",
+      "position": "Senior Operations Manager 🚀",
+      "connectedOnIso": "2019-10-07"
+    },
+    {
+      "personId": "P02420",
+      "url": "https://www.linkedin.com/in/luis-ramos-f1955d8",
+      "firstName": "Luis",
+      "lastName": "Ramos",
+      "email": "",
+      "company": "Mass General Brigham",
+      "position": "Chief of Staff",
+      "connectedOnIso": "2019-10-05"
+    },
+    {
+      "personId": "P02217",
+      "url": "https://www.linkedin.com/in/sophie-marino-28575b7",
+      "firstName": "Sophie",
+      "lastName": "Marino",
+      "email": "",
+      "company": "Takeda",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2019-10-02"
+    },
+    {
+      "personId": "P03058",
+      "url": "https://www.linkedin.com/in/scott-johnson-52038d",
+      "firstName": "Scott",
+      "lastName": "Johnson",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Senior Finance Manager",
+      "connectedOnIso": "2019-10-01"
+    },
+    {
+      "personId": "P03431",
+      "url": "https://www.linkedin.com/in/hana-zhou-03c0afd8",
+      "firstName": "Hana",
+      "lastName": "Zhou",
+      "email": "",
+      "company": "Royal Bank of Canada",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2019-09-22"
+    },
+    {
+      "personId": "P03052",
+      "url": "https://www.linkedin.com/in/amanda-thompson-1252606d",
+      "firstName": "Amanda",
+      "lastName": "Thompson",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Talent Lead",
+      "connectedOnIso": "2019-09-21"
+    },
+    {
+      "personId": "P02342",
+      "url": "https://www.linkedin.com/in/yonatan-mandel-9789be",
+      "firstName": "Yonatan",
+      "lastName": "Mandel",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Research Lead",
+      "connectedOnIso": "2019-09-05"
+    },
+    {
+      "personId": "P02234",
+      "url": "https://www.linkedin.com/in/wei-watanabe-77813eb5",
+      "firstName": "Wei",
+      "lastName": "Watanabe",
+      "email": "wei_watanabe@example.com",
+      "company": "Liberty Mutual Insurance",
+      "position": "Enterprise Account Executive",
+      "connectedOnIso": "2019-08-02"
+    },
+    {
+      "personId": "P03098",
+      "url": "https://www.linkedin.com/in/john-anderson-74e5fc",
+      "firstName": "John",
+      "lastName": "Anderson",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-06-16"
+    },
+    {
+      "personId": "P03226",
+      "url": "https://www.linkedin.com/in/fatima-saxena-56afcc61",
+      "firstName": "Fatima",
+      "lastName": "Saxena",
+      "email": "",
+      "company": "Queen's University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2019-06-11"
+    },
+    {
+      "personId": "P00928",
+      "url": "https://www.linkedin.com/in/sanjay-yadav-0e36e1",
+      "firstName": "Sanjay",
+      "lastName": "Yadav",
+      "email": "",
+      "company": "Avalara",
+      "position": "Executive Director",
+      "connectedOnIso": "2019-05-13"
+    },
+    {
+      "personId": "P03279",
+      "url": "https://www.linkedin.com/in/irinazielinski78",
+      "firstName": "Irina",
+      "lastName": "Zieliński",
+      "email": "",
+      "company": "Bombardier Inc.",
+      "position": "Operations Lead",
+      "connectedOnIso": "2019-04-26"
+    },
+    {
+      "personId": "P03362",
+      "url": "https://www.linkedin.com/in/nadine-tremblay-dec5f6d",
+      "firstName": "Nadine",
+      "lastName": "Tremblay",
+      "email": "ntremblay@example.net",
+      "company": "McMaster University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2019-03-15"
+    },
+    {
+      "personId": "P03286",
+      "url": "https://www.linkedin.com/in/shreya-singh-6b9722d9",
+      "firstName": "Shreya",
+      "lastName": "Singh",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "",
+      "connectedOnIso": "2019-02-21"
+    },
+    {
+      "personId": "P04298",
+      "url": "https://www.linkedin.com/in/aguilarpaula",
+      "firstName": "Paula",
+      "lastName": "Aguilar",
+      "email": "",
+      "company": "Alaska Airlines",
+      "position": "Director of Legal Affairs",
+      "connectedOnIso": "2019-02-05"
+    },
+    {
+      "personId": "P01220",
+      "url": "https://www.linkedin.com/in/lorenzo-hoffmann-e7c38e",
+      "firstName": "Lorenzo",
+      "lastName": "Hoffmann",
+      "email": "",
+      "company": "Ripple",
+      "position": "Lead Data Scientist",
+      "connectedOnIso": "2019-01-25"
+    },
+    {
+      "personId": "P03301",
+      "url": "https://www.linkedin.com/in/valentina-becker-0eadaa",
+      "firstName": "Valentina",
+      "lastName": "Becker",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Research Lead",
+      "connectedOnIso": "2019-01-25"
+    },
+    {
+      "personId": "P03269",
+      "url": "https://www.linkedin.com/in/rui-li-76e6fb",
+      "firstName": "Rui",
+      "lastName": "Li",
+      "email": "",
+      "company": "CIFAR",
+      "position": "Research Lead",
+      "connectedOnIso": "2019-01-19"
+    },
+    {
+      "personId": "P03143",
+      "url": "https://www.linkedin.com/in/neha-agarwal-367d9f5",
+      "firstName": "Neha",
+      "lastName": "Agarwal",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Assistant Professor",
+      "connectedOnIso": "2019-01-11"
+    },
+    {
+      "personId": "P03259",
+      "url": "https://www.linkedin.com/in/aditya-malhotra-eb30d75f",
+      "firstName": "Aditya",
+      "lastName": "Malhotra",
+      "email": "",
+      "company": "Open to work",
+      "position": "Seeking new opportunities",
+      "connectedOnIso": "2019-01-10"
+    },
+    {
+      "personId": "P03156",
+      "url": "https://www.linkedin.com/in/yael-rosen-78fa0499",
+      "firstName": "Yael",
+      "lastName": "Rosen",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Research Director",
+      "connectedOnIso": "2019-01-01"
+    },
+    {
+      "personId": "P03122",
+      "url": "https://www.linkedin.com/in/nisha-rahman-5be5cb",
+      "firstName": "Nisha",
+      "lastName": "Rahman",
+      "email": "",
+      "company": "NRC Canada",
+      "position": "Associate Professor",
+      "connectedOnIso": "2018-12-28"
+    },
+    {
+      "personId": "P03416",
+      "url": "https://www.linkedin.com/in/yan-han-4f66a0",
+      "firstName": "Yan",
+      "lastName": "Han",
+      "email": "",
+      "company": "BlackBerry",
+      "position": "Chief of Staff",
+      "connectedOnIso": "2018-12-13"
+    },
+    {
+      "personId": "P03426",
+      "url": "https://www.linkedin.com/in/thomas-edwards-eb4a86eb",
+      "firstName": "Thomas",
+      "lastName": "Edwards",
+      "email": "",
+      "company": "uOttawa",
+      "position": "Professor",
+      "connectedOnIso": "2018-12-10"
+    },
+    {
+      "personId": "P02209",
+      "url": "https://www.linkedin.com/in/javier-alvarez-7a9372",
+      "firstName": "Javier",
+      "lastName": "Álvarez",
+      "email": "",
+      "company": "athenahealth",
+      "position": "Operations Lead",
+      "connectedOnIso": "2018-12-09"
+    },
+    {
+      "personId": "P03268",
+      "url": "https://www.linkedin.com/in/sharmadivya",
+      "firstName": "Divya",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Sainsbury's",
+      "position": "Director of Finance",
+      "connectedOnIso": "2018-12-01"
+    },
+    {
+      "personId": "P02428",
+      "url": "https://www.linkedin.com/in/david-adams-f11e85",
+      "firstName": "David",
+      "lastName": "Adams",
+      "email": "davidadams94@example.com",
+      "company": "Brigham and Women's Hospital",
+      "position": "Clinical Nurse Leader",
+      "connectedOnIso": "2018-11-09"
+    },
+    {
+      "personId": "P03314",
+      "url": "https://www.linkedin.com/in/kamau-nwosu-dfec08f",
+      "firstName": "Kamau",
+      "lastName": "Nwosu",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Director of Graduate Studies",
+      "connectedOnIso": "2018-11-05"
+    },
+    {
+      "personId": "P03208",
+      "url": "https://www.linkedin.com/in/david-nelson-30acfd46",
+      "firstName": "David",
+      "lastName": "Nelson",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Research Director",
+      "connectedOnIso": "2018-10-05"
+    },
+    {
+      "personId": "P02326",
+      "url": "https://www.linkedin.com/in/jack-jackson-97d40a50",
+      "firstName": "Jack",
+      "lastName": "Jackson",
+      "email": "",
+      "company": "",
+      "position": "",
+      "connectedOnIso": "2018-10-02"
+    },
+    {
+      "personId": "P03047",
+      "url": "https://www.linkedin.com/in/pooja-sharma-2a1ac1",
+      "firstName": "Pooja",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "Self-employed",
+      "position": "Associate Professor",
+      "connectedOnIso": "2018-09-28"
+    },
+    {
+      "personId": "P03107",
+      "url": "https://www.linkedin.com/in/lea-rinaldi-e74cdf",
+      "firstName": "Léa",
+      "lastName": "Rinaldi",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Lead",
+      "connectedOnIso": "2018-09-14"
+    },
+    {
+      "personId": "P03110",
+      "url": "https://www.linkedin.com/in/amanda-abboud-ca64723",
+      "firstName": "Amanda",
+      "lastName": "Abboud",
+      "email": "",
+      "company": "uOttawa",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2018-09-11"
+    },
+    {
+      "personId": "P03088",
+      "url": "https://www.linkedin.com/in/haruto-liu-cpa",
+      "firstName": "Haruto",
+      "lastName": "Liu",
+      "email": "",
+      "company": "Vector Institute for AI",
+      "position": "Associate Professor",
+      "connectedOnIso": "2018-09-10"
+    },
+    {
+      "personId": "P03155",
+      "url": "https://www.linkedin.com/in/gregory-campbell-f43d4d",
+      "firstName": "Gregory",
+      "lastName": "Campbell",
+      "email": "",
+      "company": "University of Waterloo",
+      "position": "Research Director",
+      "connectedOnIso": "2018-09-10"
+    },
+    {
+      "personId": "P03233",
+      "url": "https://www.linkedin.com/in/marina-egorov-f5cae4",
+      "firstName": "Marina",
+      "lastName": "Egorov",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2018-09-04"
+    },
+    {
+      "personId": "P03413",
+      "url": "https://www.linkedin.com/in/kobayashihana",
+      "firstName": "Hana",
+      "lastName": "Kobayashi",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Deputy Director",
+      "connectedOnIso": "2018-09-02"
+    },
+    {
+      "personId": "P01835",
+      "url": "https://www.linkedin.com/in/fang-nair-bf222fbd",
+      "firstName": "Fang",
+      "lastName": "Nair",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Operations Lead",
+      "connectedOnIso": "2018-08-10"
+    },
+    {
+      "personId": "P02997",
+      "url": "https://www.linkedin.com/in/valentina-de-luca-a47a61e5",
+      "firstName": "Valentina",
+      "lastName": "De Luca",
+      "email": "",
+      "company": "ASOS",
+      "position": "Senior Chief of Staff 🚀",
+      "connectedOnIso": "2018-08-04"
+    },
+    {
+      "personId": "P03299",
+      "url": "https://www.linkedin.com/in/john-carter-d7d8ba26",
+      "firstName": "John",
+      "lastName": "Carter",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Financial Planning Lead",
+      "connectedOnIso": "2018-07-08"
+    },
+    {
+      "personId": "P03021",
+      "url": "https://www.linkedin.com/in/xin-cai-3bdf2e",
+      "firstName": "Xin",
+      "lastName": "Cai",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Research Lead",
+      "connectedOnIso": "2018-06-08"
+    },
+    {
+      "personId": "P03111",
+      "url": "https://www.linkedin.com/in/julia-miller-3004db6",
+      "firstName": "Julia",
+      "lastName": "Miller",
+      "email": "juliamiller95@example.org",
+      "company": "McMaster University",
+      "position": "Finance Lead",
+      "connectedOnIso": "2018-05-08"
+    },
+    {
+      "personId": "P03191",
+      "url": "https://www.linkedin.com/in/ibankole",
+      "firstName": "Ifeanyi",
+      "lastName": "Bankole",
+      "email": "",
+      "company": "McMaster University",
+      "position": "PhD Candidate",
+      "connectedOnIso": "2018-04-19"
+    },
+    {
+      "personId": "P03386",
+      "url": "https://www.linkedin.com/in/suzukixiang",
+      "firstName": "Xiang",
+      "lastName": "Suzuki",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2018-04-11"
+    },
+    {
+      "personId": "P02131",
+      "url": "https://www.linkedin.com/in/kramos",
+      "firstName": "Kevin",
+      "lastName": "Ramos",
+      "email": "kevinramos19@example.org",
+      "company": "JPMorgan Chase & Co.",
+      "position": "Group Finance Manager",
+      "connectedOnIso": "2018-04-08"
+    },
+    {
+      "personId": "P03243",
+      "url": "https://www.linkedin.com/in/yuki-gao-7b8fce24",
+      "firstName": "Yuki",
+      "lastName": "Gao",
+      "email": "",
+      "company": "OpenText",
+      "position": "Sr. Software Engineer",
+      "connectedOnIso": "2018-03-28"
+    },
+    {
+      "personId": "P02432",
+      "url": "https://www.linkedin.com/in/rsharma",
+      "firstName": "Raj",
+      "lastName": "Sharma",
+      "email": "",
+      "company": "State Street Corporation",
+      "position": "Senior Marketing Manager",
+      "connectedOnIso": "2018-03-11"
+    },
+    {
+      "personId": "P00980",
+      "url": "https://www.linkedin.com/in/sergio-sanchez-aa4f08",
+      "firstName": "Sergio",
+      "lastName": "Sánchez",
+      "email": "sergiosanchez69@example.org",
+      "company": "Tableau Software",
+      "position": "Manager, Software Engineering",
+      "connectedOnIso": "2018-02-19"
+    },
+    {
+      "personId": "P03014",
+      "url": "https://www.linkedin.com/in/elizabeth-adams-4c9cba64",
+      "firstName": "Elizabeth",
+      "lastName": "Adams",
+      "email": "",
+      "company": "Ontario Institute for Cancer Research",
+      "position": "Professor",
+      "connectedOnIso": "2017-12-25"
+    },
+    {
+      "personId": "P03129",
+      "url": "https://www.linkedin.com/in/camille-sanchez-phd",
+      "firstName": "Camille",
+      "lastName": "Sánchez",
+      "email": "",
+      "company": "",
+      "position": "Research Lead",
+      "connectedOnIso": "2017-10-31"
+    },
+    {
+      "personId": "P03042",
+      "url": "https://www.linkedin.com/in/mekonnen-boateng-075b27bd",
+      "firstName": "Mekonnen",
+      "lastName": "Boateng",
+      "email": "",
+      "company": "Queen's",
+      "position": "Associate Professor",
+      "connectedOnIso": "2017-10-30"
+    },
+    {
+      "personId": "P01379",
+      "url": "https://www.linkedin.com/in/jessica-smith-dbb4a46",
+      "firstName": "Jessica",
+      "lastName": "Smith",
+      "email": "",
+      "company": "OpenAI",
+      "position": "Marketing Manager",
+      "connectedOnIso": "2017-10-17"
+    },
+    {
+      "personId": "P02275",
+      "url": "https://www.linkedin.com/in/antoine-costa",
+      "firstName": "Antoine",
+      "lastName": "Costa",
+      "email": "",
+      "company": "Pfizer",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2017-10-13"
+    },
+    {
+      "personId": "P03296",
+      "url": "https://www.linkedin.com/in/ronaldo-domingo-mba",
+      "firstName": "Ronaldo",
+      "lastName": "Domingo",
+      "email": "",
+      "company": "Stealth Startup",
+      "position": "Co-Founder",
+      "connectedOnIso": "2017-09-29"
+    },
+    {
+      "personId": "P03062",
+      "url": "https://www.linkedin.com/in/boris-andreev-327e49",
+      "firstName": "Boris",
+      "lastName": "Andreev",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Associate Chair",
+      "connectedOnIso": "2017-09-17"
+    },
+    {
+      "personId": "P03274",
+      "url": "https://www.linkedin.com/in/sungmin-ryu-5518d5",
+      "firstName": "Sungmin",
+      "lastName": "Ryu",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Professor",
+      "connectedOnIso": "2017-09-16"
+    },
+    {
+      "personId": "P03175",
+      "url": "https://www.linkedin.com/in/matthew-boateng",
+      "firstName": "Matthew",
+      "lastName": "Boateng",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Associate Professor",
+      "connectedOnIso": "2017-09-07"
+    },
+    {
+      "personId": "P03179",
+      "url": "https://www.linkedin.com/in/anjali-chaudhary-c72f253",
+      "firstName": "Anjali",
+      "lastName": "Chaudhary",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Deputy Director",
+      "connectedOnIso": "2017-09-04"
+    },
+    {
+      "personId": "P03147",
+      "url": "https://www.linkedin.com/in/hussein-mikhail",
+      "firstName": "Hussein",
+      "lastName": "Mikhail",
+      "email": "",
+      "company": "University of Ottawa",
+      "position": "Professor",
+      "connectedOnIso": "2017-07-28"
+    },
+    {
+      "personId": "P03067",
+      "url": "https://www.linkedin.com/in/oskar-eriksson-5a7ca0",
+      "firstName": "Oskar",
+      "lastName": "Eriksson",
+      "email": "oskar.eriksson@example.com",
+      "company": "McMaster University",
+      "position": "Associate Chair",
+      "connectedOnIso": "2017-07-21"
+    },
+    {
+      "personId": "P03328",
+      "url": "https://www.linkedin.com/in/kamau-ndlovu-8b73554e",
+      "firstName": "Kamau",
+      "lastName": "Ndlovu",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Research Lead",
+      "connectedOnIso": "2017-07-19"
+    },
+    {
+      "personId": "P03245",
+      "url": "https://www.linkedin.com/in/yusuf-li-d1368e0",
+      "firstName": "Yusuf",
+      "lastName": "Li",
+      "email": "",
+      "company": "McMaster University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2017-07-09"
+    },
+    {
+      "personId": "P03134",
+      "url": "https://www.linkedin.com/in/sameer-das-8cb3c7ad",
+      "firstName": "Sameer",
+      "lastName": "Das",
+      "email": "sameerdas5@example.net",
+      "company": "Sun Life Financial",
+      "position": "COO",
+      "connectedOnIso": "2017-06-29"
+    },
+    {
+      "personId": "P03564",
+      "url": "https://www.linkedin.com/in/andrew-chukwu-3cd4f83",
+      "firstName": "Andrew",
+      "lastName": "Chukwu",
+      "email": "",
+      "company": "Vestas",
+      "position": "Senior Reservoir Engineer",
+      "connectedOnIso": "2017-05-06"
+    },
+    {
+      "personId": "P03146",
+      "url": "https://www.linkedin.com/in/claire-evans-bc1e96c0",
+      "firstName": "Claire",
+      "lastName": "Evans",
+      "email": "",
+      "company": "Government of Canada",
+      "position": "Director of Policy",
+      "connectedOnIso": "2017-04-11"
+    },
+    {
+      "personId": "P02368",
+      "url": "https://www.linkedin.com/in/denise-ocampo-82cf0a0b",
+      "firstName": "Denise",
+      "lastName": "Ocampo",
+      "email": "",
+      "company": "Liberty Mutual Insurance",
+      "position": "VP of Marketing",
+      "connectedOnIso": "2017-01-19"
+    },
+    {
+      "personId": "P00668",
+      "url": "https://www.linkedin.com/in/edward-white-20332a1f",
+      "firstName": "Edward",
+      "lastName": "White",
+      "email": "",
+      "company": "Tableau Software",
+      "position": "Software Engineering Manager",
+      "connectedOnIso": "2016-11-17"
+    },
+    {
+      "personId": "P03078",
+      "url": "https://www.linkedin.com/in/ishaan-chowdhury",
+      "firstName": "Ishaan",
+      "lastName": "Chowdhury",
+      "email": "",
+      "company": "Ontario Institute for Cancer Research",
+      "position": "Senior Scientist",
+      "connectedOnIso": "2016-11-08"
+    },
+    {
+      "personId": "P00972",
+      "url": "https://www.linkedin.com/in/xin-deng-5e0f5bf",
+      "firstName": "Xin",
+      "lastName": "Deng",
+      "email": "",
+      "company": "Alphabet Inc.",
+      "position": "Frontend Engineer",
+      "connectedOnIso": "2016-10-31"
+    },
+    {
+      "personId": "P02393",
+      "url": "https://www.linkedin.com/in/chinyere-oyelaran-7ce793c7",
+      "firstName": "Chinyere",
+      "lastName": "Oyelaran",
+      "email": "chinyere_oyelaran@example.org",
+      "company": "Beth Israel Deaconess Medical Center",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2016-10-05"
+    },
+    {
+      "personId": "P04483",
+      "url": "https://www.linkedin.com/in/rina-silverman-aa6731f9",
+      "firstName": "Rina",
+      "lastName": "Silverman",
+      "email": "",
+      "company": "Universal Music Group",
+      "position": "CMO",
+      "connectedOnIso": "2016-10-03"
+    },
+    {
+      "personId": "P02923",
+      "url": "https://www.linkedin.com/in/timothy-king-18ebec",
+      "firstName": "Timothy",
+      "lastName": "King",
+      "email": "",
+      "company": "Next plc",
+      "position": "SVP",
+      "connectedOnIso": "2016-09-13"
+    },
+    {
+      "personId": "P00076",
+      "url": "https://www.linkedin.com/in/thanh-to-580e8f1",
+      "firstName": "Thành",
+      "lastName": "Tô",
+      "email": "",
+      "company": "DocuSign",
+      "position": "Design Manager",
+      "connectedOnIso": "2016-06-11"
+    },
+    {
+      "personId": "P03276",
+      "url": "https://www.linkedin.com/in/rania-rashid-bcd8ac2",
+      "firstName": "Rania",
+      "lastName": "Rashid",
+      "email": "",
+      "company": "Loblaw Companies",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2016-05-19"
+    },
+    {
+      "personId": "P03352",
+      "url": "https://www.linkedin.com/in/olivia-white-11ac6e05",
+      "firstName": "Olivia",
+      "lastName": "White",
+      "email": "",
+      "company": "Freelance",
+      "position": "Associate Professor",
+      "connectedOnIso": "2016-03-16"
+    },
+    {
+      "personId": "P03244",
+      "url": "https://www.linkedin.com/in/sameer-rahman-415e58",
+      "firstName": "Sameer",
+      "lastName": "Rahman",
+      "email": "",
+      "company": "Ontario Institute for Cancer Research",
+      "position": "Senior Research Scientist",
+      "connectedOnIso": "2016-02-27"
+    },
+    {
+      "personId": "P03113",
+      "url": "https://www.linkedin.com/in/henry-wright-3b22409e",
+      "firstName": "Henry",
+      "lastName": "Wright",
+      "email": "",
+      "company": "Government of Ontario",
+      "position": "Senior Operations Manager",
+      "connectedOnIso": "2016-02-25"
+    },
+    {
+      "personId": "P03201",
+      "url": "https://www.linkedin.com/in/giang-duong-1afe23a",
+      "firstName": "Giang",
+      "lastName": "Dương",
+      "email": "",
+      "company": "Sun Life Financial",
+      "position": "Finance Lead",
+      "connectedOnIso": "2015-12-21"
+    },
+    {
+      "personId": "P03302",
+      "url": "https://www.linkedin.com/in/angelica-panganiban-fb98760",
+      "firstName": "Angelica",
+      "lastName": "Panganiban",
+      "email": "",
+      "company": "Vector Institute",
+      "position": "Scientist",
+      "connectedOnIso": "2015-12-05"
+    },
+    {
+      "personId": "P03177",
+      "url": "https://www.linkedin.com/in/rafael-castillo-452cae",
+      "firstName": "Rafael",
+      "lastName": "Castillo",
+      "email": "",
+      "company": "Queen's University",
+      "position": "Associate Professor",
+      "connectedOnIso": "2015-11-20"
+    },
+    {
+      "personId": "P03051",
+      "url": "https://www.linkedin.com/in/pierre-weber-a0152d4a",
+      "firstName": "Pierre",
+      "lastName": "Weber",
+      "email": "",
+      "company": "OpenText",
+      "position": "VP Engineering",
+      "connectedOnIso": "2015-08-09"
+    }
+  ]
+}

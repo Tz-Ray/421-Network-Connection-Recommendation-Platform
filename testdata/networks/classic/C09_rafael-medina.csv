@@ -1,0 +1,481 @@
+First Name,Last Name,Email Address,Company,Position,Connected On
+Christopher,Phillips,,BP America,Business Unit Lead,25 May 2025
+Eunji,Yoo,,Wizards of the Coast,Senior Chief of Staff,16 May 2025
+Bintou,Hailu,,Fluor Corporation,Engineering Manager,12 May 2025
+Benjamin,King,,Shell USA,"Director, Procurement",04 May 2025
+Anton,Volkov,,Schlumberger Limited,Engineering Manager,02 May 2025
+Joseph,Nelson,,Independent Consultant,Independent Consultant,03 Apr 2025
+María,López,,Dell Technologies,Business Unit Lead,02 Apr 2025
+Ling,Li,,Valve Corporation,SWE I,26 Mar 2025
+Matthew,Boateng,,Vector Institute,Associate Professor,26 Mar 2025
+Sophie,Müller,,ConocoPhillips,Engineering Manager,26 Mar 2025
+Alejandro,Delgado,,Shell USA,Operations Lead,23 Mar 2025
+Emma,Chen,,Queen's University,Director of Graduate Studies,14 Mar 2025
+Haruto,Huang,,Amazon,SWE Intern,13 Mar 2025
+Ryan,Martin,,Marathon Petroleum,Director of Engineering,12 Mar 2025
+Luis,García,,Occidental Petroleum,Finance Intern,10 Mar 2025
+Victoria,Jackson,,Weyerhaeuser,Senior Account Executive,05 Mar 2025
+Deepak,Iyer,,Tesco,Commercial Director,03 Mar 2025
+Huda,Iyer,huda.iyer@example.net,Halliburton,Senior Reservoir Engineer,02 Mar 2025
+Jing,Tang,jing_tang@example.org,OpenText,DATA SCIENCE LEAD,25 Feb 2025
+Charles,Jones,,Exxon Mobil Corporation,Senior Process Engineer,24 Feb 2025
+Victoria,Edwards,,West Monroe,Principal,22 Feb 2025
+Qiang,Yang,,Snap Inc.,Senior HRBP,20 Feb 2025
+Ekaterina,Smirnov,,Netflix,Chief of Staff,18 Feb 2025
+Lauren,King,,Conagra Brands,Accounting Intern,11 Feb 2025
+Anke,Meyer,,Meta,Senior Product Manager,09 Feb 2025
+Vladimir,Horváth,,Conagra Brands,Director of Supply Chain,07 Feb 2025
+Nathan,Walker,nwalker@example.net,Kraft Heinz,"Senior Director, Strategy",27 Jan 2025
+Antonio,Cruz,,Dell Technologies,Accounting Supervisor,27 Jan 2025
+Giulia,De Luca,,Baker Hughes,Petroleum Engineer,25 Jan 2025
+Sanjay,Thomas,,The Walt Disney Company,Production Manager,25 Jan 2025
+Thibault,Braun,,BP America,Lead Engineer,21 Jan 2025
+Bayani,Tolentino,bayani.tolentino@example.org,TechnipFMC,Field Engineer,20 Jan 2025
+Rosa,Castro,,Chevron,"Sr. FP&A Manager, ""Business Analysis""",19 Jan 2025
+Sarah,Young,,Southwest Airlines,Managing Counsel,18 Jan 2025
+Rania,Basha,,Expedia Group,"Lead Software Engineer, ""Java""",31 Dec 2024
+Pierre,Müller,,Stealth Startup,Founder & COO,27 Dec 2024
+Magdalena,Kovács,,Bombardier,Operations Manager,24 Dec 2024
+Mei,Zhang,,Stealth Startup,Founder & COO,23 Dec 2024
+Rémy,Fontana,,Sanofi,Nurse Manager,17 Dec 2024
+Yuna,Chen,,Williams Companies,Engineering Intern,07 Dec 2024
+Dante,Mukherjee,,Lionsgate,Director of Marketing,06 Dec 2024
+Émile,Becker,,Fluor Corporation,Group Operations Manager,03 Dec 2024
+Giorgio,De Luca,,EY,"Manager, Consulting",02 Dec 2024
+Rohan,Joshi,,EY,Engagement Manager,02 Dec 2024
+Hana,He,,Government of Canada,Senior Policy Advisor,01 Dec 2024
+Aditya,Ahmed,,CenterPoint Energy,Engineering Intern,01 Dec 2024
+Gabriel,Núñez,,Marks & Spencer,Senior Buyer,26 Nov 2024
+Sanjay,Raghavan,,Occidental Petroleum,Petroleum Engineer,20 Nov 2024
+Chiamaka,Fagbenle,,McGill,Research Lead,18 Nov 2024
+Mateo,Díaz,mateo_diaz@example.com,Enterprise Products,Petroleum Engineer,18 Nov 2024
+Dante,Ocampo,,University of Ottawa,ASSISTANT PROFESSOR,17 Nov 2024
+Jun,Sun,,Shell USA,Project Engineer,17 Nov 2024
+Elena,Rodríguez,elena.rodriguez@example.net,Vestas,Senior Process Engineer,17 Nov 2024
+Joseph,Williams,,Fox Corporation,"Senior Director, Strategy",13 Nov 2024
+Jack,Adams,,The New York Times Company,Operations Manager,09 Nov 2024
+Adebayo,Amadi,,Deloitte,Senior Associate,02 Nov 2024
+Doron,Shulman,,Kinder Morgan,Senior Process Engineer,29 Oct 2024
+Deepak,Pillai,,PwC,Consulting Intern (Contract),26 Oct 2024
+Ishaan,Malhotra,,Southwest Airlines,Finance Director,23 Oct 2024
+Adaeze,Keita,,Open to work,Open to Work,20 Oct 2024
+Mei,Han,mei_han@example.org,Bechtel,,11 Oct 2024
+Khadija,Mahlangu,,Microsoft,Staff Software Engineer,08 Oct 2024
+Bo,Chen,,Activision Blizzard,Operations Lead,06 Oct 2024
+Corazon,Castillo,,World Bank Group,Senior Program Manager,03 Oct 2024
+Xiang,Zheng,,,Director of Engineering,30 Sep 2024
+Xia,Cao,,Valve Corporation,"Manager, Software Engineering",25 Sep 2024
+Benoît,Bélanger,,Sysco,"  Group Manager, Customer Success",17 Sep 2024
+Ling,Sato,,DocuSign,Backend Engineer,26 Aug 2024
+Dante,Peng,,McMaster University,Associate Dean,20 Aug 2024
+Sipho,Okafor,,Shell USA,Senior Vice President,13 Aug 2024
+Anil,Davis,,Starbucks Corporation,Senior Recruiter,13 Aug 2024
+Chinwe,Njoroge,,Bechtel,Operations Manager,06 Aug 2024
+Julia,Phillips,,Fox Corporation,Senior Corporate Counsel,06 Aug 2024
+Abigail,Jones,,Paramount Global,Line Producer,05 Aug 2024
+James,Thompson,,Marathon Petroleum,VP of Engineering,28 Jul 2024
+Victoria,Thomas,,McKinsey & Company,Senior Consultant,27 Jul 2024
+Ikechukwu,Akinola,,DoorDash,Applied Scientist,18 Jul 2024
+Fernando,Ramírez,,Paramount Global,Sales Executive,18 Jul 2024
+Baptiste,Koch,,NextEra Energy,Reservoir Engineer,16 Jul 2024
+Sophie,Zimmermann,,Netflix Inc.,Production Assistant,12 Jul 2024
+Hong,Zhu,,Amazon,Customer Success Manager,29 Jun 2024
+Nisha,Mehta,,Government of Ontario,Congressional Intern,27 Jun 2024
+Lei,Nakamura,,Shell USA,Senior Chief of Staff,26 Jun 2024
+Rosa,Sato,,Self-employed,Sr. AE - Remote,19 Jun 2024
+John,Young,,CenterPoint Energy,Engineering Manager,17 Jun 2024
+Kristina,Lie,,Brex,Customer Success Manager,15 Jun 2024
+Gabriel,Romero,gromero@example.com,American Airlines,Senior Operations Manager,14 Jun 2024
+Emilio,Reyes,,Southwest Airlines,Supply Chain Intern,13 Jun 2024
+Owen,White,,ExxonMobil,"Associate Director, FP&A",05 Jun 2024
+Gabriela,Silva,,CME Group,General Manager,26 May 2024
+Nhung,Cao,,Archer Daniels Midland,AE,26 May 2024
+Mariana,Ortega,,Sysco,Senior Chief of Staff,18 May 2024
+Carlos,De La Cruz,,Chevron,Lead Engineer,18 May 2024
+Sergio,García-López,,Phillips 66 Company,Reservoir Engineer,15 May 2024
+Obi,Radebe,oradebe@example.net,NextEra Energy,,06 May 2024
+Hyunjin,Shim,,Vertex Pharmaceuticals,Senior Corporate Counsel,04 May 2024
+Bintou,Hailu,,TechnipFMC,Director of Engineering,03 May 2024
+Joseph,Stewart,,Northern Trust Corporation,Operations Lead,24 Apr 2024
+Aakash,Das,,Point72 Asset Management,Deal Team Lead,18 Apr 2024
+Carolina,Medina,,TechnipFMC,Project Engineer,15 Apr 2024
+Marco,Marino,,Fox Corporation,Production Manager,08 Apr 2024
+Olivia,Martin,,NRG Energy,Engineering Manager,18 Mar 2024
+Quỳnh,Đỗ,,Chevron,General Manager,18 Mar 2024
+Khadija,Wanjiku,,Compass Group,Restaurant Manager,16 Mar 2024
+Simran,Banerjee,simranbanerjee33@example.net,BP America,Finance Intern,14 Mar 2024
+Julia,Evans,,BP plc,Engineering Manager,12 Mar 2024
+Rina,Goldberg,,U.S. House of Representatives,,10 Mar 2024
+Adriana,De La Cruz,adrianadelacruz30@example.com,Allstate,Senior Finance Manager,07 Mar 2024
+Juan,Cruz,,Occidental Petroleum,Petroleum Engineer,07 Mar 2024
+Bintou,Tadesse,,Oxy,Senior Operations Manager,05 Mar 2024
+Anwar,Sarkis,,,,19 Feb 2024
+Abigail,Stewart,abigail_stewart@example.org,Stealth Startup,Founder,18 Feb 2024
+Fernando,Aguilar,,Independent Consultant,Independent Consultant,15 Feb 2024
+Emily,Stewart,emily.stewart@example.org,Marathon Petroleum,Engineering Intern,14 Feb 2024
+Andrei,Svoboda,,Exelon,Engineering Manager,08 Feb 2024
+Carlos,Núñez,,Marathon Petroleum,Senior Reservoir Engineer,03 Feb 2024
+Jiwoo,Moon,,,Executive Director,03 Feb 2024
+Antoine,Wagner,,ConocoPhillips,Senior Process Engineer,30 Jan 2024
+Deepak,Mukherjee,,Activision Blizzard,Senior Chief of Staff,18 Jan 2024
+Yusuf,Li,,McMaster University,Associate Professor,14 Jan 2024
+Gregory,Smith,,Jacobs Engineering Group,Senior Associate,08 Jan 2024
+Edward,Wright,,ConocoPhillips,Sales Manager,07 Jan 2024
+Michael,Smith,,Southwest Airlines,Senior Chief of Staff,06 Jan 2024
+Samuel,Williams,,AT&T,Chief of Staff,05 Jan 2024
+Samuel,Young,,Halliburton,Supply Chain Analyst,03 Jan 2024
+Sanjay,Bankole,sbankole@example.org,Intuit,Software Engineering Intern,23 Dec 2023
+Edward,Young,,Stealth Startup,Founder & Managing Partner,14 Dec 2023
+Andrew,Davis,,Kinder Morgan,"Senior Manager, Business Operations",22 Nov 2023
+Scott,Collins,,Compass Group plc,Guest Services Manager,13 Nov 2023
+Amina,Verma,,Williams Companies,Group Finance Manager,09 Nov 2023
+Lucía,Herzberg,luciaherzberg20@example.com,Bain & Company,Executive Office Intern,05 Nov 2023
+Juan,Torres,,Bechtel,Senior Supply Chain Manager,01 Nov 2023
+Rohan,Yadav,,Aon,Customer Success Lead,22 Oct 2023
+Kavita,Mishra,,Vestas,Operations Manager,18 Oct 2023
+Amit,Baker,,EY,Operations Manager,14 Oct 2023
+Paula,Martínez,,NRG Energy,Lead Engineer,04 Oct 2023
+Aoi,Lin,,BP America,Senior Reservoir Engineer,03 Oct 2023
+Jessica,Collins,,DocuSign,Sr. Machine Learning Engineer,30 Sep 2023
+Megan,Nelson,,ConocoPhillips,Procurement Manager,29 Sep 2023
+Robert,Johnson,,Netflix,Recruiting Coordinator,20 Sep 2023
+Julien,Bianchi,,NRG Energy,Reservoir Engineer,18 Sep 2023
+Sean,Nelson,,ConocoPhillips,Chief Engineer,14 Sep 2023
+Daniela,Chávez,,Kinder Morgan,Senior  Finance Manager,06 Sep 2023
+Jasmine,Mendoza,,Wizards of the Coast,Senior Data Scientist,01 Sep 2023
+Nora,Haugen,nhaugen@example.org,NextEra Energy,Project Engineer (Contract),28 Aug 2023
+Brian,Smith,,Schlumberger (SLB),Accounting Manager,17 Aug 2023
+Camille,Schulz,,AA,Executive Assistant to CEO,07 Aug 2023
+Emily,Davis,,Zebra Technologies,Sales Director,04 Aug 2023
+Gabriela,Ramos,,American Airlines,Finance Manager,04 Aug 2023
+John,Thomas,jthomas@example.net,Shell USA,Lead Engineer,15 Jul 2023
+Miguel,Torres,,ConocoPhillips,Operations Manager (Contract),12 Jul 2023
+Aisatou,Owusu,,Williams Companies,Senior Reservoir Engineer,10 Jul 2023
+Jack,Nelson,,Lyft,Marketing Lead,08 Jul 2023
+Somin,Choi,,Government of Ontario,Program Officer,25 Jun 2023
+Mateo,Medina,,Vestas,Senior Chief of Staff,23 Jun 2023
+Karim,Haidar,,Phillips 66,Engineering Manager,21 Jun 2023
+Naledi,Ochieng,,Vestas,Supply Chain Analyst,18 Jun 2023
+Matthew,Nelson,,Stealth Startup,Co-Founder,15 Jun 2023
+Emily,Lewis,,Stealth Startup,Founder & Managing Partner,07 Jun 2023
+Camila,Morales,,Heritage Foundation,Branch Chief,05 Jun 2023
+Cherry,Marino,,American International Group,AE,02 Jun 2023
+Claudia,Morales,,ExxonMobil,Senior Associate,30 May 2023
+Valentina,López,,NextEra Energy,Senior Associate,30 May 2023
+Phúc,Dương,,Self-employed,Senior Reservoir Engineer,25 May 2023
+Esti,Levy,,JPMorgan Chase & Co.,,22 May 2023
+Yuki,Cai,yuki.cai@example.net,TechnipFMC,Operations Lead | Process Improvement,18 May 2023
+Sergio,Hernández,,AT&T,Regional Sales Lead,16 May 2023
+Javier,Torres,,Williams Companies,"VP, Legal",16 May 2023
+Timothy,Nelson,,Bank of America,Accounting Manager,07 May 2023
+Selam,Mokoena,,Shell USA,Senior Reservoir Engineer,29 Apr 2023
+Camille,Esposito,,United Airlines,Sr. CSM,17 Apr 2023
+Emily,Young,,Deloitte,Senior Consultant,14 Apr 2023
+Antonio,Castro,,Freelancer,Senior Reservoir Engineer,13 Apr 2023
+Waleed,Fares,,KPMG,Group Finance Manager,01 Apr 2023
+Wojciech,Kozlov,,KPMG,Engagement Manager,31 Mar 2023
+Owen,Thompson,,Instacart,Sales Director,28 Mar 2023
+Thành,Wagner,thanhwagner61@example.org,Jacobs Engineering Group,Executive Office Intern,26 Mar 2023
+Shreya,Sharma,,Schlumberger (SLB),Senior Operations Manager,21 Mar 2023
+Ziad,Sarkis,,Enterprise Products Partners,Logistics Coordinator,19 Mar 2023
+Kevin,Allen,,Halliburton,Reservoir Engineer,16 Mar 2023
+Analiza,Ignacio,,Stealth Startup,Founder & Executive Producer,15 Mar 2023
+Rekha,Verma,,KPMG,Consulting Intern,13 Mar 2023
+Ren,Cai,,BP America,Petroleum Engineer,24 Feb 2023
+Thomas,Harris,,Jacobs Engineering Group,Sales Director,23 Feb 2023
+Andrew,Gauvin,,ConocoPhillips,"Director, Procurement",20 Feb 2023
+Amanda,Davis,,ConocoPhillips,Director of Accounting,17 Feb 2023
+Halima,Schneider,,AT&T,Business Operations Analyst,16 Feb 2023
+Adriana,Rivera,,ConocoPhillips,Project Engineer,11 Feb 2023
+Nestor,Manalo,,Stripe,APM,10 Feb 2023
+Rahul,Khan,,CME Group,Operations Associate,01 Feb 2023
+Erika,Rivera,,Schlumberger (SLB),Director of Finance,29 Jan 2023
+Aisatou,Ochieng,,ConocoPhillips,Senior Process Engineer,27 Jan 2023
+Daniel,Green,,,,27 Jan 2023
+Aakash,Cruz,,Chevron,Director of Engineering,23 Jan 2023
+Aoi,Takahashi,,Point72,Group Operations Manager,18 Jan 2023
+Natalie,Miller,nataliemiller69@example.org,HelloFresh,Commercial Director,11 Jan 2023
+Rafael,Ruiz,,Kinder Morgan Inc.,"Senior Manager, Logistics",30 Dec 2022
+Sunita,Kumar,,Williams Companies,Sr. FP&A Manager,18 Dec 2022
+Nam,Schröder,,The Walt Disney Company,Line Producer,17 Dec 2022
+Victoria,Campbell,,Enterprise Products,Operations Coordinator,16 Dec 2022
+Katherine,Collins,,Fluor Corporation,Senior Recruiter,15 Dec 2022
+Bruno,Ricci,,Marathon Petroleum,Project Engineer,10 Dec 2022
+Aditya,Bhatt,,Fandom,Software Engineering Manager,06 Dec 2022
+Yu,Tang,,Occidental Petroleum,Sr. FP&A Manager,05 Dec 2022
+Miguel,García,,Halliburton,HR Business Partner,18 Nov 2022
+Patrick,Nelson,,Sysco,Supply Chain Analyst,14 Nov 2022
+Sean,Stewart,,AA,"Director, Procurement",08 Nov 2022
+Sophie,Gallo,,Fluor Corporation,Accounting Manager,05 Nov 2022
+Antonio,Rivera,,Moody's,Lead Accountant,23 Oct 2022
+Rachel,Green,,Universal Music Group,Regional Sales Lead,18 Oct 2022
+Owen,Jones,owen_jones@example.org,William Morris Endeavor (WME),Senior Operations Manager,15 Oct 2022
+Thibault,Meyer,tmeyer@example.org,Primark,Senior Buyer,12 Oct 2022
+Ingrid,Bianchi,,NextEra Energy,Senior Process Engineer,11 Oct 2022
+Katherine,Harris,,Boston Consulting Group,Engagement Manager,08 Oct 2022
+Yu,Cao,,Freelance,Senior Account Executive,06 Oct 2022
+Émile,Fischer,emilefischer11@example.net,Southwest Airlines,Supply Chain Lead,03 Oct 2022
+Rasha,Fares,,Marathon Petroleum,Engineering Manager,30 Sep 2022
+Kwame,Eze,,Kleiner Perkins,"Director, Investments",29 Sep 2022
+Aditya,Sharma,,A.T. Kearney,Senior Consultant,26 Sep 2022
+Dalia,Abboud,,Phillips 66,Director of Engineering,24 Sep 2022
+Chen,Han,,Walgreens Boots Alliance,Senior Chief of Staff,10 Sep 2022
+Sean,Carter,,CME Group,Accounting Supervisor,08 Sep 2022
+Bo,Zhao,,CME Group,Regional Sales Lead,03 Sep 2022
+Vivek,Malhotra,,Bechtel,Operations Manager,27 Aug 2022
+Mathilde,Barbieri,,Chevron,Finance Lead,23 Aug 2022
+Sungjun,Chu,,Occidental Petroleum,Lead Counsel,05 Aug 2022
+Hương,Thái,huongthai79@example.net,The Walt Disney Company,Senior Marketing Manager,04 Aug 2022
+Ayesha,Banerjee,,Spotify,Sales Team Lead,03 Aug 2022
+Salimata,Diallo,,CME Group,,25 Jul 2022
+Beatrice,Hoffmann,,Marathon Petroleum,Operations Manager,25 Jul 2022
+María,De La Cruz,mdelacruz@example.net,Revolut,Managing Counsel,14 Jul 2022
+Guillaume,Gauvin,,KPMG,Associate Partner,18 Jun 2022
+Charles,Campbell,,TikTok,Sr. FP&A Manager,17 Jun 2022
+Alejandro,Castillo,,Stealth Startup,Founder & COO,12 Jun 2022
+Alejandro,Medina,,,,12 Jun 2022
+Amina,Mishra,,Phillips 66,OPERATIONS LEAD,10 Jun 2022
+Sunita,Raghavan,,U.S. Department of State,Senior Policy Analyst,26 May 2022
+Divya,Chopra,,Ernst & Young,Project Leader,24 May 2022
+Luzviminda,Salazar,,ConocoPhillips,Senior Reservoir Engineer,17 May 2022
+Wolfgang,Neumann,,ConocoPhillips,Operations Lead,16 May 2022
+Juan,Ruiz,,Baker Hughes Company,Talent Acquisition Manager,10 May 2022
+Diego,Flores,diego.flores@example.com,AT&T,Senior Operations Manager,08 May 2022
+Paolo,Marquez,,Massachusetts General Hospital,Senior Chief of Staff,04 May 2022
+Christopher,Turner,,Vestas,Group Operations Manager,04 May 2022
+Rachel,Brown,,Chevron,Group Operations Manager,02 May 2022
+Emeka,Asante,,Microsoft,Machine Learning Engineer,18 Apr 2022
+Jie,Hu,,Snap Inc.,UX Designer,15 Apr 2022
+Rafael,Torres,,Fluor Corporation,Senior Operations Manager,08 Apr 2022
+Qiang,Han,,NBCUniversal,Senior Producer,01 Apr 2022
+Daniel,White,,,,01 Apr 2022
+Miriam,Friedman,,Halliburton,Senior Operations Manager,29 Mar 2022
+Nomvula,Kimani,,Phillips 66,Operations Manager,29 Mar 2022
+Hana,Guo,,Paramount Global,"Associate Director, Marketing",27 Mar 2022
+Grace,King,,Schlumberger (SLB),Senior Supply Chain Manager,21 Mar 2022
+Lars,Adams,,Exxon Mobil Corporation,Executive Assistant,19 Mar 2022
+Douglas,Stewart,,Schlumberger (SLB),Senior Associate,14 Mar 2022
+Robert,Thompson,,Spotify,Associate UX Designer,11 Mar 2022
+Ryan,Wright,,Halliburton,Senior Accountant,26 Feb 2022
+Jessica,Williams,,Southwest Airlines,AE,25 Feb 2022
+Ryan,Mitchell,,CIFAR,Assistant Professor,09 Feb 2022
+Grace,Evans,,Accenture,Director,29 Jan 2022
+Sofía,Silva,,TechnipFMC,Senior Process Engineer,29 Dec 2021
+Ping,Chen,,Fluor Corporation,"  Enterprise Account Executive",26 Dec 2021
+David,Davis,,ConocoPhillips,Project Engineer,25 Dec 2021
+Anita,Turner,,"Block, Inc.",Staff Software Engineer,15 Dec 2021
+Giulia,Mancini,,Compass Group,"Senior Operations Manager, ""Supply Chain Management""",15 Dec 2021
+Caroline,Wilson,,Amazon Web Services,Senior SWE,08 Dec 2021
+Tao,Yang,,Tableau Software,Applied Scientist,07 Dec 2021
+Ryan,Young,,A.T. Kearney,Consultant,02 Dec 2021
+Michael,Collins,,Kinder Morgan,Petroleum Engineer,30 Nov 2021
+Benjamin,Wilson,,Chevron,Recruiting Coordinator,27 Nov 2021
+Émile,Schmidt,,Halliburton,CPA,27 Nov 2021
+Mathilde,Klein,mathildeklein79@example.com,Occidental Petroleum,Senior Reservoir Engineer,25 Nov 2021
+Camille,Fernandez,,Enterprise Products,Engineering Manager,20 Nov 2021
+Shreya,Shah,,Shell USA,Reservoir Engineer,18 Nov 2021
+William,Carter,,Stealth Startup,"Co-Founder, Engineering",11 Nov 2021
+Edward,Walker,,ConocoPhillips,Process Engineer,10 Nov 2021
+Joseph,Jones,,Enterprise Products Partners,Director of Engineering,07 Nov 2021
+Pranav,Bhatt,,Kraft Heinz,Senior Supply Chain Manager,02 Nov 2021
+Quang,Jiménez,,Shell USA,Senior Process Engineer,02 Nov 2021
+Emma,Collins,,Baker Hughes,Engineering Manager,14 Oct 2021
+John,Moore,,Occidental Petroleum,Senior Supply Chain Manager,11 Oct 2021
+Nathan,Thompson,,Leidos,Senior Account Executive,07 Oct 2021
+Elena,Okafor,,Chevron,Senior Process Engineer,29 Sep 2021
+Nils,Ma,,Phillips 66,Reservoir Engineer,28 Sep 2021
+Antonio,Herrera,,Freelance,Senior Counsel,28 Sep 2021
+Caroline,Carter,,EY,Consultant,26 Sep 2021
+Rekha,Gupta,,Open to work,Career break,23 Sep 2021
+Mikael,Kristiansen,,Phillips 66,Finance Manager,22 Sep 2021
+Pablo,García,,Occidental Petroleum,Engineering Manager,21 Sep 2021
+Eduardo,Ruiz,,Williams Companies,Financial Analyst,16 Sep 2021
+Michal,Fine,mfine@example.com,Live Nation Entertainment,"Associate Director, Marketing",05 Sep 2021
+Manuel,Vargas,,CenterPoint Energy,Lead Engineer,23 Aug 2021
+Saga,Nielsen,,ASOS,Senior Buyer,18 Aug 2021
+Riku,Johansson,,PwC,Consultant,14 Aug 2021
+Christopher,Stewart,,Schlumberger (SLB),"Senior Manager, Supply Chain",09 Aug 2021
+Vikram,Sharma,,AbbVie,,02 Aug 2021
+Véronique,Fournier,,Bank of America,M&A Associate,17 Jul 2021
+Mateo,Rodríguez,,Southwest Airlines,AE,14 Jul 2021
+Avi,Gross,,BlackRock,VP of Finance,13 Jul 2021
+Bilal,Ghannam,,Texas Instruments,Director of Sales,04 Jul 2021
+Alejandro,Ruiz,,Phillips 66,Director of Talent Acquisition,02 Jul 2021
+Chukwudi,Bankole,chukwudi_bankole@example.net,Discover Financial Services,Group Finance Manager,30 Jun 2021
+Alessandro,Bianchi,alessandro_bianchi@example.com,,,28 Jun 2021
+Patricia,Medina,,Enterprise Products Partners,Engineering Manager,25 Jun 2021
+Elizabeth,Williams,,Discover Financial Services,Sr. FP&A Manager,24 Jun 2021
+Shreya,Mishra,,SoFi,PM,21 Jun 2021
+Kevin,Davis,,Sysco,Senior Chief of Staff,20 Jun 2021
+Julien,Schmidt,,Apollo Global Management,Senior Finance Manager,07 Jun 2021
+Lukas,Bose,,PwC,Sr. FP&A Manager,06 Jun 2021
+Adriana,Aguilar,,Schlumberger (SLB),"Associate Director, FP&A",04 Jun 2021
+Émile,Schwarz,,U.S. House of Representatives,Operations Lead,02 Jun 2021
+Michael,Williams,,EY,Engagement Manager,30 May 2021
+Sean,Moore,,EY,Principal,23 May 2021
+Natasha,Svoboda,,Southwest Airlines,Executive Assistant to CEO,16 May 2021
+Sarah,"Lindqvist, CPA",slindqvistcpa@example.org,Occidental Petroleum,Controller,15 May 2021
+Bekele,Sithole,,Kinder Morgan,Engineering Manager,14 May 2021
+Naomi,Levy,,Northern Trust,ASSOCIATE ATTORNEY,05 May 2021
+Hannah,Scott,,Bechtel,Project Engineer,02 May 2021
+Ricardo,Jiménez,,Baker Hughes,Business Operations Analyst,01 May 2021
+Nnamdi,Basha,,,,01 May 2021
+Sora,Liang,,Lionsgate,HR Business Partner,30 Apr 2021
+Farida,Abboud,,Sysco,Chief Sales Officer,18 Apr 2021
+Victoria,Smith,victoriasmith55@example.org,Jacobs Engineering Group,Senior Chief of Staff,15 Apr 2021
+Antoine,Bianchi,antoine.bianchi@example.org,Phillips 66,Senior Operations Manager,14 Apr 2021
+Rafael,Díaz,,A.T. Kearney,Senior Associate,08 Apr 2021
+Hannah,Green,,Shell USA,Senior Reservoir Engineer,06 Apr 2021
+Rekha,Reddy,,Sysco Corporation,Senior Supply Chain Manager,02 Apr 2021
+Kelechi,Uzodinma,,Manulife,Senior Operations Manager,26 Mar 2021
+Abigail,Nelson,,BP America,Supply Chain Lead,23 Mar 2021
+Christopher,Russo,,Oxy,Engineering Manager,16 Mar 2021
+Yasmin,Haidar,,Bechtel,Branch Chief,09 Mar 2021
+Hui,Liang,,Open to work,Open to Work,06 Mar 2021
+David,Thomas,,,,28 Feb 2021
+Matthew,Clark,,NextEra Energy,"Director of Engineering, ""AutoCAD""",22 Feb 2021
+Javier,Gómez,,Zebra Technologies,Brand Manager,21 Feb 2021
+Ifeoma,Owusu,,KPMG,SDR,16 Feb 2021
+John,Jones,,American Airlines,Director of Finance,11 Feb 2021
+Grace,Collins,,AT&T Inc.,Financial Planning Lead,07 Feb 2021
+Isabella,Medina,,American Airlines,Operations Manager,07 Feb 2021
+Vincent,Desrosiers,,Government of Canada,Operations Lead,06 Feb 2021
+Samuel,Walker,,Nordstrom,Regional Sales Lead,27 Jan 2021
+Javier,Delgado,,NRG Energy,Engineering Manager,22 Jan 2021
+Deepak,Verma,,Ontario Institute for Cancer Research,Professor,20 Jan 2021
+Carlos,García,,NextEra,Senior Reservoir Engineer,13 Jan 2021
+Michael,Allen,,Sysco Corporation,Enterprise Account Executive,13 Jan 2021
+Benjamin,Walker,,Baker Hughes,Finance Director,10 Jan 2021
+Fernando,Romero,fernandoromero65@example.net,Enterprise Products Partners,Director of Engineering,02 Jan 2021
+Rania,Malik,,Kinder Morgan,Petroleum Engineer,27 Dec 2020
+Natalie,Anderson,,Universal Music Group,Production Manager,23 Dec 2020
+Mona,Meyer,,NextEra Energy,"Senior Manager, Business Operations",11 Dec 2020
+Megan,Parker,,University of Toronto,Assistant Professor,10 Dec 2020
+Camila,Gutiérrez,,,,08 Dec 2020
+Grace,Thompson,,Creative Artists Agency (CAA),Associate Marketing Manager,09 Nov 2020
+Obioma,Pedersen,,CME Group,Senior Account Executive,26 Oct 2020
+Verónica,Vázquez,,Enterprise Products,Field Engineer,20 Oct 2020
+Henry,Baker,,Citigroup,Investment Banking Manager,19 Oct 2020
+Waleed,Hamdan,waleed_hamdan@example.org,Fandom,Senior UX Designer,19 Oct 2020
+Wei,Xu,,Sysco Corporation,Senior Operations Manager - Remote,18 Oct 2020
+Ayelet,Katz,,Chevron,Executive Assistant to CEO,18 Oct 2020
+Jaewoo,Cho,,United Airlines,"Director, Client Services",07 Oct 2020
+Elizabeth,Moore,,Live Nation Entertainment,Lead Counsel,28 Sep 2020
+Valentina,Becker,,Queen's University,Research Lead,12 Sep 2020
+Rosa,Morales,,Warner Music Group,Senior Marketing Manager,06 Sep 2020
+Benjamin,Turner,,McDonald's,"Senior Manager, Business Operations",21 Aug 2020
+Emilio,Ruiz,,Stealth Startup,Founder & Chief Engineer,15 Aug 2020
+Carlos,Mendoza,carlos.mendoza@example.net,NBCUniversal,Production Coordinator,06 Aug 2020
+Rosa,Álvarez,ralvarez@example.net,Fox Corporation,Editor,26 Jul 2020
+Emma,Martin,,KPMG,Project Leader,21 Jul 2020
+Emma,Jackson,,iHeartMedia,Senior Correspondent,30 Jun 2020
+Enrico,Mendoza,,Fluor Corporation,Project Engineer,26 Jun 2020
+Natalie,Nelson,,Amazon Studios,Correspondent,19 Jun 2020
+Rafael,Panganiban,,Lionsgate,Marketing Manager,18 Jun 2020
+Chen,Xie,,Kinder Morgan,Director of Engineering,31 May 2020
+Avi,Cohen,,Conagra Brands,Sales Director,28 May 2020
+Simran,Yadav,,Williams Companies,Project Engineer,26 May 2020
+Rania,Malik,rania.malik@example.com,ConocoPhillips,Reservoir Engineer,24 May 2020
+Ling,Cao,,Stripe,Senior Financial Analyst,01 May 2020
+Mai,Nguyễn,,Chevron,Sr. AE,24 Apr 2020
+Emily,Thomas,,Chevron Corporation,Senior Finance Manager,22 Apr 2020
+Sergio,Martínez,,Phillips 66,Senior Process Engineer,16 Apr 2020
+Nathan,Johnson,,Baker Hughes,Supply Chain Analyst,15 Apr 2020
+Brian,Campbell,,AT&T,General Manager,07 Apr 2020
+Lauren,Anderson,,Sysco,Supply Chain Lead,27 Mar 2020
+Owen,Smith,,ExxonMobil,Senior Reservoir Engineer,24 Mar 2020
+Lauren,Jones,,TechnipFMC,Field Engineer,07 Mar 2020
+Bruno,Müller,,NRG Energy,Senior HRBP,29 Feb 2020
+Joseph,Allen,,Bain & Company,Consultant,23 Feb 2020
+Daniel,Carter,,,,21 Feb 2020
+Aisha,Reddy,,Southwest Airlines,Senior Operations Manager,18 Feb 2020
+Hương,Zhu,,Meta,SWE,17 Feb 2020
+Jun,Lin,jun.lin@example.com,Charles Schwab,Business Development Representative,15 Feb 2020
+Folake,Chukwuma,,Self-employed,Senior Finance Manager,11 Feb 2020
+Scott,Campbell,,Fluor Corporation,Supply Chain Lead,31 Jan 2020
+Sigrid,Mikkelsen,,Phillips 66,Senior Reservoir Engineer,19 Jan 2020
+Tanya,Chatterjee,,Meta,PM,18 Jan 2020
+Ying,Tanaka,ying.tanaka@example.net,Warner Music Group,Senior Associate,15 Jan 2020
+Hong,Zhang,,ConocoPhillips,Field Engineer,23 Dec 2019
+Anke,Schmidt,,BCG,Consultant,03 Dec 2019
+Sunita,Subramaniam,,McKinsey & Company,Accounting Supervisor,28 Nov 2019
+Rahul,Rao,,Halliburton,Senior Process Engineer,17 Nov 2019
+Vivek,Rahman,,Spotify,Sr. Designer,15 Nov 2019
+Edward,Davis,,Chevron,Senior Reservoir Engineer,11 Nov 2019
+Francesca,Wagner,,Meta,VP Engineering,08 Nov 2019
+Rafael,González,,TechnipFMC,Senior Operations Manager,28 Oct 2019
+Christopher,Anderson,,Hulu,Line Producer,23 Oct 2019
+Aisha,Bose,,Phillips 66,Senior Process Engineer,18 Oct 2019
+Chen,Malhotra,,Exxon,"Associate Director, FP&A",03 Oct 2019
+Divya,Gupta,,Shell Oil Company,Group Operations Manager,28 Sep 2019
+Hanna,Berg,,Live Nation Entertainment,Managing Counsel,28 Sep 2019
+Ayesha,Mishra,,Fluor Corporation,VP of Supply Chain,27 Sep 2019
+Kevin,White,,ExxonMobil,Recruiter,27 Sep 2019
+Isabella,Núñez,,Sysco,"Senior Manager, Logistics",24 Sep 2019
+Sunita,Verma,,AT&T,Figuring out what's next,08 Sep 2019
+Victoria,Cai,,Boeing,Account Executive,03 Sep 2019
+Claire,Phillips,,Tableau Software,SWE,01 Sep 2019
+Laura,Roberts,,Vestas,Senior Process Engineer,14 Aug 2019
+Dmitri,Boutros,,ConocoPhillips,Director of Engineering,01 Aug 2019
+Sori,Ivanov,,Activision Blizzard,"  Senior Product Designer",24 Jul 2019
+Pranav,Singh,,BP America,Sales Director,23 Jul 2019
+Leandro,Alvarez,,Expedia Group,HR Business Partner,15 Jul 2019
+Natasha,Smirnov,,Compass Group,Operations Associate,09 Jul 2019
+Chidi,Nkosi,,Deloitte,"Manager, Consulting",24 Jun 2019
+Elizabeth,Martin,,William Morris Endeavor (WME),Head of Growth Marketing,21 Jun 2019
+Sanjay,Chaudhary,,Kinder Morgan,Project Engineer,19 May 2019
+Megan,Anderson,,Baker Hughes,Lead Engineer - Remote,15 May 2019
+Sergei,Fedorov,,NRG Energy,Junior Accountant,11 May 2019
+Andrés,Ortiz,andresortiz31@example.net,BP America,Senior Chief of Staff,24 Apr 2019
+Nabil,Mansour,,Texas Instruments,Sr. FP&A Manager,23 Apr 2019
+Jack,Bùi,,Freelance,Senior Supply Chain Manager,23 Mar 2019
+Emma,Jones,,Bechtel,Managing Counsel,15 Mar 2019
+Faisal,Saleh,,TechnipFMC,Lead Engineer,21 Jan 2019
+Ifeoma,Nnaji,ifeoma_nnaji@example.net,Bechtel,Senior Operations Manager,12 Jan 2019
+Quỳnh,Thái,,ConocoPhillips,Senior Process Engineer,09 Jan 2019
+Quang,Hồ,,Schlumberger (SLB),Senior Operations Manager,07 Jan 2019
+Sergio,Martínez,,Baker Hughes,Senior Supply Chain Manager,01 Jan 2019
+Matthew,Carter,,TechnipFMC,Director of Engineering,24 Nov 2018
+Natalie,Adams,,BlackRock,Sr. AE,30 Oct 2018
+Alejandra,Álvarez,,EY,Director,26 Jul 2018
+Scott,Martin,,ExxonMobil,Senior Recruiter,21 Jul 2018
+Olivia,Green,olivia_green@example.com,Stealth Startup,Founder & Head of People,12 Jul 2018
+Dieter,Costa,,Exxon,Operations Lead,08 Jul 2018
+Meera,Agarwal,,Schlumberger (SLB),Senior Process Engineer,30 Apr 2018
+Emmanuel,Manalo,,PwC,Project Leader,04 Apr 2018
+Javier,Pérez,,Baker Hughes,RESERVOIR ENGINEER,02 Mar 2018
+Henry,Parker,,Genzyme,"  Director of Operations",23 Dec 2017
+Edward,Roberts,edward.roberts@example.org,Deloitte,HR Manager,08 Dec 2017
+Khánh,Từ,,EY,"VP, Marketing",29 Nov 2017
+Viktor,Krawczyk,,Primark,AE,04 Nov 2017
+Scott,Anderson,scott_anderson@example.com,Schlumberger (SLB),Senior Process Engineer,16 Aug 2017
+Kevin,Young,,Universal Music Group,Senior Vice President,08 Aug 2017
+Kunal,Rahman,,ConocoPhillips,Director of Engineering,23 Jul 2017
+Victoria,Collins,,Fox Corporation,Producer,21 Jun 2017
+Natalie,Scott,,Sysco,Executive Assistant to CEO,15 Jun 2017
+Jack,Miller,,Technip FMC,VP of Operations,06 Jun 2017
+Pooja,Subramaniam,,Kinder Morgan,Chief Operating Officer,05 Jun 2017
+Robert,Clark,,Marathon Petroleum,Operations Lead,13 May 2017
+Javier,Castro,jcastro@example.com,Vestas,VP of Engineering,08 May 2017
+Alejandro,Herrera,,Schlumberger (SLB),Associate,15 Apr 2017
+Henry,Walker,,AT&T,Enterprise Account Executive,11 Mar 2017
+Pierre,Gallo,,Universal Music Group,Director of Marketing,09 Mar 2017
+Wei,Popov,,TechnipFMC,Lead Engineer,24 Feb 2017
+Thibault,Esposito,tesposito@example.com,Kearney,Senior Consultant,24 Feb 2017
+Yuki,He,,McKinsey & Company,"Manager, Consulting",17 Jan 2017
+Léa,Barbieri,leabarbieri25@example.net,Southwest Airlines,Supply Chain Lead,17 Oct 2016
+Andrew,Chukwu,,Vestas,Senior Reservoir Engineer,14 Oct 2016
+Gregory,Martin,,NBCUniversal,Production Manager,02 Jul 2016
+Divya,Mehta,,Stealth Startup,Founder & Chief Engineer,22 Jun 2016
+Fang,Cao,,NRG Energy,Engineering Manager,06 Feb 2016
+Dawit,Girma,,BP America,"Senior Manager, Supply Chain",28 Jan 2016
+Tunde,Mokoena,,PwC,Senior Consultant,25 Jan 2016
+Leandro,Lacson,,Legendary Entertainment,Director,20 Jan 2016
+Oleg,Kovács,,TechnipFMC,"Senior Manager, Business Operations",27 Nov 2015
+Victoria,Turner,,Groupon,Director of Sales,19 Jul 2015
+Daniel,Mitchell,danielmitchell66@example.net,Southwest Airlines,Operations Lead,26 Apr 2015
+Aryan,Rahman,,Conagra Brands,"Senior Manager, Logistics",27 Mar 2015
+Anton,Dąbrowski,,KPMG,Lead Consultant,03 Dec 2014
+Kunal,Reddy,kunal_reddy@example.org,Freelance,Senior Reservoir Engineer,03 Nov 2014
+Patricia,Guerrero,,BP America,"Associate Director, FP&A",27 Sep 2014
+Mateo,Khoury,,NRG Energy,Senior Reservoir Engineer,18 Aug 2014

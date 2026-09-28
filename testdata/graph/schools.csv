@@ -1,0 +1,54 @@
+schoolId,name,communities
+u_washington,University of Washington,SEA_TECH
+seattle_u,Seattle University,SEA_TECH
+wsu,Washington State University,SEA_TECH
+u_puget_sound,University of Puget Sound,SEA_TECH
+seattle_pacific,Seattle Pacific University,SEA_TECH
+stanford,Stanford University,SF_FINTECH
+uc_berkeley,"University of California, Berkeley",SF_FINTECH
+santa_clara_u,Santa Clara University,SF_FINTECH
+san_jose_state,San Jose State University,SF_FINTECH
+usf,University of San Francisco,SF_FINTECH
+columbia,Columbia University,NYC_FINANCE
+nyu,New York University,NYC_FINANCE
+cornell,Cornell University,NYC_FINANCE
+fordham,Fordham University,NYC_FINANCE
+baruch,Baruch College,NYC_FINANCE
+harvard,Harvard University,BOS_HEALTH
+mit_school,Massachusetts Institute of Technology,BOS_HEALTH
+boston_u,Boston University,BOS_HEALTH
+tufts,Tufts University,BOS_HEALTH
+northeastern,Northeastern University,BOS_HEALTH
+boston_college,Boston College,BOS_HEALTH
+northwestern,Northwestern University,CHI_CONSULT
+u_chicago,University of Chicago,CHI_CONSULT
+uiuc,University of Illinois Urbana-Champaign,CHI_CONSULT
+depaul,DePaul University,CHI_CONSULT
+loyola_chicago,Loyola University Chicago,CHI_CONSULT
+lse,London School of Economics and Political Science,LDN_RETAIL
+imperial,Imperial College London,LDN_RETAIL
+oxford,University of Oxford,LDN_RETAIL
+cambridge,University of Cambridge,LDN_RETAIL
+ucl,University College London,LDN_RETAIL
+kings_college_london,King's College London,LDN_RETAIL
+u_toronto,University of Toronto,TOR_ACADEMIA
+u_waterloo,University of Waterloo,TOR_ACADEMIA
+mcgill,McGill University,TOR_ACADEMIA
+queens_u,Queen's University,TOR_ACADEMIA
+u_ottawa,University of Ottawa,TOR_ACADEMIA
+mcmaster,McMaster University,TOR_ACADEMIA
+georgetown,Georgetown University,DC_POLICY
+gwu,George Washington University,DC_POLICY
+american_u,American University,DC_POLICY
+howard,Howard University,DC_POLICY
+u_maryland,University of Maryland,DC_POLICY
+rice,Rice University,HOU_ENERGY
+u_houston,University of Houston,HOU_ENERGY
+texas_am,Texas A&M University,HOU_ENERGY
+ut_austin,University of Texas at Austin,HOU_ENERGY
+smu,Southern Methodist University,HOU_ENERGY
+usc,University of Southern California,LA_MEDIA
+ucla,"University of California, Los Angeles",LA_MEDIA
+chapman,Chapman University,LA_MEDIA
+lmu,Loyola Marymount University,LA_MEDIA
+calarts,California Institute of the Arts,LA_MEDIA
