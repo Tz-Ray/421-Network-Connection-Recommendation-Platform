@@ -11,19 +11,26 @@ explained shortlist of the people already in your own network to reach out to fi
 
 Most people's best introduction is already somewhere in their LinkedIn contacts, buried under a few thousand
 rows they will never scroll through. This platform turns that export into something searchable: you sign in,
-upload the CSV or JSON file LinkedIn gives you, confirm the parsed rows, and then type what you actually want
-("VP of Sales at a fintech company", "someone who can review my data engineering resume"). A local scorer
-ranks every connection and shows its score and the exact tokens that matched, so the ranking is never a black
-box. From there you can ask Google Gemini to rerank the top candidates and explain each pick, or open a chat
-and ask about your network in sentences. The AI only ever reorders and explains candidates the local pass
-already produced, so it cannot invent a contact you do not have. Your uploaded network stays in your own
-account: connections live in Firestore under `users/{uid}/connections` and the security rules make them
-readable and writable only by you.
+upload the full LinkedIn data export `.zip` (or just `Connections.csv`, or a JSON file), confirm the parsed
+rows, and then type what you actually want ("VP of Sales at a fintech company", "someone who can review my
+data engineering resume"). A local ranker reads each title by its meaning, ranks every connection, and shows
+its score and the reasons it matched, so the ranking is never a black box. When you upload the full export,
+the app also reads how well you know each person (message counts and dates, shared employers, endorsements,
+recommendations) without keeping any message text, and among equally good matches it puts the people you know
+better first. You can mark any result Relevant or Irrelevant, and the next run of the same search follows your
+votes.
 
-This is the course-421 project of Tz-Ray Wang and Alan Qiu. The frontend is Vite, React 19 and TypeScript;
-authentication and storage are Firebase Auth and Cloud Firestore; the AI features go through a small Node
-proxy that holds the Gemini API key server-side so it never reaches the browser. The previous semester's
-sprint materials are linked under Additional Documentation below.
+From there you can ask Google Gemini to rerank the top candidates and explain each pick, or open a chat and ask
+about your network in sentences. The AI only ever reorders and explains candidates the local pass already
+produced, so it cannot invent a contact you do not have. Your uploaded network stays in your own account:
+connections live in Firestore under `users/{uid}/connections` and the security rules make them readable and
+writable only by you.
+
+This is the project of Tz-Ray Wang and Alan Qiu for Washington State University's CptS 421 (sprints 1-3) and
+CptS 423 (sprints 4-6). The frontend is Vite, React 19 and TypeScript; authentication and storage are Firebase
+Auth and Cloud Firestore; the AI features go through a small Node proxy that holds the Gemini API key
+server-side so it never reaches the browser. Sprint reports and plans are linked under Additional
+Documentation below.
 
 ## Installation
 
@@ -39,8 +46,9 @@ sprint materials are linked under Additional Documentation below.
 ### Add-ons
 
 - **Firebase Authentication** - email/password and Google popup sign-in; the single source of session state.
-- **Cloud Firestore** - stores the profile document `users/{uid}` and the per-user `users/{uid}/connections`
-  collection, restricted to the owner by `firestore.rules`.
+- **Cloud Firestore** - stores the profile document `users/{uid}`, the per-user `users/{uid}/connections`
+  collection and your ranking votes (`users/{uid}/rankingFeedback`), restricted to the owner by
+  `firestore.rules`, plus a create-only feedback log (`ranking_telemetry`) that clients cannot read.
 - **Firebase Hosting** - serves the built `dist/` folder with an SPA rewrite.
 - **Google Gemini, via the local AI proxy** (`server/index.js`) - reranks search results and answers chat
   questions; the proxy keeps the API key off the client.
@@ -87,10 +95,23 @@ with working defaults: `AI_PROXY_ALLOWED_ORIGINS` (comma-separated CORS allowlis
 and the Firebase Hosting domains), `AI_RATE_LIMIT_PER_MIN` (10) and `AI_RATE_LIMIT_PER_DAY` (40) per user, and
 `GEMINI_MOCK=1` to answer with canned replies during testing without spending Gemini quota.
 
-There is no lint or unit-test script in this repo. The one check to run before committing is the typechecker:
+There is no lint script and no `npm test` script in this repo. The checks to run before committing are the
+typechecker and the test-data tests (286 tests covering the sample files and the importer's expected output):
 
 ```bash
 npx tsc --noEmit
+node --test testdata/tests/*.test.ts
+```
+
+**Sample data.** Real data is your own LinkedIn export (see Functionality, step 2). To try the app without
+one, upload any of the synthetic sample files in `testdata/`: ten full export zips in
+`testdata/networks/full/` (for example `N04_kristine-chua.zip`) and ten plain `Connections.csv` files in
+`testdata/networks/classic/`. All people in them are fictional. [testdata/README.md](testdata/README.md)
+describes each file and the expected importer output. The files are generated from a fixed seed; edit the
+generator rather than the outputs, then regenerate with:
+
+```bash
+node testdata/generator/generate.mjs
 ```
 
 To deploy the frontend (Firebase project `connectionrecommender`), a production build must be told where the
@@ -157,19 +178,27 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
 5. **AI Rerank (needs the proxy running).** Press AI Rerank instead of Search. The top 50 locally scored
    candidates are sent to Gemini, which reorders them and adds an `AI:` explanation line per result. The score
    badge and chips still come from the local pass.
-6. **Connections page.** The Connections screen lists what is saved in your account, independent of this
+6. **Ranking feedback.** Each result card has Relevant and Irrelevant buttons. A vote is saved to your account
+   for that query (case and extra spaces ignored) and takes effect the next time you run it. Search and AI
+   Rerank then take the top 50 local matches, put the people you marked relevant first, keep the rest in
+   order, and put the people you marked irrelevant last, before showing the first 10. A person you marked
+   relevant is shown even if they were outside the first 10, and after AI Rerank even if Gemini did not pick
+   them. Each moved result gets a `Moved up:`, `Moved down:` or `Added:` reason line, and the status line says
+   how many results your votes moved. Because only 10 results are shown, a person marked irrelevant usually
+   drops out of the list instead of appearing last (see Known Problems).
+7. **Connections page.** The Connections screen lists what is saved in your account, independent of this
    browser session. "Use in Recommender" loads that saved set back into the Recommender so you can search it
    without re-uploading.
-7. **AI chat (needs the proxy running).** The AI item in the sidebar opens a full-page chat over your
+8. **AI chat (needs the proxy running).** The AI item in the sidebar opens a full-page chat over your
    connections, and a floating chat button is available on every signed-in screen. Ask things like "who can
    introduce me to someone in medical devices". Both surfaces read your saved connections and answer with a
    numbered list of people and why each was picked.
-8. **Dashboard.** Shows how many connections are saved in your account, the share missing a job title, the
+9. **Dashboard.** Shows how many connections are saved in your account, the share missing a job title, the
    number of distinct companies, a Top companies chart, and your five most recent connections.
-9. **Profile.** Click your avatar in the header to edit your display name, photo URL, job title, date of
+10. **Profile.** Click your avatar in the header to edit your display name, photo URL, job title, date of
    birth, bio, gender and pronouns. The header shows your name and job title from that document.
-10. **Log out.** The sidebar's Logout button signs you out and clears the cached connections from the browser
-   session, so the next person to sign in on that machine never sees your network.
+11. **Log out.** The sidebar's Logout button signs you out and clears the cached connections from the browser
+    session, so the next person to sign in on that machine never sees your network.
 
 ## Known Problems
 
@@ -180,8 +209,10 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
   features: the project does not use paid plans, and hosting the AI proxy on Firebase or Google Cloud requires
   one. AI Rerank, the AI page and the chat bubble work when running locally with the proxy; on the hosted site
   they show a notice instead.
+- The hosted site still runs the `bfbdc15` build, which has the older ranker and no ranking feedback. The new
+  ranker (`0ecec47`) and ranking feedback (`2d90f8b`) reach it only with the next Hosting deploy.
 - The Gemini free tier allows 20 requests per day per model per project. When it is exhausted the proxy
-  returns a 503 naming the model instead of retrying (`server/index.js:533-536`); setting
+  returns a 503 naming the model instead of retrying (`server/index.js:536-541`); setting
   `GEMINI_FALLBACK_MODEL` buys one more model's daily budget.
 - The CSV parser finds the header row by looking for one containing both "First Name" and "Last Name"; if no
   row matches (renamed columns, a non-English export) it falls back to treating row 0 as the header
@@ -209,23 +240,52 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
 - The zip is read and unzipped entirely in the browser, in memory. Only the whitelisted files are
   decompressed, but the whole archive is loaded first, so a very large export (years of messages) can be
   slow or run out of memory on a phone or low-memory machine; uploading `Connections.csv` alone still works.
+- Ranking feedback has seven open defects: Search waits on a Firestore read of your votes with no loading
+  state ([#54](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/54)); a slow AI Rerank can overwrite a newer Search ([#55](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/55)); an Irrelevant vote
+  usually hides the row instead of moving it last ([#56](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/56)); the "moved N" counts cover the whole 50-row
+  pool, not just the 10 shown ([#57](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/57)); the vote's reason line can fall past the 8-reason display cap
+  ([#58](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/58)); the candidate id uses weak URL normalization, and people without a URL who share a name and
+  company collide ([#59](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/59)); a double click can write two log entries ([#60](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/60)).
 
 ## Contributing
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+This is a course project with an all-rights-reserved license (see License below), so changes come only from
+the two team members, Tz-Ray Wang and Alan Qiu. Anyone else can propose a change or report a bug by opening a
+GitHub issue.
+
+The team's own workflow:
+
+1. Open or pick a GitHub issue for the change.
+2. Work on a feature branch, or on `main` with a commit the other team member has reviewed.
+3. Before pushing, run `npx tsc --noEmit` and `node --test testdata/tests/*.test.ts`; both must pass.
+4. Reference the issue in the commit message or pull request, and close it when the change is merged.
 
 ## Additional Documentation
 
-Previous semester (Sprint 2):
+Sprints 1-3 were part of CptS 421 (spring 2026); sprints 4-6 are part of CptS 423 (fall 2026).
 
-- [Sprint 2 report](Sprint%202/Sprint%202%20report.pdf) - what shipped in Sprint 2, unfinished work,
-  retrospective and Sprint 3 plans.
-- [Business Plan Presentation](Sprint%202/Business%20Plan%20Presentation.pptx) - the Sprint 2 deck.
-- Sprint 2 video: https://youtu.be/2E1b6IBm9fI
+Sprint reports and plans:
+
+- [Sprint reports index](reports/README.md) - every sprint's report, slides and video in one table.
+- [Sprint 4 report](reports/sprint-4/sprint-4-report.md) - the current sprint (CptS 423).
+- [CptS 423 sprint 4-6 plan](reports/plans/cpts423-sprint-4-6-deliverables.pdf) - planned deliverables and
+  owners for sprints 4-6.
+- [Sprint 3 report](reports/archive/sprint-3/sprint-3-report.md) (CptS 421).
+- [Sprint 2 report](reports/archive/sprint-2/sprint-2-report.pdf),
+  [Sprint 2 presentation](reports/archive/sprint-2/sprint-2-presentation.pptx) and
+  [Sprint 2 video links](reports/archive/sprint-2/sprint-2-video-links.txt) (CptS 421; video:
+  https://youtu.be/2E1b6IBm9fI).
+
+Developer references:
+
+- [testdata/README.md](testdata/README.md) - the synthetic sample networks, expected outputs and tests.
+- [server/README.md](server/README.md) - the AI proxy's configuration, routes, errors and limits.
+- [functions/README.md](functions/README.md) - why the Cloud Functions copy of the proxy is unused.
+- [.env.example](.env.example) - every environment variable the frontend and the proxy read.
+
+User links:
+
+- Hosted app: https://connectionrecommender.web.app (AI features are switched off there; see Known Problems).
 
 ## License
 
