@@ -18,3 +18,10 @@ The current sprint's report lives in `reports/sprint-N/`. Finished CptS 421 spri
 
 Plan: [CptS 423 sprint 4-6 deliverables](plans/cpts423-sprint-4-6-deliverables.pdf) (goals, deliverables and
 owners; the sprint 5 and 6 dates above come from it).
+
+Client meeting minutes:
+
+| Date | Meeting | Minutes |
+|---|---|---|
+| 2026-09-09 | Sprint 4-6 plan consultation (#1) | No separate minutes; summarized in the plan's "Client Consultation" section |
+| 2026-09-30 | Sprint 4 status and Sprint 5 planning (#2) | [2026-09-30-client-meeting-2.pdf](sprint-4/minutes/2026-09-30-client-meeting-2.pdf) |
