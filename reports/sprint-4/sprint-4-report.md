@@ -49,7 +49,7 @@ thinking off for JSON replies, added quota-aware retries and an optional fallbac
 for testing. Because the project uses no paid plans, the proxy cannot be hosted on Firebase or Google Cloud,
 so the hosted app is built with AI switched off. We rewrote the local ranker and measured it with NDCG@10 on
 labelled sample networks, tuning on one set and checking on held-out sets. The biggest lesson was that scores
-on the tuning set overstate real quality: the ranker went from 0.610 to 0.980 on the tuning set, but only from
+on the tuning set overstate real quality: the ranker went from 0.656 to 0.994 on the tuning queries, but only from
 0.590 to 0.687 on a blind held-out network. We also added shared synthetic test data so the importer can be
 tested against known answers.
 
