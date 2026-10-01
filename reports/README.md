@@ -23,5 +23,6 @@ Client meeting minutes:
 
 | Date | Meeting | Minutes |
 |---|---|---|
-| 2026-09-09 | Sprint 4-6 plan consultation (#1) | No separate minutes; summarized in the plan's "Client Consultation" section |
-| 2026-09-30 | Sprint 4 status and Sprint 5 planning (#2) | [2026-09-30-client-meeting-2.pdf](sprint-4/minutes/2026-09-30-client-meeting-2.pdf) |
+| 2026-09-16 | Cancelled by the client | none |
+| 2026-09-23 | Sprint 4 progress check (#2) | [2026-09-23-client-meeting-2.pdf](sprint-4/minutes/2026-09-23-client-meeting-2.pdf) |
+| 2026-09-30 | Sprint 4 status and Sprint 5 planning (#3) | [2026-09-30-client-meeting-3.pdf](sprint-4/minutes/2026-09-30-client-meeting-3.pdf) |
