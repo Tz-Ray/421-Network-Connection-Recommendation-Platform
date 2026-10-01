@@ -4,7 +4,7 @@ GitHub: https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform
 
 ## YouTube link of Sprint 4 Video
 
-Link to be added.
+https://youtu.be/mZMDa78OG2M
 
 ## What's New (User Facing)
 
@@ -65,7 +65,8 @@ Ranker benchmark, NDCG@10, old ranker to new ranker (`0ecec47`):
 
 | Benchmark set | Old | New |
 |---|---|---|
-| Tuning set (dev) | 0.610 | 0.980 |
+| Main benchmark, all 36 queries | 0.610 | 0.980 |
+| Tuning queries only (24 of the 36) | 0.656 | 0.994 |
 | Holdout 2 | 0.447 | 0.926 |
 | Holdout 3 | 0.516 | 0.912 |
 | Holdout 4 (clean, blind) | 0.590 | 0.687 |
@@ -89,9 +90,9 @@ the test-data tests: `node --test testdata/tests/*.test.ts` runs 286 tests, all 
   - [#59](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/59) The candidate id uses weak URL normalization, and rows without a URL that share a name and
     company collide.
   - [#60](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/60) A double click writes two feedback log entries.
-- **Hosting is behind.** https://connectionrecommender.web.app runs the `bfbdc15` build, with AI switched off
-  (`VITE_AI_PROXY_URL=off`) because the project uses no paid plans and hosting the proxy on Firebase or Google
-  Cloud needs one. The new ranker (`0ecec47`) and ranking feedback (`2d90f8b`) are not deployed there yet.
+- **No AI on the hosted app.** https://connectionrecommender.web.app was redeployed on Sep 30 and now runs the new
+  ranker (`0ecec47`) and ranking feedback (`2d90f8b`), but AI stays switched off there (`VITE_AI_PROXY_URL=off`)
+  because the project uses no paid plans and hosting the proxy on Firebase or Google Cloud needs one.
 
 ## Completed Issues/User Stories
 
@@ -161,14 +162,13 @@ Here's what we'd like to improve:
 - Held-out quality (0.687 NDCG@10 on the blind network) is far below the tuning score (0.980).
 - Testing ranking feedback after it shipped found seven follow-up fixes; testing it before merging would
   catch these earlier.
-- The hosted app is behind the code and has no AI features.
+- The hosted app has no AI features.
 
 Here are changes we plan to implement in the next sprint:
 
 - Build the AI profile pipeline ([#52](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/52)) and saved searches with bookmarking ([#53](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/53)), and run the
   client review they enable.
 - Fix the seven ranking feedback defects ([#54](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/54) to [#60](https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform/issues/60)).
-- Redeploy Hosting so the live app has the new ranker and ranking feedback.
 - Fill in the Sprint 5 and 6 goals in the plan and review progress against it mid-sprint.
 - Open an issue for each deliverable at the start of the sprint, so progress is tracked on the board as it
   happens.
