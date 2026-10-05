@@ -33,8 +33,13 @@ import { buildAiContext } from '../lib/relationship';
 import { rankConnections } from '../lib/search';
 import type { RankedRow } from '../lib/search';
 import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
-import { candidateIdFor, loadQueryFeedback, recordRankingFeedback } from '../lib/telemetry';
+import { candidateKeysFor, loadQueryFeedback, recordRankingFeedback } from '../lib/telemetry';
 import type { RankingFeedback } from '../lib/telemetry';
+import { addFavorite, listFavorites, removeFavorite } from '../lib/savedItems';
+import type { Favorite } from '../lib/savedItems';
+import { useAuth } from '../lib/AuthContext';
+import { SavedSearches } from '../components/SavedSearches';
+import { FavoritesList } from '../components/FavoritesList';
 
 type Row = Record<string, unknown>;
 
@@ -165,38 +170,67 @@ async function fetchJsonOrThrow(resp: Response) {
 // -----------------------------
 type Votes = Map<string, RankingFeedback>;
 
-/** Your saved votes for this search and the pool's candidate ids. Never rejects: on failure nothing is reordered. */
-function loadVotes(pool: RankedRow[], queryText: string): Promise<[Votes, string[]]> {
-  return Promise.all([
-    loadQueryFeedback(queryText).catch((): Votes => new Map()),
-    Promise.all(pool.map((p) => candidateIdFor(p.row))),
-  ]).catch((): [Votes, string[]] => [new Map(), []]);
+/**
+ * A ranked row with its candidate ids: `id` = candidateIdFor (votes and
+ * favorites are written under it), `legacyId` = the pre-#59 id, read only so
+ * older votes keep applying. Both are '' when the ids could not be computed.
+ */
+type ResultItem = { row: RankedRow; id: string; legacyId: string };
+type ResultSet = { main: ResultItem[]; irrelevant: ResultItem[] };
+const EMPTY_RESULTS: ResultSet = { main: [], irrelevant: [] };
+type CandidateKeys = { id: string; legacyId: string };
+const NO_KEYS: CandidateKeys = { id: '', legacyId: '' };
+
+/** The vote that applies to a row: its current id first, then the legacy one. */
+function voteFor<T>(votes: { get(k: string): T | undefined }, item: CandidateKeys): T | undefined {
+  return (item.id ? votes.get(item.id) : undefined) ?? (item.legacyId ? votes.get(item.legacyId) : undefined);
 }
 
+/** Your saved votes for this search and the pool's candidate ids. Never rejects: on failure nothing is reordered. */
+function loadVotes(pool: RankedRow[], queryText: string): Promise<[Votes, CandidateKeys[]]> {
+  return Promise.all([
+    loadQueryFeedback(queryText).catch((): Votes => new Map()),
+    Promise.all(pool.map((p) => candidateKeysFor(p.row))).catch(() => pool.map(() => NO_KEYS)),
+  ]);
+}
+
+const MOVED_UP_NOTE = 'Moved up: you marked this relevant for this search.';
+const MOVED_DOWN_NOTE = 'Moved down: you marked this not relevant for this search.';
+
 /**
- * Relevant first, unvoted in the given order, irrelevant last. `extras` (rows
- * outside `ordered`) are included only when voted relevant, with `addedNote`.
+ * Relevant first, then unvoted in the given order, capped at MAX_RESULTS.
+ * Voted-irrelevant rows go to `irrelevant` (shown under "Marked irrelevant", so
+ * the vote can still be switched). `extras` (pool rows outside `ordered`) join
+ * the main list only when voted relevant, with `addedNote`. The vote note is
+ * prepended so the card's reason cap never hides it. `up` counts the relevant
+ * rows that made the visible list; `down` the rows under "Marked irrelevant".
  */
 function applyVotes(
-  ordered: { row: RankedRow; id?: string }[],
-  extras: { row: RankedRow; id?: string }[],
+  ordered: ResultItem[],
+  extras: ResultItem[],
   votes: Votes,
   addedNote = ''
-): { rows: RankedRow[]; up: number; down: number } {
-  const note = (r: RankedRow, text: string): RankedRow => ({ ...r, reasons: [...r.reasons, text] });
-  const up: RankedRow[] = [];
-  const unvoted: RankedRow[] = [];
-  const down: RankedRow[] = [];
-  for (const { row, id } of ordered) {
-    const vote = id ? votes.get(id) : undefined;
-    if (vote === 'relevant') up.push(note(row, 'Moved up: you marked this relevant for this search.'));
-    else if (vote === 'irrelevant') down.push(note(row, 'Moved down: you marked this not relevant for this search.'));
-    else unvoted.push(row);
+): ResultSet & { up: number; down: number } {
+  const note = (item: ResultItem, text: string): ResultItem => ({
+    ...item,
+    row: { ...item.row, reasons: [text, ...item.row.reasons] },
+  });
+  const up: ResultItem[] = [];
+  const unvoted: ResultItem[] = [];
+  const down: ResultItem[] = [];
+  for (const item of ordered) {
+    const vote = voteFor(votes, item);
+    if (vote === 'relevant') up.push(note(item, MOVED_UP_NOTE));
+    else if (vote === 'irrelevant') down.push(note(item, MOVED_DOWN_NOTE));
+    else unvoted.push(item);
   }
-  for (const { row, id } of extras) {
-    if (id && votes.get(id) === 'relevant') up.push(note(row, addedNote));
+  for (const item of extras) {
+    const vote = voteFor(votes, item);
+    if (vote === 'relevant') up.push(note(item, addedNote));
+    else if (vote === 'irrelevant') down.push(note(item, MOVED_DOWN_NOTE));
   }
-  return { rows: [...up, ...unvoted, ...down].slice(0, MAX_RESULTS), up: up.length, down: down.length };
+  const main = [...up, ...unvoted].slice(0, MAX_RESULTS);
+  return { main, irrelevant: down, up: Math.min(up.length, main.length), down: down.length };
 }
 
 const feedbackSummary = (up: number, down: number) =>
@@ -224,7 +258,10 @@ const RecommenderScreen: React.FC = () => {
   const [importSummary, setImportSummary] = useState<ImportSummary | null>(null);
 
   const [criteria, setCriteria] = useState<string>('');
-  const [results, setResults] = useState<RankedRow[]>([]);
+  // Main list (top MAX_RESULTS) + the pool's voted-irrelevant rows ("Marked irrelevant").
+  const [results, setResults] = useState<ResultSet>(EMPTY_RESULTS);
+  // A Search is running (ranking + the votes read), for the button and the panel.
+  const [searching, setSearching] = useState(false);
 
   const [pageSize, setPageSize] = useState<number>(50);
   const [pageIndex, setPageIndex] = useState<number>(0);
@@ -239,34 +276,47 @@ const RecommenderScreen: React.FC = () => {
 
   // The criteria that produced `results` (the textarea may be edited since).
   const [resultsQuery, setResultsQuery] = useState<string>('');
-  // candidateIdFor(results[i].row), filled in asynchronously after each new result set.
-  const [resultIds, setResultIds] = useState<string[]>([]);
-  // Votes for `resultsQuery`, by candidateId (saved ones are loaded with each result set).
+  // Votes for `resultsQuery`, keyed by the candidate id they were saved under
+  // (current or legacy; read with voteFor). Set with each result set from the
+  // same read that ordered it, then updated as votes are cast.
   const [feedback, setFeedback] = useState<Record<string, RankingFeedback>>({});
   const [feedbackPending, setFeedbackPending] = useState<Record<string, boolean>>({});
   const [feedbackError, setFeedbackError] = useState<string>('');
+  // Synchronous duplicate-click guard: candidate ids with a vote write in flight.
+  const votesInFlight = useRef<Set<string>>(new Set());
+
+  // Saved Connections (favorites), keyed by candidateIdFor.
+  const { user } = useAuth();
+  const uid = user?.uid ?? null;
+  const uidRef = useRef(uid);
+  uidRef.current = uid;
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [favoritesLoading, setFavoritesLoading] = useState(false);
+  const [favoritesNotice, setFavoritesNotice] = useState('');
+  const [favoritesBusy, setFavoritesBusy] = useState<Record<string, boolean>>({});
+  const favoritesInFlight = useRef<Set<string>>(new Set());
+  const favoriteIds = useMemo(() => new Set(favorites.map((f) => f.id)), [favorites]);
 
   useEffect(() => {
-    setResultIds([]);
-    setFeedback({});
-    setFeedbackPending({});
-    setFeedbackError('');
-    if (!results.length) return;
-
+    setFavorites([]);
+    setFavoritesNotice('');
+    if (!uid) return;
     let cancelled = false;
-    Promise.all(results.map((r) => candidateIdFor(r.row)))
-      .then((ids) => { if (!cancelled) setResultIds(ids); })
-      .catch(() => undefined);
-    loadQueryFeedback(resultsQuery)
-      // Votes cast while this was loading are newer than the saved ones.
-      .then((votes) => { if (!cancelled) setFeedback((prev) => ({ ...Object.fromEntries(votes), ...prev })); })
-      .catch(() => undefined);
+    setFavoritesLoading(true);
+    listFavorites()
+      .then((list) => { if (!cancelled) setFavorites(list); })
+      .catch((e: any) => {
+        if (!cancelled) setFavoritesNotice(`Saved connections could not be loaded: ${e?.message ?? 'unknown error'}`);
+      })
+      .finally(() => { if (!cancelled) setFavoritesLoading(false); });
     return () => { cancelled = true; };
-  }, [results, resultsQuery]);
+  }, [uid]);
 
   const hasStaged = stagedRows.length > 0;
   const isConfirmed = confirmedRows.length > 0;
   const canSearch = isConfirmed && criteria.trim().length > 0;
+  const hasResults = results.main.length > 0 || results.irrelevant.length > 0;
+  const feedbackMap = { get: (k: string): RankingFeedback | undefined => feedback[k] };
 
   const stats = useMemo(() => {
     const sample = stagedRows.slice(0, 500);
@@ -343,7 +393,7 @@ const RecommenderScreen: React.FC = () => {
     setAiError('');
     setAiInfo('');
     setSaveInfo('');
-    setResults([]);
+    setResults(EMPTY_RESULTS);
     setCriteria('');
     // Also drop the previous staged rows, so they can't be confirmed (without
     // their context) while the new file is still being read.
@@ -427,7 +477,7 @@ const RecommenderScreen: React.FC = () => {
     const contextToSave = stagedContext;
     setConfirmedRows(stagedRows);
     setConfirmedContext(contextToSave);
-    setResults([]);
+    setResults(EMPTY_RESULTS);
     setCriteria('');
     setAiError('');
 
@@ -541,7 +591,7 @@ const RecommenderScreen: React.FC = () => {
         setStagedContext(context);
         setConfirmedContext(context);
         setImportSummary(null);
-        setResults([]);
+        setResults(EMPTY_RESULTS);
         setCriteria('');
         setAiError('');
         setPageIndex(0);
@@ -599,44 +649,80 @@ const RecommenderScreen: React.FC = () => {
     setAiError('');
     setAiInfo('');
     setSaveInfo('');
-    setResults([]);
+    setResults(EMPTY_RESULTS);
     setCriteria('');
     setPageIndex(0);
   }
 
-  async function runSearch() {
+  /**
+   * Local search. `override` runs a saved search before its criteria / strict
+   * flag have reached state.
+   */
+  async function runSearch(override?: { criteria: string; strictTitleOnly: boolean }) {
     setAiError('');
     setAiInfo('');
-    if (!canSearch) return;
+    const queryText = override?.criteria ?? criteria;
+    const strict = override?.strictTitleOnly ?? strictTitleOnly;
+    if (!isConfirmed || !queryText.trim() || aiReranking) return;
 
-    const queryText = criteria;
     const version = datasetVersion.current;
     const seq = ++searchSeq.current;
-    const { roleQuery, ranked } = rankConnections(confirmedRows, queryText, strictTitleOnly, confirmedContext);
+    setSearching(true);
+    try {
+      const { roleQuery, ranked } = rankConnections(confirmedRows, queryText, strict, confirmedContext);
 
-    // Votes can lift anyone from the same pool AI Rerank uses into the top results.
-    const pool = ranked.slice(0, AI_POOL_SIZE);
-    const [votes, ids] = await loadVotes(pool, queryText);
-    if (seq !== searchSeq.current || version !== datasetVersion.current) return;
+      // Votes can lift anyone from the same pool AI Rerank uses into the top results.
+      const pool = ranked.slice(0, AI_POOL_SIZE);
+      const [votes, keys] = await loadVotes(pool, queryText);
+      if (seq !== searchSeq.current || version !== datasetVersion.current) return;
 
-    const { rows: top, up, down } = applyVotes(pool.map((row, i) => ({ row, id: ids[i] })), [], votes);
-    setResults(top);
-    setResultsQuery(queryText);
+      const { main, irrelevant, up, down } = applyVotes(
+        pool.map((row, i) => ({ row, ...(keys[i] ?? NO_KEYS) })),
+        [],
+        votes
+      );
+      setResults({ main, irrelevant });
+      setResultsQuery(queryText);
+      showLoadedVotes(votes, queryText);
 
-    if (roleQuery && strictTitleOnly && top.length === 0) {
-      setAiInfo('No results. Turn off “Strict title-only” because many CSV rows have blank titles.');
-    } else if (top.length === 0) {
-      setAiInfo('No results. Try broader criteria (e.g., “engineer” or “sales”).');
-    } else {
-      setAiInfo(`Search complete. Company-only matches are flagged “Weak”.${feedbackSummary(up, down)}`);
+      if (roleQuery && strict && pool.length === 0) {
+        setAiInfo('No results. Turn off “Strict title-only” because many CSV rows have blank titles.');
+      } else if (pool.length === 0) {
+        setAiInfo('No results. Try broader criteria (e.g., “engineer” or “sales”).');
+      } else {
+        setAiInfo(`Search complete. Company-only matches are flagged “Weak”.${feedbackSummary(up, down)}`);
+      }
+    } finally {
+      // A newer search owns the flag now (it clears it itself).
+      if (seq === searchSeq.current) setSearching(false);
     }
   }
 
+  /**
+   * Shows the votes read with a new result set. On a re-run of the same search,
+   * votes this tab saved meanwhile win (the read may predate them).
+   */
+  function showLoadedVotes(votes: Votes, queryText: string) {
+    const loaded = Object.fromEntries(votes) as Record<string, RankingFeedback>;
+    const sameSearch = resultsQueryRef.current === queryText;
+    setFeedback((prev) => (sameSearch ? { ...loaded, ...prev } : loaded));
+    setFeedbackError('');
+  }
+
+  /** Runs a saved search: fills the criteria + strict flag and searches with them. */
+  function runSavedSearch(savedCriteria: string, savedStrict: boolean) {
+    setCriteria(savedCriteria);
+    setStrictTitleOnly(savedStrict);
+    void runSearch({ criteria: savedCriteria, strictTitleOnly: savedStrict });
+  }
+
   async function aiRerank() {
+    if (searching || aiReranking) return;
     setAiError('');
     setAiInfo('');
 
-    if (!criteria.trim()) {
+    const queryText = criteria;
+    if (!queryText.trim()) {
       setAiError('Enter criteria first.');
       return;
     }
@@ -647,7 +733,7 @@ const RecommenderScreen: React.FC = () => {
 
     // Identical local ranking (relevance, then relationship) as runSearch; the
     // AI can only reorder / select within the top AI_POOL_SIZE of this order.
-    const { expanded, ranked } = rankConnections(confirmedRows, criteria, strictTitleOnly, confirmedContext);
+    const { expanded, ranked } = rankConnections(confirmedRows, queryText, strictTitleOnly, confirmedContext);
 
     const pool = ranked.slice(0, AI_POOL_SIZE);
     if (!pool.length) {
@@ -679,9 +765,12 @@ const RecommenderScreen: React.FC = () => {
     const context = buildAiContext(confirmedContext);
 
     // Fetched alongside the AI call; if it fails the AI order is used as is.
-    const votesPromise = loadVotes(pool, criteria);
-    // A Search still waiting on its votes must not overwrite the AI results.
-    ++searchSeq.current;
+    const votesPromise = loadVotes(pool, queryText);
+    // A Search still waiting on its votes must not overwrite the AI results, and
+    // this rerank drops its own result if a newer search or dataset arrives.
+    const seq = ++searchSeq.current;
+    const version = datasetVersion.current;
+    const stale = () => seq !== searchSeq.current || version !== datasetVersion.current;
 
     setAiReranking(true);
     try {
@@ -691,6 +780,7 @@ const RecommenderScreen: React.FC = () => {
       });
 
       const data = await fetchJsonOrThrow(resp);
+      if (stale()) return;
       const recs: Array<{ id: string; reason?: string }> = data?.recommendations ?? [];
 
       if (!Array.isArray(recs) || recs.length === 0) {
@@ -717,23 +807,26 @@ const RecommenderScreen: React.FC = () => {
       }
 
       // Your votes for this search override the AI order.
-      const [votes, poolIds] = await votesPromise;
+      const [votes, poolKeys] = await votesPromise;
+      if (stale()) return;
       const withAiReason = (idx: number, reason: string): RankedRow => ({
         ...pool[idx],
         reasons: [...(pool[idx].reasons ?? []), ...(reason ? [`AI: ${reason}`] : [])],
       });
 
-      const { rows: newResults, up, down } = applyVotes(
-        aiOrder.map(({ idx, reason }) => ({ row: withAiReason(idx, reason), id: poolIds[idx] })),
-        pool.flatMap((row, idx) => (picked.has(idx) ? [] : [{ row, id: poolIds[idx] }])),
+      const { main, irrelevant, up, down } = applyVotes(
+        aiOrder.map(({ idx, reason }) => ({ row: withAiReason(idx, reason), ...(poolKeys[idx] ?? NO_KEYS) })),
+        pool.flatMap((row, idx) => (picked.has(idx) ? [] : [{ row, ...(poolKeys[idx] ?? NO_KEYS) }])),
         votes,
         'Added: you marked this relevant for this search (the AI did not pick it).'
       );
 
-      setResults(newResults);
-      setResultsQuery(criteria);
+      setResults({ main, irrelevant });
+      setResultsQuery(queryText);
+      showLoadedVotes(votes, queryText);
       setAiInfo(`AI rerank applied.${feedbackSummary(up, down)}`);
     } catch (e: any) {
+      if (stale()) return;
       setAiError(e?.message ?? 'AI rerank failed.');
     } finally {
       setAiReranking(false);
@@ -746,26 +839,190 @@ const RecommenderScreen: React.FC = () => {
   // Latest search / rerank; an older one still loading votes drops its results.
   const searchSeq = useRef(0);
 
-  async function sendFeedback(idx: number, value: RankingFeedback) {
-    const target = results[idx];
-    if (!target) return;
+  async function sendFeedback(item: ResultItem, value: RankingFeedback) {
+    const candidateId = item.id;
     const queryText = resultsQuery;
+    if (!candidateId) {
+      setFeedbackError('Could not identify this connection, so the feedback was not sent.');
+      return;
+    }
+    // Synchronous guard (before any await or state update): a second click in
+    // the same task must not write a second telemetry doc.
+    if (votesInFlight.current.has(candidateId) || voteFor(feedbackMap, item) === value) return;
+    votesInFlight.current.add(candidateId);
 
     setFeedbackError('');
+    setFeedbackPending((p) => ({ ...p, [candidateId]: true }));
     try {
-      const candidateId = resultIds[idx] ?? (await candidateIdFor(target.row));
-      if (feedbackPending[candidateId] || feedback[candidateId] === value) return;
-
-      setFeedbackPending((p) => ({ ...p, [candidateId]: true }));
-      try {
-        await recordRankingFeedback({ candidateId, queryText, feedback: value });
-        if (resultsQueryRef.current === queryText) setFeedback((f) => ({ ...f, [candidateId]: value }));
-      } finally {
-        setFeedbackPending((p) => ({ ...p, [candidateId]: false }));
-      }
+      await recordRankingFeedback({ candidateId, queryText, feedback: value });
+      if (resultsQueryRef.current === queryText) setFeedback((f) => ({ ...f, [candidateId]: value }));
     } catch (e: any) {
       if (resultsQueryRef.current === queryText) setFeedbackError(e?.message ?? 'Could not send feedback.');
+    } finally {
+      votesInFlight.current.delete(candidateId);
+      setFeedbackPending((p) => ({ ...p, [candidateId]: false }));
     }
+  }
+
+  async function toggleFavorite(candidateId: string, row: Record<string, unknown>) {
+    if (!candidateId) {
+      setFavoritesNotice('Could not identify this connection, so it was not saved.');
+      return;
+    }
+    if (favoritesInFlight.current.has(candidateId)) return;
+    favoritesInFlight.current.add(candidateId);
+    const owner = uid;
+    const removing = favoriteIds.has(candidateId);
+
+    setFavoritesNotice('');
+    setFavoritesBusy((b) => ({ ...b, [candidateId]: true }));
+    try {
+      if (removing) {
+        await removeFavorite(candidateId);
+        if (uidRef.current === owner) setFavorites((list) => list.filter((f) => f.id !== candidateId));
+      } else {
+        const fav = await addFavorite(candidateId, row);
+        if (uidRef.current === owner) {
+          setFavorites((list) => [fav, ...list.filter((f) => f.id !== candidateId)]);
+        }
+      }
+    } catch (e: any) {
+      if (uidRef.current === owner) {
+        setFavoritesNotice(
+          `Could not ${removing ? 'remove' : 'save'} the connection: ${e?.message ?? 'unknown error'}`
+        );
+      }
+    } finally {
+      favoritesInFlight.current.delete(candidateId);
+      setFavoritesBusy((b) => ({ ...b, [candidateId]: false }));
+    }
+  }
+
+  /** One result card (main list, or dimmed under "Marked irrelevant"). */
+  function renderResultCard(item: ResultItem, key: string, dimmed: boolean) {
+    const r = item.row;
+    const name =
+      getField(r.row, FULL_NAME_KEYS) ||
+      `${getField(r.row, FIRST_NAME_KEYS)} ${getField(r.row, LAST_NAME_KEYS)}`.trim() ||
+      '(no name)';
+
+    const title = getField(r.row, POSITION_KEYS);
+    const org = getField(r.row, COMPANY_KEYS);
+    const cid = item.id;
+    const vote = voteFor(feedbackMap, item);
+    const pending = !!cid && !!feedbackPending[cid];
+    const isFavorite = !!cid && favoriteIds.has(cid);
+    const favBusy = !!cid && !!favoritesBusy[cid];
+
+    return (
+      <div
+        key={key}
+        className={`rounded-xl border border-white/10 bg-white/5 hover:border-primary/30 transition-colors p-4 ${
+          dimmed ? 'opacity-60 hover:opacity-100' : ''
+        }`}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="font-bold text-white leading-tight truncate">{name}</p>
+            {(title || org) && (
+              <p className="text-xs text-slate-400 mt-1 truncate">{[title, org].filter(Boolean).join(' • ')}</p>
+            )}
+          </div>
+          <div className="text-xs font-extrabold text-primary bg-primary/15 border border-primary/20 px-2 py-1 rounded-md shrink-0">
+            Score {r.score}
+          </div>
+        </div>
+
+        {r.reasons.length > 0 && (
+          <div className="mt-3 text-xs text-slate-300 space-y-1">
+            {r.reasons.slice(0, 8).map((reason, i) => (
+              <p key={i} className="text-slate-400">
+                <span className="text-slate-300 font-bold">•</span> {reason}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {r.chips.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {r.chips.map((chip, i) => (
+              <span
+                key={`${chip}-${i}`}
+                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {r.matchedTokens.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {r.matchedTokens.slice(0, 10).map((t) => (
+              <span
+                key={t}
+                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+          {/* No aria-pressed here: the demo driver counts pressed buttons as votes. */}
+          <button
+            type="button"
+            onClick={() => void toggleFavorite(item.id, item.row.row)}
+            disabled={!cid || favBusy}
+            title={isFavorite ? 'Remove from Saved Connections' : 'Save to Saved Connections'}
+            aria-label={isFavorite ? `Remove ${name} from Saved Connections` : `Save ${name} to Saved Connections`}
+            className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
+              favBusy || !cid
+                ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
+                : isFavorite
+                  ? 'bg-amber-400/10 border-amber-400/30 text-amber-300'
+                  : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
+            }`}
+          >
+            <Icon name={isFavorite ? 'star' : 'star_border'} className="text-sm" />
+            <span>{isFavorite ? 'Saved' : 'Save'}</span>
+          </button>
+
+          <div className="flex items-center gap-2">
+            {(
+              [
+                ['relevant', 'thumb_up', 'Relevant'],
+                ['irrelevant', 'thumb_down', 'Irrelevant'],
+              ] as const
+            ).map(([value, icon, label]) => {
+              const selected = vote === value;
+              return (
+                <button
+                  key={value}
+                  onClick={() => void sendFeedback(item, value)}
+                  disabled={pending || selected}
+                  aria-pressed={selected}
+                  title={`Mark as ${label.toLowerCase()} for this search`}
+                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
+                    selected
+                      ? value === 'relevant'
+                        ? 'bg-primary/15 border-primary/30 text-primary'
+                        : 'bg-red-500/10 border-red-500/20 text-red-200'
+                      : pending
+                        ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
+                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
+                  }`}
+                >
+                  <Icon name={icon} className="text-sm" outlined={!selected} />
+                  <span>{label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -1087,23 +1344,23 @@ const RecommenderScreen: React.FC = () => {
 
                 <div className="flex gap-2">
                   <button
-                    onClick={runSearch}
-                    disabled={!canSearch}
+                    onClick={() => void runSearch()}
+                    disabled={!canSearch || searching || aiReranking}
                     className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                      canSearch
+                      canSearch && !searching && !aiReranking
                         ? 'bg-primary hover:bg-primary/90 text-white'
                         : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
                     }`}
                   >
                     <Icon name="search" className="text-sm" />
-                    <span>Search</span>
+                    <span>{searching ? 'Searching…' : 'Search'}</span>
                   </button>
 
                   <button
-                    onClick={aiRerank}
-                    disabled={AI_DISABLED || !canSearch || aiReranking}
+                    onClick={() => void aiRerank()}
+                    disabled={AI_DISABLED || !canSearch || aiReranking || searching}
                     className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] border ${
-                      AI_DISABLED || !canSearch || aiReranking
+                      AI_DISABLED || !canSearch || aiReranking || searching
                         ? 'bg-white/5 text-slate-600 border-white/10 cursor-not-allowed'
                         : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
                     }`}
@@ -1131,118 +1388,65 @@ const RecommenderScreen: React.FC = () => {
 
               {!isConfirmed ? (
                 <div className="text-sm text-slate-400">Confirm the loaded connections to run a search.</div>
-              ) : results.length === 0 ? (
-                <div className="text-sm text-slate-400">Run a search to see results.</div>
+              ) : !hasResults ? (
+                <div className="text-sm text-slate-400">{searching ? 'Searching…' : 'Run a search to see results.'}</div>
               ) : (
-                <div className="space-y-3">
-                  {feedbackError && (
-                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-                      {feedbackError}
+                <>
+                  {results.main.length > 0 ? (
+                    <div className="space-y-3">
+                      {feedbackError && (
+                        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
+                          {feedbackError}
+                        </div>
+                      )}
+                      {results.main.map((item, idx) => renderResultCard(item, `m-${idx}`, false))}
                     </div>
+                  ) : (
+                    <>
+                      {feedbackError && (
+                        <div className="mb-3 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
+                          {feedbackError}
+                        </div>
+                      )}
+                      <p className="text-sm text-slate-400">Every match for this search is marked irrelevant.</p>
+                    </>
                   )}
-                  {results.map((r, idx) => {
-                    const name =
-                      getField(r.row, FULL_NAME_KEYS) ||
-                      `${getField(r.row, FIRST_NAME_KEYS)} ${getField(r.row, LAST_NAME_KEYS)}`.trim() ||
-                      '(no name)';
 
-                    const title = getField(r.row, POSITION_KEYS);
-                    const org = getField(r.row, COMPANY_KEYS);
-
-                    return (
-                      <div
-                        key={idx}
-                        className="rounded-xl border border-white/10 bg-white/5 hover:border-primary/30 transition-colors p-4"
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <p className="font-bold text-white leading-tight truncate">{name}</p>
-                            {(title || org) && (
-                              <p className="text-xs text-slate-400 mt-1 truncate">
-                                {[title, org].filter(Boolean).join(' • ')}
-                              </p>
-                            )}
-                          </div>
-                          <div className="text-xs font-extrabold text-primary bg-primary/15 border border-primary/20 px-2 py-1 rounded-md shrink-0">
-                            Score {r.score}
-                          </div>
-                        </div>
-
-                        {r.reasons.length > 0 && (
-                          <div className="mt-3 text-xs text-slate-300 space-y-1">
-                            {r.reasons.slice(0, 8).map((reason, i) => (
-                              <p key={i} className="text-slate-400">
-                                <span className="text-slate-300 font-bold">•</span> {reason}
-                              </p>
-                            ))}
-                          </div>
-                        )}
-
-                        {r.chips.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            {r.chips.map((chip, i) => (
-                              <span
-                                key={`${chip}-${i}`}
-                                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
-                              >
-                                {chip}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-
-                        {r.matchedTokens.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            {r.matchedTokens.slice(0, 10).map((t) => (
-                              <span
-                                key={t}
-                                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
-                              >
-                                {t}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-
-                        <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-end gap-2">
-                          {(
-                            [
-                              ['relevant', 'thumb_up', 'Relevant'],
-                              ['irrelevant', 'thumb_down', 'Irrelevant'],
-                            ] as const
-                          ).map(([value, icon, label]) => {
-                            const cid = resultIds[idx];
-                            const selected = cid != null && feedback[cid] === value;
-                            const pending = cid != null && !!feedbackPending[cid];
-                            return (
-                              <button
-                                key={value}
-                                onClick={() => void sendFeedback(idx, value)}
-                                disabled={pending || selected}
-                                aria-pressed={selected}
-                                title={`Mark as ${label.toLowerCase()} for this search`}
-                                className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
-                                  selected
-                                    ? value === 'relevant'
-                                      ? 'bg-primary/15 border-primary/30 text-primary'
-                                      : 'bg-red-500/10 border-red-500/20 text-red-200'
-                                    : pending
-                                      ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
-                                      : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
-                                }`}
-                              >
-                                <Icon name={icon} className="text-sm" outlined={!selected} />
-                                <span>{label}</span>
-                              </button>
-                            );
-                          })}
-                        </div>
+                  {results.irrelevant.length > 0 && (
+                    <details className="mt-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                      <summary className="cursor-pointer select-none px-4 py-3 text-sm font-bold text-slate-400">
+                        Marked irrelevant ({results.irrelevant.length})
+                      </summary>
+                      <div className="px-3 pb-3 space-y-3">
+                        <p className="text-xs text-slate-500">
+                          You marked these not relevant for this search. Switch one to Relevant and search again to
+                          bring it back.
+                        </p>
+                        {results.irrelevant.map((item, idx) => renderResultCard(item, `i-${idx}`, true))}
                       </div>
-                    );
-                  })}
-                </div>
+                    </details>
+                  )}
+                </>
               )}
             </div>
+          </div>
+
+          {/* Saved searches + Saved Connections */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+            <SavedSearches
+              criteria={criteria}
+              strictTitleOnly={strictTitleOnly}
+              canRun={isConfirmed}
+              busy={searching || aiReranking}
+              onRun={runSavedSearch}
+            />
+            <FavoritesList
+              favorites={favorites}
+              loading={favoritesLoading}
+              notice={favoritesNotice}
+              busy={favoritesBusy}
+              onRemove={(f) => void toggleFavorite(f.id, {})}
+            />
           </div>
         </div>
       </main>

@@ -10,11 +10,15 @@
 // candidateId is a SHA-256 of the connection's profile URL (or name + company
 // when there is no URL): stable across re-imports, since connection doc ids are
 // regenerated on every save, and it keeps third-party identities out of a
-// collection shared by all users.
+// collection shared by all users. The URL is normalized with normalizeProfileUrl
+// (scheme, www., query/fragment, trailing slash, slug decoding), so variants of
+// one profile URL share an id. Votes saved before that normalization used
+// legacyCandidateIdFor; readers look a vote up under both ids (new id first).
 
 import { collection, doc, getDocs, query, serverTimestamp, where, writeBatch } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { COMPANY_KEYS, FIRST_NAME_KEYS, FULL_NAME_KEYS, LAST_NAME_KEYS, URL_KEYS, getField } from './connectionFields.ts';
+import { normalizeProfileUrl } from './linkedinExport.ts';
 
 export type RankingFeedback = 'relevant' | 'irrelevant';
 
@@ -26,15 +30,41 @@ async function sha256Hex(s: string): Promise<string> {
   return Array.from(new Uint8Array(bytes), (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-/** Stable, non-reversible id for a connection row. */
-export function candidateIdFor(row: Record<string, unknown>): Promise<string> {
-  const url = getField(row, URL_KEYS).trim().toLowerCase().replace(/\/+$/, '');
-  if (url) return sha256Hex(`url:${url}`);
+/** The pre-normalization URL key: lowercased, trailing slashes dropped. */
+function legacyUrlKey(rawUrl: string): string {
+  return rawUrl.trim().toLowerCase().replace(/\/+$/, '');
+}
 
+/** No URL: name + company (collides for two people sharing both; out of scope). */
+function nameCompanyKey(row: Record<string, unknown>): string {
   const name =
     getField(row, FULL_NAME_KEYS) || `${getField(row, FIRST_NAME_KEYS)} ${getField(row, LAST_NAME_KEYS)}`;
   const company = getField(row, COMPANY_KEYS);
-  return sha256Hex(`nc:${name.trim().toLowerCase()}|${company.trim().toLowerCase()}`);
+  return `nc:${name.trim().toLowerCase()}|${company.trim().toLowerCase()}`;
+}
+
+/** Stable, non-reversible id for a connection row (64 lowercase hex chars). */
+export function candidateIdFor(row: Record<string, unknown>): Promise<string> {
+  const raw = getField(row, URL_KEYS);
+  const legacy = legacyUrlKey(raw);
+  if (legacy) return sha256Hex(`url:${normalizeProfileUrl(raw) ?? legacy}`);
+  return sha256Hex(nameCompanyKey(row));
+}
+
+/**
+ * The id the app used before URL normalization (#59). Read-only: votes saved
+ * under it keep applying, new votes are written under candidateIdFor.
+ */
+export function legacyCandidateIdFor(row: Record<string, unknown>): Promise<string> {
+  const url = legacyUrlKey(getField(row, URL_KEYS));
+  if (url) return sha256Hex(`url:${url}`);
+  return sha256Hex(nameCompanyKey(row));
+}
+
+/** Both ids for a row: `id` (current) and `legacyId` (equal to `id` when nothing changed). */
+export async function candidateKeysFor(row: Record<string, unknown>): Promise<{ id: string; legacyId: string }> {
+  const [id, legacyId] = await Promise.all([candidateIdFor(row), legacyCandidateIdFor(row)]);
+  return { id, legacyId };
 }
 
 function queryKeyFor(queryText: string): Promise<string> {

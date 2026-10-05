@@ -41,6 +41,42 @@ service cloud.firestore {
         && request.resource.data.timestamp == request.time;
     }
 
+    // Saved searches (Recommender criteria + strict flag under a title): owner-only,
+    // create / read / delete, no update.
+    match /users/{userId}/savedSearches/{searchId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['title', 'criteria', 'strictTitleOnly', 'createdAt'])
+        && request.resource.data.keys().hasAll(['title', 'criteria', 'strictTitleOnly', 'createdAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 80
+        && request.resource.data.criteria is string
+        && request.resource.data.criteria.size() >= 1
+        && request.resource.data.criteria.size() <= 500
+        && request.resource.data.strictTitleOnly is bool
+        && request.resource.data.createdAt == request.time;
+    }
+
+    // Favorite connections ("Saved Connections"), keyed by the ranking-feedback candidateId:
+    // owner-only, create / read / delete, no update.
+    match /users/{userId}/favorites/{candidateId} {
+      allow read, delete: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId
+        && candidateId.matches('^[0-9a-f]{64}$')
+        && request.resource.data.keys().hasOnly(['name', 'position', 'company', 'url', 'savedAt'])
+        && request.resource.data.keys().hasAll(['name', 'position', 'company', 'url', 'savedAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() <= 200
+        && request.resource.data.position is string
+        && request.resource.data.position.size() <= 300
+        && request.resource.data.company is string
+        && request.resource.data.company.size() <= 200
+        && request.resource.data.url is string
+        && request.resource.data.url.size() <= 500
+        && request.resource.data.savedAt == request.time;
+    }
+
     // Default deny everything else (keeps scope tight)
     match /{document=**} {
       allow read, write: if false;
