@@ -41,6 +41,54 @@ service cloud.firestore {
         && request.resource.data.timestamp == request.time;
     }
 
+    // Shared "common connections" graph (opt-in). graph_people/{personKey} holds only the
+    // uids of members who have that person (personKey = sha256 of the normalized LinkedIn
+    // profile URL); no names or other person data. A member can only read a node they are
+    // recorded in, and can only add or remove their own uid.
+    function isGraphMember() {
+      return existsAfter(/databases/$(database)/documents/graph_members/$(request.auth.uid));
+    }
+
+    match /graph_people/{personKey} {
+      allow get, list: if request.auth != null
+        && request.auth.uid in resource.data.members;
+      allow create: if request.auth != null
+        && personKey.matches('^[0-9a-f]{64}$')
+        && request.resource.data.keys().hasOnly(['members', 'updatedAt'])
+        && request.resource.data.members == [request.auth.uid]
+        && request.resource.data.updatedAt == request.time
+        && isGraphMember();
+      allow update: if request.auth != null
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members', 'updatedAt'])
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.members is list
+        && request.resource.data.members.size() <= 10000
+        && request.resource.data.members.toSet().difference(resource.data.members.toSet()).hasOnly([request.auth.uid])
+        && resource.data.members.toSet().difference(request.resource.data.members.toSet()).hasOnly([request.auth.uid])
+        && (request.auth.uid in resource.data.members || request.auth.uid in request.resource.data.members)
+        && (!(request.auth.uid in request.resource.data.members)
+            || request.auth.uid in resource.data.members
+            || isGraphMember());
+      allow delete: if false;
+    }
+
+    // Opt-in flag + display name for the common-connections graph. Readable only by
+    // signed-in users who opted in themselves; never listable.
+    match /graph_members/{memberId} {
+      allow get: if request.auth != null
+        && (request.auth.uid == memberId
+            || exists(/databases/$(database)/documents/graph_members/$(request.auth.uid)));
+      allow list: if false;
+      allow create, update: if request.auth != null && request.auth.uid == memberId
+        && request.resource.data.keys().hasOnly(['displayName', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['displayName', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 1
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if request.auth != null && request.auth.uid == memberId;
+    }
+
     // Saved searches (Recommender criteria + strict flag under a title): owner-only,
     // create / read / delete, no update.
     match /users/{userId}/savedSearches/{searchId} {

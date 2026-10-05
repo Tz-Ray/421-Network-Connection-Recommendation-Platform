@@ -36,6 +36,7 @@ import {
   toNetworkContext,
 } from './connectionFields.ts';
 import type { NetworkContext } from './connectionFields.ts';
+import { syncNetworkGraphIfMember } from './networkGraph.ts';
 
 // Existing importers read SESSION_KEY, the *_KEYS lists and the helpers from
 // here; they now live in the pure module and are re-exported unchanged.
@@ -291,7 +292,20 @@ export function saveConnections(
   uid: string,
   rows: Record<string, unknown>[]
 ): Promise<number> {
-  return enqueue(uid, () => saveConnectionsNow(uid, rows));
+  const saved = enqueue(uid, () => saveConnectionsNow(uid, rows));
+
+  // Opted-in users also contribute to the shared common-connections graph.
+  // Fire-and-forget on its own chain: never fails or delays the save.
+  void saved.then(
+    () => {
+      syncNetworkGraphIfMember(uid, rows).catch((e) =>
+        console.warn('Common-connections graph sync failed:', e)
+      );
+    },
+    () => undefined
+  );
+
+  return saved;
 }
 
 async function saveConnectionsNow(
