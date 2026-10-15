@@ -283,6 +283,26 @@ returns the first two candidate ids that appear in the prompt, each with the rea
 same with the answer `Mock answer.`. The token check and the rate limit still apply, so you still have to sign
 in.
 
+## Tests
+
+```bash
+cd server
+npm ci
+npm test        # node --test "test/*.test.mjs"
+```
+
+`test/proxy.test.mjs` starts real `node index.js` children on free ports (never 8787) with `GEMINI_MOCK=1` and
+a blank `GEMINI_API_KEY`, and checks `/health`, the 401s, CORS (403/204), 413, 400, both rate limits (429 with
+`Retry-After`) and the mock rerank and chat shapes. It needs no Gemini key and no Firebase account, and no network to pass.
+
+Valid tokens come from a throwaway RSA key generated per run. Its public half reaches the proxy through
+`AI_PROXY_TEST_JWKS` (a JSON JWKS string), which `index.js` honors **only when `NODE_ENV=test`**; in any other
+mode the variable is ignored and Google's securetoken keys are used, and a test asserts that a test-key token
+then gets 401. Both variables must come from the process environment: values in `.env.local` or `.env` are
+ignored for this switch. While it is active the proxy logs a warning at startup. Never set `NODE_ENV=test` or
+`AI_PROXY_TEST_JWKS` for a proxy that real users call. The two "ignored outside test mode" tests reach Google's key
+endpoint (or fail to): either way the answer is 401, so they need no network to pass.
+
 ## Known limitations
 
 - The rate limit lives in memory: it resets whenever the proxy restarts and is not shared between processes

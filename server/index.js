@@ -8,6 +8,10 @@ import { fileURLToPath } from "node:url";
 // Load root .env.local (NOT VITE_ key)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// Test-only JWKS switch (see verifyIdToken): read from the real environment
+// BEFORE the env files load, so an env file can never turn it on.
+const TEST_JWKS_RAW =
+  process.env.NODE_ENV === "test" && process.env.AI_PROXY_TEST_JWKS ? process.env.AI_PROXY_TEST_JWKS : "";
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 dotenv.config({ path: path.resolve(__dirname, "../.env") }); // fallback if you prefer
 
@@ -124,9 +128,17 @@ function sendText(res, status, text) {
 
 // Google's public signing keys for Firebase ID tokens. Created once; `jose`
 // caches the key set and refetches only when it sees an unknown `kid`.
-const FIREBASE_JWKS = jose.createRemoteJWKSet(
-  new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
-);
+// Test-only: with NODE_ENV=test, AI_PROXY_TEST_JWKS (a JSON JWKS string) replaces
+// Google's keys so server/test can mint tokens offline. Both must come from the
+// process environment (not .env files); ignored in every other mode.
+if (TEST_JWKS_RAW) {
+  console.warn("WARNING: AI_PROXY_TEST_JWKS is active (NODE_ENV=test): ID tokens are checked against TEST keys, not Google's.");
+}
+const FIREBASE_JWKS = TEST_JWKS_RAW
+  ? jose.createLocalJWKSet(JSON.parse(TEST_JWKS_RAW))
+  : jose.createRemoteJWKSet(
+      new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
+    );
 
 /**
  * Verifies `Authorization: Bearer <Firebase ID token>` and returns the caller.
