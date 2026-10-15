@@ -22,6 +22,15 @@ export default defineConfig(({ mode, command }) => {
         `VITE_AI_PROXY_URL is ${proxy} (probably from .env.local); a production build needs a public proxy URL, or 'off' to ship without AI. Override it in the shell, e.g. VITE_AI_PROXY_URL=off npm run build.`
       );
     }
+    // Experimental features never ship by accident: VITE_EXPERIMENTAL=on in an env
+    // file (the natural place to turn it on for `npm run dev`) must not reach a
+    // production build. Typed in the shell it is a deliberate local experimental
+    // build (for size measurements), which is never deployed.
+    if (env.VITE_EXPERIMENTAL === 'on' && process.env.VITE_EXPERIMENTAL !== 'on') {
+      throw new Error(
+        "VITE_EXPERIMENTAL=on comes from an env file (.env/.env.local); a production build must not include experimental features. Remove it from the file, or set it in the shell for a deliberate local experimental build that is never deployed."
+      );
+    }
   }
 
   return {

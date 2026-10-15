@@ -12,6 +12,14 @@ import ConnectionsScreen from './screens/ConnectionsScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import { AuthProvider } from './lib/AuthContext';
 
+// Experimental screens (docs: FREE_FEATURES "Never on the hosted site"): the
+// dynamic import exists only when VITE_EXPERIMENTAL=on, so a production build
+// without the flag contains none of their code.
+const InsightsScreen =
+  import.meta.env.VITE_EXPERIMENTAL === 'on'
+    ? React.lazy(() => import('./experimental/sql-insights/InsightsScreen'))
+    : null;
+
 // Firebase's email action URL is the site root and appends its params before the "#".
 const RootRedirect: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
@@ -71,6 +79,25 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+
+          {InsightsScreen && (
+            <Route
+              path="/insights"
+              element={
+                <ProtectedRoute>
+                  <React.Suspense
+                    fallback={
+                      <div className="h-screen w-full flex items-center justify-center bg-background-dark">
+                        <div className="text-primary animate-pulse">Loading Insights...</div>
+                      </div>
+                    }
+                  >
+                    <InsightsScreen />
+                  </React.Suspense>
+                </ProtectedRoute>
+              }
+            />
+          )}
 
           <Route
             path="/profile"

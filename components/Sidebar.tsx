@@ -21,7 +21,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'AI', icon: 'smart_toy', path: '/ai' },
     { name: 'Portfolio', icon: 'pie_chart', path: '' },
     { name: 'Pipeline', icon: 'account_tree', path: '' },
-    { name: 'Insights', icon: 'auto_graph', path: '' },
+    // Experimental SQL Insights screen; stays a disabled "Soon" row unless VITE_EXPERIMENTAL=on.
+    { name: 'Insights', icon: 'auto_graph', path: import.meta.env.VITE_EXPERIMENTAL === 'on' ? '/insights' : '' },
     { name: 'Documents', icon: 'description', path: '' },
   ];
 

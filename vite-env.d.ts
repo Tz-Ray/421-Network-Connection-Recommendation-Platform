@@ -10,6 +10,7 @@ interface ImportMetaEnv {
   readonly VITE_FIREBASE_MEASUREMENT_ID: string
   readonly VITE_AI_PROXY_URL?: string
   readonly VITE_CONNECTIONS_BACKEND?: 'firestore' | 'local'
+  readonly VITE_EXPERIMENTAL?: string
 }
 
 interface ImportMeta {
