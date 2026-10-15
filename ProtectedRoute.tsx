@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import ChatWidget from './components/ChatWidget';
-import { AI_DISABLED } from './lib/proxyClient';
+import { useAiAvailability } from './lib/proxyClient';
 import { useAuth } from './lib/AuthContext';
 
 interface ProtectedRouteProps {
@@ -10,6 +10,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { user, loading } = useAuth();
+  const ai = useAiAvailability();
 
   if (loading) {
     return (
@@ -26,7 +27,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   return (
     <>
       {children}
-      {!AI_DISABLED && <ChatWidget />}
+      {!ai.disabled && <ChatWidget />}
     </>
   );
 };

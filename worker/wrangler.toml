@@ -1,0 +1,37 @@
+# Cloudflare Worker version of the AI proxy (see README.md).
+# Secrets are NOT set here: GEMINI_API_KEY, AI_ACCESS and AI_ALLOWED_UIDS are set
+# with `npx wrangler secret put <NAME>` (deployed) or in .dev.vars (local, gitignored).
+
+name = "ncrp-ai-proxy"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[placement]
+mode = "smart"
+
+# Local `wrangler dev` port; 8787 (wrangler's default) is the Node proxy's port.
+[dev]
+port = 8788
+
+# One SQLite-backed Durable Object instance holds every rate-limit counter.
+# SQLite-backed classes are the only kind the Workers Free plan allows.
+[[durable_objects.bindings]]
+name = "LIMITER"
+class_name = "RateLimiter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RateLimiter"]
+
+[vars]
+GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite"
+FIREBASE_PROJECT_ID = "connectionrecommender"
+AI_PROXY_ALLOWED_ORIGINS = "https://connectionrecommender.web.app,https://connectionrecommender.firebaseapp.com,http://localhost:3000,http://127.0.0.1:3000"
+AI_RATE_LIMIT_PER_MIN = "10"
+AI_RATE_LIMIT_PER_DAY = "5"
+AI_RATE_LIMIT_PER_IP_DAY = "10"
+AI_GLOBAL_DAILY_CAP = "34"
+AI_DEMO_RESERVE = "6"
+# EU27 + Iceland, Liechtenstein, Norway (EEA) + Switzerland + United Kingdom.
+AI_BLOCKED_COUNTRIES = "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO,CH,GB"

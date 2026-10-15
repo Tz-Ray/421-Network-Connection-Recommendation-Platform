@@ -32,7 +32,13 @@ import type { ImportSummary } from '../lib/linkedinExport';
 import { buildAiContext } from '../lib/relationship';
 import { rankConnections } from '../lib/search';
 import type { RankedRow } from '../lib/search';
-import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
+import {
+  AI_FREE_TIER_NOTICE,
+  proxyErrorMessage,
+  proxyFetch,
+  showsFreeTierNotice,
+  useAiAvailability,
+} from '../lib/proxyClient';
 import { candidateKeysFor, loadQueryFeedback, recordRankingFeedback } from '../lib/telemetry';
 import type { RankingFeedback } from '../lib/telemetry';
 import { addFavorite, listFavorites, removeFavorite } from '../lib/savedItems';
@@ -154,13 +160,11 @@ function compactRow(row: Row): CompactConnection {
 }
 
 async function fetchJsonOrThrow(resp: Response) {
+  if (!resp.ok) throw new Error(await proxyErrorMessage(resp));
   const text = await resp.text();
   try {
-    const j = JSON.parse(text);
-    if (!resp.ok) throw new Error(j?.error || text);
-    return j;
+    return JSON.parse(text);
   } catch {
-    if (!resp.ok) throw new Error(text);
     return {};
   }
 }
@@ -241,6 +245,7 @@ const feedbackSummary = (up: number, down: number) =>
 // -----------------------------
 const RecommenderScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const ai = useAiAvailability();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -1358,15 +1363,17 @@ const RecommenderScreen: React.FC = () => {
 
                   <button
                     onClick={() => void aiRerank()}
-                    disabled={AI_DISABLED || !canSearch || aiReranking || searching}
+                    disabled={ai.disabled || !canSearch || aiReranking || searching}
                     className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] border ${
-                      AI_DISABLED || !canSearch || aiReranking || searching
+                      ai.disabled || !canSearch || aiReranking || searching
                         ? 'bg-white/5 text-slate-600 border-white/10 cursor-not-allowed'
                         : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
                     }`}
                     title={
-                      AI_DISABLED
-                        ? AI_DISABLED_MESSAGE
+                      ai.checking
+                        ? 'Checking whether AI features are available…'
+                        : ai.disabled
+                        ? ai.message
                         : 'Use Gemini (via the AI proxy) to rerank the best candidates and explain each pick.'
                     }
                   >
@@ -1374,11 +1381,13 @@ const RecommenderScreen: React.FC = () => {
                     <span>{aiReranking ? 'Reranking…' : 'AI Rerank'}</span>
                   </button>
                 </div>
-                {AI_DISABLED && (
+                {ai.disabled && !ai.checking && (
                   <p className="text-xs text-slate-400 mt-2">
-                    AI Rerank isn't available on the hosted version of this app. Search ranks by your query and your
-                    relationships without it.
+                    {ai.rerankNote} Search ranks by your query and your relationships without it.
                   </p>
+                )}
+                {showsFreeTierNotice(ai) && (
+                  <p className="text-[11px] text-slate-500 mt-2 w-full">{AI_FREE_TIER_NOTICE}</p>
                 )}
               </div>
             </div>

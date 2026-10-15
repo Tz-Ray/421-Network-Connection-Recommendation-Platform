@@ -32,7 +32,13 @@ import {
 import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
 import { buildAiContext, noteMatches, relationshipSignals } from '../lib/relationship';
 import type { Relationship } from '../lib/relationship';
-import { AI_DISABLED, AI_DISABLED_MESSAGE, proxyFetch } from '../lib/proxyClient';
+import {
+  AI_FREE_TIER_NOTICE,
+  proxyErrorMessage,
+  proxyFetch,
+  showsFreeTierNotice,
+  useAiAvailability,
+} from '../lib/proxyClient';
 
 type ChatMsg = { role: 'user' | 'assistant'; text: string };
 
@@ -126,13 +132,11 @@ function contextFromSession(): { present: boolean; ctx: NetworkContext | null } 
 }
 
 async function fetchJsonOrThrow(resp: Response) {
+  if (!resp.ok) throw new Error(await proxyErrorMessage(resp));
   const text = await resp.text();
   try {
-    const j = JSON.parse(text);
-    if (!resp.ok) throw new Error(j?.error || text);
-    return j;
+    return JSON.parse(text);
   } catch {
-    if (!resp.ok) throw new Error(text);
     return { answer: text, recommendations: [] };
   }
 }
@@ -327,6 +331,7 @@ async function callGeminiRerank(args: {
 
 const AIScreen: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const ai = useAiAvailability();
 
   const [messages, setMessages] = useState<ChatMsg[]>([
     {
@@ -580,9 +585,14 @@ const AIScreen: React.FC = () => {
       const answerEmpty = !String(data?.answer ?? '').trim();
 
       if (recommendations.length === 0 && (chatParseFailed || answerEmpty)) {
-        const rr = await callGeminiRerank({ criteria: userText, candidates, context });
-        if (Array.isArray(rr?.recommendations) && rr.recommendations.length > 0) {
-          recommendations = rr.recommendations;
+        // A refused or failed fallback (e.g. today's AI limit) keeps the chat answer.
+        try {
+          const rr = await callGeminiRerank({ criteria: userText, candidates, context });
+          if (Array.isArray(rr?.recommendations) && rr.recommendations.length > 0) {
+            recommendations = rr.recommendations;
+          }
+        } catch (fallbackErr) {
+          console.warn('Rerank fallback failed; showing the chat answer as-is.', fallbackErr);
         }
       }
 
@@ -625,9 +635,9 @@ const AIScreen: React.FC = () => {
             </p>
           </div>
 
-          {AI_DISABLED && (
+          {ai.disabled && !ai.checking && (
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
-              {AI_DISABLED_MESSAGE} Search, ranking and relationship insights on the Recommender page still work.
+              {ai.message} Search, ranking and relationship insights on the Recommender page still work.
             </div>
           )}
 
@@ -668,13 +678,13 @@ const AIScreen: React.FC = () => {
                     void send();
                   }
                 }}
-                disabled={busy || AI_DISABLED}
+                disabled={busy || ai.disabled}
               />
               <button
                 onClick={() => void send()}
-                disabled={busy || AI_DISABLED}
+                disabled={busy || ai.disabled}
                 className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                  busy || AI_DISABLED
+                  busy || ai.disabled
                     ? 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
                     : 'bg-primary hover:bg-primary/90 text-white'
                 }`}
@@ -683,6 +693,9 @@ const AIScreen: React.FC = () => {
                 <span>{busy ? 'Thinking…' : 'Send'}</span>
               </button>
             </div>
+            {showsFreeTierNotice(ai) && (
+              <p className="text-[11px] text-slate-500">{AI_FREE_TIER_NOTICE}</p>
+            )}
           </div>
         </div>
       </main>

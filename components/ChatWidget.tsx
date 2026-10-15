@@ -4,7 +4,14 @@ import { Icon } from './Icon';
 import { docToRow, loadConnections, loadNetworkContext } from '../lib/connectionsStore';
 import type { ConnectionDoc, NetworkContext } from '../lib/connectionsStore';
 import { buildAiContext, relationshipSignals } from '../lib/relationship';
-import { PROXY_URL, proxyFetch } from '../lib/proxyClient';
+import {
+  AI_FREE_TIER_NOTICE,
+  PROXY_URL,
+  proxyErrorMessage,
+  proxyFetch,
+  showsFreeTierNotice,
+  useAiAvailability,
+} from '../lib/proxyClient';
 
 type ChatMessage = {
   role: 'user' | 'model';
@@ -98,6 +105,7 @@ function formatAssistantReply(data: any, candidates: ProxyCandidate[]): string {
 }
 
 const ChatWidget: React.FC = () => {
+  const ai = useAiAvailability();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -196,8 +204,10 @@ const ChatWidget: React.FC = () => {
       });
 
       if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(errText || `Chat request failed with ${response.status}`);
+        // The proxy answered: show its own message (limits, region, access), not "unreachable".
+        const reason = await proxyErrorMessage(response);
+        setMessages((prev) => [...prev, { role: 'model', parts: reason }]);
+        return;
       }
 
       const data = await response.json();
@@ -307,6 +317,9 @@ const ChatWidget: React.FC = () => {
                   <Icon name="send" className="text-base" />
                 </button>
               </div>
+              {showsFreeTierNotice(ai) && (
+                <p className="mt-2 text-[10px] leading-snug text-slate-500">{AI_FREE_TIER_NOTICE}</p>
+              )}
             </form>
           </div>
         </section>

@@ -1,0 +1,15 @@
+{
+  "name": "ncrp-ai-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs"
+  },
+  "dependencies": {
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.0"
+  }
+}
