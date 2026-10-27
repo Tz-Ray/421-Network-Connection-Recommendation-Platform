@@ -174,7 +174,9 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
    they sent you) moves the people you know better up, shown as chips such as `12 msgs · Aug 2026`, `Former
    colleague`, `Also at Acme` or `Target company`, plus a `Relationship:` line. The bonus needs a zip import
    and only applies to people who already match the query. "Strict title-only" restricts a role query to title
-   matches and has no effect on non-role queries.
+   matches and has no effect on non-role queries. The "Meaning-based search" checkbox (off by default) also
+   matches by meaning: turning it on downloads a ~23 MB model from Hugging Face (plus ~6 MB of runtime from
+   jsDelivr) once and runs it in your browser; your connections never leave it.
 5. **AI Rerank (needs the proxy running).** Press AI Rerank instead of Search. The top 50 locally scored
    candidates are sent to Gemini, which reorders them and adds an `AI:` explanation line per result. The score
    badge and chips still come from the local pass.

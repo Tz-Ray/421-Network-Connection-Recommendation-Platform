@@ -1,0 +1,69 @@
+{
+  "name": "Avery Lindqvist-Okafor",
+  "headline": "Director of Flight Operations at Skyfield Aerial | Drones for public safety, agriculture & film | ex-Delta, ex-USAF",
+  "industry": "Aviation and Aerospace Component Manufacturing",
+  "positions": [
+    {
+      "company": "Skyfield Aerial",
+      "title": "Director of Flight Operations",
+      "current": true
+    },
+    {
+      "company": "Delta Air Lines",
+      "title": "First Officer, A320",
+      "current": false
+    },
+    {
+      "company": "U.S. Air Force",
+      "title": "MQ-9 Pilot, Captain",
+      "current": false
+    }
+  ],
+  "schools": [
+    "Embry-Riddle Aeronautical University",
+    "Purdue University"
+  ],
+  "skills": [
+    "UAS Operations",
+    "Part 107",
+    "FAA Regulations",
+    "Flight Safety",
+    "Crew Resource Management",
+    "BVLOS Operations",
+    "Safety Management Systems",
+    "Aerial Cinematography",
+    "Precision Agriculture",
+    "Public Safety Technology",
+    "Program Management",
+    "Pilot Training"
+  ],
+  "followedCompanies": [
+    "Zipline",
+    "Skydio",
+    "Joby Aviation",
+    "Wing",
+    "Federal Aviation Administration",
+    "AUVSI"
+  ],
+  "appliedCompanies": [
+    "Skydio",
+    "Zipline"
+  ],
+  "appliedTitles": [
+    "VP of Flight Operations"
+  ],
+  "dreamCompanies": [
+    "Zipline",
+    "Joby Aviation",
+    "Wing"
+  ],
+  "desiredTitles": [
+    "VP of Flight Operations",
+    "Head of Flight Operations",
+    "Chief Operating Officer"
+  ],
+  "source": {
+    "fileName": "Basic_LinkedInDataExport_10-01-2026.zip",
+    "importedAt": "2026-10-01T16:00:00.000Z"
+  }
+}

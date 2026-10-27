@@ -1,0 +1,72 @@
+{
+  "name": "Jordan Ellery",
+  "headline": "Director, Clinical Operations at Northbridge Health | Former healthcare consultant",
+  "industry": "Hospitals and Health Care",
+  "positions": [
+    {
+      "company": "Northbridge Health",
+      "title": "Director, Clinical Operations",
+      "current": true
+    },
+    {
+      "company": "Huron Consulting Group",
+      "title": "Manager, Healthcare Performance Improvement",
+      "current": false
+    },
+    {
+      "company": "Huron Consulting Group",
+      "title": "Senior Consultant",
+      "current": false
+    },
+    {
+      "company": "Cascadia Mutual Insurance",
+      "title": "Business Analyst",
+      "current": false
+    }
+  ],
+  "schools": [
+    "University of Washington",
+    "Gonzaga University"
+  ],
+  "skills": [
+    "Healthcare Operations",
+    "Lean Six Sigma",
+    "Revenue Cycle Management",
+    "Epic Systems",
+    "Process Improvement",
+    "Change Management",
+    "Strategic Planning",
+    "Project Management",
+    "Healthcare Consulting",
+    "Data Analysis",
+    "Stakeholder Management",
+    "Patient Flow"
+  ],
+  "followedCompanies": [
+    "Mayo Clinic",
+    "Kaiser Permanente",
+    "McKinsey & Company",
+    "CommonSpirit Health",
+    "Robert Wood Johnson Foundation"
+  ],
+  "appliedCompanies": [
+    "Kaiser Permanente",
+    "Optum"
+  ],
+  "appliedTitles": [
+    "VP, Operations",
+    "Chief Operating Officer"
+  ],
+  "dreamCompanies": [
+    "Mayo Clinic",
+    "Kaiser Permanente"
+  ],
+  "desiredTitles": [
+    "VP of Operations",
+    "Chief Operating Officer"
+  ],
+  "source": {
+    "fileName": "Basic_LinkedInDataExport_09-20-2026.zip",
+    "importedAt": "2026-09-20T15:04:00.000Z"
+  }
+}

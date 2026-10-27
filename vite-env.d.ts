@@ -10,6 +10,8 @@ interface ImportMetaEnv {
   readonly VITE_FIREBASE_MEASUREMENT_ID: string
   readonly VITE_AI_PROXY_URL?: string
   readonly VITE_CONNECTIONS_BACKEND?: 'firestore' | 'local'
+  /** 'on' = experimental features of other branches (dev only; vite.config.ts refuses it from an env file in a production build). */
+  readonly VITE_EXPERIMENTAL?: string
   /** 'on' = dev-only Auth/Firestore emulator mode (local/graph-demo); a production build rejects it. */
   readonly VITE_FIREBASE_EMULATOR?: string
   /** host:port of the Auth emulator (default 127.0.0.1:9199). */

@@ -1,5 +1,5 @@
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defaultClientConditions, defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode, command }) => {
@@ -29,6 +29,15 @@ export default defineConfig(({ mode, command }) => {
         `VITE_AI_PROXY_URL is ${proxy} (probably from .env.local); a production build needs a public proxy URL, or 'off' to ship without AI. Override it in the shell, e.g. VITE_AI_PROXY_URL=off npm run build.`
       );
     }
+    // Experimental features never ship by accident: VITE_EXPERIMENTAL=on in an env
+    // file (the natural place to turn it on for `npm run dev`) must not reach a
+    // production build. Typed in the shell it is a deliberate local experimental
+    // build (for size measurements), which is never deployed.
+    if (env.VITE_EXPERIMENTAL === 'on' && process.env.VITE_EXPERIMENTAL !== 'on') {
+      throw new Error(
+        "VITE_EXPERIMENTAL=on comes from an env file (.env/.env.local); a production build must not include experimental features. Remove it from the file, or set it in the shell for a deliberate local experimental build that is never deployed."
+      );
+    }
   }
 
   return {
@@ -37,10 +46,22 @@ export default defineConfig(({ mode, command }) => {
       host: '0.0.0.0',
     },
     plugins: [react()],
+    // Scan only the app's own entry: the default scan also picks up .claude/worktrees/*/index.html, which pulled a
+    // second React from a worktree's node_modules into the prebundled recharts ("Invalid hook call" on /dashboard in dev).
+    // `include`: the semantic worker's dependency is only reached after the toggle is
+    // turned on; prebundling it up front stops dev from reloading the page (and
+    // dropping a staged dataset) the first time.
+    optimizeDeps: { entries: ['index.html'], include: ['@huggingface/transformers'] },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
+      // Meaning-based search (lib/semantic/): onnxruntime-web's builds for this
+      // condition load their .wasm from a configured path (transformers.js points
+      // it at the pinned jsDelivr copy of the installed onnxruntime-web version)
+      // instead of `new URL('*.wasm', import.meta.url)`, which Vite would emit as a
+      // 27 MB asset into dist/. Affects only packages that declare the condition.
+      conditions: [...defaultClientConditions, 'onnxruntime-web-use-extern-wasm'],
     },
   };
 });

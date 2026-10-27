@@ -1,0 +1,87 @@
+[
+  {
+    "id": "q04",
+    "text": "recruiter",
+    "category": "role-exact",
+    "split": "test",
+    "intent": "Recruiters and talent acquisition people (technical recruiters, recruiting coordinators, talent partners)."
+  },
+  {
+    "id": "q07",
+    "text": "vp eng",
+    "category": "abbreviation",
+    "split": "test",
+    "intent": "Vice presidents of engineering or equivalent top engineering executives."
+  },
+  {
+    "id": "q09",
+    "text": "ml engineer",
+    "category": "abbreviation",
+    "split": "test",
+    "strict": true,
+    "intent": "Machine learning engineers (ML engineers, software engineers focused on machine learning); title match only."
+  },
+  {
+    "id": "q11",
+    "text": "engineering leadership",
+    "category": "seniority",
+    "split": "test",
+    "intent": "Engineering leaders: engineering managers, directors and heads/VPs of engineering, and CTOs."
+  },
+  {
+    "id": "q14",
+    "text": "engineer google",
+    "category": "role+company",
+    "split": "test",
+    "intent": "Engineers (software, staff, engineering-manager-level engineers) who work at Google / Alphabet."
+  },
+  {
+    "id": "q18",
+    "text": "people at google",
+    "category": "company-only",
+    "split": "test",
+    "intent": "Anyone who works at Google (including Google LLC, Alphabet and Google DeepMind), any role."
+  },
+  {
+    "id": "q21",
+    "text": "who could introduce me to investors",
+    "category": "natural-language",
+    "split": "test",
+    "intent": "Venture capitalists, angel investors and VC platform people who could make investor introductions."
+  },
+  {
+    "id": "q25",
+    "text": "investing",
+    "category": "stem-plural",
+    "split": "test",
+    "intent": "Investors: VC partners, principals, associates, angel investors."
+  },
+  {
+    "id": "q28",
+    "text": "prodcut manager",
+    "category": "typo",
+    "split": "test",
+    "intent": "Product managers, any seniority (query misspells \"product\")."
+  },
+  {
+    "id": "q31",
+    "text": "data engineering",
+    "category": "domain",
+    "split": "test",
+    "intent": "Data engineers, analytics engineers and data platform engineers."
+  },
+  {
+    "id": "q33",
+    "text": "healthcare",
+    "category": "domain",
+    "split": "test",
+    "intent": "People in healthcare or healthtech (health companies, clinical and health-data roles)."
+  },
+  {
+    "id": "q35",
+    "text": "mentor",
+    "category": "note",
+    "split": "test",
+    "intent": "Connections the user describes as a mentor in their notes."
+  }
+]

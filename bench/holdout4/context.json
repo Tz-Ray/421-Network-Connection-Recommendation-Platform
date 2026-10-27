@@ -1,0 +1,74 @@
+{
+  "name": "Dana Whitmore",
+  "headline": "Head of Operations at Compass Group | ex-Tesco, Unilever | Hospitality, food service & logistics",
+  "industry": "Hospitality",
+  "positions": [
+    {
+      "company": "Compass Group",
+      "title": "Head of Operations",
+      "current": true
+    },
+    {
+      "company": "Tesco",
+      "title": "Area Manager",
+      "current": false
+    },
+    {
+      "company": "Unilever",
+      "title": "Supply Chain Manager",
+      "current": false
+    },
+    {
+      "company": "Tesco",
+      "title": "Store Manager",
+      "current": false
+    }
+  ],
+  "schools": [
+    "University of Leeds",
+    "Cranfield School of Management"
+  ],
+  "skills": [
+    "Operations Management",
+    "Supply Chain Management",
+    "Retail Operations",
+    "Lean Six Sigma",
+    "Food & Beverage",
+    "Hospitality Management",
+    "Warehouse Management",
+    "P&L Management",
+    "Multi-site Management",
+    "Category Management",
+    "Procurement",
+    "Team Leadership"
+  ],
+  "followedCompanies": [
+    "Marriott International",
+    "DHL Supply Chain",
+    "Sodexo",
+    "Ocado Group",
+    "Hilton"
+  ],
+  "appliedCompanies": [
+    "GXO Logistics",
+    "Whitbread"
+  ],
+  "appliedTitles": [
+    "Operations Director",
+    "Head of Operations"
+  ],
+  "dreamCompanies": [
+    "Marriott International",
+    "DHL Supply Chain",
+    "Hilton"
+  ],
+  "desiredTitles": [
+    "Operations Director",
+    "Chief Operating Officer",
+    "VP Operations"
+  ],
+  "source": {
+    "fileName": "Basic_LinkedInDataExport_09-20-2026.zip",
+    "importedAt": "2026-09-20T09:00:00.000Z"
+  }
+}

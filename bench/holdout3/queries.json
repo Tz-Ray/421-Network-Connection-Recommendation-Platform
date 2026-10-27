@@ -1,0 +1,129 @@
+[
+  {
+    "id": "k01",
+    "text": "program officer",
+    "category": "role-exact",
+    "split": "test",
+    "intent": "Foundation program officers (grant makers), including senior program officers."
+  },
+  {
+    "id": "k02",
+    "text": "ed",
+    "category": "abbreviation",
+    "split": "test",
+    "intent": "ED = Executive Director of an organization (incl. 'E.D.'); not editors, education or deans."
+  },
+  {
+    "id": "k03",
+    "text": "pi",
+    "category": "abbreviation",
+    "split": "test",
+    "intent": "PI = principal investigator leading a research lab or grant; not pipeline, capital or philanthropies."
+  },
+  {
+    "id": "k04",
+    "text": "doe",
+    "category": "abbreviation",
+    "split": "test",
+    "intent": "People at the U.S. Department of Energy (DOE) or its national labs; not surnames like Doerr/Doering or Doe Run."
+  },
+  {
+    "id": "k05",
+    "text": "associate professor",
+    "category": "seniority",
+    "split": "test",
+    "intent": "Tenured associate professors (incl. 'Assoc. Prof.'); assistant/full professors are adjacent seniority."
+  },
+  {
+    "id": "k06",
+    "text": "reporter new york times",
+    "category": "role+company",
+    "split": "test",
+    "intent": "Reporters/correspondents at The New York Times (any company spelling, e.g. NYT)."
+  },
+  {
+    "id": "k07",
+    "text": "stanford",
+    "category": "company-only",
+    "split": "test",
+    "intent": "Anyone at Stanford (Stanford University, Stanford, Stanford GSB)."
+  },
+  {
+    "id": "k08",
+    "text": "someone who covers energy for a newspaper",
+    "category": "natural-language",
+    "split": "test",
+    "intent": "Journalists whose beat is energy, power or utilities at a newspaper or news outlet."
+  },
+  {
+    "id": "k09",
+    "text": "who could introduce me to a program officer at a foundation",
+    "category": "natural-language",
+    "split": "test",
+    "intent": "Program officers at foundations, or foundation staff close to them (program associates, grants managers)."
+  },
+  {
+    "id": "k10",
+    "text": "postdocs",
+    "category": "stem-plural",
+    "split": "test",
+    "intent": "Postdoctoral researchers (Postdoc, Postdoctoral Scholar/Fellow/Associate)."
+  },
+  {
+    "id": "k11",
+    "text": "legislative aides",
+    "category": "stem-plural",
+    "split": "test",
+    "intent": "Legislative aides and assistants in legislatures; not people named Aiden."
+  },
+  {
+    "id": "k12",
+    "text": "superintendant",
+    "category": "typo",
+    "split": "test",
+    "intent": "Construction superintendents (misspelled query), incl. assistant superintendents."
+  },
+  {
+    "id": "k13",
+    "text": "jounalist",
+    "category": "typo",
+    "split": "test",
+    "intent": "Journalists (misspelled query): reporters, correspondents, staff writers."
+  },
+  {
+    "id": "k14",
+    "text": "utilities",
+    "category": "domain",
+    "split": "test",
+    "intent": "People working at electric/gas utilities or on utility regulation (utility commissions, grid operators)."
+  },
+  {
+    "id": "k15",
+    "text": "higher education",
+    "category": "domain",
+    "split": "test",
+    "intent": "People working in universities or colleges, faculty and administrators alike."
+  },
+  {
+    "id": "k16",
+    "text": "offshore wind",
+    "category": "note",
+    "split": "test",
+    "intent": "People connected to offshore wind, including via the owner's own notes."
+  },
+  {
+    "id": "k17",
+    "text": "grid modernization engineer",
+    "category": "strict",
+    "split": "test",
+    "strict": true,
+    "intent": "Engineers whose title is grid modernization engineering; strict title-only."
+  },
+  {
+    "id": "k18",
+    "text": "chief of staff",
+    "category": "role-exact",
+    "split": "test",
+    "intent": "Chiefs of staff (legislative or agency), incl. deputy chief of staff."
+  }
+]

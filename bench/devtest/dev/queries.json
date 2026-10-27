@@ -1,0 +1,171 @@
+[
+  {
+    "id": "q01",
+    "text": "software engineer",
+    "category": "role-exact",
+    "split": "dev",
+    "intent": "Individual-contributor software engineers / software developers at any level and company."
+  },
+  {
+    "id": "q02",
+    "text": "product manager",
+    "category": "role-exact",
+    "split": "dev",
+    "intent": "Product managers (any seniority, including senior/group PMs and product owners) at any company."
+  },
+  {
+    "id": "q03",
+    "text": "data scientist",
+    "category": "role-exact",
+    "split": "dev",
+    "strict": true,
+    "intent": "People whose job title is data scientist (including senior or domain-specific data scientists); title match only."
+  },
+  {
+    "id": "q05",
+    "text": "swe",
+    "category": "abbreviation",
+    "split": "dev",
+    "intent": "Software engineers (SWE / SDE / software developer titles), any level."
+  },
+  {
+    "id": "q06",
+    "text": "pm",
+    "category": "abbreviation",
+    "split": "dev",
+    "intent": "Product managers (PM), any seniority; not project/program managers unless nothing else fits."
+  },
+  {
+    "id": "q08",
+    "text": "ae",
+    "category": "abbreviation",
+    "split": "dev",
+    "intent": "Account executives (sales AEs, including enterprise and senior AEs)."
+  },
+  {
+    "id": "q10",
+    "text": "senior engineer",
+    "category": "seniority",
+    "split": "dev",
+    "intent": "Senior-or-above individual-contributor engineers (senior, staff, principal software engineers)."
+  },
+  {
+    "id": "q12",
+    "text": "head of product",
+    "category": "seniority",
+    "split": "dev",
+    "intent": "Senior product leaders: heads of product, VPs/directors of product, chief product officers."
+  },
+  {
+    "id": "q13",
+    "text": "product manager at stripe",
+    "category": "role+company",
+    "split": "dev",
+    "intent": "Product managers who work at Stripe."
+  },
+  {
+    "id": "q15",
+    "text": "designer airbnb",
+    "category": "role+company",
+    "split": "dev",
+    "intent": "Designers (product, UX, design managers) who work at Airbnb."
+  },
+  {
+    "id": "q16",
+    "text": "recruiter at amazon",
+    "category": "role+company",
+    "split": "dev",
+    "intent": "Recruiters who work at Amazon or AWS."
+  },
+  {
+    "id": "q17",
+    "text": "stripe",
+    "category": "company-only",
+    "split": "dev",
+    "intent": "Anyone who currently works at Stripe, any role."
+  },
+  {
+    "id": "q19",
+    "text": "salesforce",
+    "category": "company-only",
+    "split": "dev",
+    "intent": "Anyone who works at Salesforce, any role."
+  },
+  {
+    "id": "q20",
+    "text": "someone who can help me hire engineers",
+    "category": "natural-language",
+    "split": "dev",
+    "intent": "Recruiters, talent partners and engineering hiring managers who could help hire software engineers."
+  },
+  {
+    "id": "q22",
+    "text": "people working on payments",
+    "category": "natural-language",
+    "split": "dev",
+    "intent": "People working on payments products or infrastructure (payments teams, payments companies such as Stripe or Cobalt Pay)."
+  },
+  {
+    "id": "q23",
+    "text": "someone to review our app's security",
+    "category": "natural-language",
+    "split": "dev",
+    "intent": "Security professionals (security engineers, application security, CISOs) who could review application security."
+  },
+  {
+    "id": "q24",
+    "text": "designers",
+    "category": "stem-plural",
+    "split": "dev",
+    "intent": "Designers of any kind (product, UX, visual, brand, graphic) and design managers."
+  },
+  {
+    "id": "q26",
+    "text": "recruiting",
+    "category": "stem-plural",
+    "split": "dev",
+    "intent": "People who work in recruiting or talent acquisition."
+  },
+  {
+    "id": "q27",
+    "text": "enginer",
+    "category": "typo",
+    "split": "dev",
+    "intent": "Engineers of any kind, with software engineers most relevant (query misspells \"engineer\")."
+  },
+  {
+    "id": "q29",
+    "text": "gogle",
+    "category": "typo",
+    "split": "dev",
+    "intent": "Anyone who works at Google / Alphabet (query misspells \"Google\")."
+  },
+  {
+    "id": "q30",
+    "text": "machine learning",
+    "category": "domain",
+    "split": "dev",
+    "intent": "People working in machine learning / AI: ML engineers, ML researchers, applied and research scientists."
+  },
+  {
+    "id": "q32",
+    "text": "fintech",
+    "category": "domain",
+    "split": "dev",
+    "intent": "People at fintech companies or in fintech roles (payments, lending, banking, insurance technology)."
+  },
+  {
+    "id": "q34",
+    "text": "hackathon",
+    "category": "note",
+    "split": "dev",
+    "intent": "Connections the user met or worked with at a hackathon (per the user's own notes)."
+  },
+  {
+    "id": "q36",
+    "text": "kubernetes",
+    "category": "note",
+    "split": "dev",
+    "intent": "People with Kubernetes expertise, primarily those whose notes mention Kubernetes; DevOps/SRE/platform engineers are secondary."
+  }
+]

@@ -1,0 +1,129 @@
+[
+  {
+    "id": "h01",
+    "text": "nurse manager",
+    "category": "role-exact",
+    "split": "test",
+    "strict": true,
+    "intent": "Nurse managers (unit/clinical nurse managers). Other nursing roles or non-nurse managers are at most marginal."
+  },
+  {
+    "id": "h02",
+    "text": "general counsel",
+    "category": "role-exact",
+    "split": "test",
+    "intent": "General Counsel and deputy/associate GCs; other in-house or law-firm counsel are adjacent. \"General Manager\" is not relevant."
+  },
+  {
+    "id": "h03",
+    "text": "cmo",
+    "category": "abbreviation",
+    "split": "test",
+    "intent": "Chief Medical Officer or Chief Marketing Officer (both expansions are valid for this owner); roles that merely mention the CMO are marginal."
+  },
+  {
+    "id": "h04",
+    "text": "hr",
+    "category": "abbreviation",
+    "split": "test",
+    "intent": "Human resources / people roles (HR business partner, HR generalist, Director of Human Resources, CHRO, people operations); talent acquisition is adjacent."
+  },
+  {
+    "id": "h05",
+    "text": "senior consultant",
+    "category": "seniority",
+    "split": "test",
+    "intent": "Senior Consultants (any firm, \"Sr.\" spelling included); plain Consultants and consulting-firm senior associates are adjacent; senior non-consulting roles are not."
+  },
+  {
+    "id": "h06",
+    "text": "healthcare executives",
+    "category": "seniority",
+    "split": "test",
+    "intent": "C-suite and VP-level leaders at hospitals, health systems, clinics and health plans; health-sector executives elsewhere are adjacent; \"Executive Assistant\" or \"Account Executive\" are not executives."
+  },
+  {
+    "id": "h07",
+    "text": "consultant at deloitte",
+    "category": "role+company",
+    "split": "test",
+    "intent": "Consultants at any Deloitte entity (Deloitte, Deloitte Consulting LLP, Monitor Deloitte); other Deloitte staff or consultants elsewhere are partial."
+  },
+  {
+    "id": "h08",
+    "text": "physician kaiser",
+    "category": "role+company",
+    "split": "test",
+    "intent": "Physicians at Kaiser Permanente or its affiliates (Permanente Medical Group, Kaiser Foundation Health Plan); physicians elsewhere or non-physician clinicians at Kaiser are partial."
+  },
+  {
+    "id": "h09",
+    "text": "mckinsey",
+    "category": "company-only",
+    "split": "test",
+    "intent": "Anyone at McKinsey (any spelling or unit), plus people explicitly described as ex-McKinsey."
+  },
+  {
+    "id": "h10",
+    "text": "people at jpmorgan",
+    "category": "company-only",
+    "split": "test",
+    "intent": "Anyone at JPMorgan Chase in any variant (JPMorgan Chase & Co., J.P. Morgan, J.P. Morgan Asset Management, Chase)."
+  },
+  {
+    "id": "h11",
+    "text": "someone who can help me with a legal question",
+    "category": "natural-language",
+    "split": "test",
+    "intent": "Lawyers who could answer a legal question: attorneys, counsel, law-firm associates/partners, general counsel; paralegals, legal ops and compliance are marginal."
+  },
+  {
+    "id": "h12",
+    "text": "who could introduce me to hospital leadership",
+    "category": "natural-language",
+    "split": "test",
+    "intent": "People who are hospital/health-system leaders or sit next to them (CEO, CMO, CNO, COO, CFO, VPs, chiefs of staff, board members with hospital ties)."
+  },
+  {
+    "id": "h13",
+    "text": "underwriters",
+    "category": "stem-plural",
+    "split": "test",
+    "intent": "Insurance and mortgage underwriters (any level); underwriting managers are relevant; actuaries are marginal; Underwriters Laboratories staff are not underwriters."
+  },
+  {
+    "id": "h14",
+    "text": "lawyers",
+    "category": "stem-plural",
+    "split": "test",
+    "intent": "Practicing lawyers: attorneys, counsel, law-firm associates and partners, general counsel. Paralegals are marginal; a nonprofit named \"Lawyers for Children\" program officer is not a lawyer."
+  },
+  {
+    "id": "h15",
+    "text": "paralegl",
+    "category": "typo",
+    "split": "test",
+    "intent": "Paralegals (typo for \"paralegal\"), including senior paralegals; legal assistants are closely related."
+  },
+  {
+    "id": "h16",
+    "text": "deloite",
+    "category": "typo",
+    "split": "test",
+    "intent": "Anyone at Deloitte (typo), any entity; ex-Deloitte people are partial."
+  },
+  {
+    "id": "h17",
+    "text": "pharma",
+    "category": "domain",
+    "split": "test",
+    "intent": "People working in the pharmaceutical/biotech industry (Pfizer, Merck, Genentech, Amgen, Moderna, Novo Nordisk, biotech startups); retail pharmacists and hospital pharmacy are marginal."
+  },
+  {
+    "id": "h18",
+    "text": "epic implementation",
+    "category": "note",
+    "split": "test",
+    "intent": "People who know Epic EHR implementations, mostly identifiable from the user's own notes, plus Epic implementation consultants; other \"implementation\" roles are marginal."
+  }
+]

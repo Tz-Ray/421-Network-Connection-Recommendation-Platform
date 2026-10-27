@@ -1,0 +1,56 @@
+{
+  "name": "Jordan Ellison-Park",
+  "headline": "Senior Product Manager at Cobalt Pay | Payments, risk and developer platforms",
+  "industry": "Financial Services",
+  "positions": [
+    {
+      "company": "Cobalt Pay",
+      "title": "Senior Product Manager",
+      "current": true
+    },
+    {
+      "company": "Salesforce",
+      "title": "Product Manager",
+      "current": false
+    }
+  ],
+  "schools": [
+    "University of Washington"
+  ],
+  "skills": [
+    "Product Management",
+    "Payments",
+    "SQL",
+    "Roadmapping",
+    "A/B Testing",
+    "Fraud Prevention",
+    "API Design",
+    "Stakeholder Management"
+  ],
+  "followedCompanies": [
+    "Stripe",
+    "Google",
+    "Brightwave Health",
+    "Northstar Ventures",
+    "Plaid"
+  ],
+  "appliedCompanies": [
+    "Ramp"
+  ],
+  "appliedTitles": [
+    "Group Product Manager"
+  ],
+  "dreamCompanies": [
+    "Stripe",
+    "Airbnb",
+    "Quillon AI"
+  ],
+  "desiredTitles": [
+    "Group Product Manager",
+    "Director of Product"
+  ],
+  "source": {
+    "fileName": "Basic_LinkedInDataExport_09-20-2026.zip",
+    "importedAt": "2026-09-20T18:04:11.000Z"
+  }
+}

@@ -1,0 +1,248 @@
+[
+  {
+    "id": "v01",
+    "text": "air traffic controller",
+    "category": "role-exact",
+    "split": "holdout",
+    "intent": "Air traffic controllers (FAA, contract towers, military ATC), any level; ATC supervisors and managers are adjacent. Financial controllers, airline dispatchers and air traffic assistants are not controllers."
+  },
+  {
+    "id": "v02",
+    "text": "agronomist",
+    "category": "role-exact",
+    "split": "holdout",
+    "intent": "Agronomists (field, senior, research, agronomy managers); crop consultants and certified crop advisers are closely related; soil scientists and precision-ag specialists are marginal."
+  },
+  {
+    "id": "v03",
+    "text": "chief pilot",
+    "category": "role-exact",
+    "split": "holdout",
+    "intent": "Chief pilots and assistant chief pilots (airline bases, charter, air medical, drone and eVTOL operators). Other pilots are marginal; other \"chief\" titles (fire chief, chief engineer, chief flight instructor) are not chief pilots."
+  },
+  {
+    "id": "v04",
+    "text": "a&p mechanic",
+    "category": "abbreviation",
+    "split": "holdout",
+    "intent": "FAA airframe and powerplant (A&P) mechanics and aircraft maintenance technicians; avionics technicians and aircraft inspectors are closely related. Auto and diesel mechanics are not A&P mechanics."
+  },
+  {
+    "id": "v05",
+    "text": "dp",
+    "category": "abbreviation",
+    "split": "holdout",
+    "intent": "DP = director of photography (cinematographers, aerial DPs). Not data protection officers, not DP World, not a Director of Product."
+  },
+  {
+    "id": "v06",
+    "text": "ems",
+    "category": "abbreviation",
+    "split": "holdout",
+    "intent": "EMS = emergency medical services: paramedics, EMTs, flight paramedics and nurses, EMS chiefs, coordinators and medical directors. Electronics manufacturing services (EMS) roles are not relevant."
+  },
+  {
+    "id": "v07",
+    "text": "uas",
+    "category": "abbreviation",
+    "split": "holdout",
+    "intent": "People who work with unmanned aircraft systems: drone pilots and operators, UAS program managers and coordinators, drone-company staff in flight, regulatory and UAS engineering roles; other staff at drone companies are marginal."
+  },
+  {
+    "id": "v08",
+    "text": "cfi",
+    "category": "abbreviation",
+    "split": "holdout",
+    "intent": "Certified flight instructors (CFI, CFII, MEI, chief and assistant chief flight instructors); simulator and ground instructors are closely related."
+  },
+  {
+    "id": "v09",
+    "text": "vfx",
+    "category": "abbreviation",
+    "split": "holdout",
+    "intent": "Visual effects people: VFX artists and supervisors, compositors, FX TDs, VFX producers, CG supervisors; other animation and post-production roles are marginal."
+  },
+  {
+    "id": "v10",
+    "text": "senior aerospace engineer",
+    "category": "seniority",
+    "split": "holdout",
+    "intent": "Senior, lead and principal aerospace engineers (any spelling, e.g. \"Sr.\"); aerospace engineers at other levels and engineering managers in aerospace are adjacent; senior engineers in other fields are marginal."
+  },
+  {
+    "id": "v11",
+    "text": "fire department leadership",
+    "category": "seniority",
+    "split": "holdout",
+    "intent": "Fire service leaders: fire chiefs, deputy, assistant, division and battalion chiefs, fire marshals; fire captains and lieutenants are adjacent."
+  },
+  {
+    "id": "v12",
+    "text": "pilot at alaska airlines",
+    "category": "role+company",
+    "split": "holdout",
+    "intent": "Pilots (captains, first officers, chief pilots, check pilots) at Alaska Airlines or Alaska Air Group; pilots at Horizon Air or other airlines and non-pilot Alaska Airlines staff are partial. Unrelated employers with \"Alaska\" in the name are not Alaska Airlines."
+  },
+  {
+    "id": "v13",
+    "text": "producer netflix",
+    "category": "role+company",
+    "split": "holdout",
+    "intent": "Producers at Netflix (producer, executive producer, line producer); producers elsewhere and other Netflix production staff are partial."
+  },
+  {
+    "id": "v14",
+    "text": "engineer at spacex",
+    "category": "role+company",
+    "split": "holdout",
+    "intent": "Engineers at SpaceX (including Starlink, which is part of SpaceX); engineers at other space companies and non-engineers at SpaceX are partial."
+  },
+  {
+    "id": "v15",
+    "text": "john deere",
+    "category": "company-only",
+    "split": "holdout",
+    "intent": "Anyone at John Deere / Deere & Company; John Deere dealership staff are closely related."
+  },
+  {
+    "id": "v16",
+    "text": "people at the faa",
+    "category": "company-only",
+    "split": "holdout",
+    "intent": "Anyone at the Federal Aviation Administration (any spelling); people described as former FAA are partial."
+  },
+  {
+    "id": "v17",
+    "text": "who could help me get a part 107 waiver approved",
+    "category": "natural-language",
+    "split": "holdout",
+    "intent": "People who can help with FAA Part 107 waivers or authorizations: FAA UAS integration and flight standards staff, drone regulatory affairs people and consultants, aviation and drone lawyers, people the owner noted as having handled waivers or COAs; drone program managers are partial."
+  },
+  {
+    "id": "v18",
+    "text": "someone who shoots aerial footage for films",
+    "category": "natural-language",
+    "split": "holdout",
+    "intent": "Aerial cinematographers, drone camera operators, aerial DPs, helicopter camera pilots and aerial film companies; directors of photography and camera operators without an aerial signal are partial."
+  },
+  {
+    "id": "v19",
+    "text": "who can introduce me to fire departments that want drones",
+    "category": "natural-language",
+    "split": "holdout",
+    "intent": "People inside fire departments, especially those running or championing drone programs (UAS coordinators, chiefs), plus people who work with fire departments on drones (public-safety drone sales and customer success, fire-chief associations); other fire service staff are partial."
+  },
+  {
+    "id": "v20",
+    "text": "someone who knows crop spraying rules",
+    "category": "natural-language",
+    "split": "holdout",
+    "intent": "People who know the rules for crop spraying: aerial applicators and ag pilots, spray-drone operators and compliance staff, pesticide licensing and compliance staff, pesticide safety educators; agronomists and applicators are partial."
+  },
+  {
+    "id": "v21",
+    "text": "someone who can help me hire pilots",
+    "category": "natural-language",
+    "split": "holdout",
+    "intent": "Pilot recruiters, aviation recruiters and pilot-hiring talent acquisition staff; chief pilots are closely related; general recruiters are marginal."
+  },
+  {
+    "id": "v22",
+    "text": "dispatchers",
+    "category": "cross-domain",
+    "split": "holdout",
+    "intent": "Dispatchers of any kind: aircraft and flight dispatchers, 911 and public safety dispatchers and telecommunicators, EMS, fire, police, marine and truck dispatchers; dispatch supervisors and managers are closely related."
+  },
+  {
+    "id": "v23",
+    "text": "airline captains",
+    "category": "cross-domain",
+    "split": "holdout",
+    "intent": "Captains who fly for airlines or cargo airlines (pilots in command); captains at charter operators are closely related. Fire, police, ship and military-rank captains are not airline captains."
+  },
+  {
+    "id": "v24",
+    "text": "film producers",
+    "category": "cross-domain",
+    "split": "holdout",
+    "intent": "Film and TV producers (producer, executive, line, associate, co- and VFX producers); news, game, music and advertising producers are partial. Insurance producers and farm producers are not."
+  },
+  {
+    "id": "v25",
+    "text": "veterinarians",
+    "category": "stem-plural",
+    "split": "holdout",
+    "intent": "Veterinarians (DVM, small and large animal, equine, emergency, industry technical-services vets); veterinary technicians and assistants are marginal."
+  },
+  {
+    "id": "v26",
+    "text": "geologists",
+    "category": "stem-plural",
+    "split": "holdout",
+    "intent": "Geologists (exploration, senior, research); geophysicists and geotechnical engineers are closely related; other mining and oil and gas engineers are marginal."
+  },
+  {
+    "id": "v27",
+    "text": "cinematographer",
+    "category": "typo",
+    "split": "holdout",
+    "intent": "Cinematographers and directors of photography (query misspelled), including aerial cinematographers; camera operators are closely related."
+  },
+  {
+    "id": "v28",
+    "text": "paramedc",
+    "category": "typo",
+    "split": "holdout",
+    "intent": "Paramedics (query misspelled), including firefighter/paramedics, flight and critical care paramedics; EMTs are closely related."
+  },
+  {
+    "id": "v29",
+    "text": "aerospase engineer",
+    "category": "typo",
+    "split": "holdout",
+    "intent": "Aerospace engineers (query misspelled), any level, including closely titled aerospace roles; other engineers at aerospace companies are adjacent."
+  },
+  {
+    "id": "v30",
+    "text": "precision agriculture",
+    "category": "domain",
+    "split": "holdout",
+    "intent": "People working in precision agriculture: precision ag specialists and managers, ag-tech and spray-drone companies, precision ag product people at equipment makers; other agriculture roles are partial."
+  },
+  {
+    "id": "v31",
+    "text": "space industry",
+    "category": "domain",
+    "split": "holdout",
+    "intent": "People at space companies and agencies (SpaceX and Starlink, Blue Origin, NASA and JPL, Rocket Lab, ULA, Relativity, Planet, Firefly)."
+  },
+  {
+    "id": "v32",
+    "text": "public safety",
+    "category": "domain",
+    "split": "holdout",
+    "intent": "People in public safety: police and sheriff, fire service, EMS, 911 dispatch, emergency management, search and rescue, federal law enforcement; public-safety drone sales and programs are related."
+  },
+  {
+    "id": "v33",
+    "text": "beta tester",
+    "category": "note",
+    "split": "holdout",
+    "intent": "People who beta-tested (or offered to beta-test) the owner's products, known from the owner's notes; professional QA and test roles are marginal; working at BETA Technologies does not make someone a beta tester."
+  },
+  {
+    "id": "v34",
+    "text": "wildfire",
+    "category": "note",
+    "split": "holdout",
+    "intent": "People who work on wildfire: wildland firefighters and fire agencies, aerial firefighting, wildfire mitigation and detection, and people whose notes link them to wildfire work."
+  },
+  {
+    "id": "v35",
+    "text": "flight test engineer",
+    "category": "strict",
+    "split": "holdout",
+    "strict": true,
+    "intent": "Flight test engineers (incl. senior, flight test instrumentation engineers); test pilots are adjacent; other test or field test engineers are marginal. Strict title-only."
+  }
+]

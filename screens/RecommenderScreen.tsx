@@ -46,6 +46,7 @@ import type { Favorite } from '../lib/savedItems';
 import { useAuth } from '../lib/AuthContext';
 import { SavedSearches } from '../components/SavedSearches';
 import { FavoritesList } from '../components/FavoritesList';
+import type { SemanticRanker } from '../lib/semantic/types';
 
 type Row = Record<string, unknown>;
 
@@ -62,6 +63,11 @@ type CandidateSummary = {
 
 const MAX_RESULTS = 10;
 const AI_POOL_SIZE = 50;
+
+// The "Meaning-based search" toggle (lib/semantic/). Lazy so the main bundle never
+// carries it; the model runtime is a further dynamic import inside it, made only
+// when the user turns the toggle on.
+const SemanticSearchToggle = React.lazy(() => import('../components/SemanticSearchToggle'));
 
 function unescapeJsonString(s: string): string {
   return s
@@ -278,6 +284,9 @@ const RecommenderScreen: React.FC = () => {
   const [saving, setSaving] = useState<boolean>(false);
 
   const [strictTitleOnly, setStrictTitleOnly] = useState<boolean>(false);
+  // Set by the meaning-based search toggle while it is on; null = the lexical ranker only.
+  // AI Rerank does not read it (it keeps the lexical pool; known limitation).
+  const semanticRanker = useRef<SemanticRanker | null>(null);
 
   // The criteria that produced `results` (the textarea may be edited since).
   const [resultsQuery, setResultsQuery] = useState<string>('');
@@ -674,7 +683,9 @@ const RecommenderScreen: React.FC = () => {
     const seq = ++searchSeq.current;
     setSearching(true);
     try {
-      const { roleQuery, ranked } = rankConnections(confirmedRows, queryText, strict, confirmedContext);
+      const { roleQuery, ranked } = semanticRanker.current
+        ? await semanticRanker.current(confirmedRows, queryText, strict, confirmedContext)
+        : rankConnections(confirmedRows, queryText, strict, confirmedContext);
 
       // Votes can lift anyone from the same pool AI Rerank uses into the top results.
       const pool = ranked.slice(0, AI_POOL_SIZE);
@@ -738,6 +749,8 @@ const RecommenderScreen: React.FC = () => {
 
     // Identical local ranking (relevance, then relationship) as runSearch; the
     // AI can only reorder / select within the top AI_POOL_SIZE of this order.
+    // Always the lexical ranking, also while meaning-based search is on (known
+    // limitation: the AI never sees rows the semantic pass added or reordered).
     const { expanded, ranked } = rankConnections(confirmedRows, queryText, strictTitleOnly, confirmedContext);
 
     const pool = ranked.slice(0, AI_POOL_SIZE);
@@ -1341,6 +1354,15 @@ const RecommenderScreen: React.FC = () => {
                   — blocks company-only matches, may return 0 if titles are missing.
                 </span>
               </div>
+
+              <React.Suspense fallback={null}>
+                <SemanticSearchToggle
+                  disabled={!isConfirmed}
+                  onChange={(ranker) => {
+                    semanticRanker.current = ranker;
+                  }}
+                />
+              </React.Suspense>
 
               <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs text-slate-500">
