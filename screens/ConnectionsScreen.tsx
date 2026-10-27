@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
@@ -14,15 +14,10 @@ import {
 import { relationshipSignals } from '../lib/relationship';
 import { auth } from '../firebase';
 import {
-  MAX_GRAPH_KEYS,
   isGraphMember,
-  joinGraph,
-  leaveGraph,
   loadCommonConnections,
   personKeyFor,
-  resolveGraphDisplayName,
   type CommonConnections,
-  type GraphSyncResult,
 } from '../lib/networkGraph';
 
 const DEFAULT_PAGE_SIZE = 50;
@@ -55,13 +50,10 @@ const ConnectionsScreen: React.FC = () => {
   // top of a faster Refresh issued after it.
   const requestId = useRef(0);
 
-  // Common-connections graph (opt-in).
+  // Common-connections graph (opt-in; managed on /network). Read here only for
+  // the status line, the `In common` column and the `Most in common` sort.
   const [graphStatus, setGraphStatus] = useState<GraphStatus>('loading');
-  const [graphError, setGraphError] = useState('');
-  const [graphBusy, setGraphBusy] = useState(false);
   const [common, setCommon] = useState<CommonConnections | null>(null);
-  const [lastSync, setLastSync] = useState<GraphSyncResult | null>(null);
-  const [expandedMember, setExpandedMember] = useState<string | null>(null);
   const [keyByRow, setKeyByRow] = useState<Map<ConnectionDoc, string | null>>(() => new Map());
   const graphRequestId = useRef(0);
   const graphLoadStarted = useRef(false);
@@ -71,7 +63,6 @@ const ConnectionsScreen: React.FC = () => {
     const stillMine = () => myRequest === graphRequestId.current && auth.currentUser?.uid === uid;
 
     setGraphStatus('loading');
-    setGraphError('');
     try {
       const member = await isGraphMember(uid);
       if (!stillMine()) return;
@@ -84,10 +75,10 @@ const ConnectionsScreen: React.FC = () => {
       if (!stillMine()) return;
       setCommon(result);
       setGraphStatus('in');
-    } catch (e: any) {
+    } catch (e: unknown) {
       if (!stillMine()) return;
+      console.warn('Common connections unavailable:', e);
       setCommon(null);
-      setGraphError(e?.message ?? 'Failed to load common connections.');
       setGraphStatus('error');
     }
   }
@@ -113,76 +104,11 @@ const ConnectionsScreen: React.FC = () => {
     };
   }, [rows, graphStatus]);
 
-  async function handleJoin() {
-    if (!user || graphBusy) return;
-    const uid = user.uid;
-    setGraphBusy(true);
-    setGraphError('');
-    try {
-      const name = await resolveGraphDisplayName(uid);
-      const result = await joinGraph(uid, name, rows.map(docToRow));
-      if (auth.currentUser?.uid !== uid) return;
-      setLastSync(result);
-      await loadGraph(uid);
-    } catch (e: any) {
-      if (auth.currentUser?.uid !== uid) return;
-      // The opt-in doc and some batches may already be written: show the real state
-      // (with "Stop sharing" when the user is now a member) before the error.
-      await loadGraph(uid);
-      if (auth.currentUser?.uid !== uid) return;
-      setGraphError(e?.message ?? 'Could not start sharing.');
-    } finally {
-      setGraphBusy(false);
-    }
-  }
-
-  async function handleLeave() {
-    if (!user || graphBusy) return;
-    const uid = user.uid;
-    setGraphBusy(true);
-    setGraphError('');
-    try {
-      await leaveGraph(uid);
-      if (auth.currentUser?.uid !== uid) return;
-      ++graphRequestId.current; // drop any in-flight graph load
-      setCommon(null);
-      setLastSync(null);
-      setExpandedMember(null);
-      setGraphStatus('out');
-      if (sortMode === 'common') setSortMode('default');
-    } catch (e: any) {
-      if (auth.currentUser?.uid !== uid) return;
-      setGraphError(e?.message ?? 'Could not stop sharing. Please try again.');
-    } finally {
-      setGraphBusy(false);
-    }
-  }
-
   function inCommonCount(r: ConnectionDoc): number {
     if (graphStatus !== 'in' || !common) return 0;
     const key = keyByRow.get(r);
     return key ? common.othersByPerson.get(key)?.length ?? 0 : 0;
   }
-
-  // personKey -> names from the user's OWN connection docs.
-  const namesByKey = useMemo(() => {
-    const m = new Map<string, string[]>();
-    for (const r of rows) {
-      const key = keyByRow.get(r);
-      if (!key) continue;
-      const name = displayName(r) || '(no name)';
-      const list = m.get(key);
-      if (list) list.push(name);
-      else m.set(key, [name]);
-    }
-    return m;
-  }, [rows, keyByRow]);
-
-  const noUrlCount = useMemo(() => {
-    let n = 0;
-    for (const r of rows) if (keyByRow.has(r) && keyByRow.get(r) === null) n++;
-    return n;
-  }, [rows, keyByRow]);
 
   async function loadAll() {
     const myRequest = ++requestId.current;
@@ -307,124 +233,25 @@ const ConnectionsScreen: React.FC = () => {
             </div>
           </div>
 
-          <div className="glass-panel rounded-xl p-4 md:p-6 space-y-4">
-            <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
-                  <Icon name="hub" className="text-primary" />
-                  Common connections
-                </h2>
-                <p className="text-sm text-slate-400 mt-1">
-                  See which of your connections other members also know, and who you share the most people with.
-                </p>
-              </div>
-              {graphStatus === 'in' && (
-                <button
-                  onClick={() => void handleLeave()}
-                  disabled={graphBusy}
-                  className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-                >
-                  <Icon name="link_off" className="text-sm" />
-                  <span>{graphBusy ? 'Removing…' : 'Stop sharing'}</span>
-                </button>
-              )}
-            </div>
-
-            {graphError && (
-              <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">{graphError}</div>
-            )}
-
-            {graphStatus === 'loading' && <p className="text-sm text-slate-400">Checking sharing status…</p>}
-
-            {graphStatus === 'error' && (
-              <p className="text-sm text-slate-400">Common connections are unavailable right now. Try Refresh.</p>
-            )}
-
-            {graphStatus === 'out' && (
-              <div className="space-y-3">
-                <ul className="text-sm text-slate-300 list-disc pl-5 space-y-1">
-                  <li>
-                    What is shared: a one-way hash of each connection's LinkedIn profile URL, plus your display name.
-                  </li>
-                  <li>Never shared: names, titles, companies, emails, messages or notes.</li>
-                  <li>Other members who also have that person can see that you do.</li>
-                  <li>Connections without a LinkedIn profile URL are not shared.</li>
-                  <li>
-                    Up to {MAX_GRAPH_KEYS.toLocaleString()} connections are shared. You can stop sharing any time and your
-                    entries are removed.
-                  </li>
-                </ul>
-                <button
-                  onClick={() => void handleJoin()}
-                  disabled={graphBusy || loading}
-                  className="bg-primary hover:bg-primary/90 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <Icon name="share" className="text-sm" />
-                  <span>{graphBusy ? 'Sharing…' : 'Share my connections'}</span>
-                </button>
-              </div>
-            )}
-
-            {graphStatus === 'in' && common && (
-              <div className="space-y-4">
-                <p className="text-sm text-slate-300">
-                  {lastSync
-                    ? `Synced: ${lastSync.added.toLocaleString()} added, ${lastSync.removed.toLocaleString()} removed, ${lastSync.kept.toLocaleString()} unchanged.`
-                    : `Sharing ${common.myNodeCount.toLocaleString()} connections.`}
-                  {(() => {
-                    const skipped = lastSync ? lastSync.skippedNoUrl : noUrlCount;
-                    return skipped > 0 ? ` ${skipped.toLocaleString()} without a profile URL not shared.` : '';
-                  })()}
-                  {lastSync && lastSync.capped > 0
-                    ? ` ${lastSync.capped.toLocaleString()} over the ${MAX_GRAPH_KEYS.toLocaleString()}-connection limit not shared.`
-                    : ''}
-                  {' '}Saving new connections updates what you share.
-                </p>
-
-                <div>
-                  <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2">
-                    Members you share connections with
-                  </h3>
-                  {common.members.length === 0 ? (
-                    <p className="text-sm text-slate-500">No other members share connections with you yet.</p>
-                  ) : (
-                    <ul className="divide-y divide-white/5 border border-white/10 rounded-lg max-h-[320px] overflow-auto custom-scrollbar">
-                      {common.members.map((m) => {
-                        const open = expandedMember === m.uid;
-                        const names = open
-                          ? m.personKeys.flatMap((k) => namesByKey.get(k) ?? []).sort((a, b) => a.localeCompare(b))
-                          : [];
-                        return (
-                          <li key={m.uid}>
-                            <button
-                              onClick={() => setExpandedMember(open ? null : m.uid)}
-                              className="w-full flex items-center justify-between gap-3 px-3 py-2 text-left hover:bg-white/5"
-                            >
-                              <span className="flex items-center gap-2 text-sm font-bold text-slate-100">
-                                <Icon name={open ? 'expand_less' : 'expand_more'} className="text-sm text-slate-400" />
-                                {m.displayName}
-                              </span>
-                              <span className="text-xs font-bold text-primary whitespace-nowrap">
-                                {m.personKeys.length.toLocaleString()} in common
-                              </span>
-                            </button>
-                            {open && (
-                              <div className="px-9 pb-3 text-sm text-slate-300">
-                                {names.length > 0
-                                  ? names.join(', ')
-                                  : keyByRow.size === 0
-                                    ? 'Loading names…'
-                                    : 'None of these are in your current saved connections.'}
-                              </div>
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </div>
-              </div>
-            )}
+          <div
+            className="glass-panel rounded-xl px-4 py-3 md:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+            data-testid="common-status"
+          >
+            <p className="text-sm text-slate-300 flex items-center gap-2">
+              <Icon name="hub" className="text-primary" />
+              {graphStatus === 'loading' && 'Checking sharing status…'}
+              {graphStatus === 'error' && 'Common connections are unavailable right now. Try Refresh.'}
+              {graphStatus === 'out' && 'Common connections: not sharing. Share to see which of your connections other members also know.'}
+              {graphStatus === 'in' &&
+                common &&
+                `Common connections: sharing ${common.myNodeCount.toLocaleString()} connections; ${common.members.length.toLocaleString()} member${
+                  common.members.length === 1 ? '' : 's'
+                } share people with you.`}
+            </p>
+            <Link to="/network" className="text-sm font-bold text-primary hover:underline whitespace-nowrap flex items-center gap-1">
+              {graphStatus === 'in' ? 'Open network graph' : 'Manage sharing'}
+              <Icon name="arrow_forward" className="text-sm" />
+            </Link>
           </div>
 
           <div className="glass-panel rounded-xl p-4 md:p-6">

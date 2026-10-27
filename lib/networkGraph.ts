@@ -297,3 +297,32 @@ export async function loadCommonConnections(uid: string): Promise<CommonConnecti
 
   return { myNodeCount: snap.size, othersByPerson, members };
 }
+
+export type GraphNodeDoc = {
+  personKey: string;
+  members: string[];
+  /** ISO time of the last write, or null. */
+  updatedAt: string | null;
+};
+
+/**
+ * The raw stored graph_people document for one key (the rules allow it only
+ * when the viewer is on it). Used by the /network page to show exactly what
+ * the database holds. Null when the node does not exist.
+ */
+export async function loadGraphNode(personKey: string): Promise<GraphNodeDoc | null> {
+  const snap = await getDoc(doc(db, PEOPLE, personKey));
+  if (!snap.exists()) return null;
+  const members = snap.get('members');
+  const ts = snap.get('updatedAt');
+  let updatedAt: string | null = null;
+  if (ts && typeof ts.toDate === 'function') {
+    const d = ts.toDate();
+    if (d instanceof Date && !Number.isNaN(d.getTime())) updatedAt = d.toISOString();
+  }
+  return {
+    personKey,
+    members: Array.isArray(members) ? members.filter((m): m is string => typeof m === 'string') : [],
+    updatedAt,
+  };
+}

@@ -1,16 +1,33 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { connectAuthEmulator, getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
-};
+export const EMULATOR_MODE = import.meta.env.VITE_FIREBASE_EMULATOR === 'on';
+
+// In emulator mode only a `demo-` project id is used (the emulators then refuse
+// to reach any real project), so a dev server that also loaded .env.local's real
+// config still never talks to it.
+const EMULATOR_PROJECT_ID = 'demo-ncrp-graph';
+const emulatorProjectId = (() => {
+  const id = (import.meta.env.VITE_FIREBASE_PROJECT_ID ?? '').trim();
+  return id.startsWith('demo-') ? id : EMULATOR_PROJECT_ID;
+})();
+
+const firebaseConfig = EMULATOR_MODE
+  ? {
+      apiKey: 'demo-api-key',
+      authDomain: `${emulatorProjectId}.firebaseapp.com`,
+      projectId: emulatorProjectId,
+    }
+  : {
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+    };
 
 // Fail loudly (but don't crash the app) when the build was made without config.
 const missingEnvVars = ([
@@ -36,6 +53,29 @@ export const googleProvider = new GoogleAuthProvider();
 
 // Firestore
 export const db = getFirestore(app);
+
+// Dev-only emulator mode (local/graph-demo): VITE_FIREBASE_EMULATOR=on points Auth
+// and Firestore at local emulators. vite.config.ts refuses a production build with
+// it on. Defaults stay clear of the usual 9099/8080 and of the rules tests (8181).
+function emulatorHost(value: string | undefined, fallback: string): { host: string; port: number } {
+  const raw = (value ?? '').trim() || fallback;
+  const m = /^(?:https?:\/\/)?([^:/]+):(\d+)\/?$/.exec(raw);
+  if (!m) {
+    console.error(`Invalid emulator address "${raw}", using ${fallback}.`);
+    return emulatorHost(fallback, fallback);
+  }
+  return { host: m[1], port: Number(m[2]) };
+}
+
+if (EMULATOR_MODE) {
+  const authAt = emulatorHost(import.meta.env.VITE_FIREBASE_EMULATOR_AUTH, '127.0.0.1:9199');
+  const fsAt = emulatorHost(import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE, '127.0.0.1:8190');
+  connectAuthEmulator(auth, `http://${authAt.host}:${authAt.port}`, { disableWarnings: true });
+  connectFirestoreEmulator(db, fsAt.host, fsAt.port);
+  console.info(
+    `Firebase emulator mode is ON (project ${firebaseConfig.projectId}): Auth ${authAt.host}:${authAt.port}, Firestore ${fsAt.host}:${fsAt.port}. No real Firebase project is used.`
+  );
+}
 
 const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/popup-closed-by-user': 'Sign-in was cancelled.',

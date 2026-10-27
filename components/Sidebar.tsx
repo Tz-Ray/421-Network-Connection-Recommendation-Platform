@@ -18,6 +18,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'Dashboard', icon: 'dashboard', path: '/dashboard' },
     { name: 'Recommender', icon: 'group', path: '/recommender' },
     { name: 'Connections', icon: 'contacts', path: '/connections' },
+    { name: 'Network', icon: 'hub', path: '/network' },
     { name: 'AI', icon: 'smart_toy', path: '/ai' },
     { name: 'Portfolio', icon: 'pie_chart', path: '' },
     { name: 'Pipeline', icon: 'account_tree', path: '' },

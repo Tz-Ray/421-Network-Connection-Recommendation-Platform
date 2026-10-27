@@ -9,6 +9,7 @@ import PublicRoute from './PublicRoute';
 import RecommenderScreen from './screens/RecommenderScreen';
 import AIScreen from './screens/AIScreen';
 import ConnectionsScreen from './screens/ConnectionsScreen';
+import NetworkScreen from './screens/NetworkScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import { AuthProvider } from './lib/AuthContext';
 
@@ -68,6 +69,15 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute>
                 <ConnectionsScreen />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/network"
+            element={
+              <ProtectedRoute>
+                <NetworkScreen />
               </ProtectedRoute>
             }
           />

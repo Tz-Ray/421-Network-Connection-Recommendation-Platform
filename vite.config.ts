@@ -11,6 +11,13 @@ export default defineConfig(({ mode, command }) => {
   // switched off. `.env.local` points at localhost for dev, so a localhost URL is
   // rejected here too: it would call the visitor's own machine.
   if (command === 'build' && mode === 'production') {
+    // Emulator mode (local/graph-demo) talks to local Auth/Firestore emulators and
+    // must never ship.
+    if ((env.VITE_FIREBASE_EMULATOR ?? '').trim().toLowerCase() === 'on') {
+      throw new Error(
+        'VITE_FIREBASE_EMULATOR=on is dev-only (local emulators); a production build must not use it. Unset it, e.g. VITE_FIREBASE_EMULATOR= VITE_AI_PROXY_URL=off npm run build.'
+      );
+    }
     const proxy = (env.VITE_AI_PROXY_URL ?? '').trim();
     if (!proxy) {
       throw new Error(

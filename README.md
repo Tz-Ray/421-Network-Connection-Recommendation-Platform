@@ -188,7 +188,10 @@ The `functions/` folder holds an unused Cloud Functions version of the proxy tha
    drops out of the list instead of appearing last (see Known Problems).
 7. **Connections page.** The Connections screen lists what is saved in your account, independent of this
    browser session. "Use in Recommender" loads that saved set back into the Recommender so you can search it
-   without re-uploading.
+   without re-uploading. The Network item in the sidebar lets you opt in to sharing your connections with other
+   members (only a one-way hash of each profile link and your display name are stored) and shows an interactive
+   graph of the members who know the same people, with the people you have in common named from your own list.
+   Stop sharing removes you from the shared graph.
 8. **AI chat (needs the proxy running).** The AI item in the sidebar opens a full-page chat over your
    connections, and a floating chat button is available on every signed-in screen. Ask things like "who can
    introduce me to someone in medical devices". Both surfaces read your saved connections and answer with a
