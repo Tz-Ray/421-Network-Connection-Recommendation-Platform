@@ -16,6 +16,8 @@ The current sprint's report lives in `reports/sprint-N/`. Finished CptS 421 spri
 | 5 | CptS 423 | 2026-10-01 to 2026-10-31 | [sprint-5-report.md](sprint-5/sprint-5-report.md) | [sprint-5-presentation.pptx](sprint-5/sprint-5-presentation.pptx) | to be added |
 | 6 | CptS 423 | 2026-11-01 to 2026-12-05 (planned) | not yet written | | |
 
+Final report (CptS 423): [Draft 1](final-report/CptS423-Final-Report-Draft1.docx) (end of Sprint 4) and [Draft 2](final-report/CptS423-Final-Report-Draft2.docx) ([PDF](final-report/CptS423-Final-Report-Draft2.pdf), end of Sprint 5).
+
 Plan: [CptS 423 sprint 4-6 deliverables](plans/cpts423-sprint-4-6-deliverables.pdf) (goals, deliverables and
 owners; the sprint 5 and 6 dates above come from it).
 
