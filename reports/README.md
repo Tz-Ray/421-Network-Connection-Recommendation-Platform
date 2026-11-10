@@ -28,3 +28,4 @@ Client meeting minutes:
 | 2026-09-30 | Sprint 4 status and Sprint 5 planning (#3) | [2026-09-30-client-meeting-3.pdf](sprint-4/minutes/2026-09-30-client-meeting-3.pdf) |
 | 2026-10-06 | Sprint 4 demo, Sprint 5 plan, schedule (#4) | [2026-10-06-client-meeting-4.pdf](sprint-5/minutes/2026-10-06-client-meeting-4.pdf) |
 | 2026-10-27 | Sprint 5 progress update, poster event (#5) | [2026-10-27-client-meeting-5.pdf](sprint-5/minutes/2026-10-27-client-meeting-5.pdf) |
+| 2026-11-10 | UI options showcase (client picked Option #2), poster event details (#6) | [2026-11-10-client-meeting-6.pdf](sprint-6/minutes/2026-11-10-client-meeting-6.pdf) |
