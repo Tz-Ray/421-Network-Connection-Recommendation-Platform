@@ -322,7 +322,8 @@ Sprint reports and plans:
 
 - [Sprint reports index](reports/README.md) - every sprint's report, slides and video in one table.
 - [Sprint 5 report](reports/sprint-5/sprint-5-report.md) and
-  [Sprint 5 presentation](reports/sprint-5/sprint-5-presentation.pptx) - the current sprint (CptS 423).
+  [Sprint 5 presentation](reports/sprint-5/sprint-5-presentation.pptx) - the current sprint (CptS 423; video:
+  https://youtu.be/0cw2YuDh3aU).
 - [Sprint 4 report](reports/sprint-4/sprint-4-report.md) and
   [Sprint 4 presentation](reports/sprint-4/sprint-4-presentation.pptx) (CptS 423; video:
   https://youtu.be/mZMDa78OG2M).

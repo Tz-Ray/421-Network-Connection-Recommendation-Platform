@@ -4,7 +4,7 @@ GitHub: https://github.com/Tz-Ray/421-Network-Connection-Recommendation-Platform
 
 ## YouTube link of Sprint 5 Video (Make this video unlisted)
 
-Link to be added after recording.
+https://youtu.be/0cw2YuDh3aU
 
 ## What's New (User Facing)
 
