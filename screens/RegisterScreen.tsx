@@ -1,29 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '../components/Icon';
 import { auth, googleProvider, describeAuthError } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 
+import '../styles/auth.css';
+
 const RegisterScreen: React.FC = () => {
   const navigate = useNavigate();
-  
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  // Sign-in and reset links only help when the email already has an account.
+  const [accountExists, setAccountExists] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [fields, setFields] = useState<{ name?: string; email?: string; password?: string }>({});
+  const alert = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (error && !loading) alert.current?.focus();
+  }, [error, loading]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setAccountExists(false);
+    const next = {
+      name: name.trim() ? undefined : 'Enter your name.',
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ? undefined : 'Enter a valid email address.',
+      password: password.length >= 6 ? undefined : 'Use at least 6 characters.',
+    };
+    setFields(next);
+    if (Object.values(next).some(Boolean)) {
+      setError('There is a problem. Check the fields below.');
+      return;
+    }
     setLoading(true);
 
     let userCredential;
     try {
       userCredential = await createUserWithEmailAndPassword(auth, email, password);
     } catch (err) {
+      const code = String((err as { code?: unknown } | null)?.code ?? '');
+      setAccountExists(code === 'auth/email-already-in-use');
       setError(describeAuthError(err));
+      if (code === 'auth/email-already-in-use' || code === 'auth/invalid-email')
+        setFields({ email: 'Check this email address, or sign in if you already have an account.' });
+      else if (code === 'auth/weak-password' || code === 'auth/password-does-not-meet-requirements')
+        setFields({ password: describeAuthError(err) });
       setLoading(false);
       return;
     }
@@ -32,22 +58,23 @@ const RegisterScreen: React.FC = () => {
     // reported as a failed signup.
     try {
       if (userCredential.user) {
-        await updateProfile(userCredential.user, { displayName: name });
+        await updateProfile(userCredential.user, { displayName: name.trim() });
       }
     } catch (err) {
       console.warn('Account created, but setting the display name failed:', err);
     }
 
     setLoading(false);
-    navigate('/dashboard');
+    navigate('/dashboard', { replace: true });
   };
 
   const handleGoogleSignIn = async () => {
     setError('');
+    setAccountExists(false);
     setLoading(true);
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError(describeAuthError(err));
     } finally {
@@ -56,126 +83,127 @@ const RegisterScreen: React.FC = () => {
   };
 
   return (
-    <div className="bg-mesh min-h-screen flex items-center justify-center font-display overflow-y-auto py-8 px-4 sm:px-6">
-      <main className="relative z-10 w-full max-w-[420px] animate-fade-in-up">
-        <div className="mac-glass rounded-3xl p-6 sm:p-8 flex flex-col items-center transition-all duration-300 hover:border-white/20">
-          
-          <div className="mb-6 sm:mb-8 hover:scale-105 transition-transform duration-300">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-2xl">
-              <Icon name="hub" className="text-white text-2xl sm:text-3xl" />
-            </div>
-          </div>
-          
-          <div className="text-center mb-6 sm:mb-8">
-            <h1 className="text-white text-xl sm:text-2xl font-bold tracking-tight">Create Account</h1>
-            <p className="text-slate-400 text-sm mt-1">Turn your LinkedIn connections into a shortlist</p>
-          </div>
-
-          {error && (
-            <div className="w-full mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-2 text-red-400">
-              <Icon name="error_outline" className="text-lg shrink-0 mt-0.5" />
-              <p className="text-xs font-medium leading-relaxed">{error}</p>
-            </div>
-          )}
-
-          <form onSubmit={handleRegister} className="w-full space-y-4">
-            <div className="space-y-1.5 group">
-              <label className="text-[10px] font-bold text-slate-500 ml-1 uppercase tracking-widest group-focus-within:text-primary transition-colors">Full Name</label>
-              <div className="relative">
-                <Icon name="person" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors" />
-                <input 
-                  type="text" 
-                  required 
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="John Doe" 
-                  className="mac-input w-full rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-600 text-sm"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5 group">
-              <label className="text-[10px] font-bold text-slate-500 ml-1 uppercase tracking-widest group-focus-within:text-primary transition-colors">Email Address</label>
-              <div className="relative">
-                <Icon name="alternate_email" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors" />
-                <input 
-                  type="email" 
-                  required 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@company.com" 
-                  className="mac-input w-full rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-600 text-sm"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5 group">
-              <label className="text-[10px] font-bold text-slate-500 ml-1 uppercase tracking-widest group-focus-within:text-primary transition-colors">Password</label>
-              <div className="relative">
-                <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors" />
-                <input 
-                  type={showPassword ? "text" : "password"}
-                  required 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••" 
-                  className="mac-input w-full rounded-xl py-3 pl-11 pr-12 text-white placeholder-slate-600 text-sm"
-                />
-                <button 
-                  type="button" 
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label="Toggle password visibility" 
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white active:scale-90 transition-all"
-                >
-                  <Icon name={showPassword ? "visibility_off" : "visibility"} className="text-lg" />
-                </button>
-              </div>
-            </div>
-
-            <button 
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-semibold py-3.5 rounded-xl mt-6 transition-all duration-300 shadow-lg shadow-primary/20 disabled:opacity-50 disabled:hover:bg-primary active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-[#101622]"
-            >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                'Continue'
+    <main className="login">
+      <section className="login-card" aria-labelledby="register-title">
+        <span className="logo" aria-hidden="true">
+          <Icon name="network" />
+        </span>
+        <h1 id="register-title">Create your account</h1>
+        <p className="sub">Free. You add your LinkedIn export after signing in.</p>
+        {error && (
+          <div className="note bad" role="alert" ref={alert} tabIndex={-1}>
+            <Icon name="alert" />
+            <div>
+              {error}
+              {accountExists && (
+                <>
+                  {' '}
+                  <Link to="/login">Sign in</Link> or{' '}
+                  <Link to="/login" state={{ forgot: true }}>
+                    reset your password
+                  </Link>
+                  .
+                </>
               )}
-            </button>
-          </form>
-
-          <div className="flex items-center w-full my-6 opacity-20">
-            <div className="h-[1px] flex-1 bg-white"></div>
-          </div>
-
-          <div className="w-full">
-            <button 
-              type="button"
-              onClick={handleGoogleSignIn}
-              disabled={loading}
-              className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 active:scale-[0.98] transition-all"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 488 512" xmlns="http://www.w3.org/2000/svg">
-                <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" fill="currentColor"></path>
-              </svg>
-              <span className="text-xs text-white font-medium">Sign in with Google</span>
-            </button>
-          </div>
-
-        </div>
-
-        <div className="mt-8 flex justify-center">
-          <Link to="/login" className="flex items-center space-x-3 group text-slate-400 hover:text-white transition-all duration-300">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 group-hover:bg-white/10 border border-white/10 group-active:scale-95 transition-all">
-              <Icon name="arrow_back" className="text-xl" />
             </div>
-            <span className="text-sm font-medium">Back to Login</span>
-          </Link>
-        </div>
-      </main>
-    </div>
+          </div>
+        )}
+        <form noValidate onSubmit={handleRegister}>
+          <div className="field">
+            <label htmlFor="register-name">Your name</label>
+            <input
+              className="input"
+              id="register-name"
+              aria-invalid={!!fields.name}
+              aria-describedby={fields.name ? 'register-name-error' : undefined}
+              data-testid="register-name"
+              autoComplete="name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {fields.name && (
+              <p className="err" id="register-name-error">
+                {fields.name}
+              </p>
+            )}
+          </div>
+          <div className="field">
+            <label htmlFor="register-email">Email</label>
+            <input
+              className="input"
+              id="register-email"
+              aria-invalid={!!fields.email}
+              aria-describedby={fields.email ? 'register-email-error' : undefined}
+              data-testid="register-email"
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {fields.email && (
+              <p className="err" id="register-email-error">
+                {fields.email}
+              </p>
+            )}
+          </div>
+          <div className="field">
+            <label htmlFor="register-password">Password</label>
+            <div className="pw">
+              <input
+                className="input"
+                id="register-password"
+                data-testid="register-password"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="new-password"
+                required
+                minLength={6}
+                aria-invalid={!!fields.password}
+                aria-describedby={fields.password ? 'register-password-error password-hint' : 'password-hint'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                className="linkbtn"
+                type="button"
+                aria-pressed={showPassword}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-controls="register-password"
+                onClick={() => setShowPassword((v) => !v)}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
+            {fields.password && (
+              <p className="err" id="register-password-error">
+                {fields.password}
+              </p>
+            )}
+            <span className="hint" id="password-hint">
+              At least 6 characters.
+            </span>
+          </div>
+          <button className="btn primary" type="submit" data-testid="register-submit" disabled={loading}>
+            {loading ? 'Creating account…' : 'Create account'}
+          </button>
+          <div className="or">or</div>
+          <button
+            className="btn"
+            type="button"
+            data-testid="register-google"
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+          >
+            <Icon name="user" />
+            Continue with Google
+          </button>
+          <p className="auth-link">
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </form>
+      </section>
+    </main>
   );
 };
-
 export default RegisterScreen;

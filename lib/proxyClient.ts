@@ -20,7 +20,7 @@ export const AI_DISABLED: boolean =
   (import.meta.env.VITE_AI_PROXY_URL ?? '').trim().toLowerCase() === 'off';
 
 export const AI_DISABLED_MESSAGE =
-  "AI features (AI Rerank and the AI assistant) aren't available on the hosted version of this app.";
+  "AI features (Reorder with AI and the AI assistant) aren't available on the hosted version of this app.";
 
 function resolveProxyUrl(): string {
   if (AI_DISABLED) return '';
@@ -39,18 +39,18 @@ export const PROXY_URL: string = resolveProxyUrl();
 export const PROXY_CONFIGURED: boolean = PROXY_URL !== '';
 
 /** Rerank-card note for the build-time AI-off build (`VITE_AI_PROXY_URL=off`). */
-export const AI_RERANK_DISABLED_NOTE = "AI Rerank isn't available on the hosted version of this app.";
+export const AI_RERANK_DISABLED_NOTE = "Reorder with AI isn't available on the hosted version of this app.";
 
 /**
  * Shown next to the AI features whenever the proxy reports `access: "allowlist"`
  * or `"public"` (the hosted Worker, which runs on the Gemini free tier).
  */
 export const AI_FREE_TIER_NOTICE =
-  "AI features use Google's free Gemini tier, so Google may use what is sent to improve its products: your question, the names, titles and companies of the connections considered, a short summary of how you know each one, and a short summary of your own profile. Message text and notes are never sent.";
+  "AI features use Google's free Gemini tier, so Google may use what is sent to improve its products: your question, the names, titles, companies, profile links and email addresses of the people considered, a short summary of how you know each one, and a short summary of your own profile. Message text and notes are never sent.";
 
-const AI_SWITCHED_OFF_MESSAGE = 'AI features (AI Rerank and the AI assistant) are switched off right now.';
+const AI_SWITCHED_OFF_MESSAGE = 'AI features (Reorder with AI and the AI assistant) are switched off right now.';
 const AI_UNREACHABLE_MESSAGE =
-  "AI features (AI Rerank and the AI assistant) are unavailable: the AI proxy can't be reached right now. Reload the page to try again.";
+  "AI features (Reorder with AI and the AI assistant) are unavailable: the AI proxy can't be reached right now. Reload the page to try again.";
 
 export type AiAccess = 'off' | 'allowlist' | 'public' | 'unknown';
 
@@ -81,7 +81,7 @@ const NOT_CONFIGURED: AiAvailability = {
   access: 'unknown',
   checking: false,
   message: 'AI features need an AI proxy, and this build has none configured.',
-  rerankNote: 'AI Rerank needs an AI proxy, and this build has none configured.',
+  rerankNote: 'Reorder with AI needs an AI proxy, and this build has none configured.',
 };
 
 function off(access: AiAccess, message: string): AiAvailability {

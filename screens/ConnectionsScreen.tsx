@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sidebar } from '../components/Sidebar';
-import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
 import { useAuth } from '../lib/AuthContext';
 import {
@@ -20,9 +18,17 @@ import {
   type CommonConnections,
 } from '../lib/networkGraph';
 
+import { DetailPane, useDetailRoute } from '../components/DetailPane';
+import { PersonHeading, PersonFacts } from '../components/PersonFacts';
+import { useShell } from '../components/AppShell';
+import { dateLabel, docIdParts, personIds, relationshipFacts } from '../lib/presentation';
+import { addFavorite, removeFavorite, listFavorites } from '../lib/savedItems';
+import { candidateKeysFor } from '../lib/telemetry';
+import '../styles/connections.css';
+
 const DEFAULT_PAGE_SIZE = 50;
 
-type SortMode = 'default' | 'warmest' | 'common';
+type SortMode = 'default' | 'warmest' | 'common' | 'name' | 'last' | 'messages';
 
 type GraphStatus = 'loading' | 'out' | 'in' | 'error';
 
@@ -32,8 +38,16 @@ function displayName(d: ConnectionDoc): string {
 }
 
 const ConnectionsScreen: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const detailRoute = useDetailRoute();
+  const shell = useShell();
+  const [selectedId, setSelectedId] = useState('');
+  const tableRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLInputElement>(null);
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+  const [favoriteKey, setFavoriteKey] = useState('');
+  const [favoriteBusy, setFavoriteBusy] = useState(false);
+  const favoriteFlight = useRef(false);
   const { user } = useAuth();
 
   const [loading, setLoading] = useState(true);
@@ -107,7 +121,7 @@ const ConnectionsScreen: React.FC = () => {
   function inCommonCount(r: ConnectionDoc): number {
     if (graphStatus !== 'in' || !common) return 0;
     const key = keyByRow.get(r);
-    return key ? common.othersByPerson.get(key)?.length ?? 0 : 0;
+    return key ? (common.othersByPerson.get(key)?.length ?? 0) : 0;
   }
 
   async function loadAll() {
@@ -161,6 +175,12 @@ const ConnectionsScreen: React.FC = () => {
       withCount.sort((a, b) => b.n - a.n || displayName(a.row).localeCompare(displayName(b.row)));
       return withCount.map((w) => w.row);
     }
+    if (sortMode === 'name')
+      return [...filtered].sort((a, b) => displayName(a).localeCompare(displayName(b)));
+    if (sortMode === 'last')
+      return [...filtered].sort((a, b) => (b.lastMessagedAt || '').localeCompare(a.lastMessagedAt || ''));
+    if (sortMode === 'messages')
+      return [...filtered].sort((a, b) => (b.messageCount ?? -1) - (a.messageCount ?? -1));
     if (sortMode !== 'warmest') return filtered;
 
     const now = new Date();
@@ -185,243 +205,484 @@ const ConnectionsScreen: React.FC = () => {
     return sorted.slice(start, start + pageSize);
   }, [sorted, safePageIndex, pageSize]);
 
+  const ids = useMemo(() => new Map(personIds(rows, docIdParts).map((id, i) => [rows[i], id])), [rows]);
+  const rowId = (r: ConnectionDoc) => ids.get(r)!;
+  const selected =
+    detailRoute.value != null
+      ? rows.find((r) => rowId(r) === detailRoute.value)
+      : page.find((r) => rowId(r) === selectedId) || page[0];
+  const controls = useRef({ filter, sortMode, pageSize });
+  const lastRoute = useRef<{ value: string | null; rows: ConnectionDoc[] } | null>(null);
+  useEffect(() => {
+    if (loading) return;
+    const changed =
+      controls.current.filter !== filter ||
+      controls.current.sortMode !== sortMode ||
+      controls.current.pageSize !== pageSize;
+    controls.current = { filter, sortMode, pageSize };
+    if (changed) {
+      setPageIndex(0);
+      const first = sorted[0];
+      setSelectedId(first ? rowId(first) : '');
+      if (detailRoute.value != null) {
+        if (first) detailRoute.open(rowId(first), true);
+        else detailRoute.clear();
+      }
+      return;
+    }
+    if (lastRoute.current?.value === detailRoute.value && lastRoute.current?.rows === rows) return;
+    lastRoute.current = { value: detailRoute.value, rows };
+    if (detailRoute.value == null) return;
+    const at = sorted.findIndex((r) => rowId(r) === detailRoute.value);
+    if (at >= 0) {
+      setPageIndex(Math.floor(at / pageSize));
+      setSelectedId(detailRoute.value);
+    }
+  }, [loading, rows, sorted, detailRoute.value, filter, sortMode, pageSize]);
+  useEffect(() => {
+    if (tableRef.current) tableRef.current.scrollTop = 0;
+  }, [safePageIndex, filter, sortMode, pageSize]);
+  useEffect(() => {
+    if (!detailRoute.value) return;
+    const frame = requestAnimationFrame(() => {
+      const row = tableRef.current?.querySelector<HTMLElement>('tr.is-sel');
+      const box = tableRef.current;
+      if (row && box) box.scrollTop = Math.max(0, row.offsetTop - box.offsetTop - 34);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [detailRoute.value, safePageIndex, loading]);
+  const goPage = (index: number) => {
+    setPageIndex(index);
+    const first = sorted[index * pageSize];
+    setSelectedId(first ? rowId(first) : '');
+    if (first && detailRoute.value != null) detailRoute.open(rowId(first), true);
+  };
+  const rel = useMemo(
+    () => (selected ? relationshipSignals(docToRow(selected), networkContext, new Date()) : null),
+    [selected, networkContext],
+  );
+  useEffect(() => {
+    let active = true;
+    void listFavorites()
+      .then((fs) => {
+        if (active) setFavoriteIds(new Set(fs.map((f) => f.id)));
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [user?.uid]);
+  useEffect(() => {
+    let active = true;
+    setFavoriteKey('');
+    if (selected)
+      void candidateKeysFor(docToRow(selected))
+        .then((k) => {
+          if (active) setFavoriteKey(k.id);
+        })
+        .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [selected]);
+  async function setSavedPerson(id: string, row: Record<string, unknown>, save: boolean, undo = false) {
+    if (!user || !id || favoriteFlight.current) return;
+    const uid = user.uid;
+    favoriteFlight.current = true;
+    setFavoriteBusy(true);
+    try {
+      if (save) await addFavorite(id, row);
+      else await removeFavorite(id);
+      if (auth.currentUser?.uid !== uid) return;
+      setFavoriteIds((prev) => {
+        const next = new Set(prev);
+        if (save) next.add(id);
+        else next.delete(id);
+        return next;
+      });
+      shell.announce(
+        save ? 'Saved to saved people.' : 'Removed from saved people.',
+        undo ? undefined : () => setSavedPerson(id, row, !save, true),
+      );
+    } catch (e: any) {
+      shell.announce(e?.message || 'Could not update saved people.');
+    } finally {
+      favoriteFlight.current = false;
+      setFavoriteBusy(false);
+    }
+  }
+  const select = (row: ConnectionDoc) => {
+    setSelectedId(rowId(row));
+    detailRoute.open(rowId(row));
+  };
+  const selectedKey = selected ? keyByRow.get(selected) : null;
+  const memberNames =
+    selectedKey && common
+      ? (common.othersByPerson.get(selectedKey) || [])
+          .map((uid) => common.members.find((m) => m.uid === uid)?.displayName)
+          .filter(Boolean)
+      : [];
+  const sorts: [SortMode, string][] = [
+    ['default', 'Default order'],
+    ['warmest', 'Warmest first'],
+    ['common', 'Most in common'],
+    ['name', 'Name A–Z'],
+    ['last', 'Last contact'],
+    ['messages', 'Most messages'],
+  ];
+  const sort = (mode: SortMode) => {
+    setSortMode(mode);
+    setPageIndex(0);
+  };
+  const sortHeader = (mode: SortMode, label: string, numeric = false) => (
+    <th
+      scope="col"
+      className={numeric ? 'num' : ''}
+      aria-sort={sortMode === mode ? (mode === 'name' ? 'ascending' : 'descending') : undefined}
+    >
+      <button onClick={() => sort(mode)} disabled={mode === 'common' && graphStatus !== 'in'}>
+        {label}
+        {sortMode === mode && <Icon name={mode === 'name' ? 'up' : 'down'} />}
+      </button>
+    </th>
+  );
   return (
-    <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      <main className="flex-1 flex flex-col relative overflow-y-auto overflow-x-hidden custom-scrollbar">
-        <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
-
-        <div className="p-4 md:p-8 pb-20 max-w-7xl mx-auto w-full space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <section
+      id="v-connections"
+      className={`view split split-table on ${detailRoute.value ? 'detail-open' : ''}`}
+      aria-label="Connections"
+    >
+      <div className="pane list-pane">
+        <div className="pane-head">
+          <div className="connections-header page-h">
             <div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-white">Connections</h1>
-              <p className="text-slate-400 mt-1 text-sm">
-                Saved connections for your account. Use them in the recommender anytime.
-              </p>
+              <h2>{loading ? 'Connections' : `${rows.length.toLocaleString()} connections`}</h2>
             </div>
-
-            <div className="flex gap-2">
+            <div className="act" hidden={!rows.length}>
               <button
-                onClick={() => navigate('/recommender')}
-                className="bg-primary hover:bg-primary/90 text-white font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
-              >
-                <Icon name="upload_file" className="text-sm" />
-                <span>Import LinkedIn data</span>
-              </button>
-
-              <button
+                className="btn sm"
+                disabled={!rows.length}
                 onClick={() => navigate('/recommender', { state: { loadFromAccount: true } })}
-                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={rows.length === 0}
               >
-                <Icon name="bolt" className="text-sm" />
-                <span>Use in Recommender</span>
+                Use in Search
               </button>
-
               <button
+                className="btn sm"
+                onClick={() => navigate('/recommender', { state: { importConnections: true } })}
+              >
+                <Icon name="upload" />
+                Import
+              </button>
+              <button
+                className="icon-btn"
+                title="Refresh"
+                aria-label="Refresh"
+                disabled={loading}
                 onClick={() => {
                   void loadAll();
                   if (user) void loadGraph(user.uid);
                 }}
-                disabled={loading}
-                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-[0.98] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Icon name="refresh" className="text-sm" />
-                <span>Refresh</span>
+                <Icon name="reset" />
               </button>
             </div>
           </div>
-
-          <div
-            className="glass-panel rounded-xl px-4 py-3 md:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
-            data-testid="common-status"
-          >
-            <p className="text-sm text-slate-300 flex items-center gap-2">
-              <Icon name="hub" className="text-primary" />
-              {graphStatus === 'loading' && 'Checking sharing status…'}
-              {graphStatus === 'error' && 'Common connections are unavailable right now. Try Refresh.'}
-              {graphStatus === 'out' && 'Common connections: not sharing. Share to see which of your connections other members also know.'}
-              {graphStatus === 'in' &&
-                common &&
-                `Common connections: sharing ${common.myNodeCount.toLocaleString()} connections; ${common.members.length.toLocaleString()} member${
-                  common.members.length === 1 ? '' : 's'
-                } share people with you.`}
-            </p>
-            <Link to="/network" className="text-sm font-bold text-primary hover:underline whitespace-nowrap flex items-center gap-1">
-              {graphStatus === 'in' ? 'Open network graph' : 'Manage sharing'}
-              <Icon name="arrow_forward" className="text-sm" />
-            </Link>
+          <div className="toolbar" hidden={!rows.length}>
+            <label className="sr-only" htmlFor="conn-filter">
+              Filter connections
+            </label>
+            <input
+              className="input"
+              id="conn-filter"
+              data-testid="connections-filter"
+              placeholder="Filter by name, title, company or email"
+              ref={filterRef}
+              value={filter}
+              onChange={(e) => {
+                setFilter(e.target.value);
+                setPageIndex(0);
+              }}
+            />
+            <label className="sr-only" htmlFor="conn-sort">
+              Sort connections
+            </label>
+            <select
+              className="input conn-sort"
+              id="conn-sort"
+              data-testid="connections-sort"
+              value={sortMode}
+              disabled={loading}
+              onChange={(e) => sort(e.target.value as SortMode)}
+            >
+              {sorts.map(([value, label]) => (
+                <option key={value} value={value} disabled={value === 'common' && graphStatus !== 'in'}>
+                  {label}
+                </option>
+              ))}
+            </select>
           </div>
-
-          <div className="glass-panel rounded-xl p-4 md:p-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 bg-slate-800/50 px-3 md:px-4 py-2 rounded-lg border border-slate-700 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-300 shadow-inner">
-                  <Icon name="search" className="text-slate-400 text-sm mr-1" />
-                  <input
-                    value={filter}
-                    onChange={(e) => {
-                      setFilter(e.target.value);
-                      setPageIndex(0);
-                    }}
-                    placeholder="Filter by name, company, role, email..."
-                    className="bg-transparent border-none focus:ring-0 text-sm w-full text-slate-200 placeholder:text-slate-500 outline-none"
-                  />
-                </div>
-                <p className="text-xs text-slate-500 mt-2">
-                  {loading
-                    ? 'Loading...'
-                    : `Showing ${filtered.length.toLocaleString()} of ${rows.length.toLocaleString()} saved connections`}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
-                  <span className="text-xs text-slate-400 font-bold">Sort</span>
-                  <select
-                    value={sortMode}
-                    onChange={(e) => {
-                      setSortMode(e.target.value as SortMode);
-                      setPageIndex(0);
-                    }}
-                    className="bg-transparent text-sm text-slate-200 outline-none"
-                    disabled={loading}
-                  >
-                    <option value="default">Default order</option>
-                    <option value="warmest">Warmest first</option>
-                    <option value="common" disabled={graphStatus !== 'in'}>
-                      Most in common
-                    </option>
-                  </select>
-                </div>
-
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
-                  <span className="text-xs text-slate-400 font-bold">Rows/page</span>
-                  <select
-                    value={pageSize}
-                    onChange={(e) => {
-                      setPageSize(Number(e.target.value));
-                      setPageIndex(0);
-                    }}
-                    className="bg-transparent text-sm text-slate-200 outline-none"
-                    disabled={loading}
-                  >
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                  </select>
-                </div>
-
-                <button
-                  onClick={() => setPageIndex((p) => Math.max(0, p - 1))}
-                  disabled={loading || safePageIndex === 0}
-                  className={`px-3 py-2 rounded-lg text-sm font-bold border transition ${
-                    loading || safePageIndex === 0
-                      ? 'border-white/10 text-slate-600 bg-white/5 cursor-not-allowed'
-                      : 'border-white/10 text-slate-200 bg-white/5 hover:bg-white/10'
-                  }`}
-                >
-                  Prev
-                </button>
-                <button
-                  onClick={() => setPageIndex((p) => Math.min(totalPages - 1, p + 1))}
-                  disabled={loading || safePageIndex >= totalPages - 1}
-                  className={`px-3 py-2 rounded-lg text-sm font-bold border transition ${
-                    loading || safePageIndex >= totalPages - 1
-                      ? 'border-white/10 text-slate-600 bg-white/5 cursor-not-allowed'
-                      : 'border-white/10 text-slate-200 bg-white/5 hover:bg-white/10'
-                  }`}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-
-            {error && (
-              <div className="mt-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-                {error}
-              </div>
-            )}
-
-            <div className="mt-4 overflow-auto custom-scrollbar max-h-[620px] rounded-xl border border-white/10">
-              <table className="min-w-full text-sm">
-                <thead className="sticky top-0 bg-background-dark/95 backdrop-blur border-b border-white/10">
-                  <tr className="text-left">
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Name</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Position</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Company</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Connected On</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Messages</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Last contact</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider whitespace-nowrap">In common</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Email</th>
-                    <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">URL</th>
+          <div className="metabar" hidden={!rows.length}>
+            <span>
+              {filtered.length.toLocaleString()} shown · {rows.length.toLocaleString()} saved
+            </span>
+            <span>
+              {sortMode === 'warmest'
+                ? 'Warmest first: messages, shared employers and relationship facts.'
+                : sortMode === 'common'
+                  ? 'Most in common: sharing members who also know them.'
+                  : ''}
+            </span>
+          </div>
+          <div hidden={!rows.length} className="connection-sharing" data-testid="common-status">
+            {graphStatus === 'loading'
+              ? 'Checking sharing status…'
+              : graphStatus === 'error'
+                ? 'Common connections are unavailable right now. Try Refresh.'
+                : graphStatus === 'out'
+                  ? 'Common connections: not sharing.'
+                  : `Sharing ${common?.myNodeCount.toLocaleString() || 0} connections; ${common?.members.length || 0} members share people with you.`}
+            <Link to="/network">{graphStatus === 'in' ? 'Open Network' : 'Manage sharing'}</Link>
+          </div>
+        </div>
+        {error && (
+          <p className="note bad" role="alert">
+            {error}
+          </p>
+        )}
+        {loading ? (
+          <p className="zero" role="status">
+            Loading connections…
+          </p>
+        ) : !rows.length ? (
+          <div className="zero">
+            <h3>No connections yet</h3>
+            <p>Import your LinkedIn export to see your connections here.</p>
+            <button
+              className="btn primary"
+              onClick={() => navigate('/recommender', { state: { importConnections: true } })}
+            >
+              Import your LinkedIn export
+            </button>
+          </div>
+        ) : !page.length ? (
+          <div className="zero">
+            <h3>No one matches “{filter}”</h3>
+            <p>The filter checks names, titles, companies and emails.</p>
+            <button
+              className="btn"
+              onClick={() => {
+                setFilter('');
+                filterRef.current?.focus();
+              }}
+            >
+              Clear filter
+            </button>
+          </div>
+        ) : (
+          <>
+            <div
+              ref={tableRef}
+              className="tbl-wrap"
+              tabIndex={0}
+              aria-label="Connections table, scrolls sideways"
+            >
+              <table className="tbl fixed" data-testid="connections-table">
+                <caption className="sr-only">Your saved connections</caption>
+                <colgroup>
+                  <col style={{ width: 144 }} />
+                  <col />
+                  <col style={{ width: 160 }} />
+                  <col style={{ width: 90 }} />
+                  <col style={{ width: 100 }} />
+                  <col style={{ width: 88 }} />
+                </colgroup>
+                <thead>
+                  <tr>
+                    {sortHeader('name', 'Name')}
+                    <th scope="col">Title</th>
+                    <th scope="col">Company</th>
+                    {sortHeader('messages', 'Messages', true)}
+                    {sortHeader('last', 'Last contact')}
+                    {sortHeader('common', 'In common', true)}
                   </tr>
                 </thead>
                 <tbody>
-                  {loading ? (
-                    <tr>
-                      <td className="p-4 text-slate-400" colSpan={9}>
-                        Loading connections…
+                  {page.map((r, i) => (
+                    <tr
+                      key={rowId(r) + i}
+                      className={r === selected ? 'is-sel' : ''}
+                      onClick={() => select(r)}
+                    >
+                      <td>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            select(r);
+                          }}
+                          title={displayName(r) || '(no name)'}
+                          aria-current={r === selected ? 'true' : undefined}
+                        >
+                          {displayName(r) || '(no name)'}
+                        </button>
+                      </td>
+                      <td className="t-wrap" title={r.position || ''}>
+                        <span>{r.position || <span className="muted">—</span>}</span>
+                      </td>
+                      <td title={r.company || ''}>{r.company || <span className="muted">—</span>}</td>
+                      <td className="num">{r.messageCount ?? <span className="muted">—</span>}</td>
+                      <td className={!r.lastMessagedAt ? 'muted' : undefined}>
+                        {dateLabel(r.lastMessagedAt, true)}
+                      </td>
+                      <td className="num">
+                        {graphStatus === 'in' ? inCommonCount(r) : <span className="muted">—</span>}
                       </td>
                     </tr>
-                  ) : page.length === 0 ? (
-                    <tr>
-                      <td className="p-4 text-slate-400" colSpan={9}>
-                        No connections found.
-                      </td>
-                    </tr>
-                  ) : (
-                    page.map((r, i) => (
-                      <tr key={i} className="border-b border-white/5 hover:bg-white/5">
-                        <td className="p-3 font-bold text-slate-100 whitespace-nowrap">{r.fullName || '—'}</td>
-                        <td className="p-3 text-slate-300">{r.position || <span className="text-slate-600">—</span>}</td>
-                        <td className="p-3 text-slate-300">{r.company || <span className="text-slate-600">—</span>}</td>
-                        <td className="p-3 text-slate-400 whitespace-nowrap">{r.connectedOnRaw || <span className="text-slate-600">—</span>}</td>
-                        <td className="p-3 text-slate-400 whitespace-nowrap">
-                          {r.messageCount != null ? r.messageCount.toLocaleString() : <span className="text-slate-600">—</span>}
-                        </td>
-                        <td className="p-3 text-slate-400 whitespace-nowrap">
-                          {r.lastMessagedAt || <span className="text-slate-600">—</span>}
-                        </td>
-                        <td className="p-3 text-slate-300 whitespace-nowrap">
-                          {(() => {
-                            const n = inCommonCount(r);
-                            return n > 0 ? n.toLocaleString() : <span className="text-slate-600">—</span>;
-                          })()}
-                        </td>
-                        <td className="p-3 text-slate-400">{r.email || <span className="text-slate-600">—</span>}</td>
-                        <td className="p-3">
-                          {r.url ? (
-                            <a
-                              className="text-primary hover:underline inline-flex items-center gap-1"
-                              href={r.url}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <Icon name="open_in_new" className="text-sm" />
-                              <span className="text-xs font-bold">Open</span>
-                            </a>
-                          ) : (
-                            <span className="text-slate-600">—</span>
-                          )}
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                  ))}
                 </tbody>
               </table>
             </div>
+            <ul className="conn-cards rows" aria-label="Connections">
+              {page.map((r, i) => (
+                <li key={rowId(r) + i} className={`row ${r === selected ? 'is-sel' : ''}`}>
+                  <button className="row-main" onClick={() => select(r)}>
+                    <span className="row-b">
+                      <span className="nm">{displayName(r) || '(no name)'}</span>
+                      <span className="tc">
+                        {[r.position || 'No title', r.company].filter(Boolean).join(' · ')}
+                      </span>
+                      <span className="why muted">
+                        {r.messageCount == null
+                          ? 'No message data'
+                          : `${r.messageCount} ${r.messageCount === 1 ? 'message' : 'messages'}`}
+                        {r.lastMessagedAt ? ` · last ${dateLabel(r.lastMessagedAt, true)}` : ''}
+                        {graphStatus === 'in' ? ` · ${inCommonCount(r)} in common` : ''}
+                      </span>
+                    </span>
+                    <Icon name="chev" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {!!rows.length && (
+          <div className="pagination">
+            <label htmlFor="page-size" className="hint">
+              Rows per page
+            </label>
+            <select
+              className="input"
+              id="page-size"
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPageIndex(0);
+              }}
+            >
+              {[25, 50, 100].map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+            <span className="hint">
+              {safePageIndex + 1} of {totalPages}
+            </span>
+            <button
+              className="btn sm"
+              disabled={loading || safePageIndex === 0}
+              onClick={() => goPage(Math.max(0, safePageIndex - 1))}
+            >
+              Previous
+            </button>
+            <button
+              className="btn sm"
+              disabled={loading || safePageIndex >= totalPages - 1}
+              onClick={() => goPage(Math.min(totalPages - 1, safePageIndex + 1))}
+            >
+              Next
+            </button>
           </div>
-        </div>
-      </main>
-
-      {/* Decorative Background Orbs */}
-      <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] md:w-[40%] md:h-[40%] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] md:w-[30%] md:h-[30%] bg-blue-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
-    </div>
+        )}
+      </div>
+      {(!!rows.length || detailRoute.value != null) && (
+        <DetailPane open={!!detailRoute.value} onClose={detailRoute.close} label="Connection details">
+          {selected ? (
+            <>
+              <PersonHeading person={selected} />
+              <div className="d-actions">
+                <button
+                  className="btn"
+                  data-testid="star"
+                  aria-pressed={favoriteIds.has(favoriteKey)}
+                  disabled={!favoriteKey || favoriteBusy}
+                  onClick={() =>
+                    void setSavedPerson(favoriteKey, docToRow(selected), !favoriteIds.has(favoriteKey))
+                  }
+                >
+                  <Icon name="star" />
+                  {favoriteIds.has(favoriteKey) ? 'Saved' : 'Save'}
+                </button>
+                <button
+                  className="btn"
+                  onClick={() =>
+                    navigate('/recommender', {
+                      state: {
+                        runSearch: {
+                          criteria: selected.position || selected.company || displayName(selected),
+                          strictTitleOnly: false,
+                        },
+                      },
+                    })
+                  }
+                >
+                  <Icon name="search" />
+                  Find people like this
+                </button>
+              </div>
+              {rel?.reasons.length > 0 && (
+                <section className="d-sec">
+                  <h3>Relationship</h3>
+                  <ul className="sig">
+                    {rel.reasons
+                      .flatMap((reason) => relationshipFacts(reason))
+                      .map((reason) => (
+                        <li key={reason}>
+                          <Icon name="check" />
+                          <span>{reason}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </section>
+              )}
+              <PersonFacts person={selected} />
+              {graphStatus === 'in' && (
+                <section className="d-sec">
+                  <h3>Members who also know {displayName(selected).split(' ')[0]}</h3>
+                  <p>{memberNames.length ? memberNames.join(', ') : 'No other sharing members found.'}</p>
+                  {selectedKey && memberNames.length > 0 && (
+                    <Link
+                      className="btn sm network-link"
+                      to={`/network?node=${encodeURIComponent('p:' + selectedKey)}`}
+                    >
+                      Show in Network
+                    </Link>
+                  )}
+                </section>
+              )}
+            </>
+          ) : (
+            <div className="empty-pane">
+              <p>
+                {detailRoute.value != null
+                  ? 'This person is not in your saved connections.'
+                  : 'Pick a person to see details.'}
+              </p>
+            </div>
+          )}
+        </DetailPane>
+      )}
+    </section>
   );
 };
-
 export default ConnectionsScreen;

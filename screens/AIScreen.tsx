@@ -1,8 +1,17 @@
 // screens/AIScreen.tsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getAuth } from 'firebase/auth';
-import { Sidebar } from '../components/Sidebar';
-import { Header } from '../components/Header';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../lib/AuthContext';
+import { useShell } from '../components/AppShell';
+import { compactIdParts, initials, personIds } from '../lib/presentation';
+import {
+  visitConversations,
+  saveConversation,
+  conversationId,
+  type AssistantMessage,
+} from '../lib/assistantSession';
+import '../styles/ai.css';
 import { Icon } from '../components/Icon';
 import {
   COMPANY_KEYS,
@@ -32,15 +41,24 @@ import {
 import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
 import { buildAiContext, noteMatches, relationshipSignals } from '../lib/relationship';
 import type { Relationship } from '../lib/relationship';
-import {
-  AI_FREE_TIER_NOTICE,
-  proxyErrorMessage,
-  proxyFetch,
-  showsFreeTierNotice,
-  useAiAvailability,
-} from '../lib/proxyClient';
+import { AI_FREE_TIER_NOTICE, proxyErrorMessage, proxyFetch, useAiAvailability } from '../lib/proxyClient';
 
-type ChatMsg = { role: 'user' | 'assistant'; text: string };
+type ChatMsg = AssistantMessage;
+const STARTERS = [
+  {
+    q: 'Who could introduce me to someone at <company>?',
+    edit: 'Who could introduce me to someone at <company>?',
+  },
+  {
+    q: 'Which engineering managers have I talked to this year?',
+    edit: 'Which <role> have I talked to this year?',
+  },
+  { q: 'Who works on machine learning or data science?', edit: 'Who works on <topic>?' },
+  {
+    q: 'Who haven’t I messaged in a while but should?',
+    edit: 'Who haven’t I messaged in a while but should?',
+  },
+];
 
 type CandidateForModel = {
   id: string; // c0..cN
@@ -55,12 +73,18 @@ type CandidateForModel = {
 
 const MAX_CANDIDATES = 50;
 
+const STOP_WORDS = new Set(
+  'who what which is are the a an at in on or and to of for with me my i have has do does could would should someone people know knows works work'.split(
+    ' ',
+  ),
+);
 function tokenize(q: string) {
   return q
     .toLowerCase()
-    .split(/[\s,;]+/g)
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .split(/\s+/g)
     .map((t) => t.trim())
-    .filter(Boolean);
+    .filter((t) => t && !STOP_WORDS.has(t));
 }
 
 function scoreConnection(c: CompactConnection, tokens: string[], rawQuery: string) {
@@ -142,12 +166,7 @@ async function fetchJsonOrThrow(resp: Response) {
 }
 
 function unescapeJsonString(s: string): string {
-  return s
-    .replace(/\\n/g, '\n')
-    .replace(/\\t/g, '\t')
-    .replace(/\\"/g, '"')
-    .replace(/\\\\/g, '\\')
-    .trim();
+  return s.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"').replace(/\\\\/g, '\\').trim();
 }
 
 function tryParseJsonLike(text: string): any | null {
@@ -300,9 +319,11 @@ async function callGeminiChat(args: {
   history: Array<{ role: 'user' | 'assistant'; text: string }>;
   candidates: CandidateForModel[];
   context: string; // buildAiContext(...); omitted when empty
+  signal?: AbortSignal;
 }) {
   const resp = await proxyFetch('/gemini/chat', {
     method: 'POST',
+    signal: args.signal,
     body: JSON.stringify({
       query: args.prompt,
       messages: args.history,
@@ -317,9 +338,11 @@ async function callGeminiRerank(args: {
   criteria: string;
   candidates: CandidateForModel[];
   context: string; // buildAiContext(...); omitted when empty
+  signal?: AbortSignal;
 }) {
   const resp = await proxyFetch('/gemini/rerank', {
     method: 'POST',
+    signal: args.signal,
     body: JSON.stringify({
       criteria: args.criteria,
       candidates: args.candidates,
@@ -330,26 +353,114 @@ async function callGeminiRerank(args: {
 }
 
 const AIScreen: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const { user } = useAuth();
+  const uid = user!.uid;
+  const { announce } = useShell();
+  const location = useLocation();
+  const navigate = useNavigate();
   const ai = useAiAvailability();
-
-  const [messages, setMessages] = useState<ChatMsg[]>([
-    {
-      role: 'assistant',
-      text: 'Ask me for an intro recommendation. Example: “Find me a VP Sales with B2B SaaS experience.”',
+  const [initial] = useState(() => visitConversations(uid));
+  const [thread, setThread] = useState(() => initial.active || conversationId());
+  const [messages, setMessages] = useState<ChatMsg[]>(
+    () => initial.threads.find((t) => t.id === initial.active)?.messages || [],
+  );
+  const [threads, setThreads] = useState(initial.threads);
+  const request = useRef<AbortController | null>(null);
+  const pending = useRef<{ thread: string; question: string; before: ChatMsg[] } | null>(null);
+  const stopRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDetailsElement>(null);
+  const [replyAnnouncement, setReplyAnnouncement] = useState('');
+  const [input, setInput] = useState(() => initial.threads.find((t) => t.id === initial.active)?.draft || '');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const logRef = useRef<HTMLDivElement>(null);
+  const prefillConsumed = useRef<string | null>(null);
+  useEffect(() => {
+    saveConversation(uid, thread, messages, input);
+    setThreads(visitConversations(uid).threads);
+  }, [uid, thread, messages, input]);
+  useEffect(() => {
+    const log = logRef.current;
+    const last = log?.querySelector<HTMLElement>(`[data-message-index="${messages.length - 1}"]`);
+    if (log && last && messages.at(-1)?.role === 'assistant') {
+      log.scrollTo({
+        top: log.scrollTop + last.getBoundingClientRect().top - log.getBoundingClientRect().top - 16,
+      });
+    } else log?.scrollTo({ top: log.scrollHeight });
+  }, [messages, thread]);
+  useEffect(
+    () => () => {
+      request.current?.abort();
+      if (pending.current) {
+        const p = pending.current;
+        saveConversation(uid, p.thread, p.before, p.question);
+        pending.current = null;
+      }
+      request.current = null;
     },
-  ]);
+    [uid],
+  );
+  useEffect(() => {
+    const prefill = (location.state as { prefill?: string } | null)?.prefill;
+    if (!prefill || prefillConsumed.current === location.key) return;
+    prefillConsumed.current = location.key;
+    setInput(prefill);
+    navigate('.', { replace: true, state: null });
+    inputRef.current?.focus();
+  }, [location.key, location.state, navigate]);
+  function restoreQuestion() {
+    const p = pending.current;
+    if (!p) return;
+    setMessages(p.before);
+    setInput(p.question);
+    saveConversation(uid, p.thread, p.before, p.question);
+    pending.current = null;
+  }
+  function stop(focus = true) {
+    request.current?.abort();
+    request.current = null;
+    restoreQuestion();
+    setBusy(false);
+    announce('Stopped. You can edit your question and ask again.');
+    if (focus) requestAnimationFrame(() => inputRef.current?.focus());
+  }
+  function switchThread(id?: string) {
+    if (request.current) stop(false);
+    setError('');
+    announce('');
+    setReplyAnnouncement('');
+    const next = visitConversations(uid).threads.find((t) => t.id === id);
+    setThread(next?.id || conversationId());
+    setMessages(next?.messages || []);
+    setInput(next?.draft || '');
+    inputRef.current?.focus();
+  }
+  useEffect(() => {
+    const closeMenu = (e: Event) => {
+      const menu = menuRef.current;
+      if (!menu?.open) return;
+      if (e instanceof KeyboardEvent ? e.key === 'Escape' : !menu.contains(e.target as Node)) {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    };
+    document.addEventListener('keydown', closeMenu);
+    document.addEventListener('pointerdown', closeMenu);
+    return () => {
+      document.removeEventListener('keydown', closeMenu);
+      document.removeEventListener('pointerdown', closeMenu);
+    };
+  }, []);
 
-  const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
   const [dataset, setDataset] = useState<CompactConnection[]>([]);
-  const [datasetLoading, setDatasetLoading] = useState(false);
+  const datasetIds = useMemo(() => personIds(dataset, compactIdParts), [dataset]);
+  const [datasetLoading, setDatasetLoading] = useState(true);
 
   // Owner context from a LinkedIn export zip (null for CSV/JSON datasets).
   const [networkContext, setNetworkContext] = useState<NetworkContext | null>(null);
-  const [contextLoading, setContextLoading] = useState(false);
+  const [contextLoading, setContextLoading] = useState(true);
 
   // relationshipSignals is query-independent but not cheap with a large owner
   // context, so each connection's result is computed lazily and cached until the
@@ -389,6 +500,8 @@ const AIScreen: React.FC = () => {
 
     const needDataset = cached.length === 0;
     const needContext = !cachedCtx.present;
+    setDatasetLoading(needDataset);
+    setContextLoading(needContext);
     if (!needDataset && !needContext) return;
 
     const user = getAuth().currentUser;
@@ -473,11 +586,11 @@ const AIScreen: React.FC = () => {
     return rel;
   }
 
-  async function send() {
+  async function send(override?: string) {
     setError('');
-    const userText = input.trim();
+    const userText = (override ?? input).trim();
     if (!userText) return;
-    if (busy) return;
+    if (busy || request.current || ai.disabled) return;
 
     if (datasetLoading || contextLoading) {
       setError('Still loading your connections…');
@@ -485,13 +598,20 @@ const AIScreen: React.FC = () => {
     }
 
     if (dataset.length === 0) {
-      setError('No network dataset found. Go to Recommender → Confirm Connections first.');
+      setError('No connections found. Go to Search and import your LinkedIn export first.');
       return;
     }
 
+    announce('');
+    setReplyAnnouncement('');
+    pending.current = { thread, question: userText, before: messages };
     setMessages((m) => [...m, { role: 'user', text: userText }]);
     setInput('');
     setBusy(true);
+    requestAnimationFrame(() => stopRef.current?.focus());
+    const controller = new AbortController();
+    request.current = controller;
+    const stillHere = () => !controller.signal.aborted && getAuth().currentUser?.uid === uid;
 
     try {
       // Candidate pool from local scoring. Relevance ranks first; the
@@ -549,7 +669,9 @@ const AIScreen: React.FC = () => {
         `- For each recommendation, include the candidate id (like c0) and a 1-sentence reason.\n` +
         `- Do not ask follow-up questions unless there are truly zero plausible candidates.\n`;
 
-      const data = await callGeminiChat({ prompt, history, candidates, context });
+      const data = await callGeminiChat({ prompt, history, candidates, context, signal: controller.signal });
+
+      if (!stillHere()) return;
 
       // Interpret answer + recs even if JSON-ish / truncated
       const rawAnswer =
@@ -587,123 +709,357 @@ const AIScreen: React.FC = () => {
       if (recommendations.length === 0 && (chatParseFailed || answerEmpty)) {
         // A refused or failed fallback (e.g. today's AI limit) keeps the chat answer.
         try {
-          const rr = await callGeminiRerank({ criteria: userText, candidates, context });
+          const rr = await callGeminiRerank({
+            criteria: userText,
+            candidates,
+            context,
+            signal: controller.signal,
+          });
           if (Array.isArray(rr?.recommendations) && rr.recommendations.length > 0) {
             recommendations = rr.recommendations;
           }
         } catch (fallbackErr) {
+          if (!stillHere()) return;
           console.warn('Rerank fallback failed; showing the chat answer as-is.', fallbackErr);
         }
       }
 
+      if (!stillHere()) return;
       const rendered = formatAssistantMessage({
         answer: interpreted.answer || rawAnswer,
         recommendations,
         candidates,
       });
 
-      setMessages((m) => [...m, { role: 'assistant', text: rendered }]);
+      const answer = (interpreted.answer || rawAnswer).trim();
+      const cited = recommendations.length
+        ? recommendations.slice(0, 10)
+        : !answer
+          ? candidates.slice(0, 10).map((c) => ({ id: c.id, reason: 'Local match from your connections.' }))
+          : [];
+      const people = cited.flatMap((r) => {
+        const index = candidates.findIndex((c) => c.id === r.id);
+        return index < 0
+          ? []
+          : [
+              {
+                person: pool[index].c,
+                reason: (r.reason || '').trim(),
+                personId: datasetIds[pool[index].idx],
+                chip: pool[index].rel.chips[0],
+              },
+            ];
+      });
+      setMessages((m) => [
+        ...m,
+        {
+          role: 'assistant',
+          text: rendered,
+          answer:
+            answer ||
+            (recommendations.length
+              ? 'Here are the best matches from your network:'
+              : 'The AI returned no answer. Here are the top local matches:'),
+          people,
+        },
+      ]);
+      setReplyAnnouncement(
+        `${answer || 'Answer ready.'}${people.length ? ` ${people.length} people: ${people.map((p) => p.person.name).join(', ')}.` : ''}`,
+      );
     } catch (e: any) {
-      setError(e?.message ?? 'AI request failed.');
+      if (stillHere()) {
+        restoreQuestion();
+        setError(
+          /fetch|network|load failed/i.test(e?.message || '')
+            ? 'Could not reach the assistant. Check your connection and try again.'
+            : e?.message || 'Could not get an answer. Please try again.',
+        );
+      }
     } finally {
-      setBusy(false);
+      if (request.current === controller) {
+        request.current = null;
+        pending.current = null;
+        setBusy(false);
+        requestAnimationFrame(() => inputRef.current?.focus());
+      }
     }
   }
 
+  useEffect(() => {
+    const question = location.state?.ask;
+    if (
+      !question ||
+      prefillConsumed.current === location.key ||
+      ai.checking ||
+      datasetLoading ||
+      contextLoading
+    )
+      return;
+    prefillConsumed.current = location.key;
+    const { ask, ...state } = location.state;
+    navigate({ pathname: location.pathname, search: location.search }, { replace: true, state });
+    if (!ai.disabled && dataset.length) void send(question);
+    else {
+      setInput(question);
+      inputRef.current?.focus();
+    }
+  }, [location.key, location.state, ai.checking, ai.disabled, datasetLoading, contextLoading]);
+  const companyCounts = new Map<string, number>();
+  dataset.forEach((p) => {
+    if (p.company?.trim()) companyCounts.set(p.company, (companyCounts.get(p.company) || 0) + 1);
+  });
+  const topCompany = [...companyCounts].sort((a, b) => b[1] - a[1])[0]?.[0];
+  const starters = STARTERS.map((starter, i) =>
+    i === 0
+      ? {
+          ...starter,
+          q: topCompany
+            ? `Who could introduce me to someone at ${topCompany}?`
+            : 'Who could help me make a new connection?',
+        }
+      : starter,
+  );
+  const threadButtons = threads.map((t) => (
+    <button
+      className="side-btn"
+      key={t.id}
+      title={t.title}
+      aria-current={thread === t.id ? 'true' : undefined}
+      onClick={(e) => {
+        switchThread(t.id);
+        e.currentTarget.closest('details')?.removeAttribute('open');
+      }}
+    >
+      <Icon name="chat" />
+      <span>{t.title}</span>
+    </button>
+  ));
+  const newButton = (
+    <button className="btn sm" onClick={() => switchThread()}>
+      <Icon name="plus" />
+      New conversation
+    </button>
+  );
+  const unavailable = ai.disabled || ai.checking;
   return (
-    <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      <main className="flex-1 flex flex-col relative overflow-y-auto overflow-x-hidden custom-scrollbar">
-        <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
-
-        <div className="p-4 md:p-8 pb-20 max-w-5xl mx-auto w-full space-y-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white">AI</h1>
-            <p className="text-slate-400 mt-1 text-sm">
-              Chat with your loaded network. Data comes from Recommender → Confirm Connections.
-            </p>
-            <p className="text-xs text-slate-500 mt-2">
-              Dataset status:{' '}
-              {datasetLoading ? (
-                <span className="text-slate-400 font-bold">Loading your saved connections…</span>
-              ) : dataset.length ? (
-                <span className="text-primary font-bold">{dataset.length.toLocaleString()} loaded</span>
-              ) : (
-                <span className="text-red-300 font-bold">not loaded</span>
-              )}
-            </p>
+    <section className="view on ai-view" id="v-ai">
+      <div className="ai">
+        <nav className="threads" aria-label="Conversations">
+          {newButton}
+          {threadButtons}
+          <p className="hint">Conversations are kept for this visit only.</p>
+        </nav>
+        <div className="chat">
+          <div className="thr-bar">
+            <details className="thr-menu" ref={menuRef}>
+              <summary>
+                <Icon name="chat" />
+                Conversations
+              </summary>
+              <div className="menu">
+                {threadButtons}
+                {!threads.length && <p className="hint">No conversations yet.</p>}
+              </div>
+            </details>
+            {newButton}
           </div>
-
-          {ai.disabled && !ai.checking && (
-            <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
-              {ai.message} Search, ranking and relationship insights on the Recommender page still work.
-            </div>
-          )}
-
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-              {error}
-            </div>
-          )}
-
-          <div className="glass-panel rounded-xl p-4 md:p-6 space-y-4">
-            <div className="max-h-[520px] overflow-auto custom-scrollbar space-y-3">
-              {messages.map((m, idx) => (
-                <div
-                  key={idx}
-                  className={`p-3 rounded-lg border ${
-                    m.role === 'user'
-                      ? 'bg-white/5 border-white/10'
-                      : 'bg-primary/10 border-primary/20'
-                  }`}
-                >
-                  <div className="text-xs font-bold uppercase tracking-wider mb-2 text-slate-400">
-                    {m.role === 'user' ? 'YOU' : 'AI'}
+          <div className="chat-log" ref={logRef}>
+            <div className="chat-inner">
+              <p className="sr-only" role="status" aria-live="polite">
+                {replyAnnouncement}
+              </p>
+              {ai.checking && (
+                <p className="hint" role="status" data-testid="ai-notice">
+                  Checking AI availability…
+                </p>
+              )}
+              {unavailable && !ai.checking && (
+                <div className="ai-off">
+                  <section className="panel">
+                    <div className="panel-b stack">
+                      <h2>Assistant unavailable</h2>
+                      <p role="status" data-testid="ai-notice">
+                        {ai.message}
+                      </p>
+                      <p>Search, Connections and Network work without AI.</p>
+                      <div>
+                        <Link className="btn primary" to="/recommender">
+                          <Icon name="search" />
+                          Go to Search
+                        </Link>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              )}
+              {!unavailable && (datasetLoading || contextLoading) && (
+                <p className="hint" role="status">
+                  Loading your connections…
+                </p>
+              )}
+              {!unavailable && !datasetLoading && !contextLoading && !dataset.length && (
+                <div className="panel">
+                  <div className="zero">
+                    <h2>Add your connections first</h2>
+                    <p>Import your LinkedIn export so the assistant can find people you know.</p>
+                    <Link className="btn primary" to="/recommender" state={{ importConnections: true }}>
+                      Import your LinkedIn export
+                    </Link>
                   </div>
-                  <pre className="whitespace-pre-wrap text-sm text-slate-100 font-sans">{m.text}</pre>
+                </div>
+              )}
+              {!messages.length && !unavailable && dataset.length > 0 && (
+                <div>
+                  <h2>Ask about your network in plain words</h2>
+                  <p className="muted">
+                    Answers name real people from your connections. Click a question to ask it, or the pencil
+                    to edit it first.
+                  </p>
+                  <div className="starters">
+                    {starters.map((s) => (
+                      <div className="starter" key={s.q}>
+                        <button
+                          className="go"
+                          data-testid="ai-starter"
+                          disabled={busy || datasetLoading || contextLoading}
+                          onClick={() => void send(s.q)}
+                        >
+                          {s.q}
+                        </button>
+                        <button
+                          className="ed"
+                          aria-label={`Edit before asking: ${s.q}`}
+                          title="Edit first"
+                          onClick={() => {
+                            setInput(s.edit);
+                            requestAnimationFrame(() => {
+                              const field = inputRef.current;
+                              field?.focus();
+                              const placeholder = /<[^>]+>/.exec(s.edit);
+                              if (placeholder)
+                                field?.setSelectionRange(
+                                  placeholder.index,
+                                  placeholder.index + placeholder[0].length,
+                                );
+                            });
+                          }}
+                        >
+                          <Icon name="pencil" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {messages.map((m, i) => (
+                <div className={`msg ${m.role === 'user' ? 'user' : ''}`} data-message-index={i} key={i}>
+                  <span className={m.role === 'user' ? 'avatar' : 'logo'} aria-hidden="true">
+                    {m.role === 'user' ? initials(user?.displayName || 'You') : <Icon name="spark" />}
+                  </span>
+                  <div className="msg-b">
+                    <div className="who">{m.role === 'user' ? 'You' : 'Assistant'}</div>
+                    <p className="message-text">{m.answer ?? m.text}</p>
+                    {!!m.people?.length && (
+                      <ul className="cite" aria-label="People in this answer">
+                        {m.people.map(({ person: p, reason, personId: id, chip }, j) => (
+                          <li key={j}>
+                            <span className="avatar" aria-hidden="true">
+                              {initials(p.name || '')}
+                            </span>
+                            <span className="t">
+                              <b>{p.name || '(no name)'}</b>
+                              <span className="tc">
+                                {[p.position || 'No title', p.company].filter(Boolean).join(' · ')}
+                              </span>
+                              {chip && <span className="chip">{chip}</span>}
+                              {reason && <span className="r">{reason}</span>}
+                            </span>
+                            <Link
+                              className="btn sm"
+                              aria-label={`Open ${p.name || 'unnamed person'}`}
+                              to={`/connections?person=${encodeURIComponent(id)}`}
+                            >
+                              Open
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               ))}
+              {busy && (
+                <div className="thinking" role="status">
+                  <span className="dots" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                  Looking through your connections…
+                  <button className="btn sm" data-testid="ai-stop" ref={stopRef} onClick={() => stop()}>
+                    <Icon name="stop" />
+                    Stop
+                  </button>
+                </div>
+              )}
+              {error && (
+                <p className="note bad" role="alert">
+                  {error}
+                </p>
+              )}
             </div>
-
-            <div className="flex gap-2">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask for recommendations..."
-                className="flex-1 mac-input rounded-lg p-3 text-sm text-slate-100 placeholder:text-slate-500"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    void send();
-                  }
-                }}
-                disabled={busy || ai.disabled}
-              />
-              <button
-                onClick={() => void send()}
-                disabled={busy || ai.disabled}
-                className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                  busy || ai.disabled
-                    ? 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
-                    : 'bg-primary hover:bg-primary/90 text-white'
-                }`}
-              >
-                <Icon name="send" className="text-sm" />
-                <span>{busy ? 'Thinking…' : 'Send'}</span>
-              </button>
-            </div>
-            {showsFreeTierNotice(ai) && (
-              <p className="text-[11px] text-slate-500">{AI_FREE_TIER_NOTICE}</p>
-            )}
           </div>
+          {!unavailable && dataset.length > 0 && (
+            <div className="composer">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void send();
+                }}
+              >
+                <label className="sr-only" htmlFor="ai-input">
+                  Ask the assistant
+                </label>
+                <input
+                  className="input"
+                  id="ai-input"
+                  data-testid="ai-input"
+                  ref={inputRef}
+                  autoComplete="off"
+                  placeholder={
+                    topCompany
+                      ? `Ask, e.g. who knows people at ${topCompany}?`
+                      : 'Ask about your connections…'
+                  }
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  readOnly={busy}
+                />
+                <button
+                  className="btn primary"
+                  type="submit"
+                  data-testid="ai-send"
+                  disabled={busy || unavailable || datasetLoading || contextLoading}
+                >
+                  <Icon name="send" />
+                  Ask
+                </button>
+              </form>
+              <p className="hint" role="status">
+                {datasetLoading || contextLoading
+                  ? 'Loading your connections…'
+                  : `${dataset.length.toLocaleString()} connections loaded.`}
+              </p>
+              <p className="hint ai-privacy-desktop">{AI_FREE_TIER_NOTICE}</p>
+              <details className="ai-privacy-phone">
+                <summary>What is sent?</summary>
+                <p className="hint">{AI_FREE_TIER_NOTICE}</p>
+              </details>
+            </div>
+          )}
         </div>
-      </main>
-
-      <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] md:w-[40%] md:h-[40%] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] md:w-[30%] md:h-[30%] bg-blue-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
-    </div>
+      </div>
+    </section>
   );
 };
-
 export default AIScreen;

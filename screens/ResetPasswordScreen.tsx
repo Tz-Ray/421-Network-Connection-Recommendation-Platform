@@ -1,16 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Icon } from '../components/Icon';
 import { auth, describeAuthError } from '../firebase';
-import { confirmPasswordReset, signOut, verifyPasswordResetCode } from 'firebase/auth';
-import { CONTEXT_SESSION_KEY, SESSION_KEY } from '../lib/connectionsStore';
+import { confirmPasswordReset, verifyPasswordResetCode } from 'firebase/auth';
+import { signOutOfAccount } from '../lib/session';
+import '../styles/auth.css';
 
 type Status = 'verifying' | 'ready' | 'invalid' | 'done';
 
 const INCOMPLETE_LINK_MESSAGE =
-  'This link is invalid or incomplete. Use "Forgot Password?" on the sign-in page to get a new one.';
+  'This link is invalid or incomplete. Use "Forgot password?" on the sign-in page to get a new one.';
 const UNUSABLE_LINK_MESSAGE =
-  'This reset link is invalid or has already been used. Use "Forgot Password?" on the sign-in page to get a new one.';
+  'This reset link is invalid or has already been used. Use "Forgot password?" on the sign-in page to get a new one.';
+const EXPIRED_LINK_MESSAGE =
+  'This reset link has expired. Use "Forgot password?" on the sign-in page to get a new one.';
+const errorCode = (err: unknown) =>
+  typeof err === 'object' && err !== null && 'code' in err
+    ? String((err as { code?: unknown }).code ?? '')
+    : '';
+/** Link problems in this page's own wording (the shared auth copy spells the link "Forgot Password?"). */
+const linkMessage = (err: unknown) =>
+  errorCode(err) === 'auth/expired-action-code'
+    ? EXPIRED_LINK_MESSAGE
+    : errorCode(err) === 'auth/invalid-action-code'
+      ? UNUSABLE_LINK_MESSAGE
+      : describeAuthError(err, UNUSABLE_LINK_MESSAGE);
 
 const ResetPasswordScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +43,10 @@ const ResetPasswordScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const alert = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (error && !loading) alert.current?.focus();
+  }, [error, loading]);
 
   useEffect(() => {
     // No once-only ref guard: verifying does not consume the code, so the StrictMode double-mount is safe.
@@ -49,7 +67,7 @@ const ResetPasswordScreen: React.FC = () => {
       })
       .catch((err) => {
         if (cancelled) return;
-        setInvalidMessage(describeAuthError(err, UNUSABLE_LINK_MESSAGE));
+        setInvalidMessage(linkMessage(err));
         setStatus('invalid');
       });
 
@@ -58,12 +76,12 @@ const ResetPasswordScreen: React.FC = () => {
     };
   }, [mode, oobCode]);
 
-  const leaveToLogin = () => {
+  const leaveToLogin = (forgot = false) => {
     // Strip the one-time code from the address bar before leaving.
     if (window.location.search) {
       window.history.replaceState(window.history.state, '', window.location.pathname + window.location.hash);
     }
-    navigate('/login');
+    navigate('/login', { replace: true, state: { forgot } });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -84,12 +102,9 @@ const ResetPasswordScreen: React.FC = () => {
     try {
       await confirmPasswordReset(auth, oobCode, password);
     } catch (err) {
-      const code =
-        typeof err === 'object' && err !== null && 'code' in err
-          ? String((err as { code?: unknown }).code ?? '')
-          : '';
+      const code = errorCode(err);
       if (code === 'auth/expired-action-code' || code === 'auth/invalid-action-code') {
-        setInvalidMessage(describeAuthError(err));
+        setInvalidMessage(linkMessage(err));
         setStatus('invalid');
       } else {
         setError(describeAuthError(err, 'Could not reset your password. Please try again.'));
@@ -106,14 +121,7 @@ const ResetPasswordScreen: React.FC = () => {
     const current = auth.currentUser;
     if (current?.email && current.email.toLowerCase() === email.toLowerCase()) {
       try {
-        sessionStorage.removeItem(SESSION_KEY);
-        sessionStorage.removeItem(CONTEXT_SESSION_KEY);
-      } catch {
-        // sessionStorage blocked; there is nothing cached to clear.
-      }
-
-      try {
-        await signOut(auth);
+        await signOutOfAccount();
       } catch (err) {
         console.warn('Password was reset, but signing out the old session failed:', err);
       }
@@ -123,135 +131,107 @@ const ResetPasswordScreen: React.FC = () => {
     setStatus('done');
   };
 
-  const badgeIcon = status === 'invalid' ? 'link_off' : status === 'done' ? 'check_circle' : 'lock_reset';
-  const title =
-    status === 'invalid' ? 'Link Unavailable' : status === 'done' ? 'Password Updated' : 'Reset Password';
-
-  const primaryButtonClass =
-    'w-full flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-semibold py-3.5 rounded-xl transition-all duration-300 shadow-lg shadow-primary/20 disabled:opacity-50 disabled:hover:bg-primary active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-[#101622]';
-
   return (
-    <div className="bg-mesh min-h-screen flex items-center justify-center font-display overflow-y-auto py-8 px-4 sm:px-6">
-      <main className="relative z-10 w-full max-w-[420px] animate-fade-in-up">
-        <div className="mac-glass rounded-3xl p-6 sm:p-8 flex flex-col items-center transition-all duration-300 hover:border-white/20">
-
-          <div className="mb-6 sm:mb-8 hover:scale-105 transition-transform duration-300">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-2xl">
-              <Icon name={badgeIcon} className="text-white text-2xl sm:text-3xl" />
-            </div>
-          </div>
-
-          <div className="text-center mb-6 sm:mb-8">
-            <h1 className="text-white text-xl sm:text-2xl font-bold tracking-tight">{title}</h1>
-            <p className="text-slate-400 text-sm mt-1">
-              {status === 'verifying' && 'Checking your reset link…'}
-              {status === 'ready' && (
-                <>
-                  Choose a new password for <span className="text-white font-medium">{email}</span>
-                </>
-              )}
-              {status === 'invalid' && invalidMessage}
-              {status === 'done' && 'You can now sign in with your new password.'}
-            </p>
-          </div>
-
-          {status === 'verifying' && (
-            <div className="w-full flex items-center justify-center">
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            </div>
-          )}
-
-          {status === 'ready' && (
-            <>
-              {error && (
-                <div className="w-full mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-2 text-red-400">
-                  <Icon name="error_outline" className="text-lg shrink-0 mt-0.5" />
-                  <p className="text-xs font-medium leading-relaxed">{error}</p>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="w-full space-y-4">
-                <div className="space-y-1.5 group">
-                  <label className="text-[10px] font-bold text-slate-500 ml-1 uppercase tracking-widest group-focus-within:text-primary transition-colors">New Password</label>
-                  <div className="relative">
-                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors" />
-                    <input
-                      autoFocus
-                      type={showPassword ? "text" : "password"}
-                      required
-                      autoComplete="new-password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••"
-                      className="mac-input w-full rounded-xl py-3 pl-11 pr-12 text-white placeholder-slate-600 text-sm"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      aria-label="Toggle password visibility"
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white active:scale-90 transition-all"
-                    >
-                      <Icon name={showPassword ? "visibility_off" : "visibility"} className="text-lg" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-1.5 group">
-                  <label className="text-[10px] font-bold text-slate-500 ml-1 uppercase tracking-widest group-focus-within:text-primary transition-colors">Confirm Password</label>
-                  <div className="relative">
-                    <Icon name="lock" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      required
-                      autoComplete="new-password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="••••••••"
-                      className="mac-input w-full rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-600 text-sm"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={`${primaryButtonClass} mt-6`}
-                >
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    'Update Password'
-                  )}
-                </button>
-              </form>
-            </>
-          )}
-
+    <main className="login">
+      <section className="login-card" aria-labelledby="reset-title">
+        <span className="logo" aria-hidden="true">
+          <Icon name="lock" />
+        </span>
+        <h1 id="reset-title">
+          {status === 'invalid'
+            ? 'Link unavailable'
+            : status === 'done'
+              ? 'Password updated'
+              : 'Reset your password'}
+        </h1>
+        <p
+          className={status === 'invalid' ? 'note bad' : status === 'done' ? 'note ok' : 'sub'}
+          role={status === 'invalid' ? 'alert' : 'status'}
+        >
           {(status === 'invalid' || status === 'done') && (
-            <button
-              type="button"
-              onClick={leaveToLogin}
-              className={primaryButtonClass}
-            >
-              Back to Login
-            </button>
+            <Icon name={status === 'invalid' ? 'alert' : 'check'} />
           )}
-
-        </div>
-
-        {(status === 'verifying' || status === 'ready') && (
-          <div className="mt-8 flex justify-center">
-            <button type="button" onClick={leaveToLogin} className="flex items-center space-x-3 group text-slate-400 hover:text-white transition-all duration-300">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 group-hover:bg-white/10 border border-white/10 group-active:scale-95 transition-all">
-                <Icon name="arrow_back" className="text-xl" />
-              </div>
-              <span className="text-sm font-medium">Back to Login</span>
-            </button>
-          </div>
+          <span>
+            {status === 'verifying' ? (
+              'Checking your reset link…'
+            ) : status === 'invalid' ? (
+              invalidMessage
+            ) : status === 'done' ? (
+              'You can now sign in with your new password.'
+            ) : (
+              <>
+                Choose a new password for <b className="auth-email">{email}</b>
+              </>
+            )}
+          </span>
+        </p>
+        {error && (
+          <p className="note bad" role="alert" ref={alert} tabIndex={-1}>
+            <Icon name="alert" />
+            <span>{error}</span>
+          </p>
         )}
-      </main>
-    </div>
+        {status === 'ready' && (
+          <form noValidate onSubmit={handleSubmit}>
+            <div className="field">
+              <label htmlFor="reset-password">New password</label>
+              <div className="pw">
+                <input
+                  className="input"
+                  id="reset-password"
+                  aria-invalid={!!error}
+                  autoFocus
+                  required
+                  autoComplete="new-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  className="linkbtn"
+                  type="button"
+                  aria-pressed={showPassword}
+                  aria-label={showPassword ? 'Hide passwords' : 'Show passwords'}
+                  aria-controls="reset-password reset-confirm"
+                  onClick={() => setShowPassword((v) => !v)}
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
+              </div>
+              <span className="hint">At least 6 characters.</span>
+            </div>
+            <div className="field">
+              <label htmlFor="reset-confirm">Confirm password</label>
+              <input
+                className="input"
+                id="reset-confirm"
+                aria-invalid={!!error}
+                required
+                autoComplete="new-password"
+                type={showPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <button className="btn primary" disabled={loading}>
+              {loading ? 'Updating…' : 'Update password'}
+            </button>
+          </form>
+        )}
+        {status === 'invalid' && (
+          <button className="btn primary" onClick={() => leaveToLogin(true)}>
+            Send a new link
+          </button>
+        )}
+        <button
+          className={status === 'done' ? 'btn primary' : 'linkbtn auth-link'}
+          type="button"
+          onClick={() => leaveToLogin()}
+        >
+          {auth.currentUser ? 'Back to the app' : status === 'done' ? 'Sign in' : 'Back to sign in'}
+        </button>
+      </section>
+    </main>
   );
 };
-
 export default ResetPasswordScreen;

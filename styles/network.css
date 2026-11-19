@@ -1,0 +1,604 @@
+.view.net-view.on {
+  height: 100%;
+}
+.net {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  height: 100%;
+  min-height: 0;
+}
+.net-main {
+  overflow: auto;
+  min-width: 0;
+  padding: 12px 16px 12px;
+  display: flex;
+  flex-direction: column;
+}
+.net-main > * {
+  flex: none;
+}
+.net-side {
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  overflow: auto;
+  min-width: 0;
+}
+.share-card {
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 5;
+}
+.share-pop {
+  position: absolute;
+  right: 8px;
+  top: calc(100% - 4px);
+  width: min(400px, calc(100% - 16px));
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  z-index: 8;
+  margin: 0 !important;
+}
+.share-card .panel-b {
+  padding: 8px 12px;
+}
+.share-state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+.share-state h2 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.share-info {
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+  padding-top: 4px;
+}
+.net-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px 12px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.net-bar .tabs {
+  border-bottom: 0;
+}
+.net-bar .graph-tools {
+  margin: 0 0 4px auto;
+}
+.net-fig figcaption {
+  flex: none;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.net-fig .legend {
+  flex: none;
+  margin-top: 6px;
+}
+.n-hit {
+  fill: transparent;
+  stroke: none;
+}
+.nlist {
+  display: none;
+}
+.nlist li {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.nlist li:last-child {
+  border-bottom: 0;
+}
+.nlist button {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-weight: 500;
+  cursor: pointer;
+  min-height: 24px;
+  text-align: left;
+  color: var(--text);
+}
+.nlist li.is-sel {
+  background: var(--accent-tint);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.nlist span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.share-state .dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.share-state .dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--success);
+}
+.share-state .dot.off::before {
+  background: var(--border-strong);
+  border-radius: 50%;
+}
+.share-state .acts {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.shared-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.shared-cols h4 {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.shared-cols ul {
+  list-style: disc;
+  padding-left: 18px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--text);
+}
+/* The drawing fits the box at 100% (no scrollbars); zooming in grows it and the box scrolls. */
+.graph-box.zoomed {
+  overflow: auto;
+}
+.graph-box svg {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.graph-note {
+  flex: none;
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.graph-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.graph-tools .icon-btn {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lgd {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+.lgd.you {
+  border-radius: 50%;
+  background: var(--accent);
+}
+.lgd.mem {
+  border-radius: 3px;
+  background: var(--warning-tint);
+  border: 1.5px solid var(--warning);
+}
+.lgd.per {
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+}
+.n-you {
+  fill: var(--accent);
+}
+.n-you-t {
+  fill: var(--on-accent);
+  font: 600 13px var(--font);
+}
+.n-mem {
+  fill: var(--warning-tint);
+  stroke: var(--warning);
+  stroke-width: 1.5;
+}
+.n-mem-t {
+  fill: var(--warning);
+  font: 600 12px var(--mono);
+}
+.n-per {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+.e-mem.hov {
+  opacity: 0.6;
+}
+.gnode.dim .n-plab {
+  fill: var(--muted);
+}
+.n-lab {
+  fill: var(--text);
+  font: 600 14px var(--font);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.n-plab {
+  fill: var(--text);
+  font: 400 13.5px var(--font);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.n-lab-s {
+  display: none;
+  fill: var(--text);
+  font-weight: 600;
+  font-family: var(--font);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.gnode {
+  cursor: pointer;
+  outline: none;
+}
+.gnode.hi .n-per {
+  stroke: var(--accent);
+  fill: var(--accent-tint);
+}
+.gnode.hi .n-plab {
+  fill: var(--text);
+}
+.gnode.sel .n-per {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+.gnode.sel .n-mem {
+  stroke-width: 3;
+}
+.gnode:focus-visible .n-per {
+  stroke: var(--focus);
+  stroke-width: 3;
+}
+.gnode:focus-visible .n-mem {
+  stroke: var(--focus);
+  stroke-width: 3;
+}
+.gnode:focus-visible .n-you {
+  stroke: var(--focus);
+  stroke-width: 3;
+}
+.gnode:hover .n-per {
+  stroke: var(--accent);
+}
+.side-sec {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.side-sec h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.side-sec h4 {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.plist li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+}
+.plist button.lnk {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--text);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  min-height: 24px;
+}
+.plist button.lnk:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+.plist.mlist li {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: 3px 0;
+}
+.plist.mlist .co {
+  white-space: normal;
+}
+.plist .co {
+  color: var(--muted);
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.intro {
+  background: var(--accent-tint);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.intro b {
+  font-weight: 600;
+}
+.db pre {
+  margin: 8px 0 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px;
+  overflow: auto;
+  white-space: pre;
+  color: var(--text);
+}
+.net-detail .back-btn {
+  display: inline-flex;
+  margin: 0 0 6px -8px;
+}
+.net-detail .side-sec:first-of-type {
+  padding-top: 4px;
+}
+.lock-panel {
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 28px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--surface);
+}
+
+.network-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 8px;
+}
+.network-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.network-counts strong {
+  color: var(--text);
+  font-family: var(--mono);
+}
+.sync-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  font-size: 12px;
+}
+.sync-counts dd {
+  font-family: var(--mono);
+  font-size: 16px;
+}
+.network-tables .tbl {
+  min-width: 520px;
+}
+.network-tables caption {
+  padding: 10px;
+  text-align: left;
+}
+.net-main .hint {
+  margin-top: 8px;
+}
+.net-main .db {
+  margin-top: 8px;
+}
+.net-main .net-fig {
+  flex: 1 1 auto;
+}
+.net-detail {
+  outline: none;
+}
+.net-detail .side-sec {
+  padding: 12px 4px;
+  overflow-wrap: anywhere;
+}
+.net-fig {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+.graph-box {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-height: 420px;
+}
+.sync-summary {
+  margin-top: 8px;
+}
+.share-state h2:focus {
+  outline: none;
+}
+.network-tables .tbl-wrap {
+  flex: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 60vh;
+}
+.network-tables .tbl td {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  height: auto;
+  padding-block: 8px;
+}
+.network-tables .tbl thead th {
+  position: sticky;
+  top: 0;
+}
+.network-tables .tbl tbody th {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  height: auto;
+  padding-block: 8px;
+  position: static;
+  min-width: 120px;
+}
+.e-you {
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.e-mem {
+  stroke: var(--border-strong);
+  stroke-width: 1.2;
+  opacity: 0;
+  transition: opacity 0.12s;
+  vector-effect: non-scaling-stroke;
+}
+.e-hi {
+  stroke: var(--edge-hi);
+  stroke-width: 1.6;
+  opacity: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+@media (max-width: 1023px) {
+  /* Same proportions as the drawing, so it fills the box edge to edge. */
+  .net {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .net-main {
+    overflow: visible;
+  }
+  .graph-box {
+    flex: none;
+    aspect-ratio: 760 / 560;
+    min-height: 0;
+  }
+  .net-side {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+  .view.net-view.on {
+    height: auto;
+  }
+  .net-fig .graph-box {
+    flex: none;
+    aspect-ratio: 780 / 560;
+    min-height: 420px;
+  }
+}
+@media (max-width: 639px) {
+  .shared-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ntbl-people {
+    display: none;
+  }
+  .nlist {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .share-pop {
+    position: static;
+    width: auto;
+    box-shadow: none;
+    margin-top: 8px !important;
+  }
+  .net-main {
+    padding: 12px;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  .network-content {
+    min-height: 0;
+  }
+  .net-detail .side-sec {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .network-tables .tbl {
+    min-width: 0;
+  }
+  .overlap-column {
+    display: none;
+  }
+  .share-state {
+    gap: 4px 8px;
+  }
+  .share-state .acts {
+    width: 100%;
+    margin-left: 0;
+  }
+  .share-state > .linkbtn {
+    margin-left: auto;
+  }
+  .share-state .dot {
+    font-size: 13px;
+  }
+  .net-fig .graph-box {
+    min-height: 300px;
+  }
+  .net-fig {
+    min-height: 0;
+  }
+}
+@media (pointer: coarse) {
+  .nlist button {
+    min-height: 44px;
+  }
+  .hover-hint {
+    display: none;
+  }
+}

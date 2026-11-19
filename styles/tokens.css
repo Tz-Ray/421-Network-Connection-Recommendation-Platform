@@ -1,0 +1,89 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --surface-3: #e6e9ed;
+  --text: #1c2024;
+  --muted: #596270;
+  --border: #d5dae0;
+  --border-strong: #7a8491;
+  --accent: #4338ca;
+  --accent-hover: #3730a3;
+  --on-accent: #ffffff;
+  --accent-tint: #edecfb;
+  --accent-text: #4338ca;
+  --success: #1a7f4b;
+  --success-tint: #e5f3eb;
+  --warning: #8f5b00;
+  --warning-tint: #fbf0da;
+  --danger: #c42b2b;
+  --danger-tint: #fbeaea;
+  --focus: #4338ca;
+  --overlay: rgba(16, 20, 26, 0.45);
+  --shadow: 0 8px 24px rgba(16, 24, 40, 0.14);
+  --edge: #c9ced6;
+  --edge-hi: #4338ca;
+  --skel: #e6e9ed;
+  --font:
+    'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0e1013;
+    --surface: #15181c;
+    --surface-2: #1b1f24;
+    --surface-3: #242930;
+    --text: #e6e8eb;
+    --muted: #9aa3ae;
+    --border: #2a2f36;
+    --border-strong: #5e6874;
+    --accent: #9aa2ff;
+    --accent-hover: #b3b9ff;
+    --on-accent: #0e1013;
+    --accent-tint: #1e2142;
+    --accent-text: #aeb4ff;
+    --success: #4cc38a;
+    --success-tint: #11271c;
+    --warning: #e5b04a;
+    --warning-tint: #2a2110;
+    --danger: #ff7b7b;
+    --danger-tint: #2d1616;
+    --focus: #9aa2ff;
+    --overlay: rgba(0, 0, 0, 0.6);
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --edge: #353c45;
+    --edge-hi: #9aa2ff;
+    --skel: #242930;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: #0e1013;
+  --surface: #15181c;
+  --surface-2: #1b1f24;
+  --surface-3: #242930;
+  --text: #e6e8eb;
+  --muted: #9aa3ae;
+  --border: #2a2f36;
+  --border-strong: #5e6874;
+  --accent: #9aa2ff;
+  --accent-hover: #b3b9ff;
+  --on-accent: #0e1013;
+  --accent-tint: #1e2142;
+  --accent-text: #aeb4ff;
+  --success: #4cc38a;
+  --success-tint: #11271c;
+  --warning: #e5b04a;
+  --warning-tint: #2a2110;
+  --danger: #ff7b7b;
+  --danger-tint: #2d1616;
+  --focus: #9aa2ff;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --edge: #353c45;
+  --edge-hi: #9aa2ff;
+  --skel: #242930;
+  color-scheme: dark;
+}

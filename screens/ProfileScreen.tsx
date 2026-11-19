@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { updateProfile } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { Sidebar } from '../components/Sidebar';
-import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
 
 interface ProfileData {
@@ -17,14 +15,39 @@ interface ProfileData {
   pronouns: string;
 }
 
+import { useShell } from '../components/AppShell';
+import { setTheme, useTheme, type Theme } from '../lib/theme';
+import { isGraphMember } from '../lib/networkGraph';
+import '../styles/profile.css';
+
 const ProfileScreen: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const shell = useShell();
+  const theme = useTheme();
+  const [sharing, setSharing] = useState<boolean | null>(null);
+  useEffect(() => {
+    let active = true;
+    const uid = auth.currentUser?.uid;
+    if (uid)
+      void isGraphMember(uid)
+        .then((v) => {
+          if (active) setSharing(v);
+        })
+        .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [savedAt, setSavedAt] = useState('');
   const [error, setError] = useState<string | null>(null);
-
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const [loaded, setLoaded] = useState<ProfileData | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ProfileData, string>>>({});
+  const errorRef = useRef<HTMLDivElement>(null);
+  const saveAttempt = useRef(0);
+  const today = new Date().toLocaleDateString('en-CA');
   const [formData, setFormData] = useState<ProfileData>({
     displayName: '',
     photoURL: '',
@@ -34,288 +57,332 @@ const ProfileScreen: React.FC = () => {
     gender: '',
     pronouns: '',
   });
-
+  const dirty =
+    !!loaded && (Object.keys(formData) as (keyof ProfileData)[]).some((key) => formData[key] !== loaded[key]);
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const user = auth.currentUser;
-        if (!user) {
-          navigate('/login');
-          return;
+    let active = true;
+    setLoading(true);
+    setError(null);
+    const user = auth.currentUser;
+    if (!user) return;
+    void getDoc(doc(db, 'users', user.uid))
+      .then((snap) => {
+        if (!active) return;
+        const data = snap.data() as Partial<ProfileData> | undefined;
+        const initial = {
+          displayName: data?.displayName ?? user.displayName ?? '',
+          photoURL: data?.photoURL ?? user.photoURL ?? '',
+          jobTitle: data?.jobTitle || '',
+          dob: data?.dob || '',
+          bio: data?.bio || '',
+          gender: data?.gender || '',
+          pronouns: data?.pronouns || '',
+        };
+        setFormData(initial);
+        setLoaded(initial);
+      })
+      .catch(() => {
+        if (active) {
+          setLoaded(null);
+          setError('Could not load your profile. Check your connection and try again.');
         }
-
-        setFormData(prev => ({
-          ...prev,
-          displayName: user.displayName || '',
-          photoURL: user.photoURL || '',
-        }));
-
-        const userDocRef = doc(db, 'users', user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-
-        if (userDocSnap.exists()) {
-          const firestoreData = userDocSnap.data() as Partial<ProfileData>;
-          setFormData(prev => ({
-            ...prev,
-            jobTitle: firestoreData.jobTitle || '',
-            dob: firestoreData.dob || '',
-            bio: firestoreData.bio || '',
-            gender: firestoreData.gender || '', // Fetch gender
-            pronouns: firestoreData.pronouns || '',
-          }));
-        }
-
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching user data:', err);
-        setError('Failed to load profile data');
-        setLoading(false);
-      }
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
     };
-
-    fetchUserData();
-  }, [navigate]);
+  }, [loadAttempt]);
+  useEffect(() => {
+    if (error && !loading) errorRef.current?.focus();
+  }, [error, loading]);
+  useEffect(
+    () => () => {
+      saveAttempt.current += 1;
+    },
+    [],
+  );
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-    setError(null);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+    setSavedAt('');
   };
 
   const handleSaveChanges = async () => {
-    try {
-      const user = auth.currentUser;
-      if (!user) {
-        setError('You must be logged in');
-        return;
+    if (!loaded || isSaving) return;
+    const invalid: Partial<Record<keyof ProfileData, string>> = {};
+    if (!formData.displayName.trim()) invalid.displayName = 'Enter your name.';
+    if (formData.photoURL.trim()) {
+      try {
+        new URL(formData.photoURL.trim());
+      } catch {
+        invalid.photoURL = 'Enter a valid picture URL.';
       }
-
-      setIsSaving(true);
-      setError(null);
-
-      await updateProfile(user, {
-        displayName: formData.displayName,
-        photoURL: formData.photoURL,
-      });
-
-      const userDocRef = doc(db, 'users', user.uid);
-      await setDoc(
-        userDocRef,
-        {
-          displayName: formData.displayName,
-          photoURL: formData.photoURL,
-          jobTitle: formData.jobTitle,
-          dob: formData.dob,
-          bio: formData.bio,
-          gender: formData.gender,
-          pronouns: formData.pronouns,
-          updatedAt: new Date(),
-        },
-        { merge: true }
-      );
-
-      setIsSaving(false);
-      setShowSuccess(true);
-      
-      // Redirect to dashboard after a short delay to show success state
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 150);
-
-    } catch (err) {
-      console.error('Error saving profile:', err);
-      setError('Failed to save profile changes');
-      setIsSaving(false);
+    }
+    if (formData.dob && formData.dob > today) invalid.dob = 'Choose today or an earlier date.';
+    if (formData.bio.length > 500) invalid.bio = 'Use 500 characters or fewer.';
+    setFieldErrors(invalid);
+    if (Object.keys(invalid).length) {
+      setError('There is a problem. Check the fields below.');
+      return;
+    }
+    const user = auth.currentUser;
+    if (!user) return;
+    const attempt = ++saveAttempt.current;
+    const values = {
+      ...formData,
+      displayName: formData.displayName.trim(),
+      photoURL: formData.photoURL.trim(),
+    };
+    setIsSaving(true);
+    setError(null);
+    setSavedAt('');
+    let timer: ReturnType<typeof setTimeout>;
+    try {
+      await Promise.race([
+        (async () => {
+          await updateProfile(user, { displayName: values.displayName, photoURL: values.photoURL });
+          await setDoc(doc(db, 'users', user.uid), { ...values, updatedAt: new Date() }, { merge: true });
+        })(),
+        new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new Error('timeout')), 15000);
+        }),
+      ]);
+      if (saveAttempt.current !== attempt) return;
+      setLoaded(values);
+      setFormData(values);
+      setSavedAt(`Saved at ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`);
+      window.dispatchEvent(new Event('ncrp-profile-updated'));
+    } catch {
+      if (saveAttempt.current === attempt)
+        setError('Could not confirm the save. Check your connection and try again.');
+    } finally {
+      clearTimeout(timer!);
+      if (saveAttempt.current === attempt) setIsSaving(false);
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
-        <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="flex-1 flex flex-col relative overflow-y-auto overflow-x-hidden custom-scrollbar">
-          <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
-          <div className="flex-1 flex items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-slate-400">Loading profile...</p>
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      <main className="flex-1 flex flex-col relative overflow-y-auto overflow-x-hidden custom-scrollbar">
-        <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
-
-        <div className="p-4 md:p-8 pb-20 max-w-3xl mx-auto w-full">
-          <div className="mb-8 animate-fade-in-up">
-            <h1 className="text-3xl font-bold text-white mb-2">Profile Settings</h1>
-            <p className="text-slate-400">Manage your account information and preferences</p>
-          </div>
-
-          {showSuccess && (
-            <div className="mb-6 p-4 bg-emerald-500/20 border border-emerald-500/50 rounded-lg flex items-center gap-3 animate-fade-in-up">
-              <Icon name="check_circle" className="text-emerald-500 text-lg" />
-              <span className="text-sm font-medium text-emerald-200">Profile updated! Redirecting...</span>
-            </div>
-          )}
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-center gap-3 animate-fade-in-up">
-              <Icon name="error" className="text-red-500 text-lg" />
-              <span className="text-sm font-medium text-red-200">{error}</span>
-            </div>
-          )}
-
-          <div className="glass-panel rounded-xl p-6 md:p-8 animate-fade-in-up">
-            <div className="mb-8 pb-8 border-b border-slate-700">
-              <h2 className="text-lg font-bold text-white mb-4">Profile Picture</h2>
-              <div className="flex items-start gap-6">
-                {formData.photoURL ? (
-                  <img
-                    src={formData.photoURL}
-                    alt="Profile"
-                    className="w-24 h-24 rounded-full border-2 border-slate-700 object-cover shadow-lg"
-                  />
-                ) : (
-                  <div className="w-24 h-24 rounded-full border-2 border-slate-700 shadow-lg bg-primary/20 text-primary text-3xl font-bold flex items-center justify-center">
-                    {(formData.displayName.trim()[0] ?? '?').toUpperCase()}
-                  </div>
-                )}
-                <div className="flex-1">
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Profile Picture URL</label>
-                  <input
-                    type="url"
-                    name="photoURL"
-                    value={formData.photoURL}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-8 pb-8 border-b border-slate-700">
-              <h2 className="text-lg font-bold text-white mb-6">Personal Information</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    name="displayName"
-                    value={formData.displayName}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Job Title</label>
-                  <input
-                    type="text"
-                    name="jobTitle"
-                    value={formData.jobTitle}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Date of Birth</label>
-                  <input
-                    type="date"
-                    name="dob"
-                    value={formData.dob}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
-                  />
-                </div>
-
-                {/* GENDER SECTION */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Gender</label>
-                  <select
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleInputChange}
-                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Non-binary">Non-binary</option>
-                    <option value="Other">Other</option>
-                    <option value="Prefer not to say">Prefer not to say</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-200 mb-2">Pronouns</label>
-                  <input
-                    type="text"
-                    name="pronouns"
-                    value={formData.pronouns}
-                    onChange={handleInputChange}
-                    placeholder="e.g. she/her, he/him, they/them"
-                    className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-8">
-              <h2 className="text-lg font-bold text-white mb-4">About You</h2>
-              <textarea
-                name="bio"
-                value={formData.bio}
-                onChange={handleInputChange}
-                rows={4}
-                className="w-full bg-slate-800/50 border border-slate-700 text-slate-200 rounded-lg px-4 py-2.5 outline-none focus:border-primary/50 resize-none"
-              />
-            </div>
-
-            <div className="flex gap-3 pt-4 border-t border-slate-700">
-              <button
-                onClick={handleSaveChanges}
-                disabled={isSaving}
-                className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-              >
-                {isSaving ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Saving...</span>
-                  </>
-                ) : (
-                  <>
-                    <Icon name="save" className="text-sm" />
-                    <span>Save Changes</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={() => navigate('/dashboard')}
-                className="bg-white/5 hover:bg-white/10 text-slate-200 font-bold py-3 px-6 rounded-lg border border-white/10"
-              >
-                <span>Cancel</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
+  const field = (name: keyof ProfileData, label: string, type = 'text') => (
+    <div className="field">
+      <label htmlFor={`profile-${name}`}>{label}</label>
+      <input
+        className="input"
+        id={`profile-${name}`}
+        name={name}
+        type={type}
+        required={name === 'displayName'}
+        max={name === 'dob' ? today : undefined}
+        aria-invalid={!!fieldErrors[name]}
+        aria-describedby={fieldErrors[name] ? `profile-${name}-error` : undefined}
+        value={formData[name]}
+        onChange={handleInputChange}
+        autoComplete={name === 'displayName' ? 'name' : undefined}
+      />
+      {fieldErrors[name] && (
+        <p className="err" id={`profile-${name}-error`}>
+          {fieldErrors[name]}
+        </p>
+      )}
     </div>
   );
+  return (
+    <section className="view on" id="v-profile">
+      <div className="page">
+        <div className="page-h">
+          <p className="sub">Your details and account settings.</p>
+        </div>
+        {loading ? (
+          <p role="status">Loading profile…</p>
+        ) : (
+          <div className="prof">
+            <form
+              noValidate
+              className="panel"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!isSaving) void handleSaveChanges();
+              }}
+            >
+              <h2 className="panel-h">Your details</h2>
+              <div className="panel-b form">
+                <div className="two">
+                  {field('displayName', 'Display name')}
+                  {field('jobTitle', 'Job title')}
+                </div>
+                <div className="two">
+                  {field('pronouns', 'Pronouns')}
+                  <div className="field">
+                    <label htmlFor="profile-email">Email</label>
+                    <input
+                      className="input"
+                      id="profile-email"
+                      value={auth.currentUser?.email || ''}
+                      aria-describedby="profile-email-hint"
+                      readOnly
+                    />
+                    <span className="hint" id="profile-email-hint">
+                      Used to sign in. Never shown to members.
+                    </span>
+                  </div>
+                </div>
+                <div className="two">
+                  {field('dob', 'Date of birth', 'date')}
+                  <div className="field">
+                    <label htmlFor="profile-gender">Gender</label>
+                    <select
+                      className="input"
+                      id="profile-gender"
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select gender</option>
+                      {['Male', 'Female', 'Non-binary', 'Other', 'Prefer not to say'].map((v) => (
+                        <option key={v}>{v}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                {field('photoURL', 'Profile picture URL', 'url')}
+                <div className="field">
+                  <label htmlFor="profile-bio">About you</label>
+                  <textarea
+                    className="input"
+                    id="profile-bio"
+                    name="bio"
+                    value={formData.bio}
+                    onChange={handleInputChange}
+                    rows={4}
+                    maxLength={500}
+                    aria-invalid={!!fieldErrors.bio}
+                    aria-describedby="profile-bio-hint profile-bio-count"
+                  />
+                  <span className="hint" id="profile-bio-hint">
+                    Optional. Only you see this for now.
+                  </span>
+                  <span className="hint" id="profile-bio-count">
+                    {formData.bio.length}/500 characters
+                  </span>
+                  {fieldErrors.bio && <p className="err">{fieldErrors.bio}</p>}
+                </div>
+                {error && (
+                  <div className="note bad" role="alert" ref={errorRef} tabIndex={-1}>
+                    <Icon name="alert" />
+                    <div>
+                      {error}{' '}
+                      {!loaded && (
+                        <button
+                          type="button"
+                          className="linkbtn"
+                          onClick={() => setLoadAttempt((n) => n + 1)}
+                        >
+                          Try again
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="form-foot">
+                  <button className="btn primary" disabled={isSaving || !loaded}>
+                    {isSaving ? 'Saving…' : 'Save changes'}
+                  </button>
+                  <button
+                    className="btn ghost"
+                    type="button"
+                    disabled={!dirty || isSaving}
+                    onClick={() => {
+                      if (loaded) setFormData(loaded);
+                      setFieldErrors({});
+                      setError(null);
+                      setSavedAt('');
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <span role="status">{savedAt}</span>
+                </div>
+              </div>
+            </form>
+            <div className="stack">
+              <section className="panel">
+                <h2 className="panel-h">Your data</h2>
+                <div className="panel-b stack">
+                  <p>
+                    {shell.count == null
+                      ? 'Your connections are saved to your account.'
+                      : shell.count === 0
+                        ? 'No connections yet.'
+                        : `${shell.count.toLocaleString()} connections saved.`}
+                  </p>
+                  <div>
+                    <button
+                      className="btn sm"
+                      onClick={() => navigate('/recommender', { state: { importConnections: true } })}
+                    >
+                      <Icon name="upload" />
+                      {shell.count === 0 ? 'Import your connections' : 'Import a new export'}
+                    </button>
+                  </div>
+                </div>
+              </section>
+              <section className="panel">
+                <h2 className="panel-h">Network sharing</h2>
+                <div className="panel-b stack">
+                  <p>
+                    {sharing == null ? (
+                      'Sharing status unavailable.'
+                    ) : sharing ? (
+                      <>
+                        <b>On.</b> Members see the display name saved when you started sharing and which
+                        people you both already have. Saving a new name here does not change it; to show it,
+                        stop sharing and share again on Network.
+                      </>
+                    ) : (
+                      <>
+                        <b>Off.</b> Nobody sees anything about your network.
+                      </>
+                    )}
+                  </p>
+                  <p>Your other connections, messages, notes and email are never shown.</p>
+                  <div>
+                    <Link className="btn sm ghost" to="/network">
+                      Open Network
+                    </Link>
+                  </div>
+                </div>
+              </section>
+              <section className="panel">
+                <h2 className="panel-h">Appearance</h2>
+                <div className="panel-b">
+                  <fieldset className="actions appearance-options">
+                    <legend className="sr-only">Theme</legend>
+                    {(['system', 'light', 'dark'] as Theme[]).map((t) => (
+                      <label className="check" key={t}>
+                        <input type="radio" name="theme" checked={theme === t} onChange={() => setTheme(t)} />
+                        {t[0].toUpperCase() + t.slice(1)}
+                      </label>
+                    ))}
+                  </fieldset>
+                </div>
+              </section>
+              <section className="panel">
+                <div className="panel-b">
+                  <button className="btn" data-testid="profile-sign-out" onClick={() => void shell.logout()}>
+                    <Icon name="out" />
+                    Sign out
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 };
-
 export default ProfileScreen;

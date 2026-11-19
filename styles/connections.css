@@ -1,0 +1,76 @@
+.connections-header {
+  padding: 12px 12px 0;
+}
+.connections-header h2 {
+  font-size: 15px;
+}
+.connection-sharing {
+  padding: 4px 12px 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.connection-sharing a {
+  margin-left: 6px;
+}
+.conn-cards .row-main {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding-right: 12px;
+}
+.split-table .toolbar {
+  flex-wrap: wrap;
+}
+.tbl.fixed td.t-wrap {
+  overflow-wrap: anywhere;
+}
+.connection-empty {
+  padding: 20px;
+}
+.pagination select.input {
+  width: auto;
+}
+.pagination {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+@media (max-width: 639px) {
+  .split-table .toolbar #conn-filter {
+    flex-basis: 100%;
+  }
+  .split-table .toolbar select {
+    flex: 1;
+  }
+  .split-table .tbl-wrap {
+    display: none;
+  }
+  .conn-cards {
+    display: block;
+  }
+  .connections-header {
+    padding: 12px 0 0;
+  }
+  .split-table .toolbar .input.conn-sort {
+    width: auto;
+    flex: 1;
+  }
+  .split-table .metabar {
+    padding-inline: 0;
+  }
+  .connection-sharing {
+    padding: 4px 0 8px;
+  }
+  .connection-sharing a {
+    display: inline-block;
+    min-height: 44px;
+    padding: 12px 0;
+  }
+  .conn-cards .row-main {
+    padding-inline: 16px;
+  }
+  .pagination {
+    padding-inline: 16px;
+    flex-wrap: wrap;
+  }
+}

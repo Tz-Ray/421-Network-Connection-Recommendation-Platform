@@ -5,13 +5,13 @@
 // users/{uid}/savedSearches via lib/savedItems.ts.
 import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from './Icon';
+import { useShell } from './AppShell';
 import { useAuth } from '../lib/AuthContext';
 import {
   SAVED_SEARCH_CRITERIA_MAX,
   SAVED_SEARCH_LIMIT,
   SAVED_SEARCH_TITLE_MAX,
   deleteSavedSearch,
-  listSavedSearches,
   saveSearch,
 } from '../lib/savedItems';
 import type { SavedSearch } from '../lib/savedItems';
@@ -25,38 +25,39 @@ type Props = {
   /** A search or AI rerank is in flight. */
   busy: boolean;
   onRun: (criteria: string, strictTitleOnly: boolean) => void;
+  showForm?: boolean;
+  showList?: boolean;
+  onSaved?: () => void;
+  onCancel?: () => void;
 };
 
-// Amber, not the red error box: the demo driver treats any red box in <main> as a step failure.
-const NOTICE = 'bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-200';
-
-export const SavedSearches: React.FC<Props> = ({ criteria, strictTitleOnly, canRun, busy, onRun }) => {
+export const SavedSearches: React.FC<Props> = ({
+  criteria,
+  strictTitleOnly,
+  canRun,
+  busy,
+  onRun,
+  showForm = true,
+  showList = true,
+  onSaved,
+  onCancel,
+}) => {
   const { user } = useAuth();
   const uid = user?.uid ?? null;
 
-  const [items, setItems] = useState<SavedSearch[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { saved: items, setSaved: setItems, savedLoading: loading, savedError, announce } = useShell();
   const [title, setTitle] = useState('');
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<Record<string, boolean>>({});
   const [notice, setNotice] = useState('');
-  const [info, setInfo] = useState('');
+  useEffect(() => {
+    if (showForm) {
+      setTitle(criteria.trim().slice(0, SAVED_SEARCH_TITLE_MAX));
+      setNotice('');
+    }
+  }, [showForm]);
   const uidRef = useRef(uid);
   uidRef.current = uid;
-
-  useEffect(() => {
-    setItems([]);
-    setNotice('');
-    setInfo('');
-    if (!uid) return;
-    let cancelled = false;
-    setLoading(true);
-    listSavedSearches()
-      .then((list) => { if (!cancelled) setItems(list); })
-      .catch((e: any) => { if (!cancelled) setNotice(`Saved searches could not be loaded: ${e?.message ?? 'unknown error'}`); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [uid]);
 
   const trimmedCriteria = criteria.trim();
   const atCap = items.length >= SAVED_SEARCH_LIMIT;
@@ -68,13 +69,13 @@ export const SavedSearches: React.FC<Props> = ({ criteria, strictTitleOnly, canR
     const owner = uid;
     setSaving(true);
     setNotice('');
-    setInfo('');
     try {
       const saved = await saveSearch({ title, criteria, strictTitleOnly });
       if (uidRef.current !== owner) return;
       setItems((prev) => [saved, ...prev]);
       setTitle('');
-      setInfo(`Saved “${saved.title}”.`);
+      announce(`Saved “${saved.title}”.`);
+      onSaved?.();
     } catch (err: any) {
       if (uidRef.current === owner) setNotice(err?.message ?? 'Could not save the search.');
     } finally {
@@ -87,10 +88,18 @@ export const SavedSearches: React.FC<Props> = ({ criteria, strictTitleOnly, canR
     const owner = uid;
     setDeleting((d) => ({ ...d, [item.id]: true }));
     setNotice('');
-    setInfo('');
     try {
       await deleteSavedSearch(item.id);
-      if (uidRef.current === owner) setItems((prev) => prev.filter((s) => s.id !== item.id));
+      if (uidRef.current === owner) {
+        setItems((prev) => prev.filter((s) => s.id !== item.id));
+        announce(`Deleted “${item.title}”.`, async () => {
+          if (uidRef.current !== owner) return;
+          const restored = await saveSearch(item);
+          if (uidRef.current !== owner) return;
+          setItems((prev) => [restored, ...prev]);
+          announce(`Restored “${item.title}”.`);
+        });
+      }
     } catch (err: any) {
       if (uidRef.current === owner) setNotice(err?.message ?? 'Could not delete the saved search.');
     } finally {
@@ -99,7 +108,7 @@ export const SavedSearches: React.FC<Props> = ({ criteria, strictTitleOnly, canR
   }
 
   const saveHint = !trimmedCriteria
-    ? 'Enter criteria above to save this search.'
+    ? 'Enter a search above to save this search.'
     : trimmedCriteria.length > SAVED_SEARCH_CRITERIA_MAX
       ? `Criteria longer than ${SAVED_SEARCH_CRITERIA_MAX} characters cannot be saved.`
       : atCap
@@ -107,120 +116,87 @@ export const SavedSearches: React.FC<Props> = ({ criteria, strictTitleOnly, canR
         : '';
 
   return (
-    <div className="glass-panel rounded-xl p-4 md:p-6">
-      <div className="flex items-center justify-between gap-3 mb-3">
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Saved Searches</p>
-        <span className="text-xs text-slate-500">
-          {items.length} / {SAVED_SEARCH_LIMIT}
-        </span>
-      </div>
-
-      <form onSubmit={handleSave} className="flex flex-col sm:flex-row gap-2">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          maxLength={SAVED_SEARCH_TITLE_MAX}
-          placeholder="Title for the current search"
-          aria-label="Saved search title"
-          className="flex-1 min-w-0 mac-input rounded-lg px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500"
-          disabled={!uid}
-        />
-        <button
-          type="submit"
-          disabled={!canSave || trimmedCriteria.length > SAVED_SEARCH_CRITERIA_MAX}
-          className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-            canSave && trimmedCriteria.length <= SAVED_SEARCH_CRITERIA_MAX
-              ? 'bg-primary hover:bg-primary/90 text-white'
-              : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
-          }`}
+    <div>
+      {showForm && (
+        <form
+          className="save-search-form"
+          onSubmit={handleSave}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              e.preventDefault();
+              onCancel?.();
+            }
+          }}
         >
-          <Icon name="bookmark_add" className="text-sm" />
-          <span>{saving ? 'Saving…' : 'Save search'}</span>
-        </button>
-      </form>
-      {saveHint && <p className="mt-2 text-xs text-slate-500">{saveHint}</p>}
-      {trimmedCriteria && !saveHint && (
-        <p className="mt-2 text-xs text-slate-500 truncate">
-          Saves “{trimmedCriteria}”{strictTitleOnly ? ' with Strict title-only' : ''}.
+          <div className="field">
+            <label htmlFor="saved-search-title">Title for this search</label>
+            <input
+              autoFocus
+              className="input"
+              id="saved-search-title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              maxLength={SAVED_SEARCH_TITLE_MAX}
+              disabled={!uid}
+            />
+          </div>
+          <button
+            className="btn primary"
+            disabled={!canSave || trimmedCriteria.length > SAVED_SEARCH_CRITERIA_MAX}
+          >
+            {saving ? 'Saving…' : 'Save search'}
+          </button>
+          <button type="button" className="btn ghost" onClick={onCancel} disabled={saving}>
+            Cancel
+          </button>
+          {saveHint && <p className="hint">{saveHint}</p>}
+        </form>
+      )}
+      {(notice || savedError) && (
+        <p className="note warn" role="alert">
+          {notice || savedError}
         </p>
       )}
-
-      {notice && <div className={`mt-3 ${NOTICE}`}>{notice}</div>}
-      {info && (
-        <div className="mt-3 bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">{info}</div>
-      )}
-
-      <div className="mt-4">
-        {loading ? (
-          <p className="text-sm text-slate-400">Loading saved searches…</p>
-        ) : items.length === 0 ? (
-          <p className="text-sm text-slate-400">No saved searches yet.</p>
+      {showList &&
+        (loading ? (
+          <p className="zero" role="status">
+            Loading saved searches…
+          </p>
+        ) : !items.length ? (
+          <div className="zero">
+            <h3>No saved searches yet</h3>
+            <p>Search for something you look for often, then use the bookmark beside Search.</p>
+          </div>
         ) : (
-          <>
-            {!canRun && (
-              <p className="mb-2 text-xs text-slate-500">Confirm a set of connections to run a saved search.</p>
-            )}
-            <ul className="space-y-2 max-h-[360px] overflow-y-auto custom-scrollbar pr-1">
-              {items.map((s) => (
-                <li
-                  key={s.id}
-                  className="rounded-lg border border-white/10 bg-white/5 p-3 flex items-start justify-between gap-3"
+          <ul>
+            {items.map((s) => (
+              <li className="saved-row" key={s.id}>
+                <span className="t">
+                  <b>{s.title}</b>
+                  <span className="mono muted">
+                    {s.criteria}
+                    {s.strictTitleOnly ? ' · title matches only' : ''}
+                  </span>
+                </span>
+                <button
+                  className="btn sm"
+                  onClick={() => onRun(s.criteria, s.strictTitleOnly)}
+                  disabled={!canRun || busy}
                 >
-                  <div className="min-w-0">
-                    <p className="font-bold text-white text-sm truncate">{s.title}</p>
-                    <p className="text-xs text-slate-400 mt-1 truncate" title={s.criteria}>
-                      {s.criteria}
-                    </p>
-                    {s.strictTitleOnly && (
-                      <span className="inline-block mt-2 text-[11px] px-2 py-0.5 rounded-md bg-primary/10 border border-primary/20 text-primary">
-                        Strict title-only
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => onRun(s.criteria, s.strictTitleOnly)}
-                      disabled={!canRun || busy}
-                      title={
-                        !canRun
-                          ? 'Confirm a set of connections first'
-                          : busy
-                            ? 'Wait for the current search to finish'
-                            : `Run “${s.title}”`
-                      }
-                      className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
-                        canRun && !busy
-                          ? 'bg-primary/15 hover:bg-primary/25 border-primary/30 text-primary'
-                          : 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
-                      }`}
-                    >
-                      <Icon name="play_arrow" className="text-sm" />
-                      <span>Run</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => void handleDelete(s)}
-                      disabled={!!deleting[s.id]}
-                      title={`Delete “${s.title}”`}
-                      aria-label={`Delete saved search ${s.title}`}
-                      className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
-                        deleting[s.id]
-                          ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
-                          : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
-                      }`}
-                    >
-                      <Icon name="delete" className="text-sm" outlined />
-                      <span>Delete</span>
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
+                  Run
+                </button>
+                <button
+                  className="icon-btn"
+                  disabled={!!deleting[s.id]}
+                  onClick={() => void handleDelete(s)}
+                  aria-label={`Delete saved search ${s.title}`}
+                >
+                  <Icon name="x" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        ))}
     </div>
   );
 };

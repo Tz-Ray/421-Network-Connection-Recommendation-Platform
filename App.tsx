@@ -1,5 +1,5 @@
-import React from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useLayoutEffect } from 'react';
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import DashboardScreen from './screens/DashboardScreen';
@@ -22,16 +22,52 @@ const RootRedirect: React.FC = () => {
   return <Navigate to="/login" replace />;
 };
 
+function RouteTitle() {
+  const { pathname } = useLocation();
+  useLayoutEffect(() => {
+    const title = (
+      {
+        '/login': 'Sign in',
+        '/register': 'Create account',
+        '/reset-password': 'Reset your password',
+        '/dashboard': 'Home',
+        '/recommender': 'Search',
+        '/connections': 'Connections',
+        '/network': 'Network',
+        '/ai': 'Assistant',
+        '/profile': 'Profile',
+      } as Record<string, string>
+    )[pathname];
+    document.title = title ? `${title} · Connection Recommender` : 'Connection Recommender';
+  }, [pathname]);
+  return null;
+}
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
       <HashRouter>
+        <RouteTitle />
         <Routes>
           <Route path="/" element={<RootRedirect />} />
 
           {/* Public Routes */}
-          <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
-          <Route path="/register" element={<PublicRoute><RegisterScreen /></PublicRoute>} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginScreen />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <RegisterScreen />
+              </PublicRoute>
+            }
+          />
 
           {/* Email action links */}
           <Route path="/reset-password" element={<ResetPasswordScreen />} />

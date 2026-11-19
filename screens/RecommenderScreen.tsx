@@ -1,9 +1,7 @@
 // screens/RecommenderScreen.tsx
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
-import { Sidebar } from '../components/Sidebar';
-import { Header } from '../components/Header';
 import { Icon } from '../components/Icon';
 import {
   COMPANY_KEYS,
@@ -27,7 +25,7 @@ import {
   saveNetworkContext,
 } from '../lib/connectionsStore';
 import type { CompactConnection, NetworkContext } from '../lib/connectionsStore';
-import { parseLinkedInExportZip } from '../lib/linkedinExport';
+import { normalizeProfileUrl, parseLinkedInExportZip } from '../lib/linkedinExport';
 import type { ImportSummary } from '../lib/linkedinExport';
 import { buildAiContext } from '../lib/relationship';
 import { rankConnections } from '../lib/search';
@@ -47,6 +45,25 @@ import { useAuth } from '../lib/AuthContext';
 import { SavedSearches } from '../components/SavedSearches';
 import { FavoritesList } from '../components/FavoritesList';
 import type { SemanticRanker } from '../lib/semantic/types';
+import { useShell, StatusFooter } from '../components/AppShell';
+import { DetailPane, useDetailRoute } from '../components/DetailPane';
+import { PersonHeading, PersonFacts } from '../components/PersonFacts';
+import { ImportSteps } from '../components/ImportSteps';
+import { personName, personIds, docIdParts, rowWhy, detailReasons } from '../lib/presentation';
+import {
+  isGraphMember,
+  loadCommonConnections,
+  personKeyFor,
+  type CommonConnections,
+} from '../lib/networkGraph';
+import '../styles/search.css';
+import {
+  readSearchSession,
+  saveSearchSession,
+  datasetChanged,
+  type ResultItem,
+  type ResultSet,
+} from '../lib/searchSession';
 
 type Row = Record<string, unknown>;
 
@@ -185,8 +202,6 @@ type Votes = Map<string, RankingFeedback>;
  * favorites are written under it), `legacyId` = the pre-#59 id, read only so
  * older votes keep applying. Both are '' when the ids could not be computed.
  */
-type ResultItem = { row: RankedRow; id: string; legacyId: string };
-type ResultSet = { main: ResultItem[]; irrelevant: ResultItem[] };
 const EMPTY_RESULTS: ResultSet = { main: [], irrelevant: [] };
 type CandidateKeys = { id: string; legacyId: string };
 const NO_KEYS: CandidateKeys = { id: '', legacyId: '' };
@@ -219,7 +234,7 @@ function applyVotes(
   ordered: ResultItem[],
   extras: ResultItem[],
   votes: Votes,
-  addedNote = ''
+  addedNote = '',
 ): ResultSet & { up: number; down: number } {
   const note = (item: ResultItem, text: string): ResultItem => ({
     ...item,
@@ -250,27 +265,60 @@ const feedbackSummary = (up: number, down: number) =>
 // Screen
 // -----------------------------
 const RecommenderScreen: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const ai = useAiAvailability();
+  const { user } = useAuth();
+  const uid = user?.uid ?? null;
+  const [restored] = useState(() => readSearchSession(uid));
 
   const location = useLocation();
   const navigate = useNavigate();
+  const shell = useShell();
+  const detailRoute = useDetailRoute();
+  const [selectedId, setSelectedId] = useState(restored?.selectedId || '');
+  const [tab, setTab] = useState<'results' | 'saved-people' | 'saved-searches'>(restored?.tab || 'results');
+  const [refine, setRefine] = useState(false);
+  const [showSave, setShowSave] = useState(false);
+  const [importMode, setImportMode] = useState(!!location.state?.importConnections);
+  const [review, setReview] = useState(false);
+  const [reading, setReading] = useState(false);
+  const [loadingAccount, setLoadingAccount] = useState(!restored && !location.state?.importConnections);
+  const [rankedCount, setRankedCount] = useState(restored?.rankedCount || 0);
+  const [flashId, setFlashId] = useState('');
+  const searchInput = useRef<HTMLInputElement>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
+  const importHeading = useRef<HTMLHeadingElement>(null);
+  const saveToggle = useRef<HTMLButtonElement>(null);
+  const irrelevantGroup = useRef<HTMLDetailsElement>(null);
+  const pendingQuery = useRef<{ criteria: string; strictTitleOnly: boolean } | null>(null);
+  const consumedRequest = useRef('');
+  const previousImport = useRef<any>(null);
+  const ordering = useRef<{
+    ordered: ResultItem[];
+    extras: ResultItem[];
+    note: string;
+    query: string;
+  } | null>(restored?.ordering || null);
+  const feedbackAction = useRef<(item: ResultItem, value: RankingFeedback) => Promise<void>>(null);
+  const favoriteAction = useRef<(id: string, row: Row) => Promise<void>>(null);
+  const [common, setCommon] = useState<CommonConnections | null>(null);
+  const graphStarted = useRef(false);
+  const [selectedPersonKey, setSelectedPersonKey] = useState<string | null>(null);
 
-  const [fileName, setFileName] = useState<string>('');
-  const [stagedRows, setStagedRows] = useState<Row[]>([]);
-  const [confirmedRows, setConfirmedRows] = useState<Row[]>([]);
-  const [columns, setColumns] = useState<string[]>([]);
+  const [fileName, setFileName] = useState<string>(restored?.fileName || '');
+  const [stagedRows, setStagedRows] = useState<Row[]>(restored?.rows || []);
+  const [confirmedRows, setConfirmedRows] = useState<Row[]>(restored?.rows || []);
+  const [columns, setColumns] = useState<string[]>(restored?.columns || []);
   const [error, setError] = useState<string>('');
 
   // Owner context from a LinkedIn export zip (null for CSV / JSON / a
   // Connections-only zip). Staged alongside the rows, confirmed with them.
-  const [stagedContext, setStagedContext] = useState<NetworkContext | null>(null);
-  const [confirmedContext, setConfirmedContext] = useState<NetworkContext | null>(null);
-  const [importSummary, setImportSummary] = useState<ImportSummary | null>(null);
+  const [stagedContext, setStagedContext] = useState<NetworkContext | null>(restored?.context || null);
+  const [confirmedContext, setConfirmedContext] = useState<NetworkContext | null>(restored?.context || null);
+  const [importSummary, setImportSummary] = useState<ImportSummary | null>(restored?.importSummary || null);
 
-  const [criteria, setCriteria] = useState<string>('');
+  const [criteria, setCriteria] = useState<string>(restored?.criteria || '');
   // Main list (top MAX_RESULTS) + the pool's voted-irrelevant rows ("Marked irrelevant").
-  const [results, setResults] = useState<ResultSet>(EMPTY_RESULTS);
+  const [results, setResults] = useState<ResultSet>(restored?.results || EMPTY_RESULTS);
   // A Search is running (ranking + the votes read), for the button and the panel.
   const [searching, setSearching] = useState(false);
 
@@ -283,25 +331,23 @@ const RecommenderScreen: React.FC = () => {
   const [saveInfo, setSaveInfo] = useState<string>('');
   const [saving, setSaving] = useState<boolean>(false);
 
-  const [strictTitleOnly, setStrictTitleOnly] = useState<boolean>(false);
+  const [strictTitleOnly, setStrictTitleOnly] = useState<boolean>(restored?.strictTitleOnly || false);
   // Set by the meaning-based search toggle while it is on; null = the lexical ranker only.
   // AI Rerank does not read it (it keeps the lexical pool; known limitation).
   const semanticRanker = useRef<SemanticRanker | null>(null);
 
   // The criteria that produced `results` (the textarea may be edited since).
-  const [resultsQuery, setResultsQuery] = useState<string>('');
+  const [resultsQuery, setResultsQuery] = useState<string>(restored?.resultsQuery || '');
   // Votes for `resultsQuery`, keyed by the candidate id they were saved under
   // (current or legacy; read with voteFor). Set with each result set from the
   // same read that ordered it, then updated as votes are cast.
-  const [feedback, setFeedback] = useState<Record<string, RankingFeedback>>({});
+  const [feedback, setFeedback] = useState<Record<string, RankingFeedback>>(restored?.feedback || {});
   const [feedbackPending, setFeedbackPending] = useState<Record<string, boolean>>({});
   const [feedbackError, setFeedbackError] = useState<string>('');
   // Synchronous duplicate-click guard: candidate ids with a vote write in flight.
   const votesInFlight = useRef<Set<string>>(new Set());
 
   // Saved Connections (favorites), keyed by candidateIdFor.
-  const { user } = useAuth();
-  const uid = user?.uid ?? null;
   const uidRef = useRef(uid);
   uidRef.current = uid;
   const [favorites, setFavorites] = useState<Favorite[]>([]);
@@ -318,12 +364,19 @@ const RecommenderScreen: React.FC = () => {
     let cancelled = false;
     setFavoritesLoading(true);
     listFavorites()
-      .then((list) => { if (!cancelled) setFavorites(list); })
-      .catch((e: any) => {
-        if (!cancelled) setFavoritesNotice(`Saved connections could not be loaded: ${e?.message ?? 'unknown error'}`);
+      .then((list) => {
+        if (!cancelled) setFavorites(list);
       })
-      .finally(() => { if (!cancelled) setFavoritesLoading(false); });
-    return () => { cancelled = true; };
+      .catch((e: any) => {
+        if (!cancelled)
+          setFavoritesNotice(`Saved connections could not be loaded: ${e?.message ?? 'unknown error'}`);
+      })
+      .finally(() => {
+        if (!cancelled) setFavoritesLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [uid]);
 
   const hasStaged = stagedRows.length > 0;
@@ -401,13 +454,74 @@ const RecommenderScreen: React.FC = () => {
     return out;
   }, [stagedContext]);
 
+  useEffect(() => {
+    if (uid && !importMode && !review && !reading && !loadingAccount)
+      saveSearchSession(uid, {
+        criteria,
+        strictTitleOnly,
+        results,
+        resultsQuery,
+        rankedCount,
+        selectedId,
+        tab,
+        rows: confirmedRows,
+        context: confirmedContext,
+        columns,
+        fileName,
+        importSummary,
+        feedback,
+        ordering: ordering.current,
+      });
+  }, [
+    uid,
+    importMode,
+    review,
+    reading,
+    loadingAccount,
+    criteria,
+    strictTitleOnly,
+    results,
+    resultsQuery,
+    rankedCount,
+    selectedId,
+    tab,
+    confirmedRows,
+    confirmedContext,
+    columns,
+    fileName,
+    importSummary,
+    feedback,
+  ]);
+  useEffect(() => {
+    if (importMode || review) {
+      shell.announce('');
+      importHeading.current?.focus();
+    }
+  }, [importMode, review, reading]);
+  function clearPersonRoute() {
+    if (!detailRoute.value) return;
+    const params = new URLSearchParams(location.search);
+    params.delete('person');
+    const { detailEntry, ...state } = location.state || {};
+    navigate({ pathname: location.pathname, search: params.toString() }, { replace: true, state });
+  }
+  function resetSearchResults() {
+    setResults(EMPTY_RESULTS);
+    setResultsQuery('');
+    setRankedCount(0);
+    setSelectedId('');
+    setFeedback({});
+    ordering.current = null;
+    setShowSave(false);
+    datasetChanged();
+  }
   function resetForNewFile(newFileName: string) {
     setFileName(newFileName);
     setError('');
     setAiError('');
     setAiInfo('');
     setSaveInfo('');
-    setResults(EMPTY_RESULTS);
+    resetSearchResults();
     setCriteria('');
     // Also drop the previous staged rows, so they can't be confirmed (without
     // their context) while the new file is still being read.
@@ -421,9 +535,32 @@ const RecommenderScreen: React.FC = () => {
   }
 
   async function handleFile(file: File) {
+    if (saving) return;
+    if (!previousImport.current)
+      previousImport.current = {
+        fileName,
+        stagedRows,
+        confirmedRows,
+        columns,
+        stagedContext,
+        confirmedContext,
+        importSummary,
+        results,
+        criteria,
+        resultsQuery,
+        rankedCount,
+        selectedId,
+        feedback,
+        ordering: ordering.current,
+      };
+    setImportMode(true);
+    setReview(false);
+    setReading(true);
+    setLoadingAccount(false);
     datasetVersion.current += 1;
     const version = datasetVersion.current;
     resetForNewFile(file.name);
+    clearPersonRoute();
 
     // A newer upload, clear, confirm or account load replaced the dataset while
     // this file was being read: drop the result.
@@ -451,8 +588,7 @@ const RecommenderScreen: React.FC = () => {
         if (!Array.isArray(json)) throw new Error('JSON must be an array of objects.');
 
         const objects = json.filter(
-          (r: unknown): r is Row =>
-            r != null && typeof r === 'object' && !Array.isArray(r)
+          (r: unknown): r is Row => r != null && typeof r === 'object' && !Array.isArray(r),
         );
         if (!objects.length) throw new Error('JSON file must be an array of objects.');
 
@@ -474,12 +610,15 @@ const RecommenderScreen: React.FC = () => {
       setColumns(Array.from(colSet));
       setStagedContext(context);
       setImportSummary(summary);
+      setReview(true);
     } catch (e: any) {
       if (stale()) return;
       setStagedRows([]);
       setConfirmedRows([]);
       setColumns([]);
       setError(e?.message ?? 'Failed to parse file.');
+    } finally {
+      if (!stale()) setReading(false);
     }
   }
 
@@ -488,10 +627,14 @@ const RecommenderScreen: React.FC = () => {
     if (saving) return; // a save for this dataset is already in flight
 
     datasetVersion.current += 1;
+    setReview(false);
+    setImportMode(false);
+    clearPersonRoute();
+    previousImport.current = null;
     const contextToSave = stagedContext;
     setConfirmedRows(stagedRows);
     setConfirmedContext(contextToSave);
-    setResults(EMPTY_RESULTS);
+    resetSearchResults();
     setCriteria('');
     setAiError('');
 
@@ -530,11 +673,15 @@ const RecommenderScreen: React.FC = () => {
               : `Could not save to account: ${rowsResult.reason?.message ?? 'unknown error'}`,
           ];
           if (contextResult.status === 'rejected') {
-            parts.push(`Could not save your profile context: ${contextResult.reason?.message ?? 'unknown error'}`);
+            parts.push(
+              `Could not save your profile context: ${contextResult.reason?.message ?? 'unknown error'}`,
+            );
           } else if (contextToSave) {
             parts.push('Saved your profile context.');
           }
           setSaveInfo(parts.join(' '));
+          if (getAuth().currentUser?.uid === user.uid && rowsResult.status === 'fulfilled')
+            shell.refreshCount();
         })
         .finally(() => setSaving(false));
     } else {
@@ -544,7 +691,7 @@ const RecommenderScreen: React.FC = () => {
 
   // Load the account-saved connections when arriving from
   // ConnectionsScreen's "Use in Recommender" button.
-  const accountLoadStarted = useRef(false);
+  const accountLoadStarted = useRef(!!restored && !location.state?.loadFromAccount);
 
   // Bumped whenever the user replaces the dataset (upload, confirm, clear). The
   // account load samples it before awaiting Firestore and drops its result if it
@@ -552,14 +699,18 @@ const RecommenderScreen: React.FC = () => {
   const datasetVersion = useRef(0);
 
   useEffect(() => {
-    const wantsAccountLoad = (location.state as any)?.loadFromAccount === true;
+    const wantsAccountLoad =
+      (location.state as any)?.loadFromAccount === true || (!accountLoadStarted.current && !importMode);
     if (!wantsAccountLoad || accountLoadStarted.current) return;
     accountLoadStarted.current = true;
 
     // Consume the route state so a refresh doesn't re-trigger the load.
     // NOTE: this changes location.state, which re-runs this effect; the ref
     // above (not a cleanup-cancel flag) is what keeps the in-flight load alive.
-    navigate('.', { replace: true, state: null });
+    if (location.state?.loadFromAccount) {
+      const { loadFromAccount, ...rest } = location.state;
+      navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: rest });
+    }
 
     const user = getAuth().currentUser;
     if (!user) {
@@ -572,13 +723,13 @@ const RecommenderScreen: React.FC = () => {
       const version = datasetVersion.current;
 
       setError('');
+      setLoadingAccount(true);
       setSaveInfo('Loading your saved connections…');
 
       // The read is slow enough for the user to sign out, switch accounts, or
       // upload/clear/confirm another dataset meanwhile. In any of those cases the
       // result is stale: drop it instead of writing it to state or sessionStorage.
-      const stale = () =>
-        getAuth().currentUser?.uid !== uid || datasetVersion.current !== version;
+      const stale = () => getAuth().currentUser?.uid !== uid || datasetVersion.current !== version;
 
       try {
         // The owner context is optional: a failed read degrades to "no
@@ -605,7 +756,7 @@ const RecommenderScreen: React.FC = () => {
         setStagedContext(context);
         setConfirmedContext(context);
         setImportSummary(null);
-        setResults(EMPTY_RESULTS);
+        resetSearchResults();
         setCriteria('');
         setAiError('');
         setPageIndex(0);
@@ -615,7 +766,7 @@ const RecommenderScreen: React.FC = () => {
               ? ' Profile context loaded.'
               : contextFailed
                 ? ' Your profile context could not be loaded.'
-                : '')
+                : ''),
         );
 
         try {
@@ -635,11 +786,20 @@ const RecommenderScreen: React.FC = () => {
         if (stale()) return;
         setSaveInfo('');
         setError(e?.message ?? 'Failed to load saved connections.');
+      } finally {
+        if (!stale()) setLoadingAccount(false);
       }
     })();
-  }, [location.state, navigate]);
+  }, [location.state, navigate, importMode]);
 
   function clearLoaded() {
+    clearPersonRoute();
+    setReview(false);
+    setImportMode(true);
+    setReading(false);
+    setLoadingAccount(false);
+    previousImport.current = null;
+    ordering.current = null;
     datasetVersion.current += 1;
 
     // The cached dataset is what AIScreen reads, so clearing here must clear
@@ -663,7 +823,7 @@ const RecommenderScreen: React.FC = () => {
     setAiError('');
     setAiInfo('');
     setSaveInfo('');
-    setResults(EMPTY_RESULTS);
+    resetSearchResults();
     setCriteria('');
     setPageIndex(0);
   }
@@ -682,6 +842,7 @@ const RecommenderScreen: React.FC = () => {
     const version = datasetVersion.current;
     const seq = ++searchSeq.current;
     setSearching(true);
+    shell.announce('Searching…');
     try {
       const { roleQuery, ranked } = semanticRanker.current
         ? await semanticRanker.current(confirmedRows, queryText, strict, confirmedContext)
@@ -692,21 +853,35 @@ const RecommenderScreen: React.FC = () => {
       const [votes, keys] = await loadVotes(pool, queryText);
       if (seq !== searchSeq.current || version !== datasetVersion.current) return;
 
+      setRankedCount(ranked.length);
+      ordering.current = {
+        ordered: pool.map((row, i) => ({ row, ...(keys[i] ?? NO_KEYS) })),
+        extras: [],
+        note: '',
+        query: queryText,
+      };
       const { main, irrelevant, up, down } = applyVotes(
         pool.map((row, i) => ({ row, ...(keys[i] ?? NO_KEYS) })),
         [],
-        votes
+        votes,
       );
       setResults({ main, irrelevant });
       setResultsQuery(queryText);
+      const first = main[0] || irrelevant[0];
+      setSelectedId(first ? itemId(first) : '');
+      if (detailRoute.value) {
+        if (first) detailRoute.open(itemId(first), true);
+        else clearPersonRoute();
+      }
+      setTab('results');
       showLoadedVotes(votes, queryText);
 
       if (roleQuery && strict && pool.length === 0) {
-        setAiInfo('No results. Turn off “Strict title-only” because many CSV rows have blank titles.');
+        setAiInfo('No results. Turn off “Title matches only” to include people without title matches.');
       } else if (pool.length === 0) {
         setAiInfo('No results. Try broader criteria (e.g., “engineer” or “sales”).');
       } else {
-        setAiInfo(`Search complete. Company-only matches are flagged “Weak”.${feedbackSummary(up, down)}`);
+        setAiInfo(`Found ${main.length} people who could help.${feedbackSummary(up, down)}`);
       }
     } finally {
       // A newer search owns the flag now (it clears it itself).
@@ -755,7 +930,9 @@ const RecommenderScreen: React.FC = () => {
 
     const pool = ranked.slice(0, AI_POOL_SIZE);
     if (!pool.length) {
-      setAiError('No candidates available for AI rerank. Try a broader query or disable strict mode.');
+      setAiError(
+        `No people available to reorder. Try a broader search.${strictTitleOnly ? ' Or turn off Title matches only.' : ''}`,
+      );
       return;
     }
 
@@ -820,7 +997,7 @@ const RecommenderScreen: React.FC = () => {
       }
 
       if (!aiOrder.length) {
-        setAiError('AI rerank result mapping failed.');
+        setAiError('Could not match the AI answer to your connections.');
         return;
       }
 
@@ -832,20 +1009,30 @@ const RecommenderScreen: React.FC = () => {
         reasons: [...(pool[idx].reasons ?? []), ...(reason ? [`AI: ${reason}`] : [])],
       });
 
+      setRankedCount(ranked.length);
+      ordering.current = {
+        ordered: aiOrder.map(({ idx, reason }) => ({
+          row: withAiReason(idx, reason),
+          ...(poolKeys[idx] ?? NO_KEYS),
+        })),
+        extras: pool.flatMap((row, idx) => (picked.has(idx) ? [] : [{ row, ...(poolKeys[idx] ?? NO_KEYS) }])),
+        note: 'Added: you marked this relevant for this search (the AI did not pick it).',
+        query: queryText,
+      };
       const { main, irrelevant, up, down } = applyVotes(
         aiOrder.map(({ idx, reason }) => ({ row: withAiReason(idx, reason), ...(poolKeys[idx] ?? NO_KEYS) })),
         pool.flatMap((row, idx) => (picked.has(idx) ? [] : [{ row, ...(poolKeys[idx] ?? NO_KEYS) }])),
         votes,
-        'Added: you marked this relevant for this search (the AI did not pick it).'
+        'Added: you marked this relevant for this search (the AI did not pick it).',
       );
 
       setResults({ main, irrelevant });
       setResultsQuery(queryText);
       showLoadedVotes(votes, queryText);
-      setAiInfo(`AI rerank applied.${feedbackSummary(up, down)}`);
+      setAiInfo(`Reordered with AI.${feedbackSummary(up, down)}`);
     } catch (e: any) {
       if (stale()) return;
-      setAiError(e?.message ?? 'AI rerank failed.');
+      setAiError(e?.message ?? 'Could not reorder with AI.');
     } finally {
       setAiReranking(false);
     }
@@ -857,7 +1044,12 @@ const RecommenderScreen: React.FC = () => {
   // Latest search / rerank; an older one still loading votes drops its results.
   const searchSeq = useRef(0);
 
+  const latestFeedback = useRef(feedback);
+  latestFeedback.current = feedback;
   async function sendFeedback(item: ResultItem, value: RankingFeedback) {
+    const beforeFocus = document.activeElement as HTMLElement;
+    const fromRow = !!beforeFocus.closest('.row');
+    const previous = voteFor({ get: (id: string) => latestFeedback.current[id] }, item);
     const candidateId = item.id;
     const queryText = resultsQuery;
     if (!candidateId) {
@@ -873,12 +1065,43 @@ const RecommenderScreen: React.FC = () => {
     setFeedbackPending((p) => ({ ...p, [candidateId]: true }));
     try {
       await recordRankingFeedback({ candidateId, queryText, feedback: value });
-      if (resultsQueryRef.current === queryText) setFeedback((f) => ({ ...f, [candidateId]: value }));
+      if (resultsQueryRef.current === queryText) {
+        const next = { ...latestFeedback.current, [candidateId]: value };
+        latestFeedback.current = next;
+        setFeedback(next);
+        const order = ordering.current;
+        if (order?.query === queryText)
+          setResults(applyVotes(order.ordered, order.extras, new Map(Object.entries(next)), order.note));
+        setSelectedId(itemId(item));
+        if (detailRoute.value) detailRoute.open(itemId(item), true);
+        const label = value === 'relevant' ? 'relevant' : 'not relevant';
+        shell.announce(
+          previous
+            ? `Marked ${label}.`
+            : `Marked ${label}. To change it, choose ${value === 'relevant' ? 'Not relevant' : 'Relevant'}.`,
+          previous
+            ? async () => {
+                if (resultsQueryRef.current === queryText) await feedbackAction.current?.(item, previous);
+              }
+            : undefined,
+        );
+      }
     } catch (e: any) {
       if (resultsQueryRef.current === queryText) setFeedbackError(e?.message ?? 'Could not send feedback.');
     } finally {
       votesInFlight.current.delete(candidateId);
       setFeedbackPending((p) => ({ ...p, [candidateId]: false }));
+      requestAnimationFrame(() => {
+        const row = document.getElementById(`result-${itemId(item)}`);
+        if (row) {
+          const group = row.closest('details');
+          if (group) group.open = true;
+          // The voted row may have moved; keep it in view wherever the vote came from.
+          row.scrollIntoView({ block: 'nearest' });
+          if (fromRow) row.querySelector<HTMLButtonElement>('.row-main')?.focus();
+          else if (beforeFocus.isConnected) beforeFocus.focus({ preventScroll: true });
+        }
+      });
     }
   }
 
@@ -904,10 +1127,14 @@ const RecommenderScreen: React.FC = () => {
           setFavorites((list) => [fav, ...list.filter((f) => f.id !== candidateId)]);
         }
       }
+      if (uidRef.current === owner)
+        shell.announce(removing ? 'Removed from saved people.' : 'Saved to saved people.', async () => {
+          if (uidRef.current === owner) await favoriteAction.current?.(candidateId, row);
+        });
     } catch (e: any) {
       if (uidRef.current === owner) {
         setFavoritesNotice(
-          `Could not ${removing ? 'remove' : 'save'} the connection: ${e?.message ?? 'unknown error'}`
+          `Could not ${removing ? 'remove' : 'save'} the connection: ${e?.message ?? 'unknown error'}`,
         );
       }
     } finally {
@@ -916,445 +1143,447 @@ const RecommenderScreen: React.FC = () => {
     }
   }
 
-  /** One result card (main list, or dimmed under "Marked irrelevant"). */
-  function renderResultCard(item: ResultItem, key: string, dimmed: boolean) {
-    const r = item.row;
-    const name =
-      getField(r.row, FULL_NAME_KEYS) ||
-      `${getField(r.row, FIRST_NAME_KEYS)} ${getField(r.row, LAST_NAME_KEYS)}`.trim() ||
-      '(no name)';
+  feedbackAction.current = sendFeedback;
+  favoriteAction.current = toggleFavorite;
+  const focusRequested = useRef(false);
+  useEffect(() => {
+    const state = location.state;
+    if (
+      !state ||
+      consumedRequest.current === location.key ||
+      !(state.runSearch || state.focusSearch || state.importConnections)
+    )
+      return;
+    consumedRequest.current = location.key;
+    if (state.runSearch) pendingQuery.current = state.runSearch;
+    if (state.focusSearch) focusRequested.current = true;
+    if (state.importConnections) {
+      datasetVersion.current += 1;
+      setImportMode(true);
+      setReview(false);
+      setLoadingAccount(false);
+    }
+    // Account loading consumes its own state with its existing once-only guard.
+    const { runSearch: request, focusSearch, importConnections, ...rest } = state;
+    navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: rest });
+  }, [location.key, location.state, navigate]);
+  useEffect(() => {
+    if (isConfirmed && pendingQuery.current && !searching && !aiReranking) {
+      const request = pendingQuery.current;
+      pendingQuery.current = null;
+      setImportMode(false);
+      runSavedSearch(request.criteria, request.strictTitleOnly);
+    }
+    if (isConfirmed && focusRequested.current) {
+      focusRequested.current = false;
+      searchInput.current?.focus();
+    }
+  }, [isConfirmed, location.key, searching, aiReranking]);
+  useEffect(() => {
+    if (saveInfo) shell.announce(saveInfo);
+  }, [saveInfo]);
+  useEffect(() => {
+    if (aiInfo && !aiInfo.startsWith('AI dataset')) shell.announce(aiInfo);
+  }, [aiInfo]);
+  useEffect(() => {
+    const message = error || aiError || feedbackError || favoritesNotice;
+    if (message) shell.announce(message);
+  }, [error, aiError, feedbackError, favoritesNotice]);
+  useEffect(() => {
+    if (!hasResults || graphStarted.current || !uid) return;
+    graphStarted.current = true;
+    void (async () => {
+      try {
+        if (!(await isGraphMember(uid))) return;
+        const data = await loadCommonConnections(uid);
+        if (getAuth().currentUser?.uid === uid) setCommon(data);
+      } catch {
+        /* Optional sharing facts must not prevent searching. */
+      }
+    })();
+  }, [hasResults, uid]);
 
-    const title = getField(r.row, POSITION_KEYS);
-    const org = getField(r.row, COMPANY_KEYS);
-    const cid = item.id;
+  function cancelImport() {
+    datasetVersion.current += 1;
+    const prev = previousImport.current;
+    if (prev) {
+      setFileName(prev.fileName);
+      setStagedRows(prev.stagedRows);
+      setConfirmedRows(prev.confirmedRows);
+      setColumns(prev.columns);
+      setStagedContext(prev.stagedContext);
+      setConfirmedContext(prev.confirmedContext);
+      setImportSummary(prev.importSummary);
+      setResults(prev.results);
+      setCriteria(prev.criteria);
+      setResultsQuery(prev.resultsQuery);
+      setRankedCount(prev.rankedCount);
+      setSelectedId(prev.selectedId);
+      setFeedback(prev.feedback);
+      ordering.current = prev.ordering;
+    }
+    previousImport.current = null;
+    setImportMode(false);
+    setReview(false);
+    setReading(false);
+    setError('');
+    shell.announce('Import cancelled. Nothing was saved.');
+    if (!(prev?.confirmedRows.length || confirmedRows.length)) accountLoadStarted.current = false;
+    if (!accountLoadStarted.current) navigate('.', { replace: true, state: { loadFromAccount: true } });
+  }
+  const nameOf = (row: Row) => personName(rowToDoc(row));
+  const rowIds = useMemo(() => {
+    const ids = personIds(confirmedRows, (row) => docIdParts(rowToDoc(row)));
+    return new Map(confirmedRows.map((row, i) => [row, ids[i]]));
+  }, [confirmedRows]);
+  // Fallback for a row outside the confirmed list (should not happen): its own id without a repeat suffix.
+  const itemId = (item: ResultItem) =>
+    rowIds.get(item.row.row) || personIds([item.row.row], (row) => docIdParts(rowToDoc(row)))[0];
+  // A favorite stores the row's name, title, company and URL, so its person id is the row's first-occurrence id.
+  const favoriteRows = useMemo(() => {
+    const byId = new Map<string, Row>();
+    for (const [row, id] of rowIds) if (!byId.has(id)) byId.set(id, row);
+    return new Map(
+      favorites.map((f) => {
+        const row =
+          byId.get(personIds([f], (x) => x)[0]) ||
+          (normalizeProfileUrl(f.url || '')
+            ? undefined
+            : confirmedRows.find(
+                (r) =>
+                  nameOf(r) === f.name &&
+                  getField(r, POSITION_KEYS) === f.position &&
+                  getField(r, COMPANY_KEYS) === f.company,
+              ));
+        return [f, row] as const;
+      }),
+    );
+  }, [favorites, rowIds, confirmedRows]);
+  const favoriteRowFor = (f: Favorite) => favoriteRows.get(f);
+  const favoritePersonId = (f: Favorite) => {
+    const row = favoriteRowFor(f);
+    return row ? rowIds.get(row)! : `saved-${f.id}`;
+  };
+  const allResults = [...results.main, ...results.irrelevant];
+  const activeId = detailRoute.value || selectedId || (results.main[0] ? itemId(results.main[0]) : '');
+  const favorite = favorites.find((f) => favoritePersonId(f) === activeId);
+  const favoriteRow =
+    favorite &&
+    (favoriteRowFor(favorite) || {
+      'Full Name': favorite.name,
+      Position: favorite.position,
+      Company: favorite.company,
+      URL: favorite.url,
+    });
+  const activeItem = allResults.find((r) => itemId(r) === activeId);
+  const activeRow = activeItem?.row.row || favoriteRow;
+  const activePerson = activeRow ? rowToDoc(activeRow) : null;
+  const activeStarId = activeItem?.id || favorite?.id || '';
+  useEffect(() => {
+    setSelectedPersonKey(null);
+    if (!common || !activeRow) return;
+    let active = true;
+    void personKeyFor(activeRow)
+      .then((k) => {
+        if (active) setSelectedPersonKey(k);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [common, activeRow]);
+  function select(item: ResultItem) {
+    setSelectedId(itemId(item));
+    detailRoute.open(itemId(item));
+  }
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.closest('input,textarea,select,[contenteditable="true"],dialog,[role="dialog"]') ||
+        document.querySelector('dialog[open]') ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey
+      )
+        return;
+      const k = e.key.toLowerCase();
+      if (k === '/') {
+        e.preventDefault();
+        searchInput.current?.focus();
+        return;
+      }
+      if (tab !== 'results' || !hasResults || searching || aiReranking || review) return;
+      if (k === 'j' || k === 'k') {
+        e.preventDefault();
+        const at = results.main.findIndex((item) => itemId(item) === activeId);
+        const next = results.main[Math.max(0, Math.min(results.main.length - 1, at + (k === 'j' ? 1 : -1)))];
+        if (next) {
+          setSelectedId(itemId(next));
+          if (detailRoute.value) detailRoute.open(itemId(next));
+          document
+            .getElementById(`result-${itemId(next)}`)
+            ?.querySelector<HTMLButtonElement>('.row-main')
+            ?.focus();
+        }
+      } else if (activeItem && k === 's') {
+        e.preventDefault();
+        void toggleFavorite(activeItem.id, activeItem.row.row);
+      } else if (activeItem && (k === 'r' || k === 'x')) {
+        e.preventDefault();
+        void sendFeedback(activeItem, k === 'r' ? 'relevant' : 'irrelevant');
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  });
+  function voteButtons(item: ResultItem) {
     const vote = voteFor(feedbackMap, item);
-    const pending = !!cid && !!feedbackPending[cid];
-    const isFavorite = !!cid && favoriteIds.has(cid);
-    const favBusy = !!cid && !!favoritesBusy[cid];
-
-    return (
-      <div
-        key={key}
-        className={`rounded-xl border border-white/10 bg-white/5 hover:border-primary/30 transition-colors p-4 ${
-          dimmed ? 'opacity-60 hover:opacity-100' : ''
-        }`}
+    return (['relevant', 'irrelevant'] as const).map((value) => (
+      <button
+        key={value}
+        className={`btn sm ${value === 'relevant' ? 'vote-up' : 'vote-down'}`}
+        data-testid={`vote-${value}`}
+        aria-pressed={vote === value}
+        disabled={!item.id || !!feedbackPending[item.id]}
+        onClick={() => void sendFeedback(item, value)}
       >
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <p className="font-bold text-white leading-tight truncate">{name}</p>
-            {(title || org) && (
-              <p className="text-xs text-slate-400 mt-1 truncate">{[title, org].filter(Boolean).join(' • ')}</p>
+        <Icon name={value === 'relevant' ? 'check' : 'ban'} />
+        {value === 'relevant' ? 'Relevant' : 'Not relevant'}
+      </button>
+    ));
+  }
+  function renderResultCard(item: ResultItem, rank: number, dimmed = false) {
+    const r = item.row,
+      id = itemId(item),
+      name = nameOf(r.row);
+    const chip =
+      r.chips.find((c) => c !== 'Semantic match') ||
+      (r.chips.includes('Semantic match') ? 'Semantic match' : '');
+    const why = rowWhy(r);
+    return (
+      <li
+        key={id}
+        id={`result-${id}`}
+        className={`row ${activeId === id ? 'is-sel' : ''} ${dimmed ? 'dim' : ''} ${flashId === id ? 'flash' : ''}`}
+        data-testid="result-row"
+        data-rank={rank}
+      >
+        <button
+          className="row-main"
+          onClick={() => select(item)}
+          aria-current={activeId === id ? 'true' : undefined}
+          aria-label={`${dimmed ? 'Marked irrelevant' : `Result ${rank}`}: ${name}, ${getField(r.row, POSITION_KEYS)} at ${getField(r.row, COMPANY_KEYS)}`}
+          aria-describedby={
+            [chip ? `chip-${id}` : '', why ? `why-${id}` : ''].filter(Boolean).join(' ') || undefined
+          }
+        >
+          <span className="rank">{dimmed ? '–' : rank}</span>
+          <span className="row-b">
+            <span className="row-l1">
+              <span className="nm">{name}</span>
+              {chip && (
+                <span className="chips">
+                  <span id={`chip-${id}`} className={`chip ${chip === 'Semantic match' ? 'acc' : ''}`}>
+                    {chip}
+                  </span>
+                </span>
+              )}
+            </span>
+            <span className="tc">
+              {[getField(r.row, POSITION_KEYS) || 'No title', getField(r.row, COMPANY_KEYS)]
+                .filter(Boolean)
+                .join(' · ')}
+            </span>
+            {why && (
+              <span className="why" id={`why-${id}`}>
+                {why}
+              </span>
             )}
-          </div>
-          <div className="text-xs font-extrabold text-primary bg-primary/15 border border-primary/20 px-2 py-1 rounded-md shrink-0">
-            Score {r.score}
-          </div>
-        </div>
-
-        {r.reasons.length > 0 && (
-          <div className="mt-3 text-xs text-slate-300 space-y-1">
-            {r.reasons.slice(0, 8).map((reason, i) => (
-              <p key={i} className="text-slate-400">
-                <span className="text-slate-300 font-bold">•</span> {reason}
-              </p>
-            ))}
-          </div>
-        )}
-
-        {r.chips.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {r.chips.map((chip, i) => (
-              <span
-                key={`${chip}-${i}`}
-                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {r.matchedTokens.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {r.matchedTokens.slice(0, 10).map((t) => (
-              <span
-                key={t}
-                className="text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
-          {/* No aria-pressed here: the demo driver counts pressed buttons as votes. */}
+          </span>
+        </button>
+        <span className="row-side">
           <button
-            type="button"
+            className="icon-btn star"
+            data-testid="star"
+            aria-pressed={favoriteIds.has(item.id)}
+            disabled={!item.id || favoritesBusy[item.id]}
+            aria-label={`${favoriteIds.has(item.id) ? 'Remove' : 'Save'} ${name}${favoriteIds.has(item.id) ? ' from saved people' : ''}`}
+            title={favoriteIds.has(item.id) ? 'Saved (S)' : 'Save (S)'}
             onClick={() => void toggleFavorite(item.id, item.row.row)}
-            disabled={!cid || favBusy}
-            title={isFavorite ? 'Remove from Saved Connections' : 'Save to Saved Connections'}
-            aria-label={isFavorite ? `Remove ${name} from Saved Connections` : `Save ${name} to Saved Connections`}
-            className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
-              favBusy || !cid
-                ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
-                : isFavorite
-                  ? 'bg-amber-400/10 border-amber-400/30 text-amber-300'
-                  : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
-            }`}
           >
-            <Icon name={isFavorite ? 'star' : 'star_border'} className="text-sm" />
-            <span>{isFavorite ? 'Saved' : 'Save'}</span>
+            <Icon name="star" />
           </button>
-
-          <div className="flex items-center gap-2">
-            {(
-              [
-                ['relevant', 'thumb_up', 'Relevant'],
-                ['irrelevant', 'thumb_down', 'Irrelevant'],
-              ] as const
-            ).map(([value, icon, label]) => {
-              const selected = vote === value;
-              return (
-                <button
-                  key={value}
-                  onClick={() => void sendFeedback(item, value)}
-                  disabled={pending || selected}
-                  aria-pressed={selected}
-                  title={`Mark as ${label.toLowerCase()} for this search`}
-                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border transition-all active:scale-[0.98] ${
-                    selected
-                      ? value === 'relevant'
-                        ? 'bg-primary/15 border-primary/30 text-primary'
-                        : 'bg-red-500/10 border-red-500/20 text-red-200'
-                      : pending
-                        ? 'bg-white/5 border-white/10 text-slate-600 cursor-not-allowed'
-                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300'
-                  }`}
-                >
-                  <Icon name={icon} className="text-sm" outlined={!selected} />
-                  <span>{label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+        </span>
+        {(activeId === id || dimmed) && (
+          <span
+            className={`row-votes ${dimmed ? 'always' : ''}`}
+            role="group"
+            aria-label={`Is ${name} useful for this search?`}
+          >
+            {voteButtons(item)}
+          </span>
+        )}
+      </li>
     );
   }
-
+  const addedByMeaning = results.main.filter((i) =>
+    i.row.reasons.some((r) => r.startsWith('Semantic match:')),
+  );
+  function showMeaning() {
+    const item = addedByMeaning[0];
+    if (!item) return;
+    const id = itemId(item);
+    setSelectedId(id);
+    if (detailRoute.value) detailRoute.open(id, true);
+    setFlashId(id);
+    document.getElementById(`result-${id}`)?.scrollIntoView({
+      block: 'center',
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+    document.getElementById(`result-${id}`)?.querySelector<HTMLButtonElement>('.row-main')?.focus();
+  }
+  const detailedReasons = activeItem ? detailReasons(activeItem.row) : [];
+  const similarity = activeItem?.row.reasons
+    .find((r) => r.startsWith('Semantic match:'))
+    ?.match(/similarity ([\d.]+)/)?.[1];
+  const members =
+    selectedPersonKey && common
+      ? (common.othersByPerson.get(selectedPersonKey) || [])
+          .map((uid) => common.members.find((m) => m.uid === uid)?.displayName)
+          .filter(Boolean)
+      : [];
+  const importUI = (
+    <div
+      className="zero"
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => {
+        e.preventDefault();
+        const f = e.dataTransfer.files[0];
+        if (f) void handleFile(f);
+      }}
+    >
+      <h2 ref={importHeading} tabIndex={-1}>
+        Start by adding your LinkedIn export
+      </h2>
+      <p>
+        Search ranks people you already know for whatever you need, like “engineering manager” or “someone at
+        Microsoft”.
+      </p>
+      <ImportSteps />
+      <div className="drop-zone">
+        <p>Drop your export here, or choose a file.</p>
+        <button
+          className="btn primary"
+          disabled={saving || reading}
+          onClick={() => fileInput.current?.click()}
+        >
+          <Icon name="upload" />
+          Choose export file
+        </button>
+      </div>
+      <p className="hint">
+        Accepts a LinkedIn .zip, Connections.csv, or a .json list. Read in your browser; message text is never
+        kept.
+      </p>
+      {importMode && (
+        <button className="btn ghost" onClick={cancelImport}>
+          Cancel
+        </button>
+      )}
+    </div>
+  );
+  const changes = (
+    <>
+      <section className="d-sec">
+        <h3>What changes</h3>
+        <div className="cmp">
+          <div className="panel">
+            <div className="panel-b">
+              <span className="muted">Now</span>
+              <b>{shell.count == null ? 'Unknown' : shell.count.toLocaleString()}</b>
+              <span className="hint">connections saved</span>
+            </div>
+          </div>
+          <div className="panel">
+            <div className="panel-b">
+              <span className="muted">After</span>
+              <b>{stagedRows.length.toLocaleString()}</b>
+              <span className="hint">connections from this file</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="d-sec">
+        <h3>Kept as they are</h3>
+        <ul className="sig">
+          {[
+            'Your Relevant / Not relevant votes and saved people.',
+            'Saved searches and your profile.',
+            'Sharing setting. If you share, the Network page updates by itself.',
+          ].map((line) => (
+            <li key={line}>
+              <Icon name="check" />
+              {line}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
+  );
   return (
-    <div className="flex h-screen overflow-hidden bg-background-dark text-slate-100 font-display">
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      <main className="flex-1 flex flex-col relative overflow-y-auto overflow-x-hidden custom-scrollbar">
-        <Header onMenuToggle={() => setSidebarOpen(!isSidebarOpen)} />
-
-        <div className="p-4 md:p-8 pb-20 max-w-7xl mx-auto w-full space-y-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white">Connection Recommender</h1>
-            <p className="text-slate-400 mt-1 text-sm">
-              Upload your full LinkedIn data export (.zip), or just Connections.csv / JSON → Review → Confirm → Search.
-            </p>
-          </div>
-
-          {/* Upload */}
-          <div className="glass-panel rounded-xl p-4 md:p-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Network file</p>
-                <div className="flex items-center gap-2">
-                  <Icon name="upload_file" className="text-primary" />
-                  <p className="font-semibold text-white">{fileName ? fileName : 'No file loaded'}</p>
-                </div>
-
-                {hasStaged && (
-                  <p className="text-sm text-slate-400 mt-1">
-                    Loaded {stats.stagedCount.toLocaleString()} connections • {stats.colCount} columns detected
-                    <span className="ml-2 text-slate-500">• ~{stats.pctMissingTitle}% missing titles</span>
-                    {isConfirmed ? (
-                      <span className="ml-2 text-primary font-bold">• Confirmed</span>
-                    ) : (
-                      <span className="ml-2 text-slate-500">• Not confirmed</span>
-                    )}
-                  </p>
-                )}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <label className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-white font-bold cursor-pointer transition-all active:scale-[0.98]">
-                  <Icon name="attach_file" className="text-sm" />
-                  <span>Choose File</span>
-                  <input
-                    type="file"
-                    accept=".zip,.csv,.json"
-                    className="hidden"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) void handleFile(f);
-                    }}
-                  />
-                </label>
-
-                <button
-                  onClick={clearLoaded}
-                  disabled={!fileName && !hasStaged}
-                  className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                    fileName || hasStaged
-                      ? 'bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10'
-                      : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
-                  }`}
-                >
-                  <Icon name="delete" className="text-sm" />
-                  <span>Clear</span>
-                </button>
-              </div>
-            </div>
-
-            {error && (
-              <div className="mt-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-                {error}
-              </div>
-            )}
-
-            {aiInfo && (
-              <div className="mt-4 bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
-                {aiInfo}
-              </div>
-            )}
-
-            {saveInfo && (
-              <div className="mt-4 bg-primary/10 border border-primary/20 rounded-lg p-3 text-sm text-slate-200">
-                {saveInfo}
-              </div>
-            )}
-
-            {aiError && (
-              <div className="mt-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-                {aiError}
-              </div>
-            )}
-          </div>
-
-          {/* Import summary (LinkedIn export zip only) */}
-          {importSummary && (
-            <div className="glass-panel rounded-xl p-4 md:p-6">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Import summary</p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-sm">
-                <div className="min-w-0">
-                  <p className="text-slate-300 font-bold mb-2">Files used</p>
-                  <ul className="space-y-1">
-                    {importSummary.filesUsed.map((f) => (
-                      <li key={f.name} className="flex items-center justify-between gap-3 text-slate-400">
-                        <span className="truncate">{f.name}</span>
-                        <span className="text-slate-300 font-bold shrink-0">
-                          {f.rows.toLocaleString()} {f.rows === 1 ? 'row' : 'rows'}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="min-w-0 space-y-4">
-                  {importCoverage.length > 0 && (
-                    <div>
-                      <p className="text-slate-300 font-bold mb-2">Match coverage</p>
-                      <ul className="space-y-1 text-slate-400">
-                        {importCoverage.map((line) => (
-                          <li key={line}>{line}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div>
-                    <p className="text-slate-300 font-bold mb-2">Your profile context</p>
-                    <p className="text-slate-400">
-                      {!stagedContext
-                        ? 'No profile files in this archive (connections only).'
-                        : contextCounts.length
-                          ? `Found: ${contextCounts.join(' • ')}`
-                          : 'Profile files found, but they were empty.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {importSummary.warnings.length > 0 && (
-                <div className="mt-4 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-200 space-y-1">
-                  {importSummary.warnings.map((w, i) => (
-                    <p key={i}>{w}</p>
-                  ))}
-                </div>
-              )}
-
-              {importSummary.filesSkipped.length > 0 && (
-                <details className="mt-4 text-sm">
-                  <summary className="cursor-pointer text-slate-400 font-bold">
-                    {importSummary.filesSkipped.length.toLocaleString()}{' '}
-                    {importSummary.filesSkipped.length === 1 ? 'file' : 'files'} skipped (not read)
-                  </summary>
-                  <p className="mt-2 text-xs text-slate-500 break-words">{importSummary.filesSkipped.join(', ')}</p>
-                </details>
-              )}
-
-              <div className="mt-4 border-t border-white/10 pt-3 text-xs text-slate-400 space-y-1">
-                <p className="flex items-start gap-2">
-                  <Icon name="lock" className="text-sm text-primary shrink-0" />
-                  <span>Message text is never stored; only counts and dates.</span>
-                </p>
-                <p className="flex items-start gap-2">
-                  <Icon name="smart_toy" className="text-sm text-primary shrink-0" />
-                  <span>
-                    AI requests include relationship facts (message counts, last contact month, shared employers) but
-                    never your notes or job applications.
-                  </span>
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Preview + Confirm */}
-          <div className="glass-panel rounded-xl p-4 md:p-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                  Loaded connections (preview)
-                </p>
-                <p className="text-sm text-slate-400">
-                  {hasStaged ? `Browse the list. Confirm to enable search + AI tab.` : `Upload a LinkedIn export .zip, CSV or JSON to preview.`}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
-                  <span className="text-xs text-slate-400 font-bold">Rows/page</span>
-                  <select
-                    value={pageSize}
-                    onChange={(e) => {
-                      setPageSize(Number(e.target.value));
-                      setPageIndex(0);
-                    }}
-                    className="bg-transparent text-sm text-slate-200 outline-none"
-                    disabled={!hasStaged}
-                  >
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                  </select>
-                </div>
-
-                <button
-                  onClick={confirmConnections}
-                  disabled={!hasStaged || saving}
-                  className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                    hasStaged && !saving ? 'bg-primary hover:bg-primary/90 text-white' : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
-                  }`}
-                >
-                  <Icon name={isConfirmed ? 'check_circle' : 'check'} className="text-sm" />
-                  <span>{saving ? 'Saving…' : isConfirmed ? 'Confirmed' : 'Confirm Connections'}</span>
-                </button>
-              </div>
-            </div>
-
-            {hasStaged && (
-              <>
-                <div className="mt-4 flex items-center justify-between gap-3">
-                  <div className="text-xs text-slate-500">
-                    Showing page <span className="text-slate-300 font-bold">{safePageIndex + 1}</span> of{' '}
-                    <span className="text-slate-300 font-bold">{totalPages}</span> • Total{' '}
-                    <span className="text-slate-300 font-bold">{previewRows.length.toLocaleString()}</span> connections
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setPageIndex((p) => Math.max(0, p - 1))}
-                      disabled={safePageIndex === 0}
-                      className={`px-3 py-2 rounded-lg text-sm font-bold border transition ${
-                        safePageIndex === 0
-                          ? 'border-white/10 text-slate-600 bg-white/5 cursor-not-allowed'
-                          : 'border-white/10 text-slate-200 bg-white/5 hover:bg-white/10'
-                      }`}
-                    >
-                      Prev
-                    </button>
-                    <button
-                      onClick={() => setPageIndex((p) => Math.min(totalPages - 1, p + 1))}
-                      disabled={safePageIndex >= totalPages - 1}
-                      className={`px-3 py-2 rounded-lg text-sm font-bold border transition ${
-                        safePageIndex >= totalPages - 1
-                          ? 'border-white/10 text-slate-600 bg-white/5 cursor-not-allowed'
-                          : 'border-white/10 text-slate-200 bg-white/5 hover:bg-white/10'
-                      }`}
-                    >
-                      Next
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-4 overflow-auto custom-scrollbar max-h-[520px] rounded-xl border border-white/10">
-                  <table className="min-w-full text-sm">
-                    <thead className="sticky top-0 bg-background-dark/95 backdrop-blur border-b border-white/10">
-                      <tr className="text-left">
-                        <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Name</th>
-                        <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Position</th>
-                        <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Company</th>
-                        <th className="p-3 text-xs font-extrabold text-slate-400 uppercase tracking-wider">Connected On</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {previewSlice.map((r, i) => {
-                        const name =
-                          getField(r, FULL_NAME_KEYS) ||
-                          `${getField(r, FIRST_NAME_KEYS)} ${getField(r, LAST_NAME_KEYS)}`.trim() ||
-                          '(no name)';
-                        const pos = getField(r, POSITION_KEYS) || '—';
-                        const comp = getField(r, COMPANY_KEYS) || '—';
-                        const connectedOn = getField(r, CONNECTED_ON_KEYS) || '—';
-
-                        return (
-                          <tr key={`${safePageIndex}-${i}`} className="border-b border-white/5 hover:bg-white/5">
-                            <td className="p-3 font-bold text-slate-100 whitespace-nowrap">{name}</td>
-                            <td className="p-3 text-slate-300">{pos}</td>
-                            <td className="p-3 text-slate-300">{comp}</td>
-                            <td className="p-3 text-slate-400 whitespace-nowrap">{connectedOn}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Search + Results */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
-            <div className="lg:col-span-7 glass-panel rounded-xl p-4 md:p-6">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Criteria</p>
-
-              <textarea
-                value={criteria}
-                onChange={(e) => setCriteria(e.target.value)}
-                placeholder="Example: software engineer, sales, VP Sales, CTO, data scientist..."
-                className="w-full min-h-[120px] mac-input rounded-lg p-3 text-sm text-slate-100 placeholder:text-slate-500"
-                disabled={!isConfirmed}
-              />
-
-              <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
-                <input
-                  type="checkbox"
-                  checked={strictTitleOnly}
-                  onChange={(e) => setStrictTitleOnly(e.target.checked)}
-                  disabled={!isConfirmed}
-                />
-                <span className="font-bold">Strict title-only</span>
-                <span className="text-slate-500">
-                  — blocks company-only matches, may return 0 if titles are missing.
-                </span>
-              </div>
-
+    <section
+      id="v-search"
+      aria-label="Search"
+      className={`view split on ${detailRoute.value && !review && !importMode ? 'detail-open' : ''} ${refine ? 'refine-open' : ''} ${hasResults ? 'has-results' : ''}`}
+    >
+      <div className="pane list-pane">
+        <div className="pane-head">
+          <form
+            className="toolbar"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void runSearch();
+            }}
+          >
+            <label className="sr-only" htmlFor="search-input">
+              Who are you looking for?
+            </label>
+            <input
+              ref={searchInput}
+              className="input"
+              id="search-input"
+              data-testid="search-input"
+              autoComplete="off"
+              placeholder="Who can help? e.g. engineering manager"
+              value={criteria}
+              onChange={(e) => setCriteria(e.target.value)}
+              disabled={!isConfirmed || importMode || loadingAccount}
+            />
+            <button
+              className="btn primary"
+              data-testid="search-submit"
+              disabled={!canSearch || searching || aiReranking || importMode}
+            >
+              {searching ? 'Searching…' : 'Search'}
+            </button>
+            <button
+              className="icon-btn save-q"
+              type="button"
+              data-testid="save-search"
+              ref={saveToggle}
+              aria-label="Save this search"
+              title="Save this search"
+              aria-expanded={showSave}
+              disabled={!criteria.trim() || !isConfirmed || importMode}
+              onClick={() => setShowSave((v) => !v)}
+            >
+              <Icon name="bookmark" />
+            </button>
+          </form>
+          <div className="search-refinements">
+            <div className="semantic-options" hidden={importMode || review || loadingAccount || !isConfirmed}>
               <React.Suspense fallback={null}>
                 <SemanticSearchToggle
                   disabled={!isConfirmed}
@@ -1363,129 +1592,428 @@ const RecommenderScreen: React.FC = () => {
                   }}
                 />
               </React.Suspense>
-
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                <p className="text-xs text-slate-500">
-                  Title matches are prioritized. Company-only matches are marked “Weak”.
-                </p>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => void runSearch()}
-                    disabled={!canSearch || searching || aiReranking}
-                    className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] ${
-                      canSearch && !searching && !aiReranking
-                        ? 'bg-primary hover:bg-primary/90 text-white'
-                        : 'bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed'
-                    }`}
-                  >
-                    <Icon name="search" className="text-sm" />
-                    <span>{searching ? 'Searching…' : 'Search'}</span>
-                  </button>
-
-                  <button
-                    onClick={() => void aiRerank()}
-                    disabled={ai.disabled || !canSearch || aiReranking || searching}
-                    className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold transition-all active:scale-[0.98] border ${
-                      ai.disabled || !canSearch || aiReranking || searching
-                        ? 'bg-white/5 text-slate-600 border-white/10 cursor-not-allowed'
-                        : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
-                    }`}
-                    title={
-                      ai.checking
-                        ? 'Checking whether AI features are available…'
-                        : ai.disabled
-                        ? ai.message
-                        : 'Use Gemini (via the AI proxy) to rerank the best candidates and explain each pick.'
-                    }
-                  >
-                    <Icon name="smart_toy" className="text-sm" />
-                    <span>{aiReranking ? 'Reranking…' : 'AI Rerank'}</span>
-                  </button>
-                </div>
-                {ai.disabled && !ai.checking && (
-                  <p className="text-xs text-slate-400 mt-2">
-                    {ai.rerankNote} Search ranks by your query and your relationships without it.
-                  </p>
-                )}
-                {showsFreeTierNotice(ai) && (
-                  <p className="text-[11px] text-slate-500 mt-2 w-full">{AI_FREE_TIER_NOTICE}</p>
-                )}
-              </div>
             </div>
-
-            <div className="lg:col-span-5 glass-panel rounded-xl p-4 md:p-6">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Top Matches</p>
-
-              {!isConfirmed ? (
-                <div className="text-sm text-slate-400">Confirm the loaded connections to run a search.</div>
-              ) : !hasResults ? (
-                <div className="text-sm text-slate-400">{searching ? 'Searching…' : 'Run a search to see results.'}</div>
-              ) : (
-                <>
-                  {results.main.length > 0 ? (
-                    <div className="space-y-3">
-                      {feedbackError && (
-                        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-                          {feedbackError}
-                        </div>
-                      )}
-                      {results.main.map((item, idx) => renderResultCard(item, `m-${idx}`, false))}
-                    </div>
-                  ) : (
-                    <>
-                      {feedbackError && (
-                        <div className="mb-3 bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-sm text-red-200">
-                          {feedbackError}
-                        </div>
-                      )}
-                      <p className="text-sm text-slate-400">Every match for this search is marked irrelevant.</p>
-                    </>
-                  )}
-
-                  {results.irrelevant.length > 0 && (
-                    <details className="mt-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                      <summary className="cursor-pointer select-none px-4 py-3 text-sm font-bold text-slate-400">
-                        Marked irrelevant ({results.irrelevant.length})
-                      </summary>
-                      <div className="px-3 pb-3 space-y-3">
-                        <p className="text-xs text-slate-500">
-                          You marked these not relevant for this search. Switch one to Relevant and search again to
-                          bring it back.
-                        </p>
-                        {results.irrelevant.map((item, idx) => renderResultCard(item, `i-${idx}`, true))}
-                      </div>
-                    </details>
-                  )}
-                </>
-              )}
+            <div
+              className="metabar search-controls"
+              hidden={importMode || review || loadingAccount || !isConfirmed || tab !== 'results'}
+            >
+              <span>
+                Top {results.main.length} of {rankedCount}
+              </span>
+              <span className="sp" />
+              <button
+                className="btn sm refine-btn"
+                aria-expanded={refine}
+                onClick={() => setRefine((v) => !v)}
+              >
+                <Icon name="sort" />
+                {refine ? 'Hide options' : 'Refine'}
+              </button>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  data-testid="title-only"
+                  checked={strictTitleOnly}
+                  onChange={(e) => setStrictTitleOnly(e.target.checked)}
+                  disabled={!isConfirmed}
+                />
+                Title matches only
+              </label>
+              <button
+                className="btn sm"
+                data-ai-rerank
+                data-testid="reorder-ai"
+                disabled={ai.disabled || !hasResults || !canSearch || searching || aiReranking}
+                title={
+                  ai.checking
+                    ? 'Checking whether AI features are available…'
+                    : ai.disabled
+                      ? ai.message
+                      : 'Ask AI to reorder the best matches'
+                }
+                onClick={() => void aiRerank()}
+              >
+                <Icon name="spark" />
+                {aiReranking ? 'Asking AI…' : 'Reorder with AI'}
+              </button>
             </div>
           </div>
-
-          {/* Saved searches + Saved Connections */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-            <SavedSearches
-              criteria={criteria}
-              strictTitleOnly={strictTitleOnly}
-              canRun={isConfirmed}
-              busy={searching || aiReranking}
-              onRun={runSavedSearch}
-            />
+          {addedByMeaning.length > 0 && !importMode && (
+            <div className="sem-found">
+              <span>
+                +{addedByMeaning.length} found by meaning: <b>{nameOf(addedByMeaning[0].row.row)}</b>
+              </span>
+              <button className="btn sm" onClick={showMeaning}>
+                Show
+              </button>
+            </div>
+          )}
+          {!importMode && !review && (
+            <div className="tabs" role="tablist" aria-label="Search lists">
+              {(
+                [
+                  ['results', 'Results', results.main.length],
+                  ['saved-people', 'Saved people', favorites.length],
+                  ['saved-searches', 'Saved searches', shell.saved.length],
+                ] as const
+              ).map(([id, label, count]) => (
+                <button
+                  key={id}
+                  type="button"
+                  className="tab"
+                  id={`tab-${id}`}
+                  role="tab"
+                  aria-selected={tab === id}
+                  tabIndex={tab === id ? 0 : -1}
+                  onKeyDown={(e) => {
+                    const ids = ['results', 'saved-people', 'saved-searches'] as const;
+                    const i = ids.indexOf(id);
+                    const next =
+                      e.key === 'Home'
+                        ? 0
+                        : e.key === 'End'
+                          ? 2
+                          : e.key === 'ArrowRight'
+                            ? (i + 1) % 3
+                            : e.key === 'ArrowLeft'
+                              ? (i + 2) % 3
+                              : -1;
+                    if (next >= 0) {
+                      e.preventDefault();
+                      setTab(ids[next]);
+                      document.getElementById(`tab-${ids[next]}`)?.focus();
+                    }
+                  }}
+                  aria-controls="search-body"
+                  data-testid={`tab-${id}`}
+                  onClick={() => setTab(id)}
+                >
+                  {label} <span className="n">{count}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <input
+          ref={fileInput}
+          className="sr-only"
+          tabIndex={-1}
+          type="file"
+          data-testid="import-file-input"
+          aria-label="Import LinkedIn export"
+          accept=".zip,.csv,.json"
+          disabled={saving}
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) void handleFile(f);
+            e.target.value = '';
+          }}
+        />
+        <div className="pane-body" id="search-body" role="tabpanel" aria-labelledby={`tab-${tab}`}>
+          {(error || aiError || feedbackError) && (
+            <p className="note bad" role="alert">
+              {error || aiError || feedbackError}
+            </p>
+          )}
+          <SavedSearches
+            criteria={criteria}
+            strictTitleOnly={strictTitleOnly}
+            canRun={isConfirmed}
+            busy={searching || aiReranking}
+            onRun={runSavedSearch}
+            showForm={showSave && !importMode}
+            showList={tab === 'saved-searches' && !importMode}
+            onSaved={() => {
+              setShowSave(false);
+              saveToggle.current?.focus();
+            }}
+            onCancel={() => {
+              setShowSave(false);
+              saveToggle.current?.focus();
+            }}
+          />
+          {loadingAccount ? (
+            <p className="zero" role="status">
+              Loading your saved connections…
+            </p>
+          ) : reading ? (
+            <div className="zero" role="status">
+              <p>Reading {fileName}…</p>
+              <button className="btn" onClick={cancelImport}>
+                Cancel
+              </button>
+            </div>
+          ) : review ? (
+            <div className="imp stack" data-testid="import-summary">
+              <div>
+                <h2 ref={importHeading} tabIndex={-1}>
+                  Check your import
+                </h2>
+                <p className="hint">Nothing is saved until you confirm.</p>
+                <p className="mono break-text">{fileName}</p>
+              </div>
+              <table className="imp-table">
+                <caption className="sr-only">Files used</caption>
+                <thead>
+                  <tr>
+                    <th>File used</th>
+                    <th>Rows</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(importSummary?.filesUsed || [{ name: fileName, rows: stagedRows.length }]).map((f) => (
+                    <tr key={f.name}>
+                      <td>{f.name}</td>
+                      <td>{f.rows.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {importCoverage.length > 0 && (
+                <div>
+                  <h3>Match coverage</h3>
+                  <ul className="hint">
+                    {importCoverage.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div>
+                <h3>Your profile context</h3>
+                <p className="hint">
+                  {!stagedContext
+                    ? 'No profile files in this import (connections only).'
+                    : contextCounts.length
+                      ? `Found: ${contextCounts.join(' · ')}`
+                      : 'Profile files found, but they were empty.'}
+                </p>
+              </div>
+              {importSummary?.warnings.map((w, i) => (
+                <p className="note warn" key={i}>
+                  {w}
+                </p>
+              ))}
+              {!!importSummary?.filesSkipped.length && (
+                <details>
+                  <summary>
+                    <Icon name="chev" className="chev" />
+                    {importSummary.filesSkipped.length} files skipped (not read)
+                  </summary>
+                  <p className="hint break-text">{importSummary.filesSkipped.join(', ')}</p>
+                </details>
+              )}
+              <p className="hint">Message text is never stored; only counts and dates.</p>
+              <p className="hint">
+                AI requests include relationship facts (message counts, last contact month, shared employers)
+                but never your notes or job applications.
+              </p>
+              <div className="import-mobile-changes">{changes}</div>
+              <div className="actions import-actions">
+                <button
+                  className="btn primary import-confirm"
+                  data-testid="import-confirm"
+                  disabled={!hasStaged || saving}
+                  onClick={confirmConnections}
+                >
+                  {saving
+                    ? 'Saving…'
+                    : shell.count != null && shell.count > 0
+                      ? `Replace my ${shell.count.toLocaleString()} connections with these ${stagedRows.length.toLocaleString()}`
+                      : `Save these ${stagedRows.length.toLocaleString()} connections`}
+                </button>
+                <button className="btn" disabled={saving} onClick={() => fileInput.current?.click()}>
+                  Choose a different file
+                </button>
+                <button className="btn ghost" disabled={saving} onClick={cancelImport}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : importMode || (!isConfirmed && tab === 'results') ? (
+            importUI
+          ) : tab === 'saved-people' ? (
             <FavoritesList
               favorites={favorites}
               loading={favoritesLoading}
               notice={favoritesNotice}
               busy={favoritesBusy}
-              onRemove={(f) => void toggleFavorite(f.id, {})}
+              selectedId={favorite?.id}
+              onOpen={(f) => {
+                setSelectedId(favoritePersonId(f));
+                detailRoute.open(favoritePersonId(f));
+              }}
+              onRemove={(f) =>
+                void toggleFavorite(f.id, {
+                  'Full Name': f.name,
+                  Position: f.position,
+                  Company: f.company,
+                  URL: f.url,
+                })
+              }
             />
-          </div>
+          ) : tab === 'results' ? (
+            <>
+              {(ai.disabled || showsFreeTierNotice(ai)) && (
+                <p className="hint ai-search-note">
+                  {ai.checking
+                    ? 'Checking whether AI features are available…'
+                    : ai.disabled
+                      ? ai.rerankNote
+                      : AI_FREE_TIER_NOTICE}
+                </p>
+              )}
+              {searching ? (
+                <div role="status">
+                  <span className="sr-only">Searching…</span>
+                  {Array.from({ length: 8 }, (_, i) => (
+                    <div className="skel" key={i} aria-hidden="true">
+                      <i />
+                      <div>
+                        <i className="w1" />
+                        <i className="w2" />
+                        <i className="w3" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : hasResults ? (
+                <>
+                  <ul className="rows" aria-label="People who could help">
+                    {results.main.map((item, i) => renderResultCard(item, i + 1))}
+                  </ul>
+                  {!!results.irrelevant.length && (
+                    <details ref={irrelevantGroup} data-testid="irrelevant-group">
+                      <summary className="group-h">
+                        <Icon name="chev" className="chev" />
+                        Marked irrelevant ({results.irrelevant.length})
+                      </summary>
+                      <ul className="rows">
+                        {results.irrelevant.map((item) => renderResultCard(item, 0, true))}
+                      </ul>
+                    </details>
+                  )}
+                </>
+              ) : (
+                <div className="zero">
+                  <h2>{resultsQuery ? `No one matches “${resultsQuery}”` : 'People who could help'}</h2>
+                  <p>
+                    {resultsQuery
+                      ? `Try fewer or broader words, such as a role or company.${strictTitleOnly ? ' Turn off Title matches only to widen your search.' : ''}`
+                      : 'Describe who you are looking for. Search ranks your connections and explains each match.'}
+                  </p>
+                </div>
+              )}
+              <div className="search-data-actions">
+                <button className="linkbtn" disabled={saving} onClick={() => setImportMode(true)}>
+                  Import a new export
+                </button>
+                <button className="linkbtn" disabled={saving} onClick={clearLoaded}>
+                  Clear loaded data
+                </button>
+              </div>
+            </>
+          ) : null}
         </div>
-      </main>
-
-      <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] md:w-[40%] md:h-[40%] bg-primary/20 blur-[150px] rounded-full -z-10 pointer-events-none"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] md:w-[30%] md:h-[30%] bg-blue-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
-    </div>
+        <StatusFooter search />
+      </div>
+      <DetailPane open={!!detailRoute.value && !review && !importMode} onClose={detailRoute.close}>
+        {review ? (
+          changes
+        ) : activePerson && !importMode ? (
+          <>
+            <PersonHeading person={activePerson} />
+            <div className="d-actions">
+              <button
+                className="btn"
+                data-testid="star"
+                aria-pressed={favoriteIds.has(activeStarId)}
+                disabled={!activeStarId || favoritesBusy[activeStarId]}
+                onClick={() => void toggleFavorite(activeStarId, activeRow!)}
+              >
+                <Icon name="star" />
+                {favoriteIds.has(activeStarId) ? 'Saved' : 'Save'}
+              </button>
+              {activeItem && voteButtons(activeItem)}
+            </div>
+            {activeItem && (
+              <section className="d-sec">
+                <h3>Why this person</h3>
+                <ul className="sig">
+                  {detailedReasons.map((reason, i) => (
+                    <li key={i}>
+                      <Icon name={/^(Moved |Added:)/.test(reason) ? 'info' : 'check'} />
+                      <span>{reason}</span>
+                    </li>
+                  ))}
+                </ul>
+                <details className="order-details">
+                  <summary>
+                    <Icon name="chev" className="chev" />
+                    How the order is built
+                  </summary>
+                  <table className="score">
+                    <tbody>
+                      <tr>
+                        <td>Relevance tier</td>
+                        <td>{activeItem.row.terms}</td>
+                      </tr>
+                      <tr>
+                        <td>Relevance score</td>
+                        <td>{activeItem.row.relevance}</td>
+                      </tr>
+                      <tr>
+                        <td>Relationship bonus</td>
+                        <td>+{activeItem.row.score - activeItem.row.relevance}</td>
+                      </tr>
+                      {similarity && (
+                        <tr>
+                          <td>Semantic similarity</td>
+                          <td>{similarity}</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  <p className="hint">
+                    Better matches come first; your relationship only changes the order within a relevance
+                    tier.
+                  </p>
+                  {activeItem.row.reasons.some((r) => r.startsWith('AI:')) && (
+                    <p className="hint">Reordered by AI</p>
+                  )}
+                </details>
+              </section>
+            )}
+            <PersonFacts person={activePerson} />
+            {common && (
+              <section className="d-sec">
+                <h3>Members who also know {personName(activePerson).split(' ')[0]}</h3>
+                <p>
+                  {members.length ? members.join(', ') : 'No other sharing members found for this person.'}
+                </p>
+                {selectedPersonKey && members.length > 0 && (
+                  <Link
+                    className="btn sm network-link"
+                    to={`/network?node=${encodeURIComponent('p:' + selectedPersonKey)}`}
+                  >
+                    <Icon name="network" />
+                    Show in Network
+                  </Link>
+                )}
+              </section>
+            )}
+          </>
+        ) : (
+          <div className="empty-pane">
+            <p>
+              {importMode || !isConfirmed
+                ? 'Your export is read in your browser. Only the selected files are opened; message text is never kept.'
+                : 'Pick a person from the list to see their details.'}
+            </p>
+          </div>
+        )}
+      </DetailPane>
+    </section>
   );
 };
-
 export default RecommenderScreen;

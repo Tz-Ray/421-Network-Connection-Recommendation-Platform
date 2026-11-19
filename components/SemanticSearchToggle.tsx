@@ -50,23 +50,21 @@ type Props = {
 };
 
 function describe(s: SemanticStatus | null): string {
-  if (!s)
-    return `Off by default: Search ranks by keywords only. Turning this on downloads a ~${MODEL_MB} MB model once from Hugging Face (plus ~${RUNTIME_MB} MB of runtime from jsDelivr) and runs it in this browser; your connections never leave your browser.`;
+  if (!s) return 'Off · keywords';
   switch (s.kind) {
     case 'loading-model':
-      return s.total
-        ? `Loading model… ${Math.round(((s.loaded ?? 0) / s.total) * 100)}% of ${(s.total / 1e6).toFixed(0)} MB (first use only)`
-        : 'Loading model…';
+      return `Downloading once, ${MODEL_MB} MB…${s.total ? ` ${Math.round(((s.loaded ?? 0) / s.total) * 100)}%` : ''}`;
     case 'embedding':
-      return `Embedding connections… ${s.done}/${s.total}`;
+      return `Reading titles… ${s.done}/${s.total}`;
     case 'ready':
-      return 'On: results also match by meaning (the model runs in this browser; your connections never leave it).';
+      return 'Ready · on device';
     case 'error':
-      return `Meaning-based search failed: ${s.message}. Search falls back to keyword ranking.`;
+      return 'Failed · using keywords';
   }
 }
 
 const SemanticSearchToggle: React.FC<Props> = ({ onChange, disabled }) => {
+  const [disclosed, setDisclosed] = useState(false);
   const [on, setOn] = useState(false);
   const [status, setStatus] = useState<SemanticStatus | null>(null);
   const engine = useRef<SemanticEngine | null>(null);
@@ -86,7 +84,7 @@ const SemanticSearchToggle: React.FC<Props> = ({ onChange, disabled }) => {
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
 
   function turnOn() {
@@ -95,7 +93,8 @@ const SemanticSearchToggle: React.FC<Props> = ({ onChange, disabled }) => {
     setOn(true);
     setStatus({ kind: 'loading-model' });
     const fail = (err: unknown) => {
-      if (gen === generation.current) setStatus({ kind: 'error', message: err instanceof Error ? err.message : String(err) });
+      if (gen === generation.current)
+        setStatus({ kind: 'error', message: err instanceof Error ? err.message : String(err) });
     };
     // The engine module (and its worker) load in the background; the ranker is
     // registered right away and waits for them, so a Search pressed meanwhile is
@@ -159,27 +158,48 @@ const SemanticSearchToggle: React.FC<Props> = ({ onChange, disabled }) => {
 
   const busy = status?.kind === 'loading-model' || status?.kind === 'embedding';
   return (
-    <div data-feature="semantic" className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-400">
-      <label className="inline-flex items-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={on}
-          disabled={disabled && !on}
-          onChange={(e) => (e.target.checked ? turnOn() : turnOff())}
-          aria-describedby="semantic-search-status"
-        />
-        <span className="font-bold">Meaning-based search</span>
-      </label>
+    <div data-feature="semantic" className="semrow" id="sem-row">
+      <button
+        id="semantic-switch"
+        type="button"
+        role="switch"
+        className="switch"
+        aria-checked={on}
+        aria-label="Meaning-based search"
+        aria-describedby="semantic-search-status"
+        disabled={disabled && !on}
+        onClick={() => (on ? turnOff() : turnOn())}
+      >
+        <span className="switch-track" aria-hidden="true">
+          <span className="knob" />
+        </span>
+      </button>
+      <label htmlFor="semantic-switch">Meaning-based search</label>
       <span
         id="semantic-search-status"
+        title={status?.kind === 'error' ? status.message : describe(status)}
         role="status"
         data-semantic-status={status?.kind ?? 'off'}
-        className={status?.kind === 'error' ? 'text-red-300' : busy ? 'text-primary animate-pulse' : 'text-slate-500'}
+        className={`sem-s mono ${busy ? 'busy' : ''} ${status?.kind === 'error' ? 'err' : ''}`}
       >
-        — {describe(status)}
+        {describe(status)}
       </span>
+      <button
+        type="button"
+        className="sem-q"
+        aria-expanded={disclosed}
+        aria-controls="semantic-more"
+        onClick={() => setDisclosed((v) => !v)}
+      >
+        What is this?
+      </button>
+      <p id="semantic-more" className="sem-more" hidden={!disclosed}>
+        Also finds titles that mean the same in other words. Off by default. Turning this on downloads a ~
+        {MODEL_MB} MB model once from Hugging Face (plus ~{RUNTIME_MB} MB of runtime from jsDelivr) and runs
+        it in this browser; your connections never leave your browser. Remembered in this browser. Search
+        falls back to keywords if the model fails. {status?.kind === 'error' && `Error: ${status.message}`}
+      </p>
     </div>
   );
 };
-
 export default SemanticSearchToggle;
